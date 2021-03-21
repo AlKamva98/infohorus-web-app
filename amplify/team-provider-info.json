@@ -1,0 +1,15 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-infohoruswebapp-dev-120603-authRole",
+      "UnauthRoleArn": "arn:aws:iam::957365067607:role/amplify-infohoruswebapp-dev-120603-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::957365067607:role/amplify-infohoruswebapp-dev-120603-authRole",
+      "Region": "eu-west-1",
+      "DeploymentBucketName": "amplify-infohoruswebapp-dev-120603-deployment",
+      "UnauthRoleName": "amplify-infohoruswebapp-dev-120603-unauthRole",
+      "StackName": "amplify-infohoruswebapp-dev-120603",
+      "StackId": "arn:aws:cloudformation:eu-west-1:957365067607:stack/amplify-infohoruswebapp-dev-120603/bacde950-889a-11eb-a4e8-065ba3dc9e47",
+      "AmplifyAppId": "dg1vh6yf28mdl"
+    }
+  }
+}
