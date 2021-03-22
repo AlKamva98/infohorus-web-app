@@ -1,0 +1,20 @@
+type Answers @model @auth(rules: [{allow: private}]) {
+  id: ID!
+  UserAnswers: User @connection
+  username: String!
+  answers: [String!]
+  documents: [AWSURL!]
+  completed: Boolean!
+}
+
+type User @model @auth(rules: [{allow: private}]) {
+  id: ID!
+  username: String
+  fname: String
+  lname: String
+  jobtitle: String
+  company: String
+  employees: String
+  industry: String
+  country: String
+}

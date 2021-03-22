@@ -6,12 +6,12 @@ import {Redirect} from 'react-router-dom';
 import {selectOptionsCountry, selectEmpOptions, selectOptionsIndustry} from '../../testData/selectOptions.js'
 import { useForm, Controller } from "react-hook-form";
 import { Amplify, API, Auth, Storage } from 'aws-amplify';
-//const awsConfig = require('../../aws-exports').default;
+const awsConfig = require('../../aws-exports').default;
 
 Amplify.register(API)
 Amplify.register(Storage)
 Amplify.register(Auth)
-//Amplify.configure(awsConfig)
+Amplify.configure(awsConfig)
 
 
 function Register(props) {
@@ -27,7 +27,7 @@ function Register(props) {
   const togglePass = () => setModalPass(!modalPass);
 
     const initialFormState = {
-        fname:"", lname:"",email:"", password:"", confPassword:"", jobtitle:"", company:"",employees:"",authCode:"",formType:"signIn"
+        fname:"", lname:"",email:"", password:"", confPassword:"", jobtitle:"", company:"",employees:"",industry:"", authCode:"", formType:"signIn"
     };
     const [formState, updateFormState] = useState(initialFormState);
     const [user, updateUser] = useState(null);
@@ -53,7 +53,8 @@ function Register(props) {
     jobtitle:{ required: "Job Title is required"},
     company:{ required: "Company name is required"},
     employees: {required: "Number of employees is required"},
-    country: {required: "Country is required"}
+    country: {required: "Country is required"},
+    industry:{required: "Industry is required"}
     };
     
    
@@ -72,7 +73,7 @@ function Register(props) {
 
 
     let username;
-    let usname;
+    let prefered_username;
     function onChange(e){
         e.persist()
         console.log("changing:"+e.target.name);
@@ -88,12 +89,13 @@ function Register(props) {
          try{
         
              const {fname,lname, email, password, confPassword} = formState;
-            usname = fname+lname.charAt(0)+Math.round(Math.random()*1000);
+            prefered_username = fname+lname.charAt(0)+Math.round(Math.random()*1000);
             username = email;
             // console.log("The username is: "+username);
             if(password === confPassword){
                 await Auth.signUp({username, password,attributes: {
                 email
+                
                 }})
                 updateFormState(()=>({...formState, formType: "verifyMail"}))
                 console.log("SignUp complete")
@@ -140,17 +142,20 @@ async function SignIn(){/**SignIn Function */
    <Container className="container-fluid">
     <Row>
         <Col className="text-secondary my-auto text-center">
-            <h4>Register today</h4>
+            <h4 
+            className="text-dark">Register today</h4>
             <p>All seed for cattle good which. Stars us saying grass morning spirit seed one fourth very said you sixth spirit. Created days.</p>
-            <img className="img-fluid text-center"  src="/vector.png" width="500" height="400"/>
+            <img className="img-fluid text-center"  src="./images/featurette.png" width="500" height="400" alt="vector"/>
             <p>Brought first let lesser appear that give two called forth fill. Firmament. Saying deep, abundantly blessed so. Itself said seed evening and air seed beast of fruitful, open.</p>
         </Col>
         
         
         <Col id="subDiv2">
-            <Card className="bg-light shadow" >
+            <Card className="mb-4 mt-4 bg-light shadow" >
                 <Card.Body>
-        <img className="mb-4" src="assets/brand/bootstrap-logo.svg" alt="Our logo" width="72" height="57"/>
+        <div className="mx-auto">
+        <img className="mb-4" src="./images/fav-logo.png" alt="Our logo" width="85" height="85"/>
+        </div>
         <h4 className="mb-3 fw-normal text-center">Please Fill in your details to sign up</h4>
 
       <Form className="row g-3 m-4 p-4" onSubmit={handleSubmit(handleRegistration, handleError)}> 
@@ -236,7 +241,10 @@ async function SignIn(){/**SignIn Function */
 { formType === 'signIn' && (
 <Container className="container my-auto mx-auto ">
     <Row>
-      <Col className="col-md-4 mx-auto">
+      <Col className="col-md-5 mx-auto">
+         <Card className="mt-3 mb-4 bg-light shadow" >
+                <Card.Body>
+        <img className=" mx-auto" src="./images/fav-logo.png" alt="Our logo" width="85" height="85"/>
               <h1 className="text-center lead h3 mb-3 mt-5 fw-normal">Please sign in</h1>
               <label for="email" className="visually-hidden">Email address</label>
               <input type="email" name="email" className="form-control" onChange={onChange} placeholder="Email address" required autoFocus/>
@@ -260,7 +268,8 @@ async function SignIn(){/**SignIn Function */
       </Modal>
               <p className="mt-5 mb-3 text-muted">Don't have account? Click <p className="btn-link d-none d-md-inline-block pointer" onClick={signupScreen}>here</p> to register.</p>
               <p className="mt-5 mb-3 text-muted text-center">&copy;2021</p>
-
+</Card.Body>
+            </Card>
       </Col>
     </Row>
   </Container>
