@@ -17,7 +17,7 @@ import './questions.css';
       <Container className =" overflow-hidden p-5  bg-light">
         <Col className="col-md-12">
         <h3>Please fill in the following questionnaire</h3> 
-      <ProgressBar animated variant="success" label="30%" now={30} /><br/>
+      <ProgressBar animated variant="success" label="10%" now={10} /><br/>
         </Col>
         <QAccordion/>
         <Modal isOpen={modal} toggle={toggle} className={className}>

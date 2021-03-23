@@ -4,7 +4,9 @@ import {Container, Row, Col} from 'react-bootstrap';
 export function Customer(){
  return(
   <Container className="pt-4">
-    <div className="text-center"><h1>Our Team</h1></div>
+    <div className="text-center mb-4"><h1>Meet The Team</h1><span className="lead " >Our professional team, core values, and our ethics code give us a competitive advantage. 
+</span></div>
+    
     <Row className=" text-center">
         
         <Col className=" mt-2">

@@ -23,7 +23,7 @@ async function checkUserSignedIn(){
   <Col className="mx-auto my-auto order-md-1">
    <h1 className="display-4 fw-normal d-md-block text-center text-secondary">Welcome to infoHorus </h1>
     <div className="col-md-12 p-lg-5 my-3">
-      <p className="lead fw-normal text-secondary">And an even wittier subheading to boot. Jumpstart your marketing efforts with this example based on Apple’s marketing pages.</p>
+      <p className="lead fw-normal text-secondary">Infohorus offers cybersecurity services that combine diverse expertise in the areas of cybersecurity, defensive social engineering, cyber negotiations, intelligence, and other specialized operations to enhance critical infrastructure cyber resilience.</p>
       <Link to="/about"><Button className="mx-4">Learn more</Button></Link>
       {signedIn ?
       (<Link to="/questions"><Button className="mx-4">Take Questionaire</Button></Link>):
