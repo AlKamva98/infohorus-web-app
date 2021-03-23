@@ -2,6 +2,7 @@ import React,{useState} from 'react';
 import{Container, Col, ProgressBar} from 'react-bootstrap'
 import{Modal, ModalBody, ModalHeader,ModalFooter, Button, Form, FormGroup} from 'reactstrap'
 import QAccordion from './QAccordion'
+import Header from '../Header';
 import './questions.css';
 
  function QuestionsComp(props){
@@ -11,7 +12,8 @@ import './questions.css';
   } = props;
     const [modal, setModal] = useState(false);
   const toggle = () => setModal(!modal);
- return(
+ return(<>
+ <Header/>
       <Container className =" overflow-hidden p-5  bg-light">
         <Col className="col-md-12">
         <h3>Please fill in the following questionnaire</h3> 
@@ -40,6 +42,7 @@ import './questions.css';
         <span className="fw-bold fs-2">Need to consult a colleague on this answer?<p className="btn-link d-none d-md-inline-block pointer" onClick={toggle}> Send an internal message</p> directly to them for a quick response.</span>
     
     </Container>
+    </>
  )
 }
 

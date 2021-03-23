@@ -11,7 +11,7 @@ export function Featurerette (){
       <p className="lead">Another featurette? Of course. More placeholder content here to give you an idea of how this layout would work with some actual real-world content in place.</p>
     </Col>
     <Col className="order-md-1">
-      <img src="./images/featurette.png"  width="700" height="300"   focusable="false">
+      <img src="./images/featurette.png"  width="500" height="300"   focusable="false">
     </img>
   </Col>
   </Row>

@@ -1,5 +1,5 @@
 import React,{useState, useEffect} from 'react';
-import {Container, Row, Col,Card,Form} from 'react-bootstrap';
+import {Container, Row, Image, Col,Card,Form} from 'react-bootstrap';
 import {Label, Input, FormGroup,Button, Modal, ModalBody,ModalFooter,ModalHeader} from 'reactstrap';
 import Select from 'react-select';
 import {Redirect} from 'react-router-dom';
@@ -27,7 +27,7 @@ function Register(props) {
   const togglePass = () => setModalPass(!modalPass);
 
     const initialFormState = {
-        fname:"", lname:"",email:"", password:"", confPassword:"", jobtitle:"", company:"",employees:"",industry:"", authCode:"", formType:"signIn"
+        fname:"", lname:"",email:"", password:"", confPassword:"", jobtitle:"", company:"",employees:"",industry:"", authCode:"",chkAgreement:"", formType:"signIn"
     };
     const [formState, updateFormState] = useState(initialFormState);
     const [user, updateUser] = useState(null);
@@ -65,21 +65,30 @@ function Register(props) {
             updateUser(user);
             const a = await Auth.currentUserInfo();
             console.log("User Info is:"+ a);     
-            updateFormState(()=>({...formState, formState: "signedIn"}));
+            updateFormState(()=>({...formState, formType: "signedIn"}));
         }catch(err){
             console.log(err);
         }
     }
 
-
+const [buttonEnabled, setButtonEnabled] = useState(true);
     let username;
     let prefered_username;
     function onChange(e){
         e.persist()
         console.log("changing:"+e.target.name);
+        enableButton();
         updateFormState(()=>({...formState, [e.target.name]: e.target.value}))
     }
 
+    function enableButton(){
+      const {chkAgreement} = formState;
+      if(chkAgreement==="i-agree"){
+          setButtonEnabled(false)
+        }else{
+          setButtonEnabled(true)
+        }
+    }
     const {formType} = formState;
 
 
@@ -115,10 +124,10 @@ const signupScreen = ()=>{/**SignUp redirect */
 
 
 async function verifyEmail(){/**Verify email Function */
-  const {email, authCode} = formState;
-  username = email;
-await Auth.confirmSignUp(username,authCode);
-console.log("The username is: "+username+" and the authcode is "+authCode)
+ // const {email, authCode} = formState;
+ // username = email;
+//await Auth.confirmSignUp(username,authCode);
+//console.log("The username is: "+username+" and the authcode is "+authCode)
 updateFormState(()=>({...formState, formType: "signIn"}))
 }/**Verify email Function */
 
@@ -153,8 +162,8 @@ async function SignIn(){/**SignIn Function */
         <Col id="subDiv2">
             <Card className="mb-4 mt-4 bg-light shadow" >
                 <Card.Body>
-        <div className="mx-auto">
-        <img className="mb-4" src="./images/fav-logo.png" alt="Our logo" width="85" height="85"/>
+        <div className="m-auto">
+        <Image className="d-block mx-auto mb-4 img-fluid" src="./images/fav-logo.png" alt="Our logo" width="85" height="85"/>
         </div>
         <h4 className="mb-3 fw-normal text-center">Please Fill in your details to sign up</h4>
 
@@ -228,7 +237,7 @@ async function SignIn(){/**SignIn Function */
         <FormGroup className="checkbox mb-3">
         <span>
             <input type="checkbox" value="newsletter"/>   Yes, I would like to receive marketing communications regarding Bahati Tech products, services, and events. I can unsubscribe at a later time.</span>
-        <Button type="submit" className="w-100 mt-5 btn btn-lg btn-success" onClick={SignUp}  >REGISTER</Button>
+        <Button type="submit" className="w-100 mt-5 btn btn-lg btn-success" onClick={SignUp} disabled={formState.chkAgreement ===""||formState.fname===""||formState.password===""}  >REGISTER</Button>
         </FormGroup>
         </Form>
         </Card.Body>
@@ -244,7 +253,7 @@ async function SignIn(){/**SignIn Function */
       <Col className="col-md-5 mx-auto">
          <Card className="mt-3 mb-4 bg-light shadow" >
                 <Card.Body>
-        <img className=" mx-auto" src="./images/fav-logo.png" alt="Our logo" width="85" height="85"/>
+        <img className=" d-block mx-auto img-fluid" src="./images/fav-logo.png" alt="Our logo" width="85" height="85"/>
               <h1 className="text-center lead h3 mb-3 mt-5 fw-normal">Please sign in</h1>
               <label for="email" className="visually-hidden">Email address</label>
               <input type="email" name="email" className="form-control" onChange={onChange} placeholder="Email address" required autoFocus/>
