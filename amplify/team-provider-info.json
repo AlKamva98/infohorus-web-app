@@ -1,15 +1,28 @@
 {
-  "dev": {
+  "staging": {
     "awscloudformation": {
-      "AuthRoleName": "amplify-infohoruswebapp-dev-120603-authRole",
-      "UnauthRoleArn": "arn:aws:iam::957365067607:role/amplify-infohoruswebapp-dev-120603-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::957365067607:role/amplify-infohoruswebapp-dev-120603-authRole",
+      "AuthRoleName": "amplify-infohoruswebapp-staging-60519-authRole",
+      "UnauthRoleArn": "arn:aws:iam::957365067607:role/amplify-infohoruswebapp-staging-60519-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::957365067607:role/amplify-infohoruswebapp-staging-60519-authRole",
       "Region": "eu-west-1",
-      "DeploymentBucketName": "amplify-infohoruswebapp-dev-120603-deployment",
-      "UnauthRoleName": "amplify-infohoruswebapp-dev-120603-unauthRole",
-      "StackName": "amplify-infohoruswebapp-dev-120603",
-      "StackId": "arn:aws:cloudformation:eu-west-1:957365067607:stack/amplify-infohoruswebapp-dev-120603/bacde950-889a-11eb-a4e8-065ba3dc9e47",
+      "DeploymentBucketName": "amplify-infohoruswebapp-staging-60519-deployment",
+      "UnauthRoleName": "amplify-infohoruswebapp-staging-60519-unauthRole",
+      "StackName": "amplify-infohoruswebapp-staging-60519",
+      "StackId": "arn:aws:cloudformation:eu-west-1:957365067607:stack/amplify-infohoruswebapp-staging-60519/94d66330-8ad4-11eb-b073-0a92513c65fd",
       "AmplifyAppId": "dg1vh6yf28mdl"
+    },
+    "categories": {
+      "function": {
+        "infohorusauthPostConfirmation": {
+          "GROUP": "EndUsers",
+          "deploymentBucketName": "amplify-infohoruswebapp-staging-60519-deployment",
+          "s3Key": "amplify-builds/infohorusauthPostConfirmation-55616561467462524f73-build.zip"
+        }
+      },
+      "auth": {
+        "infohorusauth": {},
+        "userPoolGroups": {}
+      }
     }
   }
 }

@@ -4,14 +4,14 @@ import './index.css'
 
 export function Featurerette (){
  return(
-  <Container className= "cont featurette bg-light" height="800">
+  <Container className= "cont featurette bg-light" height="1000">
   <Row >
     <Col className="order-md-2 mt-5 pt-4">
-      <h2 className="featurette-heading">Oh yeah, it’s that good. <span className="text-muted">See for yourself.</span></h2>
-      <p className="lead">Another featurette? Of course. More placeholder content here to give you an idea of how this layout would work with some actual real-world content in place.</p>
+      <h2 className="featurette-heading">Why choose us?<span className="text-muted"></span></h2>
+      <p className="lead">Faced with the seriousness of growing co-ordinated and well-financed cyber extortion threats, conventional cybersecurity systems are not sufficient. Infohorus presents a combination of specific systems and services to change the landscape.</p>
     </Col>
     <Col className="order-md-1">
-      <img src="./images/featurette.gif" className=" img-fluid" width="700" height="700"   focusable="false">
+      <img src="./images/featurette.png"  width="500" height="300"   focusable="false">
     </img>
   </Col>
   </Row>
