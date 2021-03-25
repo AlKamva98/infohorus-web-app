@@ -1,6 +1,6 @@
 import Auth from "@aws-amplify/auth";
 import React, { useEffect, useState } from "react";
-import {Button, Image,Container, Row, Col} from 'react-bootstrap';
+import {Button, Image,Container, Card, Row, Col} from 'react-bootstrap';
 import {Link} from 'react-router-dom'
 import './jumbo.css'
 
@@ -18,21 +18,22 @@ async function checkUserSignedIn(){
   }
 }
  return(
-<Container className="position-relative overflow-hidden p-3 p-md-5 m-md-3">
+<Container className="jumbotron overflow-hidden d-flex justify-content-center text-center mb-4 mt-4 " >
  <Row>
-  <Col className="mx-auto my-auto order-md-1">
-   <h1 className="display-4 fw-normal d-md-block text-center text-secondary">Welcome to infoHorus </h1>
-    <div className="col-md-12 p-lg-5 my-3">
-      <p className="lead fw-normal text-secondary">Infohorus offers cybersecurity services that combine diverse expertise in the areas of cybersecurity, defensive social engineering, cyber negotiations, intelligence, and other specialized operations to enhance critical infrastructure cyber resilience.</p>
-      <Link to="/about"><Button className="mx-4">Learn more</Button></Link>
+  <Col className=" py-5 px-5 mx-auto my-auto order-md-1 shadow-sm bgtxt">
+   <h1 className="display-4 fw-normal d-md-block text-center text-white">Welcome to Infohorus</h1>
+    <div className="col-md-12 ">
+      <p className="lead fw-normal text-white text-center ">Infohorus offers cybersecurity services that combine diverse expertise in the areas of cybersecurity, defensive social engineering, cyber negotiations, intelligence, and other specialized operations to enhance critical infrastructure cyber resilience.</p>
+      <Link to="/about"><Button className="mx-4 shadow-sm">Learn more</Button></Link>
+      
       {signedIn ?
-      (<Link to="/questions"><Button className="mx-4">Take Questionaire</Button></Link>):
+      (<Link to="/questions"><Button className="mx-4 shadow-sm">Take Questionaire</Button></Link>):
       (null)
 }
 </div>
   </Col>
-  <Col className="mx-auto order-md-2">
-  <Image className="img-fluid" src="./images/vector.png" width="900" height="750"/>
+  <Col className="mx-auto order-md-2 px-0 ">
+  <Image className="px-3 img-fluid w-100" src="./images/featurette.png" />
   </Col>
  </Row>
 </Container>

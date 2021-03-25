@@ -48,7 +48,7 @@ async function checkUserSignedIn(){
           })}
         </ul>
         <div className="signin-icon">
-          {signedIn ? (<Link to="/"><Button className="mx-4" onClick={signOut}>Sign Out</Button></Link>):(<Link to="/register"><Button className="mx-4"> "Start My Free Trial"</Button></Link>)}
+          {signedIn ? (<Link to="/"><Button className="mx-4" onClick={signOut}>Sign Out</Button></Link>):(<Link to="/register"><Button className="mx-4">Start My Free Trial</Button></Link>)}
         </div>
       </nav>
   )}

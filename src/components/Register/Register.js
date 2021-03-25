@@ -71,24 +71,17 @@ function Register(props) {
         }
     }
 
-const [buttonEnabled, setButtonEnabled] = useState(true);
+
     let username;
     let prefered_username;
     function onChange(e){
         e.persist()
         console.log("changing:"+e.target.name);
-        enableButton();
+    
         updateFormState(()=>({...formState, [e.target.name]: e.target.value}))
     }
 
-    function enableButton(){
-      const {chkAgreement} = formState;
-      if(chkAgreement==="i-agree"){
-          setButtonEnabled(false)
-        }else{
-          setButtonEnabled(true)
-        }
-    }
+    
     const {formType} = formState;
 
 
@@ -264,7 +257,7 @@ async function SignIn(){/**SignIn Function */
                   <input type="checkbox" onChange={onChange} value="remember-me"/> Remember me
                 </label>
               </div>
-              <Button className="w-100 btn btn-lg btn-success" onClick={SignIn} type="submit">Sign in</Button>
+              <Button className="w-100 btn btn-lg btn-primary" onClick={SignIn} type="submit">Sign in</Button>
               <Modal isOpen={modal} toggle={toggle} className={className}>
         <ModalHeader toggle={toggle}>Sign in Failed</ModalHeader>
         <ModalBody>
