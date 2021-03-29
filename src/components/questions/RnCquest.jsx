@@ -8,9 +8,9 @@ export function RnCquest(){
   //instantiating the variables
   //const [isComplete, setIsComplete] = useState(false);
   const initialFormState = {
-        answers:["",""], isComplete: false, formType:"quest1"
+        Q1main: "", ans1A:"", ans1B:"",ans1C:"", isComplete: false, formType:"quest1"
     };
-    let [count, setCount] = useState(1);
+    let [count, setCount] = useState(2);
     //var usAnswers = new Array(17);
     //var ansQuestion1,ansQuestion2,ansQuestion3,ansQuestion4,ansQuestion5,ansQuestion6,ansQuestion7,ansQuestion8,ansQuestion9,ansQuestion10,ansQuestion11,ansQuestion12,ansQuestion13,ansQuestion14,ansQuestion15,ansQuestion16,ansQuestion17;
     let [percComplete, setPercComplete] = useState(Math.round((count/17)*100));
@@ -21,14 +21,20 @@ export function RnCquest(){
 
      //Functions
       const nextClicked=()=>{
+        if(count <= 17){
+        getQ1Answers();
+          if(count==0){
+          i=i+2;  
+          }
      setCount(count+i);
     let q = "quest"+count;
+    console.log("The question is:"+q);
      updateFormState(()=>({...formState, formType:q }))
      setPercComplete(Math.round((count/17)*100));
-    //  switch (q) {
-    //    case "quest1":
-    //      getQ1Answers();
-    //      break;
+     switch (q) {
+      case "quest1":
+         
+        break;
     //    case "quest2":
     //      getQ2Answers();
     //      break;
@@ -78,17 +84,18 @@ export function RnCquest(){
     //      getQ17Answers();
     //      updateFormState(()=>({...formState, isComplete: true}));
     //      break;
-    //    default:
-    //      break;
-     //}
+        default:
+          break;
+    }
      console.log("The quetionnaire is "+ percComplete+"% complete")
-     console.log("The question is:"+q);
+     console.log("The question is:"+q);}
     }
 
-    // const getQ1Answers =()=>{
-    //   const {Q1main, ans1A, ans1B,ans1C} = formState;
-    //    ansQuestion1 = {Q1main, ans1A, ans1B,ans1C};
-    // }
+     const getQ1Answers =()=>{
+       const {Q1main, ans1A, ans1B,ans1C} = formState;
+        const ansQuestion1 = {Q1main, ans1A, ans1B,ans1C};
+      console.log("The answers are "+JSON.stringify(ansQuestion1));
+     }
     // const getQ2Answers =()=>{
     //   const {Q2main, ans2A, ans2B,ans2C} = formState;
     //    ansQuestion2 = {Q2main, ans2A, ans2B,ans2C};
@@ -160,8 +167,11 @@ export function RnCquest(){
     // }
 
     const prevClicked=()=>{
-      if(count!==0){
-        setCount(count-1);
+      if(count>=0){
+        if(count>17){
+          i=i+2;
+        }
+        setCount(count-i);
         let q = "quest"+count;
         updateFormState(()=>({...formState, formType:q }))
       console.log("The question is:"+q);
@@ -211,11 +221,9 @@ const FollowupQ1s = () =>{
       <Label className="label" name ="labelquestA">What is this person's name, title, and contact information?</Label><br/>
      <Input type="text"  className="form-control"  name="ans1A" onChange={onChange} placeholder="" required autofocus/>  
       <Label className="label" id ="labelquestB">Does this individual have the authority to shutdown all systems during a cyber attack?</Label><br/>
-      <Input type="text" className="form-control" name="ans1B" value="Answer A"  onChange={onChange} autofocus/>    
+      <Input type="text" className="form-control" name="ans1B"  onChange={onChange} />    
       <Label className="label" id ="labelquestC">If not, who has this authority?</Label><br/>
-      <Input type="text" className="form-control" name="ans1C" value="Answer A"  onChange={onChange} autofocus/>
-      <label></label>
-      <input type="text" name ="Test" value="Test" autofocus/>
+      <Input type="text" className="form-control" name="ans1C"  onChange={onChange} />
       </div>
           )};
 const FollowupQ2s = () =>{
@@ -289,11 +297,11 @@ const FollowupQ2s = () =>{
           return(
       <div className="followupQs"> 
       <label className="label" name ="labelquest8A">Can we see the plan?</label><br/>
-      <Input type="text" className="form-control" name="ans8A"/>    
+      <Input type="file" className="form-control" name="ans8A"/> {/* This should allow user to upload document*/}
       <label className="label" id ="labelquest8B">Does your organisation have cybersecurity insurance?</label><br/>
       <Input type="text" className="form-control" name="ans8B"/>    
       <label className="label" id ="labelquest8C">If so, can we see the policy?</label><br/>
-      <Input type="text" className="form-control" name="ans8C"/>
+      <Input type="file"  className="form-control" name="ans8C"/>{/* This should allow user to upload document*/}
       <label className="label" id ="labelquest8D">How did you decide to buy insurance?</label><br/>
       <Input type="text" className="form-control" name="ans8D"/>
       <label className="label" id ="labelquest8E">Can we know what amount is paid per year for the insurance?</label><br/>
@@ -311,7 +319,7 @@ const FollowupQ2s = () =>{
           const FollowupQ9s = () =>{
           return(
       <div className="followupQs"> 
-      <label className="label" name ="labelquest9A"> "mainquest": "Does your organisation install all operating software updates and patches in a timely manner?",
+      <label className="label" name ="labelquest9A">"Does your organisation install all operating software updates and patches in a timely manner?"
 </label><br/>
       <Input type="text" className="form-control" name="ans9A"/>    
       <label className="label" id ="labelquest9B">How often is software updates? What is the process for installing updates?</label><br/>
@@ -367,7 +375,7 @@ const FollowupQ14s = () =>{
       <label className="label" id ="labelquest14B">Do you have an agreement to clarify who bears the responsibility if an attack happens through the external channels?</label><br/>
       <Input type="text" className="form-control" name="ans14B"/>    
       <label className="label" id ="labelquest14C">Can we see the agreements?</label><br/>
-      <Input type="text" className="form-control" name="ans14C"/>
+      <Input type="file" className="form-control" name="ans14C"/>
       </div>
           )};
 const FollowupQ15s = () =>{
@@ -376,7 +384,7 @@ const FollowupQ15s = () =>{
       <label className="label" name ="labelquest15A">Do all employees know what  to do if there is such an attack?</label><br/>
       <Input type="text" className="form-control" name="ans15A"/>    
       <label className="label" id ="labelquest15B">Can we see the plan?</label><br/>
-      <Input type="text" className="form-control" name="ans15B"/>    
+      <Input type="file" className="form-control" name="ans15B"/>{/* This should allow user to upload document*/}
       <label className="label" id ="labelquest15C">Have you tested the plan to assess its effectiveness?</label><br/>
       <Input type="text" className="form-control" name="ans15C"/>
       </div>
@@ -400,7 +408,7 @@ const FollowupQ17s = () =>{
       <label className="label" name ="labelquest17A">Does your agency have an incident review process?</label><br/>
       <Input type="text" className="form-control" name="ans17A"/>    
       <label className="label" id ="labelquestB">Can we see the incident review plan?</label><br/>
-      <Input type="text" className="form-control" name="ans17B"/>    
+      <Input type="file" className="form-control" name="ans17B"/>    {/* This should allow user to upload document*/}
       </div>
           )};
 

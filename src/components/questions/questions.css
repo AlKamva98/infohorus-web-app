@@ -29,18 +29,17 @@ align-self: flex-end;
  display: block;
 }
 .radio{
- padding-bottom: 20px;
- padding-top: 15px;
- display: block
+
+ display: block;
 }
 .rd{
+ position: relative !important;
  padding-left: 20px;
- margin-left: 20px;
+margin: 3px 3px 0px 5px !important;
 }
 .label {
 font-weight: bold;
 text-align: left;
-float: left;
 font-size: 20px;
 margin-bottom: 0.5rem;
 }

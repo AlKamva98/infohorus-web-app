@@ -5,6 +5,7 @@ import {graphqlMutations} from 'aws-appsync-react'
 import {graphql, compose} from 'react-apollo'
 import QuestionsList from '../../testData/QuestionsList.json';
 import './questions.css'
+import {SurveyJS} from './SurveyJS'
 import { RnCquest } from './RnCquest';
 
 

@@ -23,6 +23,7 @@
     "react-scripts": "4.0.3",
     "react-select": "^4.2.1",
     "reactstrap": "^8.9.0",
+    "survey-react": "^1.8.37",
     "web-vitals": "^1.1.0"
   },
   "scripts": {
