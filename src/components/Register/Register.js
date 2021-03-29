@@ -281,11 +281,7 @@ async function SignIn(){/**SignIn Function */
 <Container className="mt-3 pt3 "><h1>Verify email address</h1>
 <span>Check your email and click the link to verify your email.</span><br/>
 <span>Once your email is verified click continue to proceed to login.</span>
-<FormGroup className="col-12">
-         <Label for="authCode" className="visually-hidden">Company</Label>
-         <Input type="text" name="authCode" innerRef={register(registerOptions.authCode)} className="form-control" onChange={onChange} placeholder="Enter Code" required/>
-         </FormGroup>
-<Button  className="btn btn-primary pointer" onClick={verifyEmail}>Verify</Button>
+<Button  className="btn btn-primary pointer" onClick={verifyEmail}>Continue</Button>
 </Container>
 )}
 { formType === 'signedIn' && (
