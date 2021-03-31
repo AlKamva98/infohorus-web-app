@@ -2,6 +2,7 @@ import React,{useState} from 'react';
 import{Container, Col, ProgressBar} from 'react-bootstrap'
 import{Modal, ModalBody, ModalHeader,ModalFooter, Button, Form, FormGroup} from 'reactstrap'
 import QAccordion from './QAccordion'
+import {SurveyJS} from './SurveyJS';
 import Header from '../Header';
 import './questions.css';
 
@@ -16,10 +17,9 @@ import './questions.css';
  <Header/>
       <Container className =" overflow-hidden p-5  bg-light">
         <Col className="col-md-12">
-        <h3>Please fill in the following questionnaire</h3> 
-      <ProgressBar animated variant="success" label="10%" now={10} /><br/>
+        <h3>Please fill in the following questionnaire</h3><br/>
         </Col>
-        <QAccordion/>
+        <SurveyJS/>
         <Modal isOpen={modal} toggle={toggle} className={className}>
         <ModalHeader toggle={toggle}><h5 className="modal-title" id="exampleModalLabel">New message</h5></ModalHeader>
         <ModalBody>

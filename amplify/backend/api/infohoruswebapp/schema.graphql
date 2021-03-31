@@ -1,10 +1,49 @@
-type Answers @model @auth(rules: [{allow: private}]) {
+type Report @model @auth(rules: [{allow: private}]) {
   id: ID!
-  UserAnswers: User @connection
+  report_num: String
+  report_desc: String
+  AnswersReport: [Answer] @connection(keyName: "byReport", fields: ["id"])
+}
+
+type Recomendation @model @auth(rules: [{allow: private}]) {
+  id: ID!
+  rec_num: String
+  rec_date: AWSDateTime
+  assigned_to: String
+  accepted: Boolean
+  estimated_completion_date: AWSDate
+  completed: Boolean
+  UserRecomendations: [RecomendationUser] @connection(keyName: "byRecomendation", fields: ["id"])
+}
+
+type Question @model @auth(rules: [{allow: private}]) {
+  id: ID!
+  question: String!
+  inputType: String
+  questSection: String
+  questType: String
+  questTitle: String
+  QAnswer: [Answer] @connection(keyName: "byQuestion", fields: ["id"])
+}
+
+type Account @model @auth(rules: [{allow: private}]) {
+  id: ID!
+  account_num: String
+  account_status: String
+  payment_method: String
+  UserAccount: User @connection
+}
+
+type Answer @model @key(name: "byQuestion", fields: ["questionID"]) @auth(rules: [{allow: private}]) @key(name: "byReport", fields: ["reportID"]) {
+  id: ID!
+  UserAnswer: User @connection
   username: String!
-  answers: [String!]
-  documents: [AWSURL!]
+  answers: String
+  documents: AWSURL
   completed: Boolean!
+  questionID: ID
+  QAnswer: Question @connection
+  reportID: ID
 }
 
 type User @model @auth(rules: [{allow: private}]) {
@@ -17,4 +56,14 @@ type User @model @auth(rules: [{allow: private}]) {
   employees: String
   industry: String
   country: String
+  recomendations: [RecomendationUser] @connection(keyName: "byUser", fields: ["id"])
 }
+
+type RecomendationUser @model(queries: null) @key(name: "byRecomendation", fields: ["recomendationID", "userID"]) @key(name: "byUser", fields: ["userID", "recomendationID"]) @auth(rules: [{allow: private}, {allow: private}]) {
+  id: ID!
+  recomendationID: ID!
+  userID: ID!
+  recomendation: Recomendation! @connection(fields: ["recomendationID"])
+  user: User! @connection(fields: ["userID"])
+}
+ 

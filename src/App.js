@@ -15,23 +15,23 @@ import Register from './components/Register/Register.js';
 
 
 function App(){
-  
     return (
+      <>
       <Router>
       <div className="App">
-      
       <Switch>
         <Route path="/" exact component={Home}/>
-        <Route path="/questions" component ={Questions}/>
+        <Route path="/questions" exact component ={Questions}/>
         <Route path="/about" component={About} />
         <Route path="/contact" components={Contact}/>
         <Route path="/payment"component={Payment}/>
         <Route path="/pricing"component={Pricing}/>
         <Route path="/register"component={Register}/>
       </Switch>
-      
       </div>
       </Router>
+      
+      </>
     );
     }
 

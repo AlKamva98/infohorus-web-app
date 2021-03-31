@@ -20,19 +20,22 @@ async function checkUserSignedIn(){
  const user = await Auth.currentAuthenticatedUser();
   if(user !== undefined){
     setSignedIn(true);
+  }else{
+    setSignedIn(false);
   }
 }
    const signOut=async()=>{
       console.log("Signing out");
       await Auth.signOut();
       console.log("Signed out");
+      
     }
 
   
  
   return (
       <nav className="NavbarItems">
-        <Image className="img-fluid" src="./images/logo.png" alt="logo"  width="450" height="250"/>
+        <Link to="/"><Image className="img-fluid" src="./images/logo.png" alt="logo"  width="450" height="250"/></Link>
         <div className="menu-icon" onClick={handleClick}> 
           <i className={clicked ? 'fas fa-times': 'fas fa-bars'}></i>
         </div>

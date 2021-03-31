@@ -6,6 +6,8 @@ import {Redirect} from 'react-router-dom';
 import {selectOptionsCountry, selectEmpOptions, selectOptionsIndustry} from '../../testData/selectOptions.js'
 import { useForm, Controller } from "react-hook-form";
 import { Amplify, API, Auth, Storage } from 'aws-amplify';
+import * as xhr from 'xmlhttprequest';
+import * as mutations from '../../graphql/mutations'
 const awsConfig = require('../../aws-exports').default;
 
 Amplify.register(API)
@@ -20,6 +22,9 @@ function Register(props) {
     className
   } = props;
 
+  var newusermut = mutations.createUser;
+  var newxhr = require('xmlhttprequest')
+   newxhr = new XMLHttpRequest();
   const [modal, setModal] = useState(false);
   const toggle = () => setModal(!modal);
 
@@ -36,7 +41,7 @@ function Register(props) {
     },[])
 
     const { register, handleSubmit, errors, control } = useForm();
-    const handleRegistration = (data) => console.log("This is the users data:"+data);
+    const handleRegistration = (data) => console.log("This is the users data:"+JSON.stringify(data));
     const handleError = (errors) => {};
     const registerOptions = {
         fname: { required: "First name is required" },
@@ -90,7 +95,7 @@ function Register(props) {
          console.log("Signing up")
          try{
         
-             const {fname,lname, email, password, confPassword} = formState;
+             const {fname,lname, jobtitle, company, employees,industry, country,email, password, confPassword} = formState;
             prefered_username = fname+lname.charAt(0)+Math.round(Math.random()*1000);
             username = email;
             // console.log("The username is: "+username);
@@ -99,6 +104,30 @@ function Register(props) {
                 email
                 
                 }})
+
+newxhr.responseType = 'json';
+newxhr.open("POST", "https://hz42cxnj3bglxg7jzixqltzw3q.appsync-api.eu-west-1.amazonaws.com/graphql");
+newxhr.setRequestHeader("Content-Type", "application/json");
+newxhr.setRequestHeader('ApiKey',"da2-h74jgng7xbapfpnwj5sprw2gxm");
+newxhr.setRequestHeader("Accept", "application/json");
+newxhr.onload = function () {
+  console.log('data returned:', newxhr.response);
+}
+newxhr.send(JSON.stringify({
+  query: newusermut,
+  variables: {
+    input: {
+      username:prefered_username,
+      fname: fname,
+      lname: lname,
+      jobtitle: jobtitle,
+      company:company,
+      employees: employees,
+      industry:industry,
+      country:country,
+    }
+  }
+})); 
                 updateFormState(()=>({...formState, formType: "verifyMail"}))
                 console.log("SignUp complete")
             }else{
@@ -107,7 +136,7 @@ function Register(props) {
             }    
         }
         catch(err){
-            console.log("Error:"+err);    
+            console.log("Error:"+JSON.stringify(err));    
         }
 /**End of SignUp Function */}
 

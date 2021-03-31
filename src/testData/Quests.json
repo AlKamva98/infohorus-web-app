@@ -51,9 +51,9 @@
  "id":"007",
  "quest":"Does it outline how employees should report suspicious activity?",
  "inputType":"text",
- "questSection":"Resources",
+ "questSection":"Responsibilties and Colaboration",
  "questType": "followUp",
- "questTitle": "Responsibilties and Colaboration"
+ "questTitle": "Question 2"
 
 }
 ,{
