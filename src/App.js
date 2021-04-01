@@ -23,7 +23,7 @@ function App(){
         <Route path="/" exact component={Home}/>
         <Route path="/questions" exact component ={Questions}/>
         <Route path="/about" component={About} />
-        <Route path="/contact" components={Contact}/>
+        <Route path="/contact" exact components={Contact}/>
         <Route path="/payment"component={Payment}/>
         <Route path="/pricing"component={Pricing}/>
         <Route path="/register"component={Register}/>

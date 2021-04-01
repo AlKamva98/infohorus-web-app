@@ -39,7 +39,7 @@ async function checkUserSignedIn(){
         <div className="menu-icon" onClick={handleClick}> 
           <i className={clicked ? 'fas fa-times': 'fas fa-bars'}></i>
         </div>
-        <ul className ={clicked ? 'nav-menu active' : 'nav-menu'}>
+        <ul className ={clicked ? 'nav-menu active' : 'nav-menu pt-3'}>
           {MenuItems.map((item,index)=>{
             return(
               <li key={index}>
