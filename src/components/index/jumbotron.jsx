@@ -34,7 +34,7 @@ async function checkUserSignedIn(){
 </div>
   </Col>
   <Col className="mx-auto order-md-2 px-0 ">
-  <Image className="px-3 pt-4 img-fluid w-100" src="./images/featurette.png" />
+  <Image className="px-1 img-fluid w-100 imgjmb" src="./images/featurette.png" />
   </Col>
  </Row>
 </Container>) 

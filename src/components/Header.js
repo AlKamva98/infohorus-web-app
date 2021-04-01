@@ -1,7 +1,7 @@
 import React,{useState,useEffect} from 'react';
 import {MenuItems} from './MenuItems'
 import {Link} from 'react-router-dom'
-import {Button,Image} from 'react-bootstrap'
+import {Button,Image,Navbar} from 'react-bootstrap'
 import'./Header.css'
 import Auth from '@aws-amplify/auth';
 
@@ -34,7 +34,7 @@ async function checkUserSignedIn(){
   
  
   return (
-      <nav className="NavbarItems">
+      <Navbar fixed="top" className="NavbarItems">
         <Link to="/"><Image className="img-fluid" src="./images/logo.png" alt="logo"  width="450" height="250"/></Link>
         <div className="menu-icon" onClick={handleClick}> 
           <i className={clicked ? 'fas fa-times': 'fas fa-bars'}></i>
@@ -53,7 +53,7 @@ async function checkUserSignedIn(){
         <div className="signin-icon">
           {signedIn ? (<Link to="/"><Button className="mx-4" onClick={signOut}>Sign Out</Button></Link>):(<Link to="/register"><Button className="mx-4">Start My Free Trial</Button></Link>)}
         </div>
-      </nav>
+      </Navbar>
   )}
 
 

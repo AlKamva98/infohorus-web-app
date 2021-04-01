@@ -9,10 +9,18 @@
 }
 
 .featurette {
- height: 50vh;
+ height: 60vh;
+ background-image: url(feat-bg.jpg);
+ background-position: center;/* Center the image */
+ background-repeat: no-repeat;/* Do not repeat the image */
+ background-size: cover;
 }
 
 .bgtxt {
  background-color: #5290C9;
  border-radius: 10px;
+}
+.imgjmb{
+ border-radius: 10px;
+ padding-top: 5.5rem !important;
 }
