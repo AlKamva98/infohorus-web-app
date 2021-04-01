@@ -1,11 +1,17 @@
-import React, {useState, useEffect, Component} from 'react';
+import React, {useState} from 'react';
 import ReactDom from 'react-dom';
+import{Modal, ModalBody, ModalHeader,ModalFooter, Button, Form, FormGroup} from 'reactstrap'
 import { API, graphqlOperation } from 'aws-amplify';
+import {SurveyJSON} from './survey.js'
 import * as mutations from '../../graphql/mutations'
 import * as Survey from 'survey-react';
 
-export function SurveyJS() {
- 
+export function SurveyJS(props) {
+ const {
+    buttonLabel,
+    className
+  } = props;
+
   Survey.Survey.cssType = "bootstrap";
     Survey.defaultBootstrapCss.navigationButton = "btn btn-green";
   
@@ -14,9 +20,9 @@ export function SurveyJS() {
     .StylesManager
     .applyTheme("modern");
 
-    var json = {"pages":[{"name":"Quest1","elements":[{"type":"panel","name":"panelQ1","elements":[{"type":"radiogroup","name":"qmain1","title":"Does your organization have someone in charge of cybersecurity?","titleLocation":"top","choices":[{"value":"Yes","text":"Yes"},{"value":"No","text":"No"}]},{"type":"multipletext","name":"followupQ1a","visible":false,"visibleIf":"{qmain1} = 'Yes'","title":"What is this person's name, title, and contact information?","hideNumber":true,"items":[{"name":"cybName","title":"Name"},{"name":"jobTitle","title":"Title"},{"name":"contact","title":"Contact"}]},{"type":"radiogroup","name":"followupQ1b","visible":false,"visibleIf":"{qmain1} = 'Yes'","title":"Does this individual have the authority to shutdown all systems during a cyber attack?","titleLocation":"top","hideNumber":true,"choices":[{"value":"Yes","text":"Yes"},{"value":"No","text":"No"}]},{"type":"multipletext","name":"followupQ1c","visible":false,"visibleIf":"{followupQ1b} = 'Yes'","title":"If not, who has this authority? Please enter this person's name, title, and contact information.","hideNumber":true,"items":[{"name":"cybName","title":"Name"},{"name":"jobTitle","title":"Title"},{"name":"contact","title":"Contact"}]}],"title":"Question 1"}],"questionTitleLocation":"top","title":"Responsibilities and Contributions","navigationButtonsVisibility":"show","questionsOrder":"initial"},{"name":"Quest2","elements":[{"type":"panel","name":"panelQ2","elements":[{"type":"radiogroup","name":"qmain2","title":"Does your organisation have a  communication plan for a cyberattack?","choices":[{"value":"Yes","text":"Yes"},{"value":"No","text":"No"}]},{"type":"radiogroup","name":"followupQ2a","visible":false,"visibleIf":"{qmain2} = 'Yes'","title":"Does it outline how employees should report suspicious activity?","hideNumber":true,"choices":[{"value":"Yes","text":"Yes"},{"value":"No","text":"No"}]},{"type":"radiogroup","name":"followupQ2b","visible":false,"visibleIf":"{qmain2} = 'Yes'","title":"Does it outline how information and updates regarding an attack will be shared internally and externally?","hideNumber":true,"choices":[{"value":"Yes","text":"Yes"},{"value":"No","text":"No"}]},{"type":"radiogroup","name":"question1","visible":false,"visibleIf":"{qmain2} = 'Yes'","title":"Has the communication plan been tested for effectiveness?","hideNumber":true,"choices":[{"value":"Yes","text":"Yes"},{"value":"No","text":"No"}]}],"title":"Question 2"}],"title":"Responsibilities and Contributions"},{"name":"Quest3","elements":[{"type":"panel","name":"panelQ3","elements":[{"type":"radiogroup","name":"qmain3","title":"Has your organisation been in touch with cyber security experts/advisors from outside your organizations regarding your planned response to a cyber attack?","choices":[{"value":"item1","text":"Yes"},{"value":"item2","text":"No"}]},{"type":"radiogroup","name":"followupQ3a","visible":false,"visibleIf":"{qmain3} = 'item1'","title":"Have you already called on cyber security experts/advisors from outside your organizations in response to a cyber attack of any kind?","hideNumber":true,"choices":[{"value":"Yes","text":"Yes"},{"value":"No","text":"No"}]},{"type":"comment","name":"followupQ3b","visible":false,"visibleIf":"{qmain3} = 'item1'","title":"Please describe the attack and how cyber security experts/advisors from outside your organizations offered assistance?","hideNumber":true}],"title":"Question 3"}],"title":"Responsibilities and Contributions"},{"name":"Quest4","elements":[{"type":"panel","name":"panelQ4","elements":[{"type":"radiogroup","name":"qmain4","title":"Has your organisation reached out to the government to discuss your cybersecurity plan and capabilities?","choices":[{"value":"Yes","text":"Yes"},{"value":"No","text":"No"}]},{"type":"comment","name":"followupQ4a","visible":false,"visibleIf":"{qmain4} = 'Yes'","title":"Who is/was your contact in the government and what assistance did they provide?","hideNumber":true},{"type":"radiogroup","name":"followupQ4b","visible":false,"visibleIf":"{qmain4} = 'Yes'","title":"Does your organisation have a private cybersecurity consultant on call?","hideNumber":true,"choices":[{"value":"Yes","text":"Yes"},{"value":"No","text":"No"}]},{"type":"text","name":"followupQ4c","visible":false,"visibleIf":"{followupQ4b} = 'Yes'","title":"Who is that?","hideNumber":true},{"type":"comment","name":"followupQ4d","visible":false,"visibleIf":"{followupQ4b} = 'Yes'","title":"What assistance have they already provided?","hideNumber":true},{"type":"radiogroup","name":"followupQ3a","visible":false,"visibleIf":"{qmain8} = 'item1'","title":"Have you already called on cyber security experts/advisors from outside your organizations in response to a cyber attack of any kind?","hideNumber":true,"choices":[{"value":"Yes","text":"Yes"},{"value":"No","text":"No"}]},{"type":"comment","name":"question2","visible":false,"visibleIf":"{qmain8} = 'item1'","title":"Please describe the attack and how cyber security experts/advisors from outside your organizations offered assistance?","hideNumber":true}],"title":"Question 4"}]},{"name":"Quest5","elements":[{"type":"panel","name":"panel1","elements":[{"type":"radiogroup","name":"qmain5","title":"Are there other local, regional, and national organizations your agency collaborates with to enhance your ability to avoid or deal with a cyberattack?","choices":[{"value":"item1","text":"Yes"},{"value":"item2","text":"No"}]},{"type":"comment","name":"followupQ5a","visible":false,"visibleIf":"{qmain5} = 'item1'","title":"What organizations?","hideNumber":true},{"type":"comment","name":"followupQ5b","visible":false,"visibleIf":"{qmain5} = 'item1'","title":"What sort of relationship does your agency have with each of these partners?","hideNumber":true}]}]},{"name":"Quest6","elements":[{"type":"panel","name":"panel2","elements":[{"type":"radiogroup","name":"qmain6","title":"Does your organisation have a specific annual budget line item for cybersecurity?","choices":[{"value":"Yes","text":"Yes"},{"value":"No","text":"No"}]},{"type":"text","name":"followup6a","visible":false,"visibleIf":"{qmain6} = 'Yes'","title":"If so, what is the budget?","hideNumber":true},{"type":"text","name":"followup6b","visible":false,"visibleIf":"{qmain6} = 'Yes'","title":"What has been spent on cybersecurity improvements each of the past three years?","hideNumber":true},{"type":"text","name":"followup6c","visible":false,"visibleIf":"{qmain6} = 'Yes'","title":"Is there a budget set aside for next fiscal year?","hideNumber":true}]}]},{"name":"Quest7","elements":[{"type":"panel","name":"panel7","elements":[{"type":"radiogroup","name":"qmain7","title":"Does your organisation require cybersecurity awareness and best practices training for all new employees?","choices":[{"value":"Yes","text":"Yes"},{"value":"No","text":"No"}]},{"type":"radiogroup","name":"followupQ7a","visible":false,"visibleIf":"{qmain7} = 'Yes'","title":"Are continued refresher courses required for all employees on a regular basis?","hideNumber":true,"choices":[{"value":"Yes","text":"Yes"},{"value":"No","text":"No"}]},{"type":"multipletext","name":"followupQ7b","visible":false,"visibleIf":"{qmain7} = 'Yes'","title":"Are these provided online or in person? If online, who is the provider?","hideNumber":true,"items":[{"name":"courseType","title":"Online/In person:"},{"name":"provider","title":"Provider: "}]},{"type":"text","name":"followupQ7c","visible":false,"visibleIf":"{qmain7} = 'Yes'","title":"What are the most important best practices that are taught?","hideNumber":true},{"type":"text","name":"followupQ7d","visible":false,"visibleIf":"{qmain7} = 'Yes'","title":"Who teaches them?","hideNumber":true},{"type":"text","name":"followupQ7e","visible":false,"visibleIf":"{qmain7} = 'Yes'","title":"Who determines whether these practices are being followed successfully?","hideNumber":true}],"title":"Question 7"}]},{"name":"Quest8","elements":[{"type":"panel","name":"panel8","elements":[{"type":"radiogroup","name":"qmain8","title":"Does your organisation have a detailed plan for dealing with the financial burdens a cyberattack might create?","choices":[{"value":"Yes","text":"Yes"},{"value":"No","text":"No"}]},{"type":"file","name":"followupQ8a","visible":false,"visibleIf":"{qmain8} = 'Yes'","title":"Can we see the plan?","hideNumber":true,"maxSize":0},{"type":"radiogroup","name":"followupQ8b","visible":false,"visibleIf":"{qmain8} = 'Yes'","title":"Does your organisation have cybersecurity insurance?","hideNumber":true,"choices":[{"value":"Yes","text":"Yes"},{"value":"No","text":"No"}]},{"type":"file","name":"followupQ8c","visible":false,"visibleIf":"{followupQ8b} = 'Yes'","title":"If so, can we see the policy?","hideNumber":true,"maxSize":0},{"type":"text","name":"followupQ8d","visible":false,"visibleIf":"{followupQ8b} = 'Yes'","title":"How did you decide to buy insurance?","hideNumber":true},{"type":"text","name":"followupQ8e","visible":false,"visibleIf":"{followupQ8b} = 'Yes'","title":"Can we know what amount is paid per year for the insurance?","hideNumber":true},{"type":"text","name":"followupQ8f","visible":false,"visibleIf":"{followupQ8b} = 'Yes'","title":"Who provides this insurance?","hideNumber":true},{"type":"radiogroup","name":"followupQ8g","visible":false,"visibleIf":"{followupQ8b} = 'Yes'","title":"Has your organisation received payments from this insurance?","hideNumber":true,"choices":[{"value":"Yes","text":"Yes"},{"value":"No","text":"No"}]},{"type":"comment","name":"followupQ8h","visible":false,"visibleIf":"{followupQ8g} = 'Yes'","title":"If so, please describe each instance and the amount received.","hideNumber":true},{"type":"comment","name":"followupQ8i","visible":false,"visibleIf":"{qmain8} = 'No'","title":"If no insurance, why did you decided to not buy it?","hideNumber":true}],"title":"Question 8"}]}],"showProgressBar":"top","showPreviewBeforeComplete":"showAnsweredQuestions"};
 
-let survey = new Survey.Model(json);
+
+let survey = new Survey.Model(SurveyJSON);
 
 survey.onComplete.add(async function (result) {
  console.log("Answers are: "+JSON.stringify(result.data, null, 3))  ;
@@ -41,6 +47,31 @@ console.log(err);
  //document.querySelector('#surveyResult').textContent = "Result JSON:\n" + JSON.stringify(result.data, null, 3);
 
     });
-    return(
-<Survey.Survey model={survey}/>);
+    const [modal, setModal] = useState(false);
+  const toggle = () => setModal(!modal);
+    return(<>
+<Survey.Survey model={survey}/>
+<Modal isOpen={modal} toggle={toggle} className={className}>
+        <ModalHeader toggle={toggle}><h5 className="modal-title" id="exampleModalLabel">New message</h5></ModalHeader>
+        <ModalBody>
+          <Form>
+          <FormGroup>
+            <label for="recipient-name" className="col-form-label">Recipient:</label>
+            <input type="text" className="form-control" id="recipient-name"/>
+          </FormGroup>
+          <FormGroup>
+            <label for="message-text" className="col-form-label">Message:</label>
+            <textarea className="form-control" id="message-text"></textarea>
+          </FormGroup>
+        </Form>
+        </ModalBody>
+        <ModalFooter>
+        <Button className="btn btn-outline-secondary" onClick={toggle} >Close</Button>
+        <Button className="btn btn-success">Send message</Button>
+        </ModalFooter>
+      </Modal>
+        <span className="fw-bold fs-2">Need to consult a colleague on this answer?<p className="btn-link d-none d-md-inline-block pointer" onClick={toggle}> Send an internal message</p> directly to them for a quick response.</span>
+</>
+);
+
 }
