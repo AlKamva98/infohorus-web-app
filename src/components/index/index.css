@@ -1,3 +1,25 @@
 .cont{
  max-height: 300px;
 }
+
+.jumbotron {
+ height: 80vh;
+ background-color: #C3E0E5;
+}
+
+.featurette {
+ height: 55vh;
+ background-image: url(feat-bg.jpg);
+ background-position: center;/* Center the image */
+ background-repeat: no-repeat;/* Do not repeat the image */
+ background-size: cover;
+}
+
+.bgtxt {
+ background-color: #5290C9;
+ border-radius: 10px;
+}
+.imgjmb{
+ border-radius: 10px;
+ padding-top: 5.5rem !important;
+}

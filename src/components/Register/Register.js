@@ -6,6 +6,8 @@ import {Redirect} from 'react-router-dom';
 import {selectOptionsCountry, selectEmpOptions, selectOptionsIndustry} from '../../testData/selectOptions.js'
 import { useForm, Controller } from "react-hook-form";
 import { Amplify, API, Auth, Storage } from 'aws-amplify';
+import * as xhr from 'xmlhttprequest';
+import * as mutations from '../../graphql/mutations'
 const awsConfig = require('../../aws-exports').default;
 
 Amplify.register(API)
@@ -20,6 +22,9 @@ function Register(props) {
     className
   } = props;
 
+  var newusermut = mutations.createUser;
+  var newxhr = require('xmlhttprequest')
+   newxhr = new XMLHttpRequest();
   const [modal, setModal] = useState(false);
   const toggle = () => setModal(!modal);
 
@@ -36,7 +41,7 @@ function Register(props) {
     },[])
 
     const { register, handleSubmit, errors, control } = useForm();
-    const handleRegistration = (data) => console.log("This is the users data:"+data);
+    const handleRegistration = (data) => console.log("This is the users data:"+JSON.stringify(data));
     const handleError = (errors) => {};
     const registerOptions = {
         fname: { required: "First name is required" },
@@ -71,24 +76,17 @@ function Register(props) {
         }
     }
 
-const [buttonEnabled, setButtonEnabled] = useState(true);
+
     let username;
     let prefered_username;
     function onChange(e){
         e.persist()
         console.log("changing:"+e.target.name);
-        enableButton();
+    
         updateFormState(()=>({...formState, [e.target.name]: e.target.value}))
     }
 
-    function enableButton(){
-      const {chkAgreement} = formState;
-      if(chkAgreement==="i-agree"){
-          setButtonEnabled(false)
-        }else{
-          setButtonEnabled(true)
-        }
-    }
+    
     const {formType} = formState;
 
 
@@ -97,7 +95,7 @@ const [buttonEnabled, setButtonEnabled] = useState(true);
          console.log("Signing up")
          try{
         
-             const {fname,lname, email, password, confPassword} = formState;
+             const {fname,lname, jobtitle, company, employees,industry, country,email, password, confPassword} = formState;
             prefered_username = fname+lname.charAt(0)+Math.round(Math.random()*1000);
             username = email;
             // console.log("The username is: "+username);
@@ -106,6 +104,30 @@ const [buttonEnabled, setButtonEnabled] = useState(true);
                 email
                 
                 }})
+
+newxhr.responseType = 'json';
+newxhr.open("POST", "https://hz42cxnj3bglxg7jzixqltzw3q.appsync-api.eu-west-1.amazonaws.com/graphql");
+newxhr.setRequestHeader("Content-Type", "application/json");
+newxhr.setRequestHeader('ApiKey',"da2-h74jgng7xbapfpnwj5sprw2gxm");
+newxhr.setRequestHeader("Accept", "application/json");
+newxhr.onload = function () {
+  console.log('data returned:', newxhr.response);
+}
+newxhr.send(JSON.stringify({
+  query: newusermut,
+  variables: {
+    input: {
+      username:prefered_username,
+      fname: fname,
+      lname: lname,
+      jobtitle: jobtitle,
+      company:company,
+      employees: employees,
+      industry:industry,
+      country:country,
+    }
+  }
+})); 
                 updateFormState(()=>({...formState, formType: "verifyMail"}))
                 console.log("SignUp complete")
             }else{
@@ -114,7 +136,7 @@ const [buttonEnabled, setButtonEnabled] = useState(true);
             }    
         }
         catch(err){
-            console.log("Error:"+err);    
+            console.log("Error:"+JSON.stringify(err));    
         }
 /**End of SignUp Function */}
 
@@ -150,16 +172,16 @@ async function SignIn(){/**SignIn Function */
      {formType === "signUp" && (
    <Container className="container-fluid">
     <Row>
-        <Col className="text-secondary my-auto text-center">
+        <Col className="text-secondary order-md-1 mt-5 text-center">
             <h4 
-            className="text-dark">Register today</h4>
+            className="text-dark display-4">Register today</h4>
             <p>All seed for cattle good which. Stars us saying grass morning spirit seed one fourth very said you sixth spirit. Created days.</p>
             <img className="img-fluid text-center"  src="./images/featurette.png" width="500" height="400" alt="vector"/>
             <p>Brought first let lesser appear that give two called forth fill. Firmament. Saying deep, abundantly blessed so. Itself said seed evening and air seed beast of fruitful, open.</p>
         </Col>
         
         
-        <Col id="subDiv2">
+        <Col id="subDiv2" className="order-md-2">
             <Card className="mb-4 mt-4 bg-light shadow" >
                 <Card.Body>
         <div className="m-auto">
@@ -264,7 +286,7 @@ async function SignIn(){/**SignIn Function */
                   <input type="checkbox" onChange={onChange} value="remember-me"/> Remember me
                 </label>
               </div>
-              <Button className="w-100 btn btn-lg btn-success" onClick={SignIn} type="submit">Sign in</Button>
+              <Button className="w-100 btn btn-lg btn-primary" onClick={SignIn} type="submit">Sign in</Button>
               <Modal isOpen={modal} toggle={toggle} className={className}>
         <ModalHeader toggle={toggle}>Sign in Failed</ModalHeader>
         <ModalBody>
@@ -288,11 +310,7 @@ async function SignIn(){/**SignIn Function */
 <Container className="mt-3 pt3 "><h1>Verify email address</h1>
 <span>Check your email and click the link to verify your email.</span><br/>
 <span>Once your email is verified click continue to proceed to login.</span>
-<FormGroup className="col-12">
-         <Label for="authCode" className="visually-hidden">Company</Label>
-         <Input type="text" name="authCode" innerRef={register(registerOptions.authCode)} className="form-control" onChange={onChange} placeholder="Enter Code" required/>
-         </FormGroup>
-<Button  className="btn btn-primary pointer" onClick={verifyEmail}>Verify</Button>
+<Button  className="btn btn-primary pointer" onClick={verifyEmail}>Continue</Button>
 </Container>
 )}
 { formType === 'signedIn' && (

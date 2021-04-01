@@ -5,6 +5,7 @@ import {graphqlMutations} from 'aws-appsync-react'
 import {graphql, compose} from 'react-apollo'
 import QuestionsList from '../../testData/QuestionsList.json';
 import './questions.css'
+import {SurveyJS} from './SurveyJS'
 import { RnCquest } from './RnCquest';
 
 
@@ -28,7 +29,7 @@ let [qNum, setQNum] = useState(0);
     </Accordion.Toggle>
     <Accordion.Collapse eventKey="0">
     <Card.Body>
-      <RnCquest/>
+      <SurveyJS/>
      </Card.Body>
     </Accordion.Collapse>
   </Card>
