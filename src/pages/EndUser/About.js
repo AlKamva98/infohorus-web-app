@@ -1,13 +1,14 @@
 import React from 'react';
 import { Container, Col,Row, Image } from 'react-bootstrap';
 import Header from '../../components/Header';
+import "./body.css"
 
 
 export function About(){
  return(<>
    <Header/>
-  <Container>
-   <div className="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+  <Container className="bdy">
+   <div className="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center ">
     <h1 className="display-4">Our Mission</h1>
     <p className="lead">We reduce the vulnerability that critical infrastructure faces in cyberspace by implementing combined technical and non-technical interventions that neutralize advanced threats, thereby contributing to the improvement of security for all.</p>
    
