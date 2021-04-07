@@ -1,30 +1,45 @@
 export const COLUMNS =[
  {
       Header: 'Id',
-      accessor: 'id'
+      accessor: 'id',
+      maxWidth: 70,
+      minWidth: 50,
+      width: 60,
+
  },
  {
       Header: 'Email',
-      accessor: 'email'
+      accessor: 'email',
+      maxWidth: 400,
+      minWidth: 140,
+      width: 200,
  },
  {
       Header: 'Answer',
-      accessor: 'answer'
- },
- {
-      Header: 'Document',
-      accessor: 'document'
+      accessor: 'answer',
+      maxWidth: 400,
+      minWidth: 140,
+      width: 200,
  },
  {
       Header: 'Completed',
-      accessor: 'completed'
+      accessor: 'completed',
+      maxWidth: 400,
+      minWidth: 140,
+      width: 200,
  },
  {
       Header: 'Questions ID',
-      accessor: 'questionID'
+      accessor: 'questionID',
+      maxWidth: 400,
+      minWidth: 140,
+      width: 200,
  },
  {
       Header: 'Report ID',
-      accessor: 'reportID'
+      accessor: 'reportID',
+      maxWidth: 400,
+      minWidth: 140,
+      width: 200,
  },
 ]

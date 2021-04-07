@@ -1,6 +1,7 @@
 import React, {useMemo} from 'react';
 import {useTable} from 'react-table';
 import { COLUMNS } from "./columns.js";
+import {Container} from 'react-bootstrap'
 import { MOCK_DATA } from "./MOCK_DATA.js";
 import "./table.css"
 
@@ -12,13 +13,20 @@ const tableInstance = useTable({columns: columns, data: data});
  const { getTableProps, getTableBodyProps, headerGroups,rows, prepareRow} = tableInstance;
 
  return (
+   <>
+<Container>
+<h4 className="text-center display-4">Customer list</h4>
+<span>Click on the customer to view his answers</span>
+</Container>
   <table {...getTableProps()}>
 <thead >
  {headerGroups.map((headerGroup)=>(
  <tr {...headerGroup.getHeaderGroupProps()}>
   {
    headerGroup.headers.map(column => (
-    <th {...column.getHeaderProps()}>
+    <th {...column.getHeaderProps({
+                  style: { minWidth: column.minWidth, width: column.width },
+                })}>
 {column.render('Header')}
     </th>
   
@@ -36,7 +44,12 @@ const tableInstance = useTable({columns: columns, data: data});
  <tr {...row.getRowProps()}>
   {row.cells.map((cell) => {
    return(
-    <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
+    <td {...cell.getCellProps({
+                      style: {
+                        minWidth: cell.column.minWidth,
+                        width: cell.column.width,
+                      },
+                    })}>{cell.render('Cell')}</td>
     
    )
   })}
@@ -47,5 +60,6 @@ const tableInstance = useTable({columns: columns, data: data});
  }
 </tbody>
   </table>
+  </>
  )
 }
