@@ -4,6 +4,7 @@ import {About} from './pages/EndUser/About.js'
 import {Contact} from './pages/EndUser/Contact.js'
 import {Payment} from './pages/EndUser/Payment.js'
 import {Pricing} from './pages/EndUser/Pricing.js'
+import {Recomendations} from './pages/EndUser/Recomendations.js'
 import './App.css';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import Amplify from 'aws-amplify';
@@ -12,6 +13,7 @@ import { Questions } from './pages/EndUser/Questions.js';
 import '@aws-amplify/ui/dist/style.css';
 import Register from './components/Register/Register.js';
 import {ExpertViewCustList  } from "./pages/ExpertViewCustList";
+import {ExpertViewAssess  } from "./pages/ExpertViewAssess";
 
 
 
@@ -27,8 +29,10 @@ function App(){
         <Route path="/contact" exact components={Contact}/>
         <Route path="/payment"component={Payment}/>
         <Route path="/pricing"component={Pricing}/>
+        <Route path="/recomendations" exact component={Recomendations}/>
         <Route path="/register"component={Register}/>
-        <Route path="/evcustlist"component={ExpertViewCustList}/>
+        <Route path="/expertview/custlist" exact component={ExpertViewCustList}/>
+        <Route path="/expertview/assess" exact component={ExpertViewAssess}/>
       </Switch>
       </div>
       </Router>

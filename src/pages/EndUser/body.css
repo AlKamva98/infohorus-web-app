@@ -9,7 +9,11 @@ margin-top: 50px !important;
  padding-top: 50px !important;
  margin-bottom: 50px !important;
 }
-
+.rec{
+ border-radius: 10px;
+ border-style: solid;
+ border-color: black;
+}
 .pricing-header {
  max-width: 700px;
 }
