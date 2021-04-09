@@ -1,14 +1,14 @@
 import React from 'react';
 import { Card, Col, Container, Row } from 'react-bootstrap';
 import Header from '../../components/Header';
-import './pricing.css';
+import './body.css';
 
 
 export function Pricing(){
  return(
    <>
    <Header/>
-<Container className="containterpr">
+<Container className="bdy">
   <div className="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
     <h1 className="display-4">Pricing</h1>
     <p className="lead">This is where we tell the users about the great deals we offer</p>
