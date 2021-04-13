@@ -1,7 +1,7 @@
 import React from 'react';
 import {Home} from './pages/EndUser/Home.js'
 import {About} from './pages/EndUser/About.js'
-import {Contact} from './pages/EndUser/Contact.js'
+import Contact from './pages/EndUser/Contact.js'
 import {Payment} from './pages/EndUser/Payment.js'
 import {Pricing} from './pages/EndUser/Pricing.js'
 import {Recomendations} from './pages/EndUser/Recomendations.js'
@@ -26,8 +26,7 @@ function App(){
         <Route path="/" exact component={Home}/>
         <Route path="/questions" exact component ={Questions}/>
         <Route path="/about" component={About} />
-        <Route path="/contact" exact components={Contact}/>
-        <Route path="/payment"component={Payment}/>
+        <Route path="/contact"component={Contact}/>
         <Route path="/pricing"component={Pricing}/>
         <Route path="/recomendations" exact component={Recomendations}/>
         <Route path="/register"component={Register}/>

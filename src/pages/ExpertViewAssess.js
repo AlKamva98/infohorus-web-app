@@ -31,13 +31,10 @@ const tableInstance = useTable({columns: columns, data: data});
   
    ))
   }
- </tr>
-
- ))}
+ </tr>))}
 </thead>
 <tbody {...getTableBodyProps}>
- {
-  rows.map(row => {
+ {rows.map(row => {
    prepareRow(row)
    return (
  <tr {...row.getRowProps()}>
@@ -48,19 +45,11 @@ const tableInstance = useTable({columns: columns, data: data});
                         minWidth: cell.column.minWidth,
                         width: cell.column.width,
                       },
-                    })}>{cell.render('Cell')}</td>
-    
-   )
+                    })}>{cell.render('Cell')}</td>)
   })}
  </tr>
-
-   )
-  })
- }
+   )})}
 </tbody>
   </table>
-
   <Button>Download</Button>
-  </>
- )
-}
+  </>)}
