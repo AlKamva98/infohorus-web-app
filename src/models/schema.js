@@ -271,6 +271,10 @@ export const schema = {
             "pluralName": "Users",
             "attributes": [
                 {
+                    "type": "aws_api_key",
+                    "properties": {}
+                },
+                {
                     "type": "model",
                     "properties": {}
                 },

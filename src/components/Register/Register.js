@@ -108,7 +108,7 @@ function Register(props) {
 newxhr.responseType = 'json';
 newxhr.open("POST", "https://hz42cxnj3bglxg7jzixqltzw3q.appsync-api.eu-west-1.amazonaws.com/graphql");
 newxhr.setRequestHeader("Content-Type", "application/json");
-newxhr.setRequestHeader('ApiKey',"da2-h74jgng7xbapfpnwj5sprw2gxm");
+newxhr.setRequestHeader('ApiKey',"da2-uby2k7c4vjcuzpf76guyudkjau");
 newxhr.setRequestHeader("Accept", "application/json");
 newxhr.onload = function () {
   console.log('data returned:', newxhr.response);
@@ -117,7 +117,7 @@ newxhr.send(JSON.stringify({
   query: newusermut,
   variables: {
     input: {
-      username:prefered_username,
+      username:email,
       fname: fname,
       lname: lname,
       jobtitle: jobtitle,

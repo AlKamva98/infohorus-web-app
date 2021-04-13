@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import ReactDom from 'react-dom';
 import{Modal, ModalBody, ModalHeader,ModalFooter, Button, Form, FormGroup} from 'reactstrap'
-import { API, graphqlOperation } from 'aws-amplify';
+import { API, Auth, graphqlOperation } from 'aws-amplify';
 import {SurveyJSON} from './survey.js'
 import * as mutations from '../../graphql/mutations'
 import * as Survey from 'survey-react';
@@ -13,45 +13,41 @@ export function SurveyJS(props) {
   } = props;
 
   Survey.Survey.cssType = "bootstrap";
-    // Survey.defaultBootstrapCss.navigationButton = "btn btn-outline-secondary";
-    // Survey.defaultBootstrapCss.navigation.preview = "btn btn-primary";
-    // Survey.defaultBootstrapCss.navigation.next = "btn btn-primary";
-    // Survey.defaultBootstrapCss.navigation.prev ="btn btn-outline-secondary";
-
 
     var myCss = {
       	"navigationButton": "btn btn-green",
        "navigation": {
-	// 	"complete": "btn sv_complete_btn btn-primary",
+	 	"complete": "btn sv_complete_btn btn-primary float-right",
 	 	"prev": "btn sv_prev_btn btn-outline-secondary",
 	 	"next": "btn sv_next_btn btn-primary float-right",
 	 	"start": "btn sv_start_btn btn-primary",
-	// 	"preview": "btn sv_preview_btn btn-primary",
-	// 	"edit": "btn sv_edit_btn btn-primary"
+	 	"preview": "btn sv_preview_btn btn-primary float-right",
+	 	"edit": "btn sv_edit_btn btn-primary "
 	 }
     }
-    var addAns = mutations.createAnswers;
+  var addAns = mutations.createAnswer;
   Survey
     .StylesManager
     .applyTheme("modern");
-
-
-
 let survey = new Survey.Model(SurveyJSON);
 
 survey.onComplete.add(async function (result) {
  console.log("Answers are: "+JSON.stringify(result.data, null, 3))  ;
+ var answers = JSON.stringify(result.data, null, 3)
+  
  try{
+   const user = await Auth.currentCredentials();
  console.log("Sending to the api...")
  var ansInput =result.data;
-const newuser = await API.graphql(graphqlOperation(
+ await API.graphql(graphqlOperation(
    addAns, {
     input: {
-     answers: "This is an answer",
+     username:"Stefano", 
+     answers: answers,
      documents: "https://www.example.com/doc",
      completed: true,
-     questionID: "1231sd8a54",
-     ReportID:"122s3132sdasdasd",
+     questionID: "001",
+     reportID:"12345",
     }
   }
 ));    
@@ -59,7 +55,6 @@ console.log("Answer sent to the api!");
  }catch(err){
 console.log(err);
  }  
- //document.querySelector('#surveyResult').textContent = "Result JSON:\n" + JSON.stringify(result.data, null, 3);
 
     });
     const [modal, setModal] = useState(false);

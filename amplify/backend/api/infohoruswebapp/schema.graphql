@@ -1,11 +1,11 @@
-type Report @model @auth(rules: [{allow: private}]) {
+type Report @model @auth(rules: [{ allow: private }]) {
   id: ID!
   report_num: String
   report_desc: String
   AnswersReport: [Answer] @connection(keyName: "byReport", fields: ["id"])
 }
 
-type Recomendation @model @auth(rules: [{allow: private}]) {
+type Recomendation @model @auth(rules: [{ allow: private }]) {
   id: ID!
   rec_num: String
   rec_date: AWSDateTime
@@ -13,10 +13,11 @@ type Recomendation @model @auth(rules: [{allow: private}]) {
   accepted: Boolean
   estimated_completion_date: AWSDate
   completed: Boolean
-  UserRecomendations: [RecomendationUser] @connection(keyName: "byRecomendation", fields: ["id"])
+  UserRecomendations: [RecomendationUser]
+    @connection(keyName: "byRecomendation", fields: ["id"])
 }
 
-type Question @model @auth(rules: [{allow: private}]) {
+type Question @model @auth(rules: [{ allow: private }]) {
   id: ID!
   question: String!
   inputType: String
@@ -26,7 +27,7 @@ type Question @model @auth(rules: [{allow: private}]) {
   QAnswer: [Answer] @connection(keyName: "byQuestion", fields: ["id"])
 }
 
-type Account @model @auth(rules: [{allow: private}]) {
+type Account @model @auth(rules: [{ allow: private }]) {
   id: ID!
   account_num: String
   account_status: String
@@ -34,7 +35,11 @@ type Account @model @auth(rules: [{allow: private}]) {
   UserAccount: User @connection
 }
 
-type Answer @model @key(name: "byQuestion", fields: ["questionID"]) @auth(rules: [{allow: private}]) @key(name: "byReport", fields: ["reportID"]) {
+type Answer
+  @model
+  @key(name: "byQuestion", fields: ["questionID"])
+  @auth(rules: [{ allow: private }])
+  @key(name: "byReport", fields: ["reportID"]) {
   id: ID!
   UserAnswer: User @connection
   username: String!
@@ -46,7 +51,7 @@ type Answer @model @key(name: "byQuestion", fields: ["questionID"]) @auth(rules:
   reportID: ID
 }
 
-type User @model @auth(rules: [{allow: private}]) {
+type User @aws_api_key @model @auth(rules: [{ allow: private }]) {
   id: ID!
   username: String
   fname: String
@@ -56,14 +61,18 @@ type User @model @auth(rules: [{allow: private}]) {
   employees: String
   industry: String
   country: String
-  recomendations: [RecomendationUser] @connection(keyName: "byUser", fields: ["id"])
+  recomendations: [RecomendationUser]
+    @connection(keyName: "byUser", fields: ["id"])
 }
 
-type RecomendationUser @model(queries: null) @key(name: "byRecomendation", fields: ["recomendationID", "userID"]) @key(name: "byUser", fields: ["userID", "recomendationID"]) @auth(rules: [{allow: private}, {allow: private}]) {
+type RecomendationUser
+  @model(queries: null)
+  @key(name: "byRecomendation", fields: ["recomendationID", "userID"])
+  @key(name: "byUser", fields: ["userID", "recomendationID"])
+  @auth(rules: [{ allow: private }, { allow: private }]) {
   id: ID!
   recomendationID: ID!
   userID: ID!
   recomendation: Recomendation! @connection(fields: ["recomendationID"])
   user: User! @connection(fields: ["userID"])
 }
- 
