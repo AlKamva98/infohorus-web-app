@@ -35,7 +35,7 @@ async function checkUserSignedIn(){
  
   return (
       <Navbar fixed="top" className="NavbarItems">
-        <Link to="/"><Image className="img-fluid" src="./images/logo.png" alt="logo"  width="450" height="250"/></Link>
+        <Link to="/"><Image className="img-fluid" src="./images/logok.png" alt="logo"  width="250" height="100"/></Link>
         <div className="menu-icon" onClick={handleClick}> 
           <i className={clicked ? 'fas fa-times': 'fas fa-bars'}></i>
         </div>

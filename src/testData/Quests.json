@@ -24,7 +24,7 @@
 },
 {
  "id":"004",
- "quest":"If not, who has this authority?",
+ "question":"If not, who has this authority?",
  "inputType":"text",
  "questSection":"Responsibilties and Colaboration",
  "questType": "followUp",
@@ -32,7 +32,7 @@
 }
 ,{
   "id":"005",
- "quest":"What is this person's name, title, and contact information?",
+ "question":"What is this person's name, title, and contact information?",
  "inputType":"text",
  "questSection":"Responsibilties and Colaboration",
  "questType": "followUp",
@@ -41,7 +41,7 @@
 }
 ,{
  "id":"006",
- "quest":"Does your organisation have a communication plan for a cyberattack?",
+ "question":"Does your organisation have a communication plan for a cyberattack?",
  "inputType":"radio",
  "questSection":"Responsibilties and Colaboration",
  "questType": "main",
@@ -49,7 +49,7 @@
 }
 ,{
  "id":"007",
- "quest":"Does it outline how employees should report suspicious activity?",
+ "question":"Does it outline how employees should report suspicious activity?",
  "inputType":"text",
  "questSection":"Responsibilties and Colaboration",
  "questType": "followUp",
@@ -58,7 +58,7 @@
 }
 ,{
  "id":"008",
- "quest":"Does it outline how information and updates regarding an attack will be shared internally and externally?",
+ "question":"Does it outline how information and updates regarding an attack will be shared internally and externally?",
  "inputType":"radio",
  "questSection":"Responsibilties and Colaboration",
  "questType": "followUp",
@@ -66,7 +66,7 @@
 }
 ,{
  "id":"009",
- "quest":"Has the communication plan been tested for effectiveness?",
+ "question":"Has the communication plan been tested for effectiveness?",
  "inputType":"text",
  "questSection":"Responsibilties and Colaboration",
  "questType": "followUp",
@@ -74,7 +74,7 @@
 }
 ,{
  "id":"010",
- "quest":"Has your organisation been in touch with cyber security experts/advisors from outside your organizations regarding your planned response to a cyber attack?",
+ "question":"Has your organisation been in touch with cyber security experts/advisors from outside your organizations regarding your planned response to a cyber attack?",
  "inputType":"radio",
  "questSection":"Responsibilties and Colaboration",
  "questType": "followUp",

@@ -1,4 +1,5 @@
 import React, {useMemo, useState} from 'react';
+import { MDBDataTable } from 'mdbreact';
 import {Link} from 'react-router-dom'
 import {useTable} from 'react-table';
 import { COLUMNS } from "./columns.js";
@@ -7,6 +8,7 @@ import { MOCK_DATA } from "./MOCK_DATA.js";
 import "./table.css"
 
 export const ExpertViewCustList = () => {
+
  const [tableState, setTableState] = useState(MOCK_DATA);
  const columns = useMemo(()=> COLUMNS,[]);
  const data = useMemo(()=> MOCK_DATA,[]);
@@ -55,7 +57,7 @@ function isEmail(cell){
 </thead>
 <tbody {...getTableBodyProps}>
  {
-  rows.map(row => {
+   rows.map(row => {
    prepareRow(row)
    return (
  <tr {...row.getRowProps()}>
@@ -67,23 +69,12 @@ function isEmail(cell){
                         width: cell.column.width,
                       },
                     })}>{
-                      isEmail(cell.value) ? <Link  onClick={getClicked(cell.value)}>{cell.render('Cell')}</Link>:
-                      cell.render('Cell')}</td>
-    
-   )
-  })}
- </tr>
-
-   )
-  })
- }
+    isEmail(cell.value) ? <Link  onClick={getClicked(cell.value)}>{cell.render('Cell')}</Link>:cell.render('Cell')}</td>)})}
+ </tr>)})}
 </tbody>
   </table>
-  </>
- )
-}
-
-
+  </>)
+  }
 /*
 renderTableData() {
       return this.state.students.map((student, index) => {
@@ -98,5 +89,4 @@ renderTableData() {
          )
       })
    }
-
 */

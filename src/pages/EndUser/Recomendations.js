@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Form } from 'react-bootstrap'
+import { Card,Button, Form, Col, Row } from 'react-bootstrap'
 import Header from '../../components/Header'
 import "./body.css"
 
@@ -8,21 +8,40 @@ export const Recomendations = () => {
   <div>
    <Header/>
    <h4 className="text-center display-4 bdy">Recomendations</h4>
-   <span>Click on the Recomendations you think would work for your company</span>
-    <Form>
-     <div className="mx-3 mt-5 mb-3 rec shadow-sm ">
-       
-    <ul>
-     <li><input type="checkbox" name="recSelected"/>Recomendation 1</li>
-     <li><input type="checkbox" name="recSelected2"/>Recomendation 2</li>
-     <li><input type="checkbox" name="recSelected3"/>Recomendation 3</li>
-     <li><input type="checkbox" name="recSelected4"/>Recomendation 4</li>
-     <li><input type="checkbox" name="recSelected5"/>Recomendation 5</li>
-     <li><input type="checkbox" name="recSelected6"/>Recomendation 6</li>
-    </ul>
-   </div>
-   <Button className="bg-secondary ">Reject</Button>
-   <Button className="">Accept</Button>
+   <p className="mx-5 px-3 fs-2 mb-3 mt-3">Click onx the Recomendations you think would work for your company</p>
+    <Form className="col-md-11 border bg-white border-secondary mt-3 pt-3 mx-auto px-3 pb-5 mb-4 rounded">
+    <Col>
+    <Row>
+    <Card className="col-md-4 mt-3 mx-4 shadow-sm">
+    <Card.Body>
+     <span>Recomendation 1: train employees on how to deal with ransomware</span>
+
+   <Button className="btn col-12 mx-auto mt-3 mb-2 btn-outline-primary">Assign and Schedule tasks</Button>
+   <p className="text-center pt-2 col-12 btn-link pointer">Review</p>
+   </Card.Body>
+   </Card>
+   <Card className="col-md-4 mt-3 mx-4 shadow-sm">
+    <Card.Body>
+     <span>Recomendation 2: train employees on how to deal with phishing emails</span>
+
+   <Button className="btn col-12 mx-auto mt-3 mb-2 btn-outline-primary">Assign and Schedule tasks</Button>
+   <p className="text-center pt-2 col-12 btn-link pointer">Review</p>
+   </Card.Body>
+   </Card>
+   
+     <Card className="col-md-4 mt-3 mx-4 shadow-sm">
+    <Card.Body>
+     <span>Recomendation 3: train employees on how to deal with phishing emails</span>
+
+   <Button className="btn col-12 mx-auto mt-3 mb-2 btn-outline-primary">Assign and Schedule tasks</Button>
+   <p className="text-center pt-2 col-12 btn-link pointer">No Thanks</p>
+   </Card.Body>
+  </Card>
+   </Row>
+   <Row>
+
+   </Row>
+   </Col>
    </Form>
   </div>
  )

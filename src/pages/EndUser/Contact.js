@@ -1,71 +1,73 @@
-import React from 'react';
-import { Card, Col, Container, Row } from 'react-bootstrap';
+import React,{useState} from 'react';
+import {Container, Row, Image, Col,Card,Form} from 'react-bootstrap';
+import {Label, Input, FormGroup,Button, Modal, ModalBody,ModalFooter,ModalHeader} from 'reactstrap';
 import Header from '../../components/Header';
 import './body.css';
 
 
-export function Contact(){
- return(
-   <>
-   <Header/>
-<Container className="containterpr">
-  <div className="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-    <h1 className="display-4">Pricing</h1>
-    <p className="lead">This is where we tell the users about the great deals we offer</p>
-  </div>
+ function Contact(){
+  const initialFormState = {
+        email:"", jobtitle:"", company:"", formType:"signIn"
+    };
+    const [formState, updateFormState] = useState(initialFormState);
+   function onChange(e){
+        e.persist()
+        console.log("changing:"+e.target.name);
+    
+        updateFormState(()=>({...formState, [e.target.name]: e.target.value}))
+    }
 
-  <Row className="row-cols-1 row-cols-md-3 mb-3 text-center">
-    <Col>
-      <Card className="mb-4 shadow-sm">
-      <Card.Header>
-        <h4 className="my-0 fw-normal">Free</h4>
-      </Card.Header>
-      <Card.Body>
-        <Card.Title><h1 class="card-title pricing-card-title">R0 <small className="text-muted">/ mo</small></h1></Card.Title>
-        <ul class="list-unstyled mt-3 mb-4">
-          <li>10 users included</li>
-          <li>Email support</li>
-          <li>Help center access</li>
-        </ul>
-        <button type="button" class="w-100 btn btn-lg btn-outline-primary">Sign up for free</button>
-      </Card.Body>
-    </Card>
+ return(<>
+ <Header/>
+<Container className="container-fluid bdy">
+    <Row>
+        <Col className="text-secondary order-md-2 mt-5 text-center">
+            <h4 
+            className="text-dark display-4">Contact us</h4>
+            <p>All seed for cattle good which. Stars us saying grass morning spirit seed one fourth very said you sixth spirit. Created days.</p>
+            <img className="img-fluid text-center"  src="./images/featurette.png" width="500" height="400" alt="vector"/>
+            <p>Brought first let lesser appear that give two called forth fill. Firmament. Saying deep, abundantly blessed so. Itself said seed evening and air seed beast of fruitful, open.</p>
+        </Col>
+        
+        
+        <Col id="subDiv2" className="order-md-1">
+            <Card className="mb-4 mt-4 bg-light shadow" >
+                <Card.Body>
+        <div className="m-auto">
+        <Image className="d-block mx-auto mb-4 img-fluid" src="./images/fav-logo.png" alt="Our logo" width="85" height="85"/>
+        </div>
+        <h4 className="mb-3 fw-normal text-center"></h4>
+       <Form>
+       <FormGroup className="col-md-12">
+            <Label for="fname" className="visually-hidden" >Full name</Label>
+            <Input type="text"  className="form-control" onChange={onChange} name="fname" placeholder="Full Name" required autofocus/> 
+            <div className="valid-feedback">
+            </div>
+        </FormGroup>
+        
+       <FormGroup className="col-md-12">
+          <Label for="email" className="visually-hidden">Email address</Label>          
+          <Input type="email" name="email" className="form-control"  onChange={onChange}  placeholder="Email" required />
+       </FormGroup>
+          
+         <FormGroup className="col-12">
+         <div class="form-outline">
+         <label class="form-label" for="textAreaExample">Message</label>
+         <textarea class="form-control" placeholder="Message" name="taMessage" rows="4"></textarea>
+         </div>
+         </FormGroup>
+       
+        <FormGroup className="mb-3 mx-auto">
+        <Button type="submit" className="w-100 mt-5 btn btn-lg bg-primary shadow-sm">SUBMIT</Button>
+        </FormGroup>
+        </Form>
+        </Card.Body>
+        </Card>
     </Col>
-    <Col>
-      <Card class="mb-4 shadow-sm">
-      <Card.Header>
-        <h4 class="my-0 fw-normal">Pro</h4>
-      </Card.Header>
-      <Card.Body>
-        <Card.Title><h1 className="card-title pricing-card-title">R150 <small className="text-muted">/ mo</small></h1></Card.Title>
-        <ul className="list-unstyled mt-3 mb-4">
-          <li>20 users included</li>
-          <li>Priority email support</li>
-          <li>Help center access</li>
-        </ul>
-        <button type="button" className="w-100 btn btn-lg btn-primary">Get started</button>
-      </Card.Body>
-    </Card>
-    </Col>
-    <Col>
-      <Card className="mb-4 shadow-sm">
-      <Card.Header>
-        <h4 class="my-0 fw-normal">Enterprise</h4>
-      </Card.Header>
-      <Card.Body>
-        <h1 class="pricing-card-title" as={Card.Header}>R229 <small class="text-muted">/ mo</small></h1>
-        <ul class="list-unstyled mt-3 mb-4">
-          <li>30 users included</li>
-          <li>Phone and email support</li>
-          <li>Help center access</li>
-        </ul>
-        <button type="button" class="w-100 btn btn-lg btn-primary">Contact us</button>
-      </Card.Body>
-    </Card>
-    </Col>
-  </Row>
-</Container>
-
-</>
+    </Row>
+    </Container>
+    </>
  )
 }
+
+export default Contact;
