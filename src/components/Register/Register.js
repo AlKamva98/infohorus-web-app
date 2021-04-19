@@ -1,11 +1,12 @@
 import React,{useState, useEffect} from 'react';
 import {Container, Row, Image, Col,Card,Form} from 'react-bootstrap';
 import {Label, Input, FormGroup,Button, Modal, ModalBody,ModalFooter,ModalHeader} from 'reactstrap';
-import Select from 'react-select';
+import Select  from 'react-select';
 import {Redirect} from 'react-router-dom';
 import {selectOptionsCountry, selectEmpOptions, selectOptionsIndustry} from '../../testData/selectOptions.js'
 import { useForm, Controller } from "react-hook-form";
-import { Amplify, API, Auth, Storage } from 'aws-amplify';
+import { Amplify, API, Auth, Storage,graphqlOperation } from 'aws-amplify';
+import {registerOptions} from './registerOptions';
 import * as xhr from 'xmlhttprequest';
 import * as mutations from '../../graphql/mutations'
 const awsConfig = require('../../aws-exports').default;
@@ -35,39 +36,31 @@ function Register(props) {
         fname:"", lname:"",email:"", password:"", confPassword:"", jobtitle:"", company:"",employees:"",industry:"", authCode:"",chkAgreement:"", formType:"signIn"
     };
     const [formState, updateFormState] = useState(initialFormState);
-    const [user, updateUser] = useState(null);
+    const [user, setUser] = useState(null);
     useEffect(()=>{
     checkUser();
     },[])
 
     const { register, handleSubmit, errors, control } = useForm();
-    const handleRegistration = (data) => console.log("This is the users data:"+JSON.stringify(data));
-    const handleError = (errors) => {};
-    const registerOptions = {
-        fname: { required: "First name is required" },
-        lname: { required: "Last name is required" },
-        email: { required: "Email is required" },
-        password: {
-            required: "Password is required",
-            minLength: {
-                value: 8,
-                message: "Password must have at least 8 characters containing atleast 1 uppercase, 1 lowercase, 1 number and 1 special character"
+    const handleError = (errors) => { console.log("Form Errors: "+ errors)};
+    const {formType} = formState;
+    const handleRegistration = (data) =>{ 
+      newxhr.responseType = 'json';
+      newxhr.open("POST", "https://hz42cxnj3bglxg7jzixqltzw3q.appsync-api.eu-west-1.amazonaws.com/graphql", true);
+      newxhr.setRequestHeader("Content-Type", "application/json");
+      newxhr.setRequestHeader('ApiKey',"da2-uby2k7c4vjcuzpf76guyudkjau");
+      newxhr.setRequestHeader("Accept", "application/json");
+      newxhr.onload = function () {
+        console.log('data returned:', newxhr.response);
       }
-
-    },
-    jobtitle:{ required: "Job Title is required"},
-    company:{ required: "Company name is required"},
-    employees: {required: "Number of employees is required"},
-    country: {required: "Country is required"},
-    industry:{required: "Industry is required"}
-    };
+      newxhr.send(JSON.stringify(data)); 
+      console.log("This is the users data:"+JSON.stringify(data))};
     
-   
-    async function checkUser(){
+      async function checkUser(){
         try{
             const user = await Auth.currentAuthenticatedUser();
             console.log("The user is: "+user)
-            updateUser(user);
+            setUser(user);
             const a = await Auth.currentUserInfo();
             console.log("User Info is:"+ a);     
             updateFormState(()=>({...formState, formType: "signedIn"}));
@@ -78,60 +71,24 @@ function Register(props) {
 
 
     let username;
-    let prefered_username;
+   
     function onChange(e){
         e.persist()
         console.log("changing:"+e.target.name);
-    
         updateFormState(()=>({...formState, [e.target.name]: e.target.value}))
     }
-
-    
-    const {formType} = formState;
-
 
 /**SignUp Function */
     async function SignUp(){
          console.log("Signing up")
          try{
-        
-             const {fname,lname, jobtitle, company, employees,industry, country,email, password, confPassword} = formState;
-            prefered_username = fname+lname.charAt(0)+Math.round(Math.random()*1000);
-            username = email;
-            // console.log("The username is: "+username);
+             const {email, password, confPassword} = formState;
+             username = email;
             if(password === confPassword){
-                await Auth.signUp({username, password,attributes: {
-                email
-                
-                }})
-
-newxhr.responseType = 'json';
-newxhr.open("POST", "https://hz42cxnj3bglxg7jzixqltzw3q.appsync-api.eu-west-1.amazonaws.com/graphql");
-newxhr.setRequestHeader("Content-Type", "application/json");
-newxhr.setRequestHeader('ApiKey',"da2-uby2k7c4vjcuzpf76guyudkjau");
-newxhr.setRequestHeader("Accept", "application/json");
-newxhr.onload = function () {
-  console.log('data returned:', newxhr.response);
-}
-newxhr.send(JSON.stringify({
-  query: newusermut,
-  variables: {
-    input: {
-      username:email,
-      fname: fname,
-      lname: lname,
-      jobtitle: jobtitle,
-      company:company,
-      employees: employees,
-      industry:industry,
-      country:country,
-    }
-  }
-})); 
+                await Auth.signUp({username, password,attributes: {email}})
                 updateFormState(()=>({...formState, formType: "verifyMail"}))
                 console.log("SignUp complete")
             }else{
-                
               togglePass();
             }    
         }
@@ -146,10 +103,6 @@ const signupScreen = ()=>{/**SignUp redirect */
 
 
 async function verifyEmail(){/**Verify email Function */
- // const {email, authCode} = formState;
- // username = email;
-//await Auth.confirmSignUp(username,authCode);
-//console.log("The username is: "+username+" and the authcode is "+authCode)
 updateFormState(()=>({...formState, formType: "signIn"}))
 }/**Verify email Function */
 
@@ -266,6 +219,7 @@ async function SignIn(){/**SignIn Function */
             </Card>
     </Col>
     </Row>
+    
     </Container>
     )
 }

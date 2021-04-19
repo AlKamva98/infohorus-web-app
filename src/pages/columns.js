@@ -1,45 +1,51 @@
 export const COLUMNS =[
- {
-      Header: 'Id',
-      accessor: 'id',
-      maxWidth: 70,
-      minWidth: 50,
-      width: 60,
-
- },
- {
-      Header: 'Email',
-      accessor: 'email',
-      maxWidth: 400,
-      minWidth: 140,
-      width: 200,
- },
- {
-      Header: 'Answer',
-      accessor: 'answer',
-      maxWidth: 400,
-      minWidth: 140,
-      width: 200,
- },
- {
-      Header: 'Completed',
-      accessor: 'completed',
-      maxWidth: 400,
-      minWidth: 140,
-      width: 200,
- },
- {
-      Header: 'Questions ID',
-      accessor: 'questionID',
-      maxWidth: 400,
-      minWidth: 140,
-      width: 200,
- },
- {
-      Header: 'Report ID',
-      accessor: 'reportID',
-      maxWidth: 400,
-      minWidth: 140,
-      width: 200,
- },
-]
+      {
+        label: 'ID',
+        field: 'id',
+        sort: 'asc',
+        width: 100
+      },
+      {
+        label: 'Username',
+        field: 'username',
+        sort: 'asc',
+        width: 150,
+        attributes: {
+          'aria-controls': 'Data',
+          'aria-label': 'username',
+        },
+      },
+      {
+        label: 'First Name',
+        field: 'fname',
+        sort: 'asc',
+        width: 200
+      },
+      {
+        label: 'Last Name',
+        field: 'lname',
+        sort: 'asc',
+        width: 200
+      },
+      {
+        label: 'Job Title',
+        field: 'jobtitle',
+        sort: 'asc',
+        width: 100
+      },
+      {
+        label: 'Company',
+        field: 'company',
+        sort: 'asc',
+        width: 100
+      }
+     
+      ,
+      {
+        label: 'Industry',
+        field: 'industry',
+        sort: 'asc',
+        width: 100
+      }
+      
+    ]

@@ -13,10 +13,10 @@ function Header (){
       setClicked(!clicked)
     }
  useEffect(()=>{
-    checkUserSignedIn();
+    handleSignedIn();
     },[])
 
-async function checkUserSignedIn(){
+async function handleSignedIn(){
  const user = await Auth.currentAuthenticatedUser();
   if(user !== undefined){
     setSignedIn(true);
@@ -27,8 +27,8 @@ async function checkUserSignedIn(){
    const signOut=async()=>{
       console.log("Signing out");
       await Auth.signOut();
+      window.location.reload();
       console.log("Signed out");
-      
     }
 
   
@@ -46,9 +46,7 @@ async function checkUserSignedIn(){
                 <Link className={item.cName} to={item.url}>
                 {item.title} 
                 </Link>
-              </li>
-            )
-          })}
+              </li>)})}
         </ul>
         <div className="signin-icon">
           {signedIn ? (<Link to="/"><Button className="mx-4" onClick={signOut}>Sign Out</Button></Link>):(<Link to="/register"><Button className="mx-4">Start My Free Trial</Button></Link>)}
