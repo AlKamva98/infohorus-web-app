@@ -1,14 +1,15 @@
 import React,{useState, useEffect} from 'react';
 import {Container, Row, Image, Col,Card,Form} from 'react-bootstrap';
-import {Label, Input, FormGroup,Button, Modal, ModalBody,ModalFooter,ModalHeader} from 'reactstrap';
+import {Label, Input, FormGroup,Button} from 'reactstrap';
 import Select  from 'react-select';
 import {Redirect} from 'react-router-dom';
 import {selectOptionsCountry, selectEmpOptions, selectOptionsIndustry} from '../../testData/selectOptions.js'
 import { useForm, Controller } from "react-hook-form";
 import { Amplify, API, Auth, Storage,graphqlOperation } from 'aws-amplify';
 import {registerOptions} from './registerOptions';
-import * as xhr from 'xmlhttprequest';
+import nextId from 'react-id-generator';
 import * as mutations from '../../graphql/mutations'
+import { PopUp } from '../Modal.js';
 const awsConfig = require('../../aws-exports').default;
 
 Amplify.register(API)
@@ -24,17 +25,12 @@ function Register(props) {
   } = props;
 
   var newusermut = mutations.createUser;
-  var newxhr = require('xmlhttprequest')
-   newxhr = new XMLHttpRequest();
-  const [modal, setModal] = useState(false);
-  const toggle = () => setModal(!modal);
-
+  
+  const signupFailMsg = "Passwords are different!! Pasword and Confirm Password must be the same";
   const [modalPass, setModalPass] = useState(false);
   const togglePass = () => setModalPass(!modalPass);
-
-    const initialFormState = {
-        fname:"", lname:"",email:"", password:"", confPassword:"", jobtitle:"", company:"",employees:"",industry:"", authCode:"",chkAgreement:"", formType:"signIn"
-    };
+  const initialFormState = {
+        fname:"", lname:"",email:"", password:"", confPassword:"", jobtitle:"", company:"",employees:"",industry:"", authCode:"",chkAgreement:"", formType:"signUp"};
     const [formState, updateFormState] = useState(initialFormState);
     const [user, setUser] = useState(null);
     useEffect(()=>{
@@ -44,22 +40,36 @@ function Register(props) {
     const { register, handleSubmit, errors, control } = useForm();
     const handleError = (errors) => { console.log("Form Errors: "+ errors)};
     const {formType} = formState;
-    const handleRegistration = (data) =>{ 
-      newxhr.responseType = 'json';
-      newxhr.open("POST", "https://hz42cxnj3bglxg7jzixqltzw3q.appsync-api.eu-west-1.amazonaws.com/graphql", true);
-      newxhr.setRequestHeader("Content-Type", "application/json");
-      newxhr.setRequestHeader('ApiKey',"da2-uby2k7c4vjcuzpf76guyudkjau");
-      newxhr.setRequestHeader("Accept", "application/json");
-      newxhr.onload = function () {
-        console.log('data returned:', newxhr.response);
+    const handleRegistration = async (data) =>{ 
+      try{
+        console.log("Sending to the API")
+        await API.graphql(graphqlOperation(
+          newusermut,{
+            input:{
+              
+              email: data.email,
+              first_name: data.fname,
+              last_name: data.lname,
+              job_title: data.jobtitle,
+              company: data.company,
+              employees: data.employees.value,
+              industry: data.industry.value,
+              country: data.country.value,
+            }
+
+        }))
+      console.log("This is the users data:"+JSON.stringify(data))
+      console.log("Data sent to the API")
       }
-      newxhr.send(JSON.stringify(data)); 
-      console.log("This is the users data:"+JSON.stringify(data))};
+      catch(err){
+        console.log("API err:", err )
+      }
+    };
     
       async function checkUser(){
         try{
             const user = await Auth.currentAuthenticatedUser();
-            console.log("The user is: "+user)
+            console.log("The user is: "+user.Credentials.email)
             setUser(user);
             const a = await Auth.currentUserInfo();
             console.log("User Info is:"+ a);     
@@ -93,33 +103,17 @@ function Register(props) {
             }    
         }
         catch(err){
-            console.log("Error:"+JSON.stringify(err));    
+            console.log("Error:"+JSON.stringify(err));  
+            alert(err.message);  
         }
 /**End of SignUp Function */}
 
-const signupScreen = ()=>{/**SignUp redirect */
-     updateFormState(()=>({...formState, formType: "signUp"}))
-}/**End ofSignUp redirect */
 
 
 async function verifyEmail(){/**Verify email Function */
 updateFormState(()=>({...formState, formType: "signIn"}))
 }/**Verify email Function */
 
-async function SignIn(){/**SignIn Function */
-    try{
-        const {email, password} = formState
-        await Auth.signIn(email, password)   
-        const exists =  await Auth.Credentials.get();
-        updateFormState(()=>({...formState, formType: "signedIn"}))
-        console.log("Logged in")
-        }catch(err){
-            toggle();
-            console.log(err);
-            
-        }
-
-}/**End of SignIn Function */
 
  return (<div>
      {formType === "signUp" && (
@@ -172,14 +166,14 @@ async function SignIn(){/**SignIn Function */
             <Label for="confPassword" className="visually-hidden">Confirm Password</Label>
             <Input type="password" name="confPassword" innerRef={register(registerOptions.password)} className="form-control" onChange={onChange} placeholder="Confirm Password" required/>
         </FormGroup>
-          <Modal isOpen={modalPass} toggle={togglePass} className={className}>
-        <ModalHeader toggle={togglePass}>Sign up Failed</ModalHeader>
-        <ModalBody>Passwords are different!! Pasword and Confirm Password must be the same
-        </ModalBody>
-        <ModalFooter>
-          <Button color="primary" onClick={togglePass}>Retry</Button>{' '}
-        </ModalFooter>
-      </Modal>
+          <PopUp isOpen={modalPass} 
+          btnTxtPositive="Retry" 
+          title="Sign up Failed" 
+          body={signupFailMsg} 
+          toggle={togglePass} 
+          className={className}/>
+        
+      
          <FormGroup className="col-12">
          <Label for="company" className="visually-hidden">Company</Label>
          <Input type="text" name="company" innerRef={register(registerOptions.company)} className="form-control" onChange={onChange} placeholder="Company" required/>
@@ -224,40 +218,8 @@ async function SignIn(){/**SignIn Function */
     )
 }
 { formType === 'signIn' && (
-<Container className="container my-auto mx-auto ">
-    <Row>
-      <Col className="col-md-5 mx-auto">
-         <Card className="mt-3 mb-4 bg-light shadow" >
-                <Card.Body>
-        <img className=" d-block mx-auto img-fluid" src="./images/fav-logo.png" alt="Our logo" width="85" height="85"/>
-              <h1 className="text-center lead h3 mb-3 mt-5 fw-normal">Please sign in</h1>
-              <label for="email" className="visually-hidden">Email address</label>
-              <input type="email" name="email" className="form-control" onChange={onChange} placeholder="Email address" required autoFocus/>
-              <label for="password" className="visually-hidden">Password</label>
-              <input type="password" name="password" className="form-control" onChange={onChange} placeholder="Password" required/>
-              <div className="checkbox mb-3">
-                <label>
-                  <input type="checkbox" onChange={onChange} value="remember-me"/> Remember me
-                </label>
-              </div>
-              <Button className="w-100 btn btn-lg btn-primary" onClick={SignIn} type="submit">Sign in</Button>
-              <Modal isOpen={modal} toggle={toggle} className={className}>
-        <ModalHeader toggle={toggle}>Sign in Failed</ModalHeader>
-        <ModalBody>
-          You have filled in an incorrect email or password. Please retry with the correct details. If you dont have an account, create a new account.
-        </ModalBody>
-        <ModalFooter>
-          <Button color="primary" onClick={toggle}>Retry</Button>{' '}
-          <Button color="secondary" onClick={signupScreen}>Sign up</Button>
-        </ModalFooter>
-      </Modal>
-              <p className="mt-5 mb-3 text-muted">Don't have account? Click <p className="btn-link d-none d-md-inline-block pointer" onClick={signupScreen}>here</p> to register.</p>
-              <p className="mt-5 mb-3 text-muted text-center">&copy;2021</p>
-</Card.Body>
-            </Card>
-      </Col>
-    </Row>
-  </Container>
+
+<Redirect to="/signIn" />
 
 )}
 { formType === 'verifyMail' && (
@@ -276,5 +238,13 @@ async function SignIn(){/**SignIn Function */
 </div>
  )
 }
-
+ // newxhr.responseType = 'json';
+      // newxhr.open("POST", "https://hz42cxnj3bglxg7jzixqltzw3q.appsync-api.eu-west-1.amazonaws.com/graphql", true);
+      // newxhr.setRequestHeader("Content-Type", "application/json");
+      // newxhr.setRequestHeader('ApiKey',"da2-uby2k7c4vjcuzpf76guyudkjau");
+      // newxhr.setRequestHeader("Accept", "application/json");
+      // newxhr.onload = function () {
+      //   console.log('data returned:', newxhr.response);
+      // }
+      // newxhr.send(JSON.stringify(data)); 
 export default Register;

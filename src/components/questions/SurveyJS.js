@@ -25,6 +25,8 @@ export function SurveyJS(props) {
 	 }
     }
   var addAns = mutations.createAnswer;
+  var addQuestionnaire = mutations.createQuestionnaire;
+  var qnaireComplete = false;
   Survey
     .StylesManager
     .applyTheme("modern");
@@ -50,17 +52,23 @@ survey.onComplete.add(async function (result) {
  var answers = JSON.stringify(result.data, null, 3) 
  try{
    const user = await Auth.currentCredentials();
+   qnaireComplete= true;
  console.log("Sending to the api...")
 
  await API.graphql(graphqlOperation(
+   addQuestionnaire, {
+     input: {
+       id: questionaireId,
+       questionaireCompleted: qnaireComplete,
+
+     }
+   }
+ ));
+
+ await API.graphql(graphqlOperation(
    addAns, {
-    input: {
-     username:"Stefano", 
-     answers: answers,
-     documents: "https://www.example.com/doc",
-     completed: true,
-     questionID: questionaireId,
-     reportID:"12345",
+    input: { 
+     answer: answers,
     }
   }
 ));    
@@ -83,7 +91,7 @@ console.log(err);
  function getQuestionName(){
    return "qmain2"
  }
- 
+  var page = "The page is: ";
     const [modal, setModal] = useState(false);
   const toggle = () => setModal(!modal);
     return(<>
@@ -98,7 +106,7 @@ console.log(err);
           </FormGroup>
           <FormGroup>
             <label for="message-text" className="col-form-label">Message:</label>
-            <textarea className="form-control" id="message-text">{ } </textarea>
+            <textarea className="form-control" id="message-text">Text Here{page} </textarea>
           </FormGroup>
         </Form>
         </ModalBody>

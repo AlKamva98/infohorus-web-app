@@ -196,7 +196,7 @@ export const SurveyJSON={
        
        "choices": [
         {
-        " value": "Yes",
+         "value": "Yes",
          "text": "Yes"
         },
         {
@@ -1171,7 +1171,9 @@ export const SurveyJSON={
  ],
  "showProgressBar": "top",
  "progressBarType": "questions",
+ "pageNextText": "Save & Continue",
  "completeText": "Save & Submit",
  "previewText": "Review Answers",
+ "editText":"Change Answer",
  "showPreviewBeforeComplete": "showAnsweredQuestions"
 }

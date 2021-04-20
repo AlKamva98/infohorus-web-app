@@ -14,6 +14,7 @@ import '@aws-amplify/ui/dist/style.css';
 import Register from './components/Register/Register.js';
 import {ExpertViewCustList  } from "./pages/ExpertViewCustList";
 import {ExpertViewAssess  } from "./pages/ExpertViewAssess";
+import { SignIn } from './components/Sign-in/Sign-in.js';
 
 
 
@@ -30,6 +31,7 @@ function App(){
         <Route path="/pricing"component={Pricing}/>
         <Route path="/recomendations" exact component={Recomendations}/>
         <Route path="/register"component={Register}/>
+        <Route path="/signIn" component={SignIn}/>
         <Route path="/expertview/custlist" exact component={ExpertViewCustList}/>
         <Route path="/expertview/assess" exact component={ExpertViewAssess}/>
       </Switch>
