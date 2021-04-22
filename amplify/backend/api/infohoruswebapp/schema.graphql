@@ -1,41 +1,28 @@
-type Section @model @auth(rules: [{ allow: public }]) {
+type Section @model @auth(rules: [{allow: public}]) {
   id: ID!
   sectionName: String
   sectionAnswered: Boolean
-  Question: Question @connection
 }
 
-type Answer
-  @model
-  @auth(rules: [{ allow: public }])
-  @key(name: "byQuestion", fields: ["questionID"]) {
+type Answer @model @auth(rules: [{allow: public}]) {
   id: ID!
   answer: String
-  questionID: ID
-  QuestionAns: Question @connection
 }
 
-type Question @model @auth(rules: [{ allow: public }]) {
+type Question @model @auth(rules: [{allow: public}]) {
   id: ID!
   question: String
-  questionType: String
+  questionName: String
   questionNum: String
   questionCategory: String
-  QuestionsQuestionnaire: [QuestionQuestionnaire]
-    @connection(keyName: "byQuestion", fields: ["id"])
-  Answers: [Answer] @connection(keyName: "byQuestion", fields: ["id"])
-  Section: Section @connection
 }
 
-type Questionnaire @model @auth(rules: [{ allow: public }]) {
+type Questionnaire @model @auth(rules: [{allow: public}]) {
   id: ID!
   questionaireCompleted: Boolean
-  UserQuestionnaire: User! @connection
-  questions: [QuestionQuestionnaire]
-    @connection(keyName: "byQuestionnaire", fields: ["id"])
 }
 
-type User @model @auth(rules: [{ allow: public }]) {
+type User @model @auth(rules: [{allow: public}]) @key(name: "emailIndex", fields: ["email"], queryField: "userByemail") {
   id: ID!
   first_name: String
   last_name: String
@@ -46,15 +33,4 @@ type User @model @auth(rules: [{ allow: public }]) {
   industry: String
   country: String
 }
-
-type QuestionQuestionnaire
-  @model(queries: null)
-  @key(name: "byQuestion", fields: ["questionID", "questionnaireID"])
-  @key(name: "byQuestionnaire", fields: ["questionnaireID", "questionID"])
-  @auth(rules: [{ allow: public }, { allow: public }]) {
-  id: ID!
-  questionID: ID!
-  questionnaireID: ID!
-  question: Question! @connection(fields: ["questionID"])
-  questionnaire: Questionnaire! @connection(fields: ["questionnaireID"])
-}
+ 

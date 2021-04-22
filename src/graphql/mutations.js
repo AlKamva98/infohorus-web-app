@@ -18,7 +18,7 @@ export const createSection = /* GraphQL */ `
       Question {
         id
         question
-        questionType
+        questionName
         questionNum
         questionCategory
         _version
@@ -65,7 +65,7 @@ export const updateSection = /* GraphQL */ `
       Question {
         id
         question
-        questionType
+        questionName
         questionNum
         questionCategory
         _version
@@ -112,7 +112,7 @@ export const deleteSection = /* GraphQL */ `
       Question {
         id
         question
-        questionType
+        questionName
         questionNum
         questionCategory
         _version
@@ -159,7 +159,7 @@ export const createAnswer = /* GraphQL */ `
       QuestionAns {
         id
         question
-        questionType
+        questionName
         questionNum
         questionCategory
         _version
@@ -206,7 +206,7 @@ export const updateAnswer = /* GraphQL */ `
       QuestionAns {
         id
         question
-        questionType
+        questionName
         questionNum
         questionCategory
         _version
@@ -253,7 +253,7 @@ export const deleteAnswer = /* GraphQL */ `
       QuestionAns {
         id
         question
-        questionType
+        questionName
         questionNum
         questionCategory
         _version
@@ -291,7 +291,7 @@ export const createQuestion = /* GraphQL */ `
     createQuestion(input: $input, condition: $condition) {
       id
       question
-      questionType
+      questionName
       questionNum
       questionCategory
       _version
@@ -311,7 +311,7 @@ export const createQuestion = /* GraphQL */ `
         Question {
           id
           question
-          questionType
+          questionName
           questionNum
           questionCategory
           _version
@@ -360,7 +360,7 @@ export const updateQuestion = /* GraphQL */ `
     updateQuestion(input: $input, condition: $condition) {
       id
       question
-      questionType
+      questionName
       questionNum
       questionCategory
       _version
@@ -380,7 +380,7 @@ export const updateQuestion = /* GraphQL */ `
         Question {
           id
           question
-          questionType
+          questionName
           questionNum
           questionCategory
           _version
@@ -429,7 +429,7 @@ export const deleteQuestion = /* GraphQL */ `
     deleteQuestion(input: $input, condition: $condition) {
       id
       question
-      questionType
+      questionName
       questionNum
       questionCategory
       _version
@@ -449,7 +449,7 @@ export const deleteQuestion = /* GraphQL */ `
         Question {
           id
           question
-          questionType
+          questionName
           questionNum
           questionCategory
           _version
@@ -714,7 +714,7 @@ export const createQuestionQuestionnaire = /* GraphQL */ `
       question {
         id
         question
-        questionType
+        questionName
         questionNum
         questionCategory
         _version
@@ -790,7 +790,7 @@ export const updateQuestionQuestionnaire = /* GraphQL */ `
       question {
         id
         question
-        questionType
+        questionName
         questionNum
         questionCategory
         _version
@@ -866,7 +866,7 @@ export const deleteQuestionQuestionnaire = /* GraphQL */ `
       question {
         id
         question
-        questionType
+        questionName
         questionNum
         questionCategory
         _version

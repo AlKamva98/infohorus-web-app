@@ -3,6 +3,7 @@ import{Modal, ModalBody, ModalHeader,ModalFooter, Button, Form, FormGroup} from 
 import { API, Auth, graphqlOperation } from 'aws-amplify';
 import {SurveyJSON} from './survey.js'
 import * as mutations from '../../graphql/mutations'
+import * as queries from '../../graphql/queries'
 import * as Survey from 'survey-react';
 
 
@@ -26,6 +27,7 @@ export function SurveyJS(props) {
     }
   var addAns = mutations.createAnswer;
   var addQuestionnaire = mutations.createQuestionnaire;
+  
   var qnaireComplete = false;
   Survey
     .StylesManager
@@ -51,30 +53,41 @@ survey.onComplete.add(async function (result) {
  console.log("Answers are: "+JSON.stringify(result.data, null, 3))  ;
  var answers = JSON.stringify(result.data, null, 3) 
  try{
-   const user = await Auth.currentCredentials();
+   const user = await Auth.currentAuthenticatedUser();
+   var userEmail = user.attributes.email
    qnaireComplete= true;
  console.log("Sending to the api...")
+ console.log("Email..."+userEmail)
 
- await API.graphql(graphqlOperation(
-   addQuestionnaire, {
-     input: {
-       id: questionaireId,
-       questionaireCompleted: qnaireComplete,
+const userData = getUserByEmail();
+const questions = getQuestions();
 
-     }
-   }
- ));
+ console.log(userData)
+console.log(questions)
 
- await API.graphql(graphqlOperation(
-   addAns, {
-    input: { 
-     answer: answers,
-    }
-  }
-));    
+//  await API.graphql(graphqlOperation(
+//    addQuestionnaire, {
+//      input: {
+//        id: questionaireId,
+//        questionaireCompleted: qnaireComplete,
+//        userQuestionnaire: userData,
+//        questions: questions,
+
+//      }
+//    }
+//  ));
+
+//  await API.graphql(graphqlOperation(
+//    addAns, {
+//     input: { 
+//      answer: answers,
+//     }
+//   }
+//))
+    
 console.log("Answer sent to the api!");
  }catch(err){
-console.log(err);
+console.log("This is the Error:"+err);
  }  
 
     });
@@ -88,8 +101,22 @@ console.log(err);
  }
  
  }
- function getQuestionName(){
-   return "qmain2"
+ async function getQuestions(){
+  try{ 
+  var qArr =await API.graphql({query: queries.listQuestions});
+   return qArr;  
+  }catch(err){
+    console.log('Err :>> ', err);
+  }
+ }
+ async function getUserByEmail(){
+   try {
+   var us = await API.graphql(graphqlOperation(queries.getUser, {id:"9fe73673-6dcb-497e-be44-26f74cd3adef"}))
+   return us
+     
+   } catch (err) {
+     console.log('Err :>> ',err);
+   }
  }
   var page = "The page is: ";
     const [modal, setModal] = useState(false);

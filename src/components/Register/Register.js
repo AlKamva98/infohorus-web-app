@@ -41,7 +41,9 @@ function Register(props) {
     const handleError = (errors) => { console.log("Form Errors: "+ errors)};
     const {formType} = formState;
     const handleRegistration = async (data) =>{ 
+      
       try{
+        if(data.password === data.confpassword){
         console.log("Sending to the API")
         await API.graphql(graphqlOperation(
           newusermut,{
@@ -60,11 +62,13 @@ function Register(props) {
         }))
       console.log("This is the users data:"+JSON.stringify(data))
       console.log("Data sent to the API")
-      }
+      }}
       catch(err){
         console.log("API err:", err )
       }
     };
+
+    
     
       async function checkUser(){
         try{

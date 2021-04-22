@@ -302,33 +302,8 @@ export const SurveyJSON={
        "visibleIf": "{followupQ4b} = 'Yes'",
        "title": "What assistance have they already provided?",
        "hideNumber": true
-      },
-      {
-       "type": "radiogroup",
-       "name": "followupQ3a",
-       "visible": false,
-       "visibleIf": "{qmain8} = 'item1'",
-       "title": "Have you already called on cyber security experts/advisors from outside your organizations in response to a cyber attack of any kind?",
-       "hideNumber": true,
-       "choices": [
-        {
-         "value": "Yes",
-         "text": "Yes"
-        },
-        {
-         "value": "No",
-         "text": "No"
-        }
-       ]
-      },
-      {
-       "type": "comment",
-       "name": "question2",
-       "visible": false,
-       "visibleIf": "{qmain8} = 'item1'",
-       "title": "Please describe the attack and how cyber security experts/advisors from outside your organizations offered assistance?",
-       "hideNumber": true
       }
+      
      ],
      "title": "Question 4"
     }
@@ -958,7 +933,7 @@ export const SurveyJSON={
       },
       {
        "type": "file",
-       "name": "question3",
+       "name": "followupQ14c",
        "visible": false,
        "visibleIf": "{followupQ14b} = 'Yes'",
        "title": "Can we see the agreements?",

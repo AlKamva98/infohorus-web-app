@@ -20,7 +20,7 @@ export const listSections = /* GraphQL */ `
         Question {
           id
           question
-          questionType
+          questionName
           questionNum
           questionCategory
           _version
@@ -49,7 +49,7 @@ export const getSection = /* GraphQL */ `
       Question {
         id
         question
-        questionType
+        questionName
         questionNum
         questionCategory
         _version
@@ -104,7 +104,7 @@ export const syncSections = /* GraphQL */ `
         Question {
           id
           question
-          questionType
+          questionName
           questionNum
           questionCategory
           _version
@@ -133,7 +133,7 @@ export const getAnswer = /* GraphQL */ `
       QuestionAns {
         id
         question
-        questionType
+        questionName
         questionNum
         questionCategory
         _version
@@ -182,7 +182,7 @@ export const listAnswers = /* GraphQL */ `
         QuestionAns {
           id
           question
-          questionType
+          questionName
           questionNum
           questionCategory
           _version
@@ -222,7 +222,7 @@ export const syncAnswers = /* GraphQL */ `
         QuestionAns {
           id
           question
-          questionType
+          questionName
           questionNum
           questionCategory
           _version
@@ -247,32 +247,10 @@ export const listQuestions = /* GraphQL */ `
       items {
         id
         question
-        questionType
+        questionName
         questionNum
         questionCategory
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-        Section {
-          id
-          sectionName
-          sectionAnswered
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
-        Answers {
-          nextToken
-          startedAt
-        }
-        QuestionsQuestionnaire {
-          nextToken
-          startedAt
-        }
+        
       }
       nextToken
       startedAt
@@ -284,64 +262,11 @@ export const getQuestion = /* GraphQL */ `
     getQuestion(id: $id) {
       id
       question
-      questionType
+      questionName
       questionNum
       questionCategory
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
-      Section {
-        id
-        sectionName
-        sectionAnswered
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-        Question {
-          id
-          question
-          questionType
-          questionNum
-          questionCategory
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
-      }
-      Answers {
-        items {
-          id
-          answer
-          questionID
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
-        nextToken
-        startedAt
-      }
-      QuestionsQuestionnaire {
-        items {
-          id
-          questionID
-          questionnaireID
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
-        nextToken
-        startedAt
-      }
+      
+     
     }
   }
 `;
@@ -361,32 +286,11 @@ export const syncQuestions = /* GraphQL */ `
       items {
         id
         question
-        questionType
+        questionName
         questionNum
         questionCategory
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-        Section {
-          id
-          sectionName
-          sectionAnswered
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
-        Answers {
-          nextToken
-          startedAt
-        }
-        QuestionsQuestionnaire {
-          nextToken
-          startedAt
-        }
+        
+       
       }
       nextToken
       startedAt
@@ -572,6 +476,27 @@ export const getUser = /* GraphQL */ `
     }
   }
 `;
+export const userByemail = /* GraphQL */ `
+  query UserByemail($email: String) {
+    userByemail(email: $email) {
+        id
+        first_name
+        last_name
+        email
+        job_title
+        company
+        employees
+        industry
+        country
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      
+    }
+  }
+`;
 export const syncUsers = /* GraphQL */ `
   query SyncUsers(
     $filter: ModelUserFilterInput
@@ -631,7 +556,7 @@ export const syncQuestionQuestionnaires = /* GraphQL */ `
         question {
           id
           question
-          questionType
+          questionName
           questionNum
           questionCategory
           _version

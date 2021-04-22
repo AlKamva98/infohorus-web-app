@@ -15,7 +15,7 @@ export const onCreateSection = /* GraphQL */ `
       Question {
         id
         question
-        questionType
+        questionName
         questionNum
         questionCategory
         _version
@@ -59,7 +59,7 @@ export const onUpdateSection = /* GraphQL */ `
       Question {
         id
         question
-        questionType
+        questionName
         questionNum
         questionCategory
         _version
@@ -103,7 +103,7 @@ export const onDeleteSection = /* GraphQL */ `
       Question {
         id
         question
-        questionType
+        questionName
         questionNum
         questionCategory
         _version
@@ -147,7 +147,7 @@ export const onCreateAnswer = /* GraphQL */ `
       QuestionAns {
         id
         question
-        questionType
+        questionName
         questionNum
         questionCategory
         _version
@@ -191,7 +191,7 @@ export const onUpdateAnswer = /* GraphQL */ `
       QuestionAns {
         id
         question
-        questionType
+        questionName
         questionNum
         questionCategory
         _version
@@ -235,7 +235,7 @@ export const onDeleteAnswer = /* GraphQL */ `
       QuestionAns {
         id
         question
-        questionType
+        questionName
         questionNum
         questionCategory
         _version
@@ -270,7 +270,7 @@ export const onCreateQuestion = /* GraphQL */ `
     onCreateQuestion {
       id
       question
-      questionType
+      questionName
       questionNum
       questionCategory
       _version
@@ -290,7 +290,7 @@ export const onCreateQuestion = /* GraphQL */ `
         Question {
           id
           question
-          questionType
+          questionName
           questionNum
           questionCategory
           _version
@@ -336,7 +336,7 @@ export const onUpdateQuestion = /* GraphQL */ `
     onUpdateQuestion {
       id
       question
-      questionType
+      questionName
       questionNum
       questionCategory
       _version
@@ -356,7 +356,7 @@ export const onUpdateQuestion = /* GraphQL */ `
         Question {
           id
           question
-          questionType
+          questionName
           questionNum
           questionCategory
           _version
@@ -402,7 +402,7 @@ export const onDeleteQuestion = /* GraphQL */ `
     onDeleteQuestion {
       id
       question
-      questionType
+      questionName
       questionNum
       questionCategory
       _version
@@ -422,7 +422,7 @@ export const onDeleteQuestion = /* GraphQL */ `
         Question {
           id
           question
-          questionType
+          questionName
           questionNum
           questionCategory
           _version
@@ -666,7 +666,7 @@ export const onCreateQuestionQuestionnaire = /* GraphQL */ `
       question {
         id
         question
-        questionType
+        questionName
         questionNum
         questionCategory
         _version
@@ -739,7 +739,7 @@ export const onUpdateQuestionQuestionnaire = /* GraphQL */ `
       question {
         id
         question
-        questionType
+        questionName
         questionNum
         questionCategory
         _version
@@ -812,7 +812,7 @@ export const onDeleteQuestionQuestionnaire = /* GraphQL */ `
       question {
         id
         question
-        questionType
+        questionName
         questionNum
         questionCategory
         _version
