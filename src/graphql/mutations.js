@@ -150,42 +150,12 @@ export const createAnswer = /* GraphQL */ `
     createAnswer(input: $input, condition: $condition) {
       id
       answer
-      questionID
       _version
       _deleted
       _lastChangedAt
       createdAt
       updatedAt
-      QuestionAns {
-        id
-        question
-        questionName
-        questionNum
-        questionCategory
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-        Section {
-          id
-          sectionName
-          sectionAnswered
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
-        Answers {
-          nextToken
-          startedAt
-        }
-        QuestionsQuestionnaire {
-          nextToken
-          startedAt
-        }
-      }
+     
     }
   }
 `;
@@ -201,38 +171,8 @@ export const updateAnswer = /* GraphQL */ `
       _version
       _deleted
       _lastChangedAt
-      createdAt
       updatedAt
-      QuestionAns {
-        id
-        question
-        questionName
-        questionNum
-        questionCategory
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-        Section {
-          id
-          sectionName
-          sectionAnswered
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
-        Answers {
-          nextToken
-          startedAt
-        }
-        QuestionsQuestionnaire {
-          nextToken
-          startedAt
-        }
-      }
+     
     }
   }
 `;
@@ -250,36 +190,7 @@ export const deleteAnswer = /* GraphQL */ `
       _lastChangedAt
       createdAt
       updatedAt
-      QuestionAns {
-        id
-        question
-        questionName
-        questionNum
-        questionCategory
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-        Section {
-          id
-          sectionName
-          sectionAnswered
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
-        Answers {
-          nextToken
-          startedAt
-        }
-        QuestionsQuestionnaire {
-          nextToken
-          startedAt
-        }
-      }
+     
     }
   }
 `;
@@ -503,36 +414,7 @@ export const createQuestionnaire = /* GraphQL */ `
       _lastChangedAt
       createdAt
       updatedAt
-      UserQuestionnaire {
-        id
-        first_name
-        last_name
-        email
-        job_title
-        company
-        employees
-        industry
-        country
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-      }
-      questions {
-        items {
-          id
-          questionID
-          questionnaireID
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
-        nextToken
-        startedAt
-      }
+      
     }
   }
 `;
@@ -547,38 +429,8 @@ export const updateQuestionnaire = /* GraphQL */ `
       _version
       _deleted
       _lastChangedAt
-      createdAt
       updatedAt
-      UserQuestionnaire {
-        id
-        first_name
-        last_name
-        email
-        job_title
-        company
-        employees
-        industry
-        country
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-      }
-      questions {
-        items {
-          id
-          questionID
-          questionnaireID
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
-        nextToken
-        startedAt
-      }
+      
     }
   }
 `;

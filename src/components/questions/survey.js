@@ -1,3 +1,15 @@
+export const surveyCss = {
+    "navigationButton": "btn btn-green",
+    "navigation": {
+      "complete": "btn sv_complete_btn btn-primary float-right",
+      "prev": "btn sv_prev_btn btn-outline-secondary",
+      "next": "btn sv_next_btn btn-primary float-right",
+      "start": "btn sv_start_btn btn-primary",
+      "preview": "btn sv_preview_btn btn-primary float-right",
+      "edit": "btn sv_edit_btn btn-primary "
+    }
+  }
+
 export const SurveyJSON={
  "pages": [
   {
@@ -1152,3 +1164,4 @@ export const SurveyJSON={
  "editText":"Change Answer",
  "showPreviewBeforeComplete": "showAnsweredQuestions"
 }
+

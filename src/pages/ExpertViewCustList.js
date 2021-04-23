@@ -3,11 +3,20 @@ import { MDBDataTableV5 } from 'mdbreact';
 import {Link} from 'react-router-dom'
 import {COLUMNS} from "./columns.js";
 import {Button, Container} from 'react-bootstrap'
-import {MOCK_DATA as DATA } from "./MOCK_DATA.js";
+import * as queries from '../graphql/queries'
+//import {MOCK_DATA as DATA } from "./MOCK_DATA.js";
 import "./table.css"
+import API from '@aws-amplify/api';
 
 export const ExpertViewCustList = () => {
-
+  async function listUsers(){
+    try{
+      return await API.graphql({query: queries.listUsers});
+    }catch(err){
+      console.log("Error:>> ",err);
+    }
+  }
+  var DATA = listUsers();
 var data = {
     columns: COLUMNS,
     rows: DATA
