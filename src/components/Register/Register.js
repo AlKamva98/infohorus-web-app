@@ -43,12 +43,12 @@ function Register(props) {
     const handleRegistration = async (data) =>{ 
       
       try{
-        if(data.password === data.confpassword){
+        
         console.log("Sending to the API")
         await API.graphql(graphqlOperation(
           newusermut,{
             input:{
-              
+            
               email: data.email,
               first_name: data.fname,
               last_name: data.lname,
@@ -62,7 +62,7 @@ function Register(props) {
         }))
       console.log("This is the users data:"+JSON.stringify(data))
       console.log("Data sent to the API")
-      }}
+      }
       catch(err){
         console.log("API err:", err )
       }

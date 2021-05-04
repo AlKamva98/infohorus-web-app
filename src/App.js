@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState} from 'react';
 import {Home} from './pages/EndUser/Home.js'
 import {About} from './pages/EndUser/About.js'
 import Contact from './pages/EndUser/Contact.js'
@@ -7,7 +7,7 @@ import {Pricing} from './pages/EndUser/Pricing.js'
 import {Recomendations} from './pages/EndUser/Recomendations.js'
 import './App.css';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
-import Amplify from 'aws-amplify';
+import Amplify,{Auth} from 'aws-amplify';
 //import aws_exports from './aws-exports';
 import { Questions } from './pages/EndUser/Questions.js';
 import '@aws-amplify/ui/dist/style.css';
@@ -19,19 +19,34 @@ import { SignIn } from './components/Sign-in/Sign-in.js';
 
 
 function App(){
+  const [user, setUser] = useState();
+
+  //  async function checkUser(){
+  //       try{
+  //           const userAuth = await Auth.currentAuthenticatedUser();
+  //           console.log("The user is: "+userAuth.Credentials)
+  //           setUser(userAuth);
+  //           const a = await Auth.currentUserInfo();
+  //           console.log("User Info is:"+ a);     
+  //           updateFormState(()=>({...formState, formType: "signedIn"}));
+  //       }catch(err){
+  //        console.log("user Error:" +err);
+  //        //signinFailMsg = err;
+  //       }
+  //   }
     return (
       <>
       <Router>
       <div className="App">
       <Switch>
         <Route path="/" exact component={Home}/>
-        <Route path="/questions" exact component ={Questions}/>
         <Route path="/about" component={About} />
         <Route path="/contact"component={Contact}/>
         <Route path="/pricing"component={Pricing}/>
-        <Route path="/recomendations" exact component={Recomendations}/>
         <Route path="/register"component={Register}/>
+        <Route path="/questions" exact component ={Questions}/>
         <Route path="/signIn" component={SignIn}/>
+        <Route path="/recomendations" exact component={Recomendations}/>
         <Route path="/expertview/custlist" exact component={ExpertViewCustList}/>
         <Route path="/expertview/assess" exact component={ExpertViewAssess}/>
       </Switch>

@@ -7,7 +7,7 @@ export const COLUMNS =[
       },
       {
         label: 'Username',
-        field: 'username',
+        field: 'email',
         sort: 'asc',
         width: 150,
         attributes: {
@@ -17,19 +17,19 @@ export const COLUMNS =[
       },
       {
         label: 'First Name',
-        field: 'fname',
+        field: 'first_name',
         sort: 'asc',
         width: 200
       },
       {
         label: 'Last Name',
-        field: 'lname',
+        field: 'last_name',
         sort: 'asc',
         width: 200
       },
       {
         label: 'Job Title',
-        field: 'jobtitle',
+        field: 'job_title',
         sort: 'asc',
         width: 100
       },

@@ -1,43 +1,449 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const onCreateSection = /* GraphQL */ `
-  subscription OnCreateSection {
-    onCreateSection {
+export const onCreateQuestionSection = /* GraphQL */ `
+  subscription OnCreateQuestionSection {
+    onCreateQuestionSection {
       id
-      sectionName
-      sectionAnswered
+      questionId
+      sectionId
       _version
       _deleted
       _lastChangedAt
       createdAt
       updatedAt
-      Question {
-        id
-        question
-        questionName
-        questionNum
-        questionCategory
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-        Section {
+      Sections {
+        items {
           id
           sectionName
           sectionAnswered
+          questionsectionID
           _version
           _deleted
           _lastChangedAt
           createdAt
           updatedAt
         }
-        Answers {
+        nextToken
+        startedAt
+      }
+      Questions {
+        items {
+          id
+          question
+          questionName
+          questionnairequestionID
+          questionsectionID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        nextToken
+        startedAt
+      }
+    }
+  }
+`;
+export const onUpdateQuestionSection = /* GraphQL */ `
+  subscription OnUpdateQuestionSection {
+    onUpdateQuestionSection {
+      id
+      questionId
+      sectionId
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      Sections {
+        items {
+          id
+          sectionName
+          sectionAnswered
+          questionsectionID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        nextToken
+        startedAt
+      }
+      Questions {
+        items {
+          id
+          question
+          questionName
+          questionnairequestionID
+          questionsectionID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        nextToken
+        startedAt
+      }
+    }
+  }
+`;
+export const onDeleteQuestionSection = /* GraphQL */ `
+  subscription OnDeleteQuestionSection {
+    onDeleteQuestionSection {
+      id
+      questionId
+      sectionId
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      Sections {
+        items {
+          id
+          sectionName
+          sectionAnswered
+          questionsectionID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        nextToken
+        startedAt
+      }
+      Questions {
+        items {
+          id
+          question
+          questionName
+          questionnairequestionID
+          questionsectionID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        nextToken
+        startedAt
+      }
+    }
+  }
+`;
+export const onCreateAnswerQuestion = /* GraphQL */ `
+  subscription OnCreateAnswerQuestion {
+    onCreateAnswerQuestion {
+      id
+      questionID
+      answerId
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      Answers {
+        items {
+          id
+          answer
+          answerquestionID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        nextToken
+        startedAt
+      }
+      Question {
+        id
+        question
+        questionName
+        questionnairequestionID
+        questionsectionID
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        QuestionSection {
+          id
+          questionId
+          sectionId
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        AnswerQuestions {
           nextToken
           startedAt
         }
-        QuestionsQuestionnaire {
+        QuestionnaireQuestion {
+          id
+          questionnaireId
+          questionId
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+      }
+    }
+  }
+`;
+export const onUpdateAnswerQuestion = /* GraphQL */ `
+  subscription OnUpdateAnswerQuestion {
+    onUpdateAnswerQuestion {
+      id
+      questionID
+      answerId
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      Answers {
+        items {
+          id
+          answer
+          answerquestionID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        nextToken
+        startedAt
+      }
+      Question {
+        id
+        question
+        questionName
+        questionnairequestionID
+        questionsectionID
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        QuestionSection {
+          id
+          questionId
+          sectionId
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        AnswerQuestions {
+          nextToken
+          startedAt
+        }
+        QuestionnaireQuestion {
+          id
+          questionnaireId
+          questionId
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+      }
+    }
+  }
+`;
+export const onDeleteAnswerQuestion = /* GraphQL */ `
+  subscription OnDeleteAnswerQuestion {
+    onDeleteAnswerQuestion {
+      id
+      questionID
+      answerId
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      Answers {
+        items {
+          id
+          answer
+          answerquestionID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        nextToken
+        startedAt
+      }
+      Question {
+        id
+        question
+        questionName
+        questionnairequestionID
+        questionsectionID
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        QuestionSection {
+          id
+          questionId
+          sectionId
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        AnswerQuestions {
+          nextToken
+          startedAt
+        }
+        QuestionnaireQuestion {
+          id
+          questionnaireId
+          questionId
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+      }
+    }
+  }
+`;
+export const onCreateQuestionnaireQuestion = /* GraphQL */ `
+  subscription OnCreateQuestionnaireQuestion {
+    onCreateQuestionnaireQuestion {
+      id
+      questionnaireId
+      questionId
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      Questions {
+        items {
+          id
+          question
+          questionName
+          questionnairequestionID
+          questionsectionID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        nextToken
+        startedAt
+      }
+    }
+  }
+`;
+export const onUpdateQuestionnaireQuestion = /* GraphQL */ `
+  subscription OnUpdateQuestionnaireQuestion {
+    onUpdateQuestionnaireQuestion {
+      id
+      questionnaireId
+      questionId
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      Questions {
+        items {
+          id
+          question
+          questionName
+          questionnairequestionID
+          questionsectionID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        nextToken
+        startedAt
+      }
+    }
+  }
+`;
+export const onDeleteQuestionnaireQuestion = /* GraphQL */ `
+  subscription OnDeleteQuestionnaireQuestion {
+    onDeleteQuestionnaireQuestion {
+      id
+      questionnaireId
+      questionId
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      Questions {
+        items {
+          id
+          question
+          questionName
+          questionnairequestionID
+          questionsectionID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        nextToken
+        startedAt
+      }
+    }
+  }
+`;
+export const onCreateSection = /* GraphQL */ `
+  subscription OnCreateSection {
+    onCreateSection {
+      id
+      sectionName
+      sectionAnswered
+      questionsectionID
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      QuestionSection {
+        id
+        questionId
+        sectionId
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        Sections {
+          nextToken
+          startedAt
+        }
+        Questions {
           nextToken
           startedAt
         }
@@ -51,37 +457,26 @@ export const onUpdateSection = /* GraphQL */ `
       id
       sectionName
       sectionAnswered
+      questionsectionID
       _version
       _deleted
       _lastChangedAt
       createdAt
       updatedAt
-      Question {
+      QuestionSection {
         id
-        question
-        questionName
-        questionNum
-        questionCategory
+        questionId
+        sectionId
         _version
         _deleted
         _lastChangedAt
         createdAt
         updatedAt
-        Section {
-          id
-          sectionName
-          sectionAnswered
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
-        Answers {
+        Sections {
           nextToken
           startedAt
         }
-        QuestionsQuestionnaire {
+        Questions {
           nextToken
           startedAt
         }
@@ -95,37 +490,26 @@ export const onDeleteSection = /* GraphQL */ `
       id
       sectionName
       sectionAnswered
+      questionsectionID
       _version
       _deleted
       _lastChangedAt
       createdAt
       updatedAt
-      Question {
+      QuestionSection {
         id
-        question
-        questionName
-        questionNum
-        questionCategory
+        questionId
+        sectionId
         _version
         _deleted
         _lastChangedAt
         createdAt
         updatedAt
-        Section {
-          id
-          sectionName
-          sectionAnswered
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
-        Answers {
+        Sections {
           nextToken
           startedAt
         }
-        QuestionsQuestionnaire {
+        Questions {
           nextToken
           startedAt
         }
@@ -138,40 +522,36 @@ export const onCreateAnswer = /* GraphQL */ `
     onCreateAnswer {
       id
       answer
-      questionID
+      answerquestionID
       _version
       _deleted
       _lastChangedAt
       createdAt
       updatedAt
-      QuestionAns {
+      AnswerQuestion {
         id
-        question
-        questionName
-        questionNum
-        questionCategory
+        questionID
+        answerId
         _version
         _deleted
         _lastChangedAt
         createdAt
         updatedAt
-        Section {
+        Answers {
+          nextToken
+          startedAt
+        }
+        Question {
           id
-          sectionName
-          sectionAnswered
+          question
+          questionName
+          questionnairequestionID
+          questionsectionID
           _version
           _deleted
           _lastChangedAt
           createdAt
           updatedAt
-        }
-        Answers {
-          nextToken
-          startedAt
-        }
-        QuestionsQuestionnaire {
-          nextToken
-          startedAt
         }
       }
     }
@@ -182,40 +562,36 @@ export const onUpdateAnswer = /* GraphQL */ `
     onUpdateAnswer {
       id
       answer
-      questionID
+      answerquestionID
       _version
       _deleted
       _lastChangedAt
       createdAt
       updatedAt
-      QuestionAns {
+      AnswerQuestion {
         id
-        question
-        questionName
-        questionNum
-        questionCategory
+        questionID
+        answerId
         _version
         _deleted
         _lastChangedAt
         createdAt
         updatedAt
-        Section {
+        Answers {
+          nextToken
+          startedAt
+        }
+        Question {
           id
-          sectionName
-          sectionAnswered
+          question
+          questionName
+          questionnairequestionID
+          questionsectionID
           _version
           _deleted
           _lastChangedAt
           createdAt
           updatedAt
-        }
-        Answers {
-          nextToken
-          startedAt
-        }
-        QuestionsQuestionnaire {
-          nextToken
-          startedAt
         }
       }
     }
@@ -226,40 +602,36 @@ export const onDeleteAnswer = /* GraphQL */ `
     onDeleteAnswer {
       id
       answer
-      questionID
+      answerquestionID
       _version
       _deleted
       _lastChangedAt
       createdAt
       updatedAt
-      QuestionAns {
+      AnswerQuestion {
         id
-        question
-        questionName
-        questionNum
-        questionCategory
+        questionID
+        answerId
         _version
         _deleted
         _lastChangedAt
         createdAt
         updatedAt
-        Section {
+        Answers {
+          nextToken
+          startedAt
+        }
+        Question {
           id
-          sectionName
-          sectionAnswered
+          question
+          questionName
+          questionnairequestionID
+          questionsectionID
           _version
           _deleted
           _lastChangedAt
           createdAt
           updatedAt
-        }
-        Answers {
-          nextToken
-          startedAt
-        }
-        QuestionsQuestionnaire {
-          nextToken
-          startedAt
         }
       }
     }
@@ -271,40 +643,36 @@ export const onCreateQuestion = /* GraphQL */ `
       id
       question
       questionName
-      questionNum
-      questionCategory
+      questionnairequestionID
+      questionsectionID
       _version
       _deleted
       _lastChangedAt
       createdAt
       updatedAt
-      Section {
+      QuestionSection {
         id
-        sectionName
-        sectionAnswered
+        questionId
+        sectionId
         _version
         _deleted
         _lastChangedAt
         createdAt
         updatedAt
-        Question {
-          id
-          question
-          questionName
-          questionNum
-          questionCategory
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
+        Sections {
+          nextToken
+          startedAt
+        }
+        Questions {
+          nextToken
+          startedAt
         }
       }
-      Answers {
+      AnswerQuestions {
         items {
           id
-          answer
           questionID
+          answerId
           _version
           _deleted
           _lastChangedAt
@@ -314,19 +682,19 @@ export const onCreateQuestion = /* GraphQL */ `
         nextToken
         startedAt
       }
-      QuestionsQuestionnaire {
-        items {
-          id
-          questionID
-          questionnaireID
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
+      QuestionnaireQuestion {
+        id
+        questionnaireId
+        questionId
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        Questions {
+          nextToken
+          startedAt
         }
-        nextToken
-        startedAt
       }
     }
   }
@@ -337,40 +705,36 @@ export const onUpdateQuestion = /* GraphQL */ `
       id
       question
       questionName
-      questionNum
-      questionCategory
+      questionnairequestionID
+      questionsectionID
       _version
       _deleted
       _lastChangedAt
       createdAt
       updatedAt
-      Section {
+      QuestionSection {
         id
-        sectionName
-        sectionAnswered
+        questionId
+        sectionId
         _version
         _deleted
         _lastChangedAt
         createdAt
         updatedAt
-        Question {
-          id
-          question
-          questionName
-          questionNum
-          questionCategory
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
+        Sections {
+          nextToken
+          startedAt
+        }
+        Questions {
+          nextToken
+          startedAt
         }
       }
-      Answers {
+      AnswerQuestions {
         items {
           id
-          answer
           questionID
+          answerId
           _version
           _deleted
           _lastChangedAt
@@ -380,19 +744,19 @@ export const onUpdateQuestion = /* GraphQL */ `
         nextToken
         startedAt
       }
-      QuestionsQuestionnaire {
-        items {
-          id
-          questionID
-          questionnaireID
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
+      QuestionnaireQuestion {
+        id
+        questionnaireId
+        questionId
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        Questions {
+          nextToken
+          startedAt
         }
-        nextToken
-        startedAt
       }
     }
   }
@@ -403,40 +767,36 @@ export const onDeleteQuestion = /* GraphQL */ `
       id
       question
       questionName
-      questionNum
-      questionCategory
+      questionnairequestionID
+      questionsectionID
       _version
       _deleted
       _lastChangedAt
       createdAt
       updatedAt
-      Section {
+      QuestionSection {
         id
-        sectionName
-        sectionAnswered
+        questionId
+        sectionId
         _version
         _deleted
         _lastChangedAt
         createdAt
         updatedAt
-        Question {
-          id
-          question
-          questionName
-          questionNum
-          questionCategory
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
+        Sections {
+          nextToken
+          startedAt
+        }
+        Questions {
+          nextToken
+          startedAt
         }
       }
-      Answers {
+      AnswerQuestions {
         items {
           id
-          answer
           questionID
+          answerId
           _version
           _deleted
           _lastChangedAt
@@ -446,19 +806,19 @@ export const onDeleteQuestion = /* GraphQL */ `
         nextToken
         startedAt
       }
-      QuestionsQuestionnaire {
-        items {
-          id
-          questionID
-          questionnaireID
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
+      QuestionnaireQuestion {
+        id
+        questionnaireId
+        questionId
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        Questions {
+          nextToken
+          startedAt
         }
-        nextToken
-        startedAt
       }
     }
   }
@@ -468,12 +828,28 @@ export const onCreateQuestionnaire = /* GraphQL */ `
     onCreateQuestionnaire {
       id
       questionaireCompleted
+      questionnaireQuestionId
+      userId
       _version
       _deleted
       _lastChangedAt
       createdAt
       updatedAt
-      UserQuestionnaire {
+      QuestionnaireQuestion {
+        id
+        questionnaireId
+        questionId
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        Questions {
+          nextToken
+          startedAt
+        }
+      }
+      User {
         id
         first_name
         last_name
@@ -488,20 +864,17 @@ export const onCreateQuestionnaire = /* GraphQL */ `
         _lastChangedAt
         createdAt
         updatedAt
-      }
-      questions {
-        items {
+        Questionnaire {
           id
-          questionID
-          questionnaireID
+          questionaireCompleted
+          questionnaireQuestionId
+          userId
           _version
           _deleted
           _lastChangedAt
           createdAt
           updatedAt
         }
-        nextToken
-        startedAt
       }
     }
   }
@@ -511,12 +884,28 @@ export const onUpdateQuestionnaire = /* GraphQL */ `
     onUpdateQuestionnaire {
       id
       questionaireCompleted
+      questionnaireQuestionId
+      userId
       _version
       _deleted
       _lastChangedAt
       createdAt
       updatedAt
-      UserQuestionnaire {
+      QuestionnaireQuestion {
+        id
+        questionnaireId
+        questionId
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        Questions {
+          nextToken
+          startedAt
+        }
+      }
+      User {
         id
         first_name
         last_name
@@ -531,20 +920,17 @@ export const onUpdateQuestionnaire = /* GraphQL */ `
         _lastChangedAt
         createdAt
         updatedAt
-      }
-      questions {
-        items {
+        Questionnaire {
           id
-          questionID
-          questionnaireID
+          questionaireCompleted
+          questionnaireQuestionId
+          userId
           _version
           _deleted
           _lastChangedAt
           createdAt
           updatedAt
         }
-        nextToken
-        startedAt
       }
     }
   }
@@ -554,12 +940,28 @@ export const onDeleteQuestionnaire = /* GraphQL */ `
     onDeleteQuestionnaire {
       id
       questionaireCompleted
+      questionnaireQuestionId
+      userId
       _version
       _deleted
       _lastChangedAt
       createdAt
       updatedAt
-      UserQuestionnaire {
+      QuestionnaireQuestion {
+        id
+        questionnaireId
+        questionId
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        Questions {
+          nextToken
+          startedAt
+        }
+      }
+      User {
         id
         first_name
         last_name
@@ -574,20 +976,17 @@ export const onDeleteQuestionnaire = /* GraphQL */ `
         _lastChangedAt
         createdAt
         updatedAt
-      }
-      questions {
-        items {
+        Questionnaire {
           id
-          questionID
-          questionnaireID
+          questionaireCompleted
+          questionnaireQuestionId
+          userId
           _version
           _deleted
           _lastChangedAt
           createdAt
           updatedAt
         }
-        nextToken
-        startedAt
       }
     }
   }
@@ -609,6 +1008,43 @@ export const onCreateUser = /* GraphQL */ `
       _lastChangedAt
       createdAt
       updatedAt
+      Questionnaire {
+        id
+        questionaireCompleted
+        questionnaireQuestionId
+        userId
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        QuestionnaireQuestion {
+          id
+          questionnaireId
+          questionId
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        User {
+          id
+          first_name
+          last_name
+          email
+          job_title
+          company
+          employees
+          industry
+          country
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+      }
     }
   }
 `;
@@ -629,6 +1065,43 @@ export const onUpdateUser = /* GraphQL */ `
       _lastChangedAt
       createdAt
       updatedAt
+      Questionnaire {
+        id
+        questionaireCompleted
+        questionnaireQuestionId
+        userId
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        QuestionnaireQuestion {
+          id
+          questionnaireId
+          questionId
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        User {
+          id
+          first_name
+          last_name
+          email
+          job_title
+          company
+          employees
+          industry
+          country
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+      }
     }
   }
 `;
@@ -649,59 +1122,27 @@ export const onDeleteUser = /* GraphQL */ `
       _lastChangedAt
       createdAt
       updatedAt
-    }
-  }
-`;
-export const onCreateQuestionQuestionnaire = /* GraphQL */ `
-  subscription OnCreateQuestionQuestionnaire {
-    onCreateQuestionQuestionnaire {
-      id
-      questionID
-      questionnaireID
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
-      question {
+      Questionnaire {
         id
-        question
-        questionName
-        questionNum
-        questionCategory
+        questionaireCompleted
+        questionnaireQuestionId
+        userId
         _version
         _deleted
         _lastChangedAt
         createdAt
         updatedAt
-        Section {
+        QuestionnaireQuestion {
           id
-          sectionName
-          sectionAnswered
+          questionnaireId
+          questionId
           _version
           _deleted
           _lastChangedAt
           createdAt
           updatedAt
         }
-        Answers {
-          nextToken
-          startedAt
-        }
-        QuestionsQuestionnaire {
-          nextToken
-          startedAt
-        }
-      }
-      questionnaire {
-        id
-        questionaireCompleted
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-        UserQuestionnaire {
+        User {
           id
           first_name
           last_name
@@ -716,156 +1157,6 @@ export const onCreateQuestionQuestionnaire = /* GraphQL */ `
           _lastChangedAt
           createdAt
           updatedAt
-        }
-        questions {
-          nextToken
-          startedAt
-        }
-      }
-    }
-  }
-`;
-export const onUpdateQuestionQuestionnaire = /* GraphQL */ `
-  subscription OnUpdateQuestionQuestionnaire {
-    onUpdateQuestionQuestionnaire {
-      id
-      questionID
-      questionnaireID
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
-      question {
-        id
-        question
-        questionName
-        questionNum
-        questionCategory
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-        Section {
-          id
-          sectionName
-          sectionAnswered
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
-        Answers {
-          nextToken
-          startedAt
-        }
-        QuestionsQuestionnaire {
-          nextToken
-          startedAt
-        }
-      }
-      questionnaire {
-        id
-        questionaireCompleted
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-        UserQuestionnaire {
-          id
-          first_name
-          last_name
-          email
-          job_title
-          company
-          employees
-          industry
-          country
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
-        questions {
-          nextToken
-          startedAt
-        }
-      }
-    }
-  }
-`;
-export const onDeleteQuestionQuestionnaire = /* GraphQL */ `
-  subscription OnDeleteQuestionQuestionnaire {
-    onDeleteQuestionQuestionnaire {
-      id
-      questionID
-      questionnaireID
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
-      question {
-        id
-        question
-        questionName
-        questionNum
-        questionCategory
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-        Section {
-          id
-          sectionName
-          sectionAnswered
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
-        Answers {
-          nextToken
-          startedAt
-        }
-        QuestionsQuestionnaire {
-          nextToken
-          startedAt
-        }
-      }
-      questionnaire {
-        id
-        questionaireCompleted
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-        UserQuestionnaire {
-          id
-          first_name
-          last_name
-          email
-          job_title
-          company
-          employees
-          industry
-          country
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
-        questions {
-          nextToken
-          startedAt
         }
       }
     }

@@ -17,7 +17,7 @@ export const selectOptionsCountry = [
      { value: "Pakistan", label: "Pakistan" },
      { value: "Qatar", label: "Qatar" },
      { value: "Russia", label: "Russia" },
-     { value: "Qatar", label: "South Africa" },
+     { value: "South Africa", label: "South Africa" },
      { value: "Tunisia", label: "Tunisia" },
      { value: "Uganda", label: "Uganda" },
      { value: "Venenzuela", label: "Venenzuela" },
@@ -35,8 +35,8 @@ export const selectEmpOptions = [
       ];
 export const selectOptionsIndustry = [
      { value:"Mining", label: "Mining"},
-     { value:"11-20 employees", label: "11-20 employees"},
-     { value:"21-99 employees", label: "21-99 employees"},
-     { value:"100-199 employees", label: "100-199 employees"},
-     { value:"200-499 employees", label: "200-499 employees"}
+     { value:"Water sanitation", label: "Water sanitation"},
+     { value:"Power and Energy", label: "Power and Energy"},
+     { value:"Agriculture", label: "Agriculture"},
+     { value:"Government", label: "Government"}
       ];

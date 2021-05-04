@@ -13,6 +13,23 @@ export const surveyCss = {
 export const SurveyJSON={
  "pages": [
   {
+   "name": "Start Page",
+   "elements": [
+    {
+     "type": "panel",
+     "name": "panelQ1",
+     "elements": [
+
+     ],
+     "title": "Start page"
+    }
+   ],
+   "questionTitleLocation": "top",
+   "title": "Responsibilities and Contributions",
+   "navigationButtonsVisibility": "show",
+   "questionsOrder": "initial"
+  },
+  {
    "name": "Quest1",
    "elements": [
     {
@@ -104,10 +121,8 @@ export const SurveyJSON={
      "title": "Question 1"
     }
    ],
-   "questionTitleLocation": "top",
    "title": "Responsibilities and Contributions",
-   "navigationButtonsVisibility": "show",
-   "questionsOrder": "initial"
+  
   },
   {
    "name": "Quest2",
@@ -337,11 +352,11 @@ export const SurveyJSON={
        
        "choices": [
         {
-         "value": "item1",
+         "value": "Yes",
          "text": "Yes"
         },
         {
-         "value": "item2",
+         "value": "No",
          "text": "No"
         }
        ]
@@ -350,7 +365,7 @@ export const SurveyJSON={
       " type": "comment",
        "name": "followupQ5a",
        "visible": false,
-       "visibleIf": "{qmain5} = 'item1'",
+       "visibleIf": "{qmain5} = 'yes'",
        "title": "What organizations?",
        "hideNumber": true
       },
@@ -358,7 +373,7 @@ export const SurveyJSON={
        "type": "comment",
        "name": "followupQ5b",
        "visible": false,
-       "visibleIf": "{qmain5} = 'item1'",
+       "visibleIf": "{qmain5} = 'yes'",
        "title": "What sort of relationship does your agency have with each of these partners?",
        "hideNumber": true
       }
@@ -763,11 +778,11 @@ export const SurveyJSON={
        
        "choices": [
         {
-         "value": "item1",
+         "value": "Yes",
          "text": "Yes"
         },
         {
-         "value": "item2",
+         "value": "No",
          "text": "No"
         }
        ]
@@ -776,7 +791,7 @@ export const SurveyJSON={
        "type": "file",
        "name": "followupQ11a",
        "visible": false,
-       "visibleIf": "{qmain11} = 'item1'",
+       "visibleIf": "{qmain11} = 'Yes'",
        "title": "Can we see the inventory list?",
        "hideNumber": true,
        "maxSize": 0
@@ -785,7 +800,7 @@ export const SurveyJSON={
        "type": "comment",
        "name": "followupQ11b",
        "visible": false,
-       "visibleIf": "{qmain11} = 'item2'",
+       "visibleIf": "{qmain11} = 'No'",
        "title": "What are the challenges to doing so?",
       " hideNumber": true
       }

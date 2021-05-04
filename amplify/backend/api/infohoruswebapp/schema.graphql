@@ -1,28 +1,78 @@
-type Section @model @auth(rules: [{allow: public}]) {
+type QuestionSection @model @auth(rules: [{ allow: public }]) {
+  id: ID!
+  Sections: [Section] @connection(keyName: "byQuestionSection", fields: ["id"])
+  Questions: [Question]
+    @connection(keyName: "byQuestionSection", fields: ["id"])
+  questionId: ID
+  sectionId: ID
+}
+
+type AnswerQuestion
+  @model
+  @auth(rules: [{ allow: public }])
+  @key(name: "byQuestion", fields: ["questionID"]) {
+  id: ID!
+  Answers: [Answer] @connection(keyName: "byAnswerQuestion", fields: ["id"])
+  Question: Question @connection
+  questionID: ID
+  answerId: ID
+}
+
+type QuestionnaireQuestion @model @auth(rules: [{ allow: public }]) {
+  id: ID!
+  Questions: [Question]
+    @connection(keyName: "byQuestionnaireQuestion", fields: ["id"])
+  questionnaireId: ID
+  questionId: ID
+}
+
+type Section
+  @model
+  @auth(rules: [{ allow: public }])
+  @key(name: "byQuestionSection", fields: ["questionsectionID"]) {
   id: ID!
   sectionName: String
   sectionAnswered: Boolean
+  QuestionSection: QuestionSection @connection
+  questionsectionID: ID
 }
 
-type Answer @model @auth(rules: [{allow: public}]) {
+type Answer
+  @model
+  @auth(rules: [{ allow: public }])
+  @key(name: "byAnswerQuestion", fields: ["answerquestionID"]) {
   id: ID!
   answer: String
+  AnswerQuestion: AnswerQuestion @connection
+  answerquestionID: ID
 }
 
-type Question @model @auth(rules: [{allow: public}]) {
+type Question
+  @model
+  @auth(rules: [{ allow: public }])
+  @key(name: "byQuestionnaireQuestion", fields: ["questionnairequestionID"])
+  @key(name: "byQuestionSection", fields: ["questionsectionID"]) {
   id: ID!
   question: String
   questionName: String
-  questionNum: String
-  questionCategory: String
+  QuestionnaireQuestion: QuestionnaireQuestion @connection
+  questionnairequestionID: ID
+  AnswerQuestions: [AnswerQuestion]
+    @connection(keyName: "byQuestion", fields: ["id"])
+  questionsectionID: ID
+  QuestionSection: QuestionSection @connection
 }
 
-type Questionnaire @model @auth(rules: [{allow: public}]) {
+type Questionnaire @model @auth(rules: [{ allow: public }]) {
   id: ID!
   questionaireCompleted: Boolean
+  QuestionnaireQuestion: QuestionnaireQuestion @connection
+  questionnaireQuestionId: ID
+  User: User @connection
+  userId: ID
 }
 
-type User @model @auth(rules: [{allow: public}]) @key(name: "emailIndex", fields: ["email"], queryField: "userByemail") {
+type User @model @auth(rules: [{ allow: public }]) {
   id: ID!
   first_name: String
   last_name: String
@@ -32,5 +82,5 @@ type User @model @auth(rules: [{allow: public}]) @key(name: "emailIndex", fields
   employees: String
   industry: String
   country: String
+  Questionnaire: Questionnaire @connection
 }
- 

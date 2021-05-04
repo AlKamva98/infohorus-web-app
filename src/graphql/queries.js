@@ -1,33 +1,352 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const listSections = /* GraphQL */ `
-  query ListSections(
-    $filter: ModelSectionFilterInput
+export const listQuestionSections = /* GraphQL */ `
+  query ListQuestionSections(
+    $filter: ModelQuestionSectionFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    listSections(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    listQuestionSections(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
       items {
         id
-        sectionName
-        sectionAnswered
+        questionId
+        sectionId
         _version
         _deleted
         _lastChangedAt
         createdAt
         updatedAt
-        Question {
+        Sections {
+          nextToken
+          startedAt
+        }
+        Questions {
+          nextToken
+          startedAt
+        }
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
+export const getQuestionSection = /* GraphQL */ `
+  query GetQuestionSection($id: ID!) {
+    getQuestionSection(id: $id) {
+      id
+      questionId
+      sectionId
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      Sections {
+        items {
           id
-          question
-          questionName
-          questionNum
-          questionCategory
+          sectionName
+          sectionAnswered
+          questionsectionID
           _version
           _deleted
           _lastChangedAt
           createdAt
           updatedAt
+        }
+        nextToken
+        startedAt
+      }
+      Questions {
+        items {
+          id
+          question
+          questionName
+          questionnairequestionID
+          questionsectionID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        nextToken
+        startedAt
+      }
+    }
+  }
+`;
+export const syncQuestionSections = /* GraphQL */ `
+  query SyncQuestionSections(
+    $filter: ModelQuestionSectionFilterInput
+    $limit: Int
+    $nextToken: String
+    $lastSync: AWSTimestamp
+  ) {
+    syncQuestionSections(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      lastSync: $lastSync
+    ) {
+      items {
+        id
+        questionId
+        sectionId
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        Sections {
+          nextToken
+          startedAt
+        }
+        Questions {
+          nextToken
+          startedAt
+        }
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
+export const getAnswerQuestion = /* GraphQL */ `
+  query GetAnswerQuestion($id: ID!) {
+    getAnswerQuestion(id: $id) {
+      id
+      questionID
+      answerId
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      Answers {
+        items {
+          id
+          answer
+          answerquestionID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        nextToken
+        startedAt
+      }
+      Question {
+        id
+        question
+        questionName
+        questionnairequestionID
+        questionsectionID
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        QuestionSection {
+          id
+          questionId
+          sectionId
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        AnswerQuestions {
+          nextToken
+          startedAt
+        }
+        QuestionnaireQuestion {
+          id
+          questionnaireId
+          questionId
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+      }
+    }
+  }
+`;
+export const listAnswerQuestions = /* GraphQL */ `
+  query ListAnswerQuestions(
+    $filter: ModelAnswerQuestionFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listAnswerQuestions(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        questionID
+        answerId
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        Answers {
+          nextToken
+          startedAt
+        }
+        Question {
+          id
+          question
+          questionName
+          questionnairequestionID
+          questionsectionID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
+export const syncAnswerQuestions = /* GraphQL */ `
+  query SyncAnswerQuestions(
+    $filter: ModelAnswerQuestionFilterInput
+    $limit: Int
+    $nextToken: String
+    $lastSync: AWSTimestamp
+  ) {
+    syncAnswerQuestions(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      lastSync: $lastSync
+    ) {
+      items {
+        id
+        questionID
+        answerId
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        Answers {
+          nextToken
+          startedAt
+        }
+        Question {
+          id
+          question
+          questionName
+          questionnairequestionID
+          questionsectionID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
+export const listQuestionnaireQuestions = /* GraphQL */ `
+  query ListQuestionnaireQuestions(
+    $filter: ModelQuestionnaireQuestionFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listQuestionnaireQuestions(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        questionnaireId
+        questionId
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        Questions {
+          nextToken
+          startedAt
+        }
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
+export const getQuestionnaireQuestion = /* GraphQL */ `
+  query GetQuestionnaireQuestion($id: ID!) {
+    getQuestionnaireQuestion(id: $id) {
+      id
+      questionnaireId
+      questionId
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      Questions {
+        items {
+          id
+          question
+          questionName
+          questionnairequestionID
+          questionsectionID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        nextToken
+        startedAt
+      }
+    }
+  }
+`;
+export const syncQuestionnaireQuestions = /* GraphQL */ `
+  query SyncQuestionnaireQuestions(
+    $filter: ModelQuestionnaireQuestionFilterInput
+    $limit: Int
+    $nextToken: String
+    $lastSync: AWSTimestamp
+  ) {
+    syncQuestionnaireQuestions(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      lastSync: $lastSync
+    ) {
+      items {
+        id
+        questionnaireId
+        questionId
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        Questions {
+          nextToken
+          startedAt
         }
       }
       nextToken
@@ -41,41 +360,63 @@ export const getSection = /* GraphQL */ `
       id
       sectionName
       sectionAnswered
+      questionsectionID
       _version
       _deleted
       _lastChangedAt
       createdAt
       updatedAt
-      Question {
+      QuestionSection {
         id
-        question
-        questionName
-        questionNum
-        questionCategory
+        questionId
+        sectionId
         _version
         _deleted
         _lastChangedAt
         createdAt
         updatedAt
-        Section {
+        Sections {
+          nextToken
+          startedAt
+        }
+        Questions {
+          nextToken
+          startedAt
+        }
+      }
+    }
+  }
+`;
+export const listSections = /* GraphQL */ `
+  query ListSections(
+    $filter: ModelSectionFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listSections(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        sectionName
+        sectionAnswered
+        questionsectionID
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        QuestionSection {
           id
-          sectionName
-          sectionAnswered
+          questionId
+          sectionId
           _version
           _deleted
           _lastChangedAt
           createdAt
           updatedAt
         }
-        Answers {
-          nextToken
-          startedAt
-        }
-        QuestionsQuestionnaire {
-          nextToken
-          startedAt
-        }
       }
+      nextToken
+      startedAt
     }
   }
 `;
@@ -96,17 +437,16 @@ export const syncSections = /* GraphQL */ `
         id
         sectionName
         sectionAnswered
+        questionsectionID
         _version
         _deleted
         _lastChangedAt
         createdAt
         updatedAt
-        Question {
+        QuestionSection {
           id
-          question
-          questionName
-          questionNum
-          questionCategory
+          questionId
+          sectionId
           _version
           _deleted
           _lastChangedAt
@@ -124,40 +464,36 @@ export const getAnswer = /* GraphQL */ `
     getAnswer(id: $id) {
       id
       answer
-      questionID
+      answerquestionID
       _version
       _deleted
       _lastChangedAt
       createdAt
       updatedAt
-      QuestionAns {
+      AnswerQuestion {
         id
-        question
-        questionName
-        questionNum
-        questionCategory
+        questionID
+        answerId
         _version
         _deleted
         _lastChangedAt
         createdAt
         updatedAt
-        Section {
+        Answers {
+          nextToken
+          startedAt
+        }
+        Question {
           id
-          sectionName
-          sectionAnswered
+          question
+          questionName
+          questionnairequestionID
+          questionsectionID
           _version
           _deleted
           _lastChangedAt
           createdAt
           updatedAt
-        }
-        Answers {
-          nextToken
-          startedAt
-        }
-        QuestionsQuestionnaire {
-          nextToken
-          startedAt
         }
       }
     }
@@ -173,18 +509,16 @@ export const listAnswers = /* GraphQL */ `
       items {
         id
         answer
-        questionID
+        answerquestionID
         _version
         _deleted
         _lastChangedAt
         createdAt
         updatedAt
-        QuestionAns {
+        AnswerQuestion {
           id
-          question
-          questionName
-          questionNum
-          questionCategory
+          questionID
+          answerId
           _version
           _deleted
           _lastChangedAt
@@ -213,18 +547,16 @@ export const syncAnswers = /* GraphQL */ `
       items {
         id
         answer
-        questionID
+        answerquestionID
         _version
         _deleted
         _lastChangedAt
         createdAt
         updatedAt
-        QuestionAns {
+        AnswerQuestion {
           id
-          question
-          questionName
-          questionNum
-          questionCategory
+          questionID
+          answerId
           _version
           _deleted
           _lastChangedAt
@@ -234,6 +566,23 @@ export const syncAnswers = /* GraphQL */ `
       }
       nextToken
       startedAt
+    }
+  }
+`;
+export const getQuestion = /* GraphQL */ `
+  query GetQuestion($id: ID!) {
+    getQuestion(id: $id) {
+      id
+      question
+      questionName
+      questionnairequestionID
+      questionsectionID
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      
     }
   }
 `;
@@ -248,25 +597,11 @@ export const listQuestions = /* GraphQL */ `
         id
         question
         questionName
-        questionNum
-        questionCategory
-        
+       
+      
       }
       nextToken
       startedAt
-    }
-  }
-`;
-export const getQuestion = /* GraphQL */ `
-  query GetQuestion($id: ID!) {
-    getQuestion(id: $id) {
-      id
-      question
-      questionName
-      questionNum
-      questionCategory
-      
-     
     }
   }
 `;
@@ -287,10 +622,37 @@ export const syncQuestions = /* GraphQL */ `
         id
         question
         questionName
-        questionNum
-        questionCategory
-        
-       
+        questionnairequestionID
+        questionsectionID
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        QuestionSection {
+          id
+          questionId
+          sectionId
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        AnswerQuestions {
+          nextToken
+          startedAt
+        }
+        QuestionnaireQuestion {
+          id
+          questionnaireId
+          questionId
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
       }
       nextToken
       startedAt
@@ -307,12 +669,24 @@ export const listQuestionnaires = /* GraphQL */ `
       items {
         id
         questionaireCompleted
+        questionnaireQuestionId
+        userId
         _version
         _deleted
         _lastChangedAt
         createdAt
         updatedAt
-        UserQuestionnaire {
+        QuestionnaireQuestion {
+          id
+          questionnaireId
+          questionId
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        User {
           id
           first_name
           last_name
@@ -328,10 +702,6 @@ export const listQuestionnaires = /* GraphQL */ `
           createdAt
           updatedAt
         }
-        questions {
-          nextToken
-          startedAt
-        }
       }
       nextToken
       startedAt
@@ -343,12 +713,28 @@ export const getQuestionnaire = /* GraphQL */ `
     getQuestionnaire(id: $id) {
       id
       questionaireCompleted
+      questionnaireQuestionId
+      userId
       _version
       _deleted
       _lastChangedAt
       createdAt
       updatedAt
-      UserQuestionnaire {
+      QuestionnaireQuestion {
+        id
+        questionnaireId
+        questionId
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        Questions {
+          nextToken
+          startedAt
+        }
+      }
+      User {
         id
         first_name
         last_name
@@ -363,20 +749,17 @@ export const getQuestionnaire = /* GraphQL */ `
         _lastChangedAt
         createdAt
         updatedAt
-      }
-      questions {
-        items {
+        Questionnaire {
           id
-          questionID
-          questionnaireID
+          questionaireCompleted
+          questionnaireQuestionId
+          userId
           _version
           _deleted
           _lastChangedAt
           createdAt
           updatedAt
         }
-        nextToken
-        startedAt
       }
     }
   }
@@ -397,12 +780,24 @@ export const syncQuestionnaires = /* GraphQL */ `
       items {
         id
         questionaireCompleted
+        questionnaireQuestionId
+        userId
         _version
         _deleted
         _lastChangedAt
         createdAt
         updatedAt
-        UserQuestionnaire {
+        QuestionnaireQuestion {
+          id
+          questionnaireId
+          questionId
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        User {
           id
           first_name
           last_name
@@ -417,10 +812,6 @@ export const syncQuestionnaires = /* GraphQL */ `
           _lastChangedAt
           createdAt
           updatedAt
-        }
-        questions {
-          nextToken
-          startedAt
         }
       }
       nextToken
@@ -445,11 +836,7 @@ export const listUsers = /* GraphQL */ `
         employees
         industry
         country
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
+        
       }
       nextToken
       startedAt
@@ -473,27 +860,43 @@ export const getUser = /* GraphQL */ `
       _lastChangedAt
       createdAt
       updatedAt
-    }
-  }
-`;
-export const userByemail = /* GraphQL */ `
-  query UserByemail($email: String) {
-    userByemail(email: $email) {
+      Questionnaire {
         id
-        first_name
-        last_name
-        email
-        job_title
-        company
-        employees
-        industry
-        country
+        questionaireCompleted
+        questionnaireQuestionId
+        userId
         _version
         _deleted
         _lastChangedAt
         createdAt
         updatedAt
-      
+        QuestionnaireQuestion {
+          id
+          questionnaireId
+          questionId
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        User {
+          id
+          first_name
+          last_name
+          email
+          job_title
+          company
+          employees
+          industry
+          country
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+      }
     }
   }
 `;
@@ -525,49 +928,11 @@ export const syncUsers = /* GraphQL */ `
         _lastChangedAt
         createdAt
         updatedAt
-      }
-      nextToken
-      startedAt
-    }
-  }
-`;
-export const syncQuestionQuestionnaires = /* GraphQL */ `
-  query SyncQuestionQuestionnaires(
-    $filter: ModelQuestionQuestionnaireFilterInput
-    $limit: Int
-    $nextToken: String
-    $lastSync: AWSTimestamp
-  ) {
-    syncQuestionQuestionnaires(
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-      lastSync: $lastSync
-    ) {
-      items {
-        id
-        questionID
-        questionnaireID
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-        question {
-          id
-          question
-          questionName
-          questionNum
-          questionCategory
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
-        questionnaire {
+        Questionnaire {
           id
           questionaireCompleted
+          questionnaireQuestionId
+          userId
           _version
           _deleted
           _lastChangedAt

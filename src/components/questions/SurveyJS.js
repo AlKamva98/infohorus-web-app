@@ -1,6 +1,6 @@
-import React, {useState} from 'react';
+import React, {useState,useEffect} from 'react';
 import{Modal, ModalBody, ModalHeader,ModalFooter, Button, Form, FormGroup} from 'reactstrap'
-import { API, Auth, graphqlOperation } from 'aws-amplify';
+import { API, Auth, graphqlOperation, Storage } from 'aws-amplify';
 import {Prompt} from 'react-router-dom'
 import {SurveyJSON,surveyCss} from './survey.js'
 import {create_UUID} from '../../utils/utils.js'
@@ -24,12 +24,17 @@ export function SurveyJS(props) {
   var addQuestionnaire = mutations.createQuestionnaire;
   const [questionnaireState, setQuestionnaireState] = useState(false)
   const [modal, setModal] = useState(false);
-  const toggle = () => setModal(!modal);
+  const toggle = () => {setModal(!modal); 
+  handleSurveyState()}
   Survey.StylesManager.applyTheme("modern");
   let survey = new Survey.Model(SurveyJSON);
+  
   const questionaireId = survey.surveyId;
+  survey.firstPageIsStarted = true;
   const [qnaireUUID, setQnaireUUID] = useState(create_UUID());
   const [shouldBlockNavigation, setShouldBlockNavigation] = useState(true)
+  const [documentUrl, setDocUrl] = useState(null);
+  const [loading, setLoading] = useState(false);
   var currentQNaireId = qnaireUUID;
   
   
@@ -37,23 +42,133 @@ export function SurveyJS(props) {
    *                              Custom Functions 
    * ===============================================================================
    */
-  
+ 
+  useEffect(() => {
+    survey.storeDataAsText = false;
+    //window.localStorage.removeItem(questionaireId)
+    handleSurveyState()
+  }, [])
+
   function handleQuestionaireState(data){
     if(!(data.qmain1 === "" || data.qmain2 === ""|| data.qmain3 === ""|| data.qmain4 === ""|| data.qmain5 === ""|| data.qmain6 === ""|| data.qmain7 === ""|| data.qmain8 === ""|| data.qmain9 === ""|| data.qmain10 === ""|| data.qmain11 === ""|| data.qmain12 === ""|| data.qmain13 === ""|| data.qmain14 === ""|| data.qmain15 === ""|| data.qmain16 === ""|| data.qmain17 === "")){
-      setQuestionnaireState(true);
+      //setQuestionnaireState(true);
     }
   }
+  function handleSurveyState(){
+  var prevData = window.localStorage.getItem(questionaireId)||null;
+  if(prevData){
+   var data = JSON.parse(prevData)
+   survey.data = data;
+  //  
+  currentQNaireId = data.uuid;
+   if(data.pageNo){
+   survey.currentPageNo = data.pageNo;
+ }
+ console.log("ID set: ",qnaireUUID);
+ console.log("Current ID:",currentQNaireId);
+ 
+ }
+}
   
   
   survey.sendResultOnPageNext = true;
+ 
   function saveSurveyData(result, uuid){
-    var ans = result.data;
-    var data = ans;
+    var data= result.data;
     data.pageNo = result.currentPageNo;
     data.uuid = uuid;
-    console.log(data.uuid);
+    var ansperpage= result.data;
+    console.log(data);
+    console.log(ansperpage);
+    ansperpage = null;
     window.localStorage.setItem(questionaireId, JSON.stringify(data))
   }
+
+function getDocAnswers(data){
+var ans;
+  if(data.followupQ11a!== undefined && (data.pageNo === 9)){
+    console.log("Follow up 11 a",data.followupQ11a[0])
+  ans.doc = data.followupQ11a[0]
+  ans.qname="followupQ11a"
+  }else if(data.followupQ8a!== undefined && (data.pageNo === 6)){
+    console.log("Follow up 8a",data.followupQ8a[0])
+  ans.doc = data.followupQ8a[0]
+  ans.qname="followupQ8a"
+  }else if(data.followupQ8c!== undefined && (data.pageNo === 7)){
+    console.log("Follow up 8c",data.followupQ8c[0])
+  ans.doc = data.followupQ8c[0]
+  ans.qname="followupQ8c"
+  }else if(data.followupQ14c!== undefined && (data.pageNo === 12)){
+    console.log("Follow up 14c",data.followupQ14c[0])
+  ans.doc = data.followupQ14c[0]
+  ans.qname="followupQ14c"
+  }else if(data.followupQ15b!== undefined && (data.pageNo === 13)){
+    console.log("Follow up 15b",data.followupQ15b[0])
+  ans.doc = data.followupQ15b[0]
+  ans.qname="followupQ15b"
+  }else if(data.followupQ16b!== undefined && (data.pageNo === 14)){
+    console.log("Follow up 16b",data.followupQ16b[0])
+  ans.doc = data.followupQ16b[0]
+  ans.qname="followupQ16b"
+  }
+  return ans;
+}
+
+async function uploadDocuments(ans, data){
+  if(data.followupQ11a||data.followupQ8a||data.followupQ14c||data.followupQ15b){
+var doc = ans.doc
+var qname = ans.qname
+ if (doc){
+    console.log("Name of doc: "+ans.name);
+          try{
+            console.log("Uploading document to S3 Bucket...")
+              await Storage.put(ans.name, ans.content, {
+                  level: 'protected',
+                  contentType: ans.type
+                });
+                //setLoading(true);
+                console.log("Document uploaded to S3 Bucket...")
+                
+              // Retrieve the uploaded file to display
+               console.log("Getting the s3 bucket url...")
+               const url = await Storage.get(ans.name, { level: 'protected' })
+               setDocUrl(url);
+              switch (qname) {
+                case "follwupQ11a":
+               data.followupQ11a[0] = url;
+               console.log("Document url: ",data.followupQ11a[0]);
+                break;
+              case "follwupQ8a":
+               data.followupQ8a[0] = url;
+               console.log("Document url: ",data.followupQ8a[0]);
+                break;
+                case "follwupQ8c":
+               data.followupQ8c[0] = url;
+               console.log("Document url: ",data.followupQ8c[0]);
+                break;
+                case "follwupQ14c":
+               data.followupQ14c[0] = url;
+               console.log("Document url: ",data.followupQ14c[0]);
+                break;
+                case "follwupQ15b":
+               data.followupQ15b[0] = url;
+               console.log("Document url: ",data.followupQ15b[0]);
+                break;
+                case "follwupQ16b":
+               data.followupQ16b[0] = url;
+               console.log("Document url: ",data.followupQ16b[0]);
+                break;
+                default:
+                  break;
+              }
+              //setLoading(false);
+              } catch (err) {
+                console.log(err);
+              }
+                    }
+          }     }   
+
+
   async function getQuestions(){
     try{ 
       var qArr =await API.graphql({query: queries.listQuestions});
@@ -70,15 +185,7 @@ export function SurveyJS(props) {
       console.log('Err :>> ', err);
     }
   }
-  async function getUserByEmail(){
-    try {
-    var us = await API.graphql(graphqlOperation(queries.getUser, {id:"9fe73673-6dcb-497e-be44-26f74cd3adef"}))
-    return us
-      
-  } catch (err) {
-      console.log('Err :>> ',err);
-    }
-  }
+
   /**================================================================================================
   * End of Custom Functions
   * ================================================================================================
@@ -89,11 +196,59 @@ export function SurveyJS(props) {
   */
   survey.onPartialSend.add(function (result){
     saveSurveyData(result, qnaireUUID)
-})
-survey.onUploadFiles.add(async function(){
+    var ans = getDocAnswers(result.data);
+    uploadDocuments(ans, result.data)
+    handleSurveyState()
 
-});
-survey.onComplete.add(async function (result) {
+})
+
+survey.onStarted.add(async function(){
+  let authus = await Auth.currentAuthenticatedUser();
+  let email = authus.attributes.email;
+  console.log(email)
+ 
+  const questions = getQuestions();
+   
+  
+  console.log(questions)
+  try{
+    var us = await API.graphql(graphqlOperation(queries.listUsers))
+    let userId
+    us.data.listUsers.items.map(function (user){
+      console.log("The user is: ", user.email)
+      console.log("The current user is: ", email)
+      if(user.email === email){
+        userId = String(user.id);
+      }
+    })
+    console.log(userId)
+  const QQ =await API.graphql(graphqlOperation(mutations.createQuestionnaireQuestion, {
+  input:{
+    questionnaireId: currentQNaireId,
+  }
+}))
+console.log("Questionnaire Question: ",QQ)
+var qqId = String(QQ.data.createQuestionnaireQuestion.id);
+console.log("Questionnaire Question: ",qqId)
+
+    const qn= await API.graphql(graphqlOperation(
+       addQuestionnaire, {
+         input: {
+           id: currentQNaireId,
+           questionaireCompleted: questionnaireState,
+           userId: userId,
+           questionnaireQuestionId:qqId,
+           
+          }
+        }
+        ));
+        console.log("Questionnaire: ",qn)
+
+      }catch(err){
+        console.log("On Start Error:", err)
+      }
+})
+  survey.onComplete.add(async function (result) {
   
   var answers = JSON.stringify(result.data, null, 3) 
   try{
@@ -103,32 +258,14 @@ survey.onComplete.add(async function (result) {
    console.log("Sending to the api...")
    
    
-   const userData = getUserByEmail();
-   const questions = getQuestions();
-   
-   console.log(userData)
-   console.log(questions)
-   console.log(questionnaireState)
-   //if questionnaire is not in the database, create a new questionnaire
-     await API.graphql(graphqlOperation(
-       addQuestionnaire, {
-         input: {
-           id: currentQNaireId,
-           questionaireCompleted: questionnaireState,
-           //userQuestionnaire: userData,
-           //questions: questions,
-           
-          }
-        }
-        ));
-        
-        await API.graphql(graphqlOperation(
-          addAns, {
-            input: { 
-              answer: answers,
-            }
-          }
-          ))
+    //     console.log("These are the answer 11a: ", answers.followupQ11a)
+    //     await API.graphql(graphqlOperation(
+    //       addAns, {
+    //         input: { 
+    //           answer: answers,
+    //         }
+    //       }
+    //       ))
           
 console.log("Answer sent to the api!");
  }catch(err){
@@ -142,19 +279,10 @@ console.log("This is the Error:",err);
   * ================================================================================================
   */
 
- var prevData = window.localStorage.getItem(questionaireId)||null;
- if(prevData){
-   var data = JSON.parse(prevData)
-   survey.data = data;
-  //  
-  currentQNaireId = data.uuid;
-   if(data.pageNo){
-   survey.currentPageNo = data.pageNo;
- }
- console.log("ID set: ",qnaireUUID);
- console.log("Current ID:",currentQNaireId);
  
- }
+
+
+
 
  if(questionnaireState){
    setShouldBlockNavigation(false)
@@ -190,3 +318,4 @@ console.log("This is the Error:",err);
 );
 
 }
+
