@@ -77,94 +77,152 @@ export function SurveyJS(props) {
     var data= result.data;
     data.pageNo = result.currentPageNo;
     data.uuid = uuid;
-    var ansperpage= result.data;
+    var ansperpage= survey.getPlainData();
     console.log(data);
-    console.log(ansperpage);
-    ansperpage = null;
+    //console.log(ansperpage);
+    
     window.localStorage.setItem(questionaireId, JSON.stringify(data))
   }
 
 function getDocAnswers(data){
-var ans;
+  try
+{var ans;
+var doc;
+var qname;
   if(data.followupQ11a!== undefined && (data.pageNo === 9)){
     console.log("Follow up 11 a",data.followupQ11a[0])
-  ans.doc = data.followupQ11a[0]
-  ans.qname="followupQ11a"
+  doc = data.followupQ11a[0]
+  qname=0
   }else if(data.followupQ8a!== undefined && (data.pageNo === 6)){
     console.log("Follow up 8a",data.followupQ8a[0])
-  ans.doc = data.followupQ8a[0]
-  ans.qname="followupQ8a"
+  doc = data.followupQ8a[0]
+  qname=1
+  console.log("answers recieved")
   }else if(data.followupQ8c!== undefined && (data.pageNo === 7)){
     console.log("Follow up 8c",data.followupQ8c[0])
-  ans.doc = data.followupQ8c[0]
-  ans.qname="followupQ8c"
+  doc = data.followupQ8c[0]
+  qname=2
   }else if(data.followupQ14c!== undefined && (data.pageNo === 12)){
     console.log("Follow up 14c",data.followupQ14c[0])
-  ans.doc = data.followupQ14c[0]
-  ans.qname="followupQ14c"
+  doc = data.followupQ14c[0]
+  qname=3
   }else if(data.followupQ15b!== undefined && (data.pageNo === 13)){
     console.log("Follow up 15b",data.followupQ15b[0])
-  ans.doc = data.followupQ15b[0]
-  ans.qname="followupQ15b"
+  doc = data.followupQ15b[0]
+  qname=4
   }else if(data.followupQ16b!== undefined && (data.pageNo === 14)){
     console.log("Follow up 16b",data.followupQ16b[0])
-  ans.doc = data.followupQ16b[0]
-  ans.qname="followupQ16b"
+  doc = data.followupQ16b[0]
+  qname=5
   }
+  var text ={ docObj : doc , quesname: qname };
+ans = text
+  console.log("answers stored and returned", doc)
   return ans;
+}catch(err){
+                console.log("ans return error: ",err);
+}
 }
 
 async function uploadDocuments(ans, data){
   if(data.followupQ11a||data.followupQ8a||data.followupQ14c||data.followupQ15b){
-var doc = ans.doc
-var qname = ans.qname
+var doc = ans.docObj
+var qname = ans.quesname
+  console.log(qname)
+
  if (doc){
-    console.log("Name of doc: "+ans.name);
+    console.log("Name of doc: "+doc.name);
           try{
             console.log("Uploading document to S3 Bucket...")
-              await Storage.put(ans.name, ans.content, {
+              await Storage.put(doc.name, doc.content, {
                   level: 'protected',
-                  contentType: ans.type
+                  contentType: doc.type
                 });
                 //setLoading(true);
                 console.log("Document uploaded to S3 Bucket...")
                 
               // Retrieve the uploaded file to display
                console.log("Getting the s3 bucket url...")
-               const url = await Storage.get(ans.name, { level: 'protected' })
-               setDocUrl(url);
+               const url = await Storage.get(doc.name, { level: 'protected' })
+               //setDocUrl(url);
+               console.log("Document url: ",url)
               switch (qname) {
-                case "follwupQ11a":
+                case 0:
                data.followupQ11a[0] = url;
+               await API.graphql(graphqlOperation(
+                addAns, {
+                  input: { 
+                    answer: data.followupQ11a,
+                  }
+                }
+                ))
                console.log("Document url: ",data.followupQ11a[0]);
                 break;
-              case "follwupQ8a":
+              case 1:
                data.followupQ8a[0] = url;
-               console.log("Document url: ",data.followupQ8a[0]);
+               console.log("Document url: ",data.followupQ8a);
+               await API.graphql(graphqlOperation(
+                addAns, {
+                  input: { 
+                    answer: data.followupQ8a,
+                  }
+                }
+                ))
                 break;
-                case "follwupQ8c":
+                case 2:
                data.followupQ8c[0] = url;
                console.log("Document url: ",data.followupQ8c[0]);
+               await API.graphql(graphqlOperation(
+                addAns, {
+                  input: { 
+                    answer: data.followupQ8c,
+                  }
+                }
+                ))
                 break;
-                case "follwupQ14c":
+                case 3:
                data.followupQ14c[0] = url;
+               await API.graphql(graphqlOperation(
+                addAns, {
+                  input: { 
+                    answer: data.followupQ14c,
+                  }
+                }
+                ))
                console.log("Document url: ",data.followupQ14c[0]);
                 break;
-                case "follwupQ15b":
+                case 4:
                data.followupQ15b[0] = url;
+               await API.graphql(graphqlOperation(
+                addAns, {
+                  input: { 
+                    answer: data.followupQ15b,
+                  }
+                }
+                ))
                console.log("Document url: ",data.followupQ15b[0]);
                 break;
-                case "follwupQ16b":
+                case 5:
                data.followupQ16b[0] = url;
+               await API.graphql(graphqlOperation(
+                addAns, {
+                  input: { 
+                    answer: data.followupQ16a,
+                  }
+                }
+                ))
                console.log("Document url: ",data.followupQ16b[0]);
                 break;
                 default:
+               console.log("Nothing happened");
                   break;
               }
               //setLoading(false);
               } catch (err) {
-                console.log(err);
+                console.log("upload error: ",err);
               }
+          
+              
                     }
           }     }   
 

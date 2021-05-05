@@ -552,34 +552,9 @@ export const createAnswer = /* GraphQL */ `
       _lastChangedAt
       createdAt
       updatedAt
-      AnswerQuestion {
-        id
-        questionID
-        answerId
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-        Answers {
-          nextToken
-          startedAt
-        }
-        Question {
-          id
-          question
-          questionName
-          questionnairequestionID
-          questionsectionID
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
       }
     }
-  }
+  
 `;
 export const updateAnswer = /* GraphQL */ `
   mutation UpdateAnswer(
