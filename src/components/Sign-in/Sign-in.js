@@ -74,6 +74,7 @@ export function SignIn (props) {
               <Button className="w-100 btn btn-lg btn-primary" onClick={handleSignIn} type="submit">Sign in</Button>
               <PopUp isOpen={modal} btnTxtPositive="Retry" btnTxtNegative="Sign up" popupType="two-btns" 
                title="Sign up Failed" 
+               btnNegativeLink="/register"
                body={signinFailMsg} 
                toggle={toggle} className={className}/>
               <p className="mt-5 mb-3 text-muted">Don't have account? Click <Link to="/register">here</Link> to register.</p>

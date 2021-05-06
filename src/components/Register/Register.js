@@ -242,13 +242,5 @@ updateFormState(()=>({...formState, formType: "signIn"}))
 </div>
  )
 }
- // newxhr.responseType = 'json';
-      // newxhr.open("POST", "https://hz42cxnj3bglxg7jzixqltzw3q.appsync-api.eu-west-1.amazonaws.com/graphql", true);
-      // newxhr.setRequestHeader("Content-Type", "application/json");
-      // newxhr.setRequestHeader('ApiKey',"da2-uby2k7c4vjcuzpf76guyudkjau");
-      // newxhr.setRequestHeader("Accept", "application/json");
-      // newxhr.onload = function () {
-      //   console.log('data returned:', newxhr.response);
-      // }
-      // newxhr.send(JSON.stringify(data)); 
+  
 export default Register;

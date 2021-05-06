@@ -186,7 +186,7 @@ export const SurveyJSON={
       },
       {
        "type": "radiogroup",
-       "name": "question1",
+       "name": "followupQ2c",
        "visible": false,
        "visibleIf": "{qmain2} = 'Yes'",
        "title": "Has the communication plan been tested for effectiveness?",

@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom';
 
 export function PopUp (props) {
  
-  const {popupType, title, body, isOpen, toggle ,btnTxtPositive, btnTxtNegative,className} = props;
+  const {popupType, title, body, isOpen, toggle ,btnTxtPositive, btnTxtNegative, btnNegativeLink,className} = props;
   return(
   <div>
    <Modal isOpen={isOpen} toggle={toggle} className={className}>
@@ -13,7 +13,7 @@ export function PopUp (props) {
         </ModalBody>
         <ModalFooter>
           <Button className="btn btn-primary" onClick={toggle}>{btnTxtPositive}</Button>
-          { popupType==="two-btns" ? <Link to="/register"><Button className="btn btn-outline-secondary" >{btnTxtNegative}</Button></Link> : null}
+          { popupType==="two-btns" ? <Link to={btnNegativeLink}><Button className="btn btn-outline-secondary" >{btnTxtNegative}</Button></Link> : null}
         </ModalFooter>
       </Modal>
   </div>)
