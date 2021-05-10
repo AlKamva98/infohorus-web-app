@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState, useRef} from 'react';
 import{Modal, ModalBody, ModalHeader,ModalFooter, Button, Form, FormGroup} from 'reactstrap'
 import { API, Auth, graphqlOperation } from 'aws-amplify';
 import {Prompt} from 'react-router-dom'
@@ -7,7 +7,11 @@ import {create_UUID} from '../../utils/utils.js'
 import * as mutations from '../../graphql/mutations'
 import * as queries from '../../graphql/queries'
 import * as Survey from 'survey-react';
+import configData from '../../config/config.json';
 
+// Load the AWS SDK for Node.js
+//var AWS = require('aws-sdk');
+// Set the region
 
 export function SurveyJS(props) {
   const {
@@ -29,11 +33,23 @@ export function SurveyJS(props) {
   let survey = new Survey.Model(SurveyJSON);
   const questionaireId = survey.surveyId;
   const [qnaireUUID, setQnaireUUID] = useState(create_UUID());
-  const [shouldBlockNavigation, setShouldBlockNavigation] = useState(true)
+  const [shouldBlockNavigation, setShouldBlockNavigation] = useState(true);
+  const [recipientName, setRecipientName] = useState("");
+  const [recipientEmail, setRecipientEmail] = useState("");
+  const [loginUser, setLoginUser] = useState(null);
+  const [isDisabled,setIsDisabled] = useState(false);
   var currentQNaireId = qnaireUUID;
-  
-  
-  /**===============================================================================
+  const emailContainer = useRef(null);
+
+  useEffect(()=>{
+        checkUser();
+    },[])
+
+    async function checkUser(){
+    setLoginUser(await Auth.currentAuthenticatedUser());
+  }
+
+    /**===============================================================================
    *                              Custom Functions 
    * ===============================================================================
    */
@@ -43,8 +59,86 @@ export function SurveyJS(props) {
       setQuestionnaireState(true);
     }
   }
-  
-  
+
+
+    function setName(event){
+        setRecipientName(event.target.value);
+    }
+
+    function setEmail(event){
+        setRecipientEmail(event.target.value);
+    }
+
+    //remove unwanted elements in the email body(ie progress-bar and footer)
+    function removeElement(doc,classname){
+        const newDoc = doc;
+          newDoc.querySelectorAll("."+classname).forEach(el => el.remove())
+        return newDoc;
+    }
+
+  function sendEmail(){
+      setIsDisabled(true);
+      const doc = (new DOMParser).parseFromString(emailContainer.current.innerHTML, 'text/html');
+      const emailBodyWithremovedProgressText = removeElement(doc,'sv-progress__text');
+      const emailBodyWithFooterRemoved = removeElement(emailBodyWithremovedProgressText,'sv-footer');
+
+      const AWS = require("aws-sdk");
+      console.log('CONFIGS:: ', configData );
+
+      const cred = new AWS.Credentials({
+          accessKeyId: configData.REACT_APP_ACCESS_KEY_ID, secretAccessKey: configData.REACT_APP_SECRET_ACCESS_KEY, sessionToken: null
+      });
+
+      AWS.config.update({
+          credentials: cred,
+          region: 'eu-west-1',
+          endpoint: 'email.eu-west-1.amazonaws.com'
+      });
+
+      // Create sendEmail params
+      var params = {
+          Destination: {
+              ToAddresses: [
+                  recipientEmail,
+                  /* more items */
+              ]
+          },
+          Message: { /* required */
+              Body: { /* required */
+                  Html: {
+                      Charset: "UTF-8",
+                      Data: `<h3>Hi ${recipientName}!</h3><br/>\n` +
+                          `<p>We are currently conducting an enterprise-wide cybersecurity risk assessment and need your input on the following:</p><br/>\n` +
+                          `<p>Can you please assist me with the following question:</p><br/>\n` +
+                          `<p>${emailBodyWithFooterRemoved.documentElement.innerHTML}</p><br/>\n` +
+                          `<p>Kind Regards,</p>\n`
+                  }
+              },
+              Subject: {
+                  Charset: 'UTF-8',
+                  Data: 'Questionnaire Help'
+              }
+          },
+          Source: loginUser.attributes.email, /* required */
+          ReplyToAddresses: [
+              loginUser.attributes.email,
+              /* more items */
+          ],
+      };
+
+      const sendPromise = new AWS.SES({apiVersion: '2010-12-01'}).sendEmail(params).promise();
+
+// Handle promise's fulfilled/rejected states
+      sendPromise.then(
+          function(data) {
+              toggle();
+          }).catch(
+          function(err) {
+              console.error(err, err.stack);
+          });
+
+  }
+
   survey.sendResultOnPageNext = true;
   function saveSurveyData(result, uuid){
     var ans = result.data;
@@ -89,7 +183,8 @@ export function SurveyJS(props) {
   */
   survey.onPartialSend.add(function (result){
     saveSurveyData(result, qnaireUUID)
-})
+});
+
 survey.onUploadFiles.add(async function(){
 
 });
@@ -161,31 +256,32 @@ console.log("This is the Error:",err);
  }
 
     return(<>
-    <Prompt 
+
+    <Prompt
     when={shouldBlockNavigation}
     message="Are you sure you want to leave?" />
-<Survey.Survey model={survey} css={myCss} />
+    <div ref={emailContainer}><Survey.Survey model={survey} css={myCss} /></div>
 <Modal isOpen={modal} toggle={toggle} className={className}>
-        <ModalHeader toggle={toggle}><h5 className="modal-title" id="exampleModalLabel">Send Question to Colleague</h5></ModalHeader>
+        <ModalHeader toggle={toggle}><label className="modal-title" id="exampleModalLabel">New message</label></ModalHeader>
         <ModalBody>
           <Form>
           <FormGroup>
-            <label for="recipient-name" className="col-form-label">Recipient:</label>
-            <input type="text" className="form-control" id="recipient-name"></input>
+            <label id="recipient-name" className="col-form-label">Recipient Name:</label>
+            <input type="text" className="form-control" id="recipient-name" value={recipientName} onChange={setName}/>
           </FormGroup>
           <FormGroup>
-            <label for="message-text" className="col-form-label">Message:</label>
-            <textarea className="form-control" id="message-text">Text Here </textarea>
+            <label id="recipient-email" className="col-form-label">Recipient Email:</label>
+              <input type="text" className="form-control" id="recipient-email"  value={recipientEmail} onChange={setEmail}/>
           </FormGroup>
         </Form>
         </ModalBody>
         <ModalFooter>
         <Button className="btn btn-outline-secondary" onClick={toggle} >Close</Button>
-        <Button className="btn btn-success">Send message</Button>
+        <Button className="btn btn-success" disabled={isDisabled} onClick={sendEmail}>Send message</Button>
         </ModalFooter>
       </Modal>
       <hr className="bg-secondary" />
-        <span className="fw-bold fs-2 m-4">Need to consult a colleague on this answer?<p className="btn-link d-none d-md-inline-block pointer m-1" onClick={toggle}>Send an internal message</p>directly to them for a quick response.</span>
+        <span className="fw-bold fs-2 m-4">Need to consult a colleague on this answer? <p className="btn-link d-none d-md-inline-block pointer m-1" onClick={toggle}> Send an internal message</p> directly to them for a quick response.</span>
 </>
 );
 
