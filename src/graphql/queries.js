@@ -465,6 +465,7 @@ export const getAnswer = /* GraphQL */ `
       id
       answer
       answerquestionID
+      questionnaireID
       _version
       _deleted
       _lastChangedAt
@@ -510,6 +511,7 @@ export const listAnswers = /* GraphQL */ `
         id
         answer
         answerquestionID
+        questionnaireID
         _version
         _deleted
         _lastChangedAt
@@ -548,6 +550,7 @@ export const syncAnswers = /* GraphQL */ `
         id
         answer
         answerquestionID
+        questionnaireID
         _version
         _deleted
         _lastChangedAt

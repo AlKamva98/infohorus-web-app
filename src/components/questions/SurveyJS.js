@@ -36,7 +36,7 @@ export function SurveyJS(props) {
   const [shouldBlockNavigation, setShouldBlockNavigation] = useState(true)
   const [documentUrl, setDocUrl] = useState(null);
   const [loading, setLoading] = useState(false);
-  var currentQNaireId = qnaireUUID;
+  var currentQNaireId;
   const msg = "You are not authorized to view questions unless you register. Please register to complete questionnaire."
   
   /**===============================================================================
@@ -61,7 +61,6 @@ export function SurveyJS(props) {
   }
   function handleQuestionaireState(data){
     if(!(data.qmain1 === "" || data.qmain2 === ""|| data.qmain3 === ""|| data.qmain4 === ""|| data.qmain5 === ""|| data.qmain6 === ""|| data.qmain7 === ""|| data.qmain8 === ""|| data.qmain9 === ""|| data.qmain10 === ""|| data.qmain11 === ""|| data.qmain12 === ""|| data.qmain13 === ""|| data.qmain14 === ""|| data.qmain15 === ""|| data.qmain16 === ""|| data.qmain17 === "")){
-      //setQuestionnaireState(true);
     }
   }
   function handleSurveyState(){
@@ -330,17 +329,56 @@ async function uploadAnswersPerPage(ans){
       case 15:
       case 16:
         var anspq;
+        var questionID
         for( anspq in ans ) {
+          if(anspq==="qmain1"){
+            questionID =1
+          }else if(anspq==="qmain2"){
+            questionID=6
+          }else if(anspq==="qmain3"){
+            questionID=10
+          }else if(anspq==="qmain4"){
+            questionID=13
+          }else if(anspq==="qmain5"){
+            questionID=18
+          }else if(anspq==="qmain6"){
+            questionID=21
+          }else if(anspq==="qmain7"){
+            questionID=25
+          }else if(anspq==="qmain8"){
+            questionID=31
+          }else if(anspq==="qmain9"){
+            questionID=41
+          }else if(anspq==="qmain10"){
+            questionID=44
+          }else if(anspq==="qmain11"){
+            questionID=47
+          }else if(anspq==="qmain12"){
+            questionID=50
+          }else if(anspq==="qmain13"){
+            questionID=54
+          }else if(anspq==="qmain14"){
+            questionID=57
+          }else if(anspq==="qmain15"){
+            questionID=61
+          }else if(anspq==="qmain16"){
+            questionID=64
+          }else if(anspq==="qmain17"){
+            questionID=69
+          }
           if(ans[anspq]!== undefined && anspq !== "page"){         
-          console.log("Answer is: ", ans[anspq]); 
+          console.log("Answer is: ", ans[anspq]);
+          console.log("questionID is: 00"+questionID);
         await API.graphql(graphqlOperation(
                 addAns, {
                   input: { 
                     answer: ans[anspq],
+                    questionnaireID: currentQNaireId,
                   }
                 }
                 ))  
         }
+        questionID++;
       }
         break;
     
@@ -355,6 +393,7 @@ async function uploadAnswersPerPage(ans){
     }
   }
 }
+
 async function uploadDocuments(ans, data){
   if(data.followupQ11a||data.followupQ8a||data.followupQ14c||data.followupQ15b){
 var doc = ans.docObj
@@ -383,6 +422,7 @@ var qname = ans.quesname
                 addAns, {
                   input: { 
                     answer: data.followupQ11a,
+                    questionaireID: currentQNaireId,
                   }
                 }
                 ))
@@ -395,6 +435,7 @@ var qname = ans.quesname
                 addAns, {
                   input: { 
                     answer: data.followupQ8a,
+                    questionaireID: currentQNaireId,                    
                   }
                 }
                 ))
@@ -406,6 +447,7 @@ var qname = ans.quesname
                 addAns, {
                   input: { 
                     answer: data.followupQ8c,
+                    questionaireID: currentQNaireId,                    
                   }
                 }
                 ))
@@ -416,6 +458,7 @@ var qname = ans.quesname
                 addAns, {
                   input: { 
                     answer: data.followupQ14c,
+                    questionaireID: currentQNaireId,                    
                   }
                 }
                 ))
@@ -427,6 +470,7 @@ var qname = ans.quesname
                 addAns, {
                   input: { 
                     answer: data.followupQ15b,
+                    questionaireID: currentQNaireId,                    
                   }
                 }
                 ))
@@ -438,6 +482,7 @@ var qname = ans.quesname
                 addAns, {
                   input: { 
                     answer: data.followupQ16a,
+                    questionaireID: currentQNaireId,                    
                   }
                 }
                 ))
@@ -450,21 +495,11 @@ var qname = ans.quesname
               //setLoading(false);
               } catch (err) {
                 console.log("upload error: ",err);
-              }
-          
-              
-                    }
+              }  }
           }     }   
 
 
-  async function getQuestions(){
-    try{ 
-      var qArr =await API.graphql({query: queries.listQuestions});
-      return qArr;  
-    }catch(err){
-      console.log('Err :>> ', err);
-    }
-  }
+  
   
   /**================================================================================================
   * End of Custom Functions
@@ -489,18 +524,21 @@ survey.onStarted.add(async function(){
   let email = authus.attributes.email;
   console.log(email)
  
-  const questions = getQuestions();
-   
   
-  console.log(questions)
   try{
+    const listquestions = await API.graphql({query: queries.listQuestions});
+    const questions = listquestions.data.listQuestions;
+    console.log(questions)
+    
     var us = await API.graphql(graphqlOperation(queries.listUsers))
     let userId
+    var qUser
     us.data.listUsers.items.map(function (user){
       console.log("The user is: ", user.email)
       console.log("The current user is: ", email)
       if(user.email === email){
         userId = String(user.id);
+         qUser = user;
       }
     })
     console.log(userId)
@@ -517,15 +555,23 @@ console.log("Questionnaire Question: ",qqId)
        addQuestionnaire, {
          input: {
            id: currentQNaireId,
-           questionaireCompleted: questionnaireState,
+           questionaireCompleted: false,
            userId: userId,
            questionnaireQuestionId:qqId,
-           
+          
           }
         }
         ));
         console.log("Questionnaire: ",qn)
-
+    
+    // const updatedUser = await API.graphql(graphqlOperation(
+    //   mutations.updateUser,{
+    //     condition: { id: userId},
+    //     input: {
+    //         questionnaireId: currentQNaireId,
+    //     }
+    //   }
+    // ))
       }catch(err){
         console.log("On Start Error:", err)
       }
@@ -534,22 +580,15 @@ console.log("Questionnaire Question: ",qqId)
   
   var answers = JSON.stringify(result.data, null, 3) 
   try{
-   const user = await Auth.currentAuthenticatedUser();
-   var userEmail = user.attributes.email
-   handleQuestionaireState(answers);
-   console.log("Sending to the api...")
-   
-   
-    //     console.log("These are the answer 11a: ", answers.followupQ11a)
-    //     await API.graphql(graphqlOperation(
-    //       addAns, {
-    //         input: { 
-    //           answer: answers,
-    //         }
-    //       }
-    //       ))
+
+    setQuestionnaireState(true);
+    await API.graphql(graphqlOperation(
+      mutations.updateQuestionnaire,{
+        
+      }
+    ))
           
-console.log("Answer sent to the api!");
+console.log("Questionnaire state upadated!");
  }catch(err){
 console.log("This is the Error:",err);
 
@@ -560,11 +599,6 @@ console.log("This is the Error:",err);
   * End of Survey Functions
   * ================================================================================================
   */
-
- 
-
-
-
 
  if(questionnaireState){
    setShouldBlockNavigation(false)
@@ -601,15 +635,10 @@ console.log("This is the Error:",err);
 </>
 )}
 {authus === undefined &&
-<PopUp isOpen={modal} btnTxtPositive="Retry" btnTxtNegative="Return to Home" 
-               btnNegativeLink="/" 
-               popupType="two-btns" 
-               title="User is not registered" 
-               body={msg} 
-               toggle={toggle} className={className}/>
+<div>
+  
+</div>
 }
 </>
 );
-
 }
-

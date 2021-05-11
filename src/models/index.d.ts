@@ -61,6 +61,8 @@ export declare class Answer {
   readonly answer?: string;
   readonly AnswerQuestion?: AnswerQuestion;
   readonly answerquestionID?: string;
+  readonly Questionnaire?: Questionnaire;
+  readonly questionnaireID?: string;
   constructor(init: ModelInit<Answer>);
   static copyOf(source: Answer, mutator: (draft: MutableModel<Answer>) => MutableModel<Answer> | void): Answer;
 }
@@ -72,6 +74,7 @@ export declare class Questionnaire {
   readonly questionnaireQuestionId?: string;
   readonly User?: User;
   readonly userId?: string;
+  readonly Answers?: (Answer | null)[];
   constructor(init: ModelInit<Questionnaire>);
   static copyOf(source: Questionnaire, mutator: (draft: MutableModel<Questionnaire>) => MutableModel<Questionnaire> | void): Questionnaire;
 }

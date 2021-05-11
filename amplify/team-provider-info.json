@@ -16,7 +16,7 @@
         "infohorusauthPostConfirmation": {
           "GROUP": "EndUsers",
           "deploymentBucketName": "amplify-infohoruswebapp-staging-60519-deployment",
-          "s3Key": "amplify-builds/infohorusauthPostConfirmation-7657423634477a66657a-build.zip"
+          "s3Key": "amplify-builds/infohorusauthPostConfirmation-6258773359724a635537-build.zip"
         }
       },
       "auth": {
