@@ -34,28 +34,18 @@ export function SurveyJS(props) {
   const questionaireId = survey.surveyId;
   survey.firstPageIsStarted = true;
   const [qnaireUUID, setQnaireUUID] = useState(create_UUID());
+  const [shouldBlockNavigation, setShouldBlockNavigation] = useState(true)
   const [documentUrl, setDocUrl] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [shouldBlockNavigation, setShouldBlockNavigation] = useState(true);
-  const [recipientName, setRecipientName] = useState("");
+ const [recipientName, setRecipientName] = useState("");
   const [recipientEmail, setRecipientEmail] = useState("");
   const [loginUser, setLoginUser] = useState(null);
   const [isDisabled,setIsDisabled] = useState(false);
   var currentQNaireId = qnaireUUID;
   const msg = "You are not authorized to view questions unless you register. Please register to complete questionnaire."
-  
-  /**===============================================================================
   const emailContainer = useRef(null);
 
-  useEffect(()=>{
-        checkUser();
-    },[])
-
-    async function checkUser(){
-    setLoginUser(await Auth.currentAuthenticatedUser());
-  }
-
-    /**===============================================================================
+  /**===============================================================================
    *                              Custom Functions
    * ===============================================================================
    */
@@ -122,6 +112,7 @@ export function SurveyJS(props) {
       const emailBodyWithremovedProgressText = removeElement(doc,'sv-progress__text');
       const emailBodyWithFooterRemoved = removeElement(emailBodyWithremovedProgressText,'sv-footer');
 
+      console.log('USERS:::: ',authus);
       const AWS = require("aws-sdk");
       console.log('CONFIGS:: ', configData );
 
@@ -159,9 +150,9 @@ export function SurveyJS(props) {
                   Data: 'Questionnaire Help'
               }
           },
-          Source: loginUser.attributes.email, /* required */
+          Source: authus.attributes.email, /* required */
           ReplyToAddresses: [
-              loginUser.attributes.email,
+              authus.attributes.email,
               /* more items */
           ],
       };
@@ -608,9 +599,6 @@ survey.onStarted.add(async function(){
 console.log("Questionnaire Question: ",QQ)
 var qqId = String(QQ.data.createQuestionnaireQuestion.id);
 console.log("Questionnaire Question: ",qqId)
-});
-
-survey.onUploadFiles.add(async function(){
 
     const qn= await API.graphql(graphqlOperation(
        addQuestionnaire, {
@@ -672,8 +660,6 @@ console.log("This is the Error:",err);
     return(<>
     {authus !== undefined &&(
     <>
-    <Prompt
-
     <Prompt
     when={shouldBlockNavigation}
     message="Are you sure you want to leave?" />
