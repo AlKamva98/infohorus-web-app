@@ -547,6 +547,7 @@ export const createAnswer = /* GraphQL */ `
       id
       answer
       answerquestionID
+      questionnaireID
       _version
       _deleted
       _lastChangedAt
@@ -565,6 +566,7 @@ export const updateAnswer = /* GraphQL */ `
       id
       answer
       answerquestionID
+      questionnaireID
       _version
       _deleted
       _lastChangedAt
@@ -608,6 +610,7 @@ export const deleteAnswer = /* GraphQL */ `
       id
       answer
       answerquestionID
+      questionnaireID
       _version
       _deleted
       _lastChangedAt

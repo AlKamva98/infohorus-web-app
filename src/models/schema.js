@@ -465,6 +465,26 @@ export const schema = {
                     "type": "ID",
                     "isRequired": false,
                     "attributes": []
+                },
+                "Questionnaire": {
+                    "name": "Questionnaire",
+                    "isArray": false,
+                    "type": {
+                        "model": "Questionnaire"
+                    },
+                    "isRequired": false,
+                    "attributes": [],
+                    "association": {
+                        "connectionType": "BELONGS_TO",
+                        "targetName": "answerQuestionnaireId"
+                    }
+                },
+                "questionnaireID": {
+                    "name": "questionnaireID",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": false,
+                    "attributes": []
                 }
             },
             "syncable": true,
@@ -480,6 +500,15 @@ export const schema = {
                         "name": "byAnswerQuestion",
                         "fields": [
                             "answerquestionID"
+                        ]
+                    }
+                },
+                {
+                    "type": "key",
+                    "properties": {
+                        "name": "byQuestionnaire",
+                        "fields": [
+                            "questionnaireID"
                         ]
                     }
                 },
@@ -557,6 +586,20 @@ export const schema = {
                     "type": "ID",
                     "isRequired": false,
                     "attributes": []
+                },
+                "Answers": {
+                    "name": "Answers",
+                    "isArray": true,
+                    "type": {
+                        "model": "Answer"
+                    },
+                    "isRequired": false,
+                    "attributes": [],
+                    "isArrayNullable": true,
+                    "association": {
+                        "connectionType": "HAS_MANY",
+                        "associatedWith": "questionnaireID"
+                    }
                 }
             },
             "syncable": true,
@@ -692,5 +735,5 @@ export const schema = {
     },
     "enums": {},
     "nonModels": {},
-    "version": "80fd2c6e1fd3e1b8c2e589a0ccffe2bb"
+    "version": "1b0130c82279bc555478a45f1db95684"
 };
