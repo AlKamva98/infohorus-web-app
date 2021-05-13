@@ -33,12 +33,13 @@ export function SurveyJS(props) {
   const [authus, setAuthus] = useState();
   const questionaireId = survey.surveyId;
   survey.firstPageIsStarted = true;
+  survey.sendResultOnPageNext = true;
   const [qnaireUUID, setQnaireUUID] = useState(create_UUID());
   const [shouldBlockNavigation, setShouldBlockNavigation] = useState(true)
   const [documentUrl, setDocUrl] = useState(null);
   const [loading, setLoading] = useState(false);
   var currentQNaireId;
- const [recipientName, setRecipientName] = useState("");
+  const [recipientName, setRecipientName] = useState("");
   const [recipientEmail, setRecipientEmail] = useState("");
   const [loginUser, setLoginUser] = useState(null);
   const [isDisabled,setIsDisabled] = useState(false);
@@ -53,8 +54,8 @@ export function SurveyJS(props) {
   useEffect(() => {
     survey.storeDataAsText = false;
     checkUser()
-    //indow.localStorage.removeItem(questionaireId)
     handleSurveyState()
+    //window.localStorage.removeItem(questionaireId)
   }, [])
 
   async function checkUser(){
@@ -65,26 +66,8 @@ export function SurveyJS(props) {
 
     }
   }
-  function handleQuestionaireState(data){
-    if(!(data.qmain1 === "" || data.qmain2 === ""|| data.qmain3 === ""|| data.qmain4 === ""|| data.qmain5 === ""|| data.qmain6 === ""|| data.qmain7 === ""|| data.qmain8 === ""|| data.qmain9 === ""|| data.qmain10 === ""|| data.qmain11 === ""|| data.qmain12 === ""|| data.qmain13 === ""|| data.qmain14 === ""|| data.qmain15 === ""|| data.qmain16 === ""|| data.qmain17 === "")){
-    }
-  }
+
   function handleSurveyState(){
-  var prevData = window.localStorage.getItem(questionaireId)||null;
-  if(prevData){
-   var data = JSON.parse(prevData)
-   survey.data = data;
-  //
-  currentQNaireId = data.uuid;
-
-   if(data.pageNo){
-   survey.currentPageNo = data.pageNo;
-
- }
- console.log("ID set: ",qnaireUUID);
- console.log("Current ID:",currentQNaireId);
-
- }
 }
 
   
@@ -169,17 +152,16 @@ export function SurveyJS(props) {
 
   }
 
-  survey.sendResultOnPageNext = true;
-
+var storageName = "questionaire_data"
   function saveSurveyData(result, uuid){
     var data= result.data;
     data.pageNo = result.currentPageNo;
     data.uuid = uuid;
     var ansperpage= survey.getPlainData();
-    console.log(data);
+    console.log("Saved data is",data);
     //console.log(ansperpage);
 
-    window.localStorage.setItem(questionaireId, JSON.stringify(data))
+    window.localStorage.setItem(storageName, JSON.stringify(data))
   }
 function getAnswerPerPage(data){
   try{
@@ -607,6 +589,7 @@ var qname = ans.quesname
 })
 
 survey.onStarted.add(async function(){
+    console.log("Current questionnaire ID",currentQNaireId)
 
   let email = authus.attributes.email;
   console.log(email)
@@ -616,6 +599,7 @@ survey.onStarted.add(async function(){
     const listquestions = await API.graphql({query: queries.listQuestions});
     const questions = listquestions.data.listQuestions;
     console.log(questions)
+    console.log("Current questionnaire ID",currentQNaireId)
 
     var us = await API.graphql(graphqlOperation(queries.listUsers))
     let userId
@@ -628,7 +612,7 @@ survey.onStarted.add(async function(){
          qUser = user;
       }
     })
-    console.log(userId)
+    console.log("Current questionnaire ID",currentQNaireId)
   const QQ =await API.graphql(graphqlOperation(mutations.createQuestionnaireQuestion, {
   input:{
     questionnaireId: currentQNaireId,
@@ -682,6 +666,26 @@ console.log("This is the Error:",err);
  }  
 
     });
+    
+  var prevData = window.localStorage.getItem(storageName)||null;
+  if(prevData){
+   var data = JSON.parse(prevData)
+   survey.data = data;
+  //
+  console.log(survey.data)
+  console.log(prevData)
+  currentQNaireId=data.uuid;
+    console.log("Current questionnaire ID",currentQNaireId)
+
+   if(data.pageNo){
+   survey.currentPageNo = data.pageNo;
+   console.log("Page no is:",survey.currentPageNo)
+
+ }
+ console.log("ID set: ",qnaireUUID);
+ console.log("Current ID:",currentQNaireId);
+
+ }
 /**================================================================================================
   * End of Survey Functions
   * ================================================================================================

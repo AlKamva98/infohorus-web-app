@@ -1,13 +1,12 @@
-import React,{useState} from 'react';
+import React from 'react';
 import {Home} from './pages/EndUser/Home.js'
 import {About} from './pages/EndUser/About.js'
 import Contact from './pages/EndUser/Contact.js'
-import {Payment} from './pages/EndUser/Payment.js'
 import {Pricing} from './pages/EndUser/Pricing.js'
 import {Recomendations} from './pages/EndUser/Recomendations.js'
 import './App.css';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
-import Amplify,{Auth} from 'aws-amplify';
+import Amplify from 'aws-amplify';
 //import aws_exports from './aws-exports';
 import { Questions } from './pages/EndUser/Questions.js';
 import '@aws-amplify/ui/dist/style.css';
@@ -16,24 +15,7 @@ import {ExpertViewCustList  } from "./pages/ExpertViewCustList";
 import {ExpertViewAssess  } from "./pages/ExpertViewAssess";
 import { SignIn } from './components/Sign-in/Sign-in.js';
 
-
-
 function App(){
-  const [user, setUser] = useState();
-
-  //  async function checkUser(){
-  //       try{
-  //           const userAuth = await Auth.currentAuthenticatedUser();
-  //           console.log("The user is: "+userAuth.Credentials)
-  //           setUser(userAuth);
-  //           const a = await Auth.currentUserInfo();
-  //           console.log("User Info is:"+ a);     
-  //           updateFormState(()=>({...formState, formType: "signedIn"}));
-  //       }catch(err){
-  //        console.log("user Error:" +err);
-  //        //signinFailMsg = err;
-  //       }
-  //   }
     return (
       <>
       <Router>

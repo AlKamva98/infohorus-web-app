@@ -5,17 +5,27 @@ import {Button, Container} from 'react-bootstrap'
 import { MOCK_DATA } from "./MOCK_DATA.js";
 import "./table.css"
 
-export const ExpertViewAssess = () => {
+export const ExpertViewAssess = (props) => {
  const columns = useMemo(()=> AnsCOLUMNS,[]);
  const data = useMemo(()=> MOCK_DATA,[]);
 const tableInstance = useTable({columns: columns, data: data});
  const { getTableProps, getTableBodyProps, headerGroups,rows, prepareRow} = tableInstance;
 
+
+async function getQuestionnaire(userID){
+
+}
+
+async function getAnswersbyQuestionnaire(){
+  
+}
+
+
  return (
    <>
 <Container>
 <h4 className="text-center display-4">Customer Answers</h4>
-<span>Click on download to get .pdf/.xls file of the </span>
+<span>Click on download to get .pdf/.xls file of the  </span>
 </Container>
   <table {...getTableProps()}>
 <thead >
