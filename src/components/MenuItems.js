@@ -20,6 +20,11 @@ export const MenuItems =[
   cName : 'navbar-links'
  
  },
+ {
+  title: 'Findings',
+  url: '/findings',
+  cName: 'navbar-links'
+ },
   {
   title: 'Sign in',
   url: '#',

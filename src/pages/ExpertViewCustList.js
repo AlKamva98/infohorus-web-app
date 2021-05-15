@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo} from 'react';
-import {useTable} from 'react-table';
+//import {useTable} from 'react-table';
 import {Button, Container} from 'react-bootstrap'
 import { MDBDataTableV5 } from 'mdbreact';
 import {Link} from 'react-router-dom'
@@ -26,10 +26,10 @@ const {pageType} = formState;
 const [cust, setCust] = useState();
 const [userQuestionaireId, setUserQuestionaireId] = useState("");
 const [userAnsbyQnaire, setUserAnsbyQnaire] = useState("");
-const columns = useMemo(()=> AnsCOLUMNS,[]);
-const ansdata = useMemo(()=> userAnsbyQnaire,[]);
-const tableInstance = useTable({columns: columns, data: ansdata});
-const { getTableProps, getTableBodyProps, headerGroups,rows, prepareRow} = tableInstance;
+// const columns = useMemo(()=> AnsCOLUMNS,[]);
+// const ansdata = useMemo(()=> userAnsbyQnaire,[]);
+// const tableInstance = useTable({columns: columns, data: ansdata});
+// const { getTableProps, getTableBodyProps, headerGroups,rows, prepareRow} = tableInstance;
 
 
 async function getAnswers(userID){
@@ -65,9 +65,8 @@ answers.data.listAnswers.items.map( function (ans){
       var userslist = await API.graphql({query: queries.listUsers});
       console.log(userslist.data.listUsers.items);
       data={columns: COLUMNS,
-            rows: userslist.data.listUsers.items  
-      }
-     // setDatatable(data);
+            rows: userslist.data.listUsers.items  }
+     //setDatatable(data);
     }catch(err){
         console.log("Error:>> ",err);
       }
@@ -80,7 +79,8 @@ answers.data.listAnswers.items.map( function (ans){
 <h4 className="text-center display-4">Customer list</h4>
 <span>Click on the customer to view answers</span>
 </Container>
-    <MDBDataTableV5
+    <div className="py-3">
+      <MDBDataTableV5
         hover
         data={datatable}
         autoWidth
@@ -89,15 +89,16 @@ answers.data.listAnswers.items.map( function (ans){
         bodyCheckboxID='checkboxes2'
         getValueCheckBox={(e) => {
           showLogs2(e);}}
-    />
+          />
+    </div>
     <Link to= {{pathname: "/expertview/assess" ,state: checkbox1}}><Button className= "ml-5 mb-5" onSubmit={viewAnswers} type="submit">View Answers</Button></Link>
     <div>
       {checkbox1 && <p>{JSON.stringify(delete checkbox1.checkbox && checkbox1)}</p>}
     </div>
     </>)}
-    {pageType === "assess" && (
-   <>
-<Container>
+    {/* {pageType === "assess" && (
+      <>
+      <Container>
 <h4 className="text-center display-4">Customer Answers</h4>
 <span>Click on download to get .pdf/.xls file of the  </span>
 </Container>
@@ -136,7 +137,7 @@ answers.data.listAnswers.items.map( function (ans){
 </tbody>
   </table>
   <Button>Download</Button>
-  </>)}
+  </>)} */}
     </>
   );
  }
