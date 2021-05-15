@@ -8,12 +8,13 @@ import './App.css';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import Amplify from 'aws-amplify';
 //import aws_exports from './aws-exports';
-import { Questions } from './pages/EndUser/Questions.js';
+import {Questions} from './pages/EndUser/Questions.js';
 import '@aws-amplify/ui/dist/style.css';
 import Register from './components/Register/Register.js';
-import {ExpertViewCustList  } from "./pages/ExpertViewCustList";
-import {ExpertViewAssess  } from "./pages/ExpertViewAssess";
-import { SignIn } from './components/Sign-in/Sign-in.js';
+import {Findings} from "./pages/EndUser/Findings";
+import {ExpertViewCustList} from "./pages/ExpertViewCustList";
+import {ExpertViewAssess} from "./pages/ExpertViewAssess";
+import {SignIn} from './components/Sign-in/Sign-in.js';
 
 function App(){
     return (
@@ -29,6 +30,7 @@ function App(){
         <Route path="/questions" exact component ={Questions}/>
         <Route path="/signIn" component={SignIn}/>
         <Route path="/recomendations" exact component={Recomendations}/>
+        <Route path="/findings" exact component={Findings}/>
         <Route path="/expertview/custlist" exact component={ExpertViewCustList}/>
         <Route path="/expertview/assess" exact component={ExpertViewAssess}/>
       </Switch>
