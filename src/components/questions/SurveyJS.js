@@ -484,6 +484,8 @@ var qname = ans.quesname
                console.log("Getting the s3 bucket url...")
                const url = await Storage.get(doc.name, { level: 'protected' })
                //setDocUrl(url);
+              console.log('URL:::: ', url);
+
               switch (qname) {
                 case 0:
                data.followupQ11a[0] = url;

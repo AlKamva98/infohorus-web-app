@@ -14,14 +14,15 @@ import { graphql } from '@apollo/react-hoc';
 export const ExpertViewCustList = () => {
   const initialFormState = { userId:"", pageType:"custList"};
   const [formState, updateFormState] = useState(initialFormState);
-  var data = {
+  let initialData = {
       columns: COLUMNS,
       rows: DATA   };
  const [checkbox1, setCheckbox1] = useState('');
- const [datatable, setDatatable] = useState(data);       
-        const showLogs2 = (e) => {
-          setCheckbox1(e);
-        };
+ const [datatable, setDatatable] = useState('');
+ const showLogs2 = (e) => {
+     console.log('SHOWLOGS:::', e);
+     setCheckbox1(e);
+ };
 const {pageType} = formState;
 const [cust, setCust] = useState();
 const [userQuestionaireId, setUserQuestionaireId] = useState("");
@@ -55,27 +56,37 @@ answers.data.listAnswers.items.map( function (ans){
    updateFormState(()=>({...formState, pageType: "assess"}))
 
  }
-       useEffect(() => {
-         listUsers()
+
+    const [hasData, setHasData] = useState(false);
+
+ useEffect(() => {
+         listUsers().then(listOfUsers => {
+             let data = {
+                 columns: COLUMNS,
+                 rows: listOfUsers.data.listUsers.items
+             }
+             setDatatable(data);
+
+         }).finally(()=>{
+             setHasData(true);
+         });
+
+
          //setDatatable(data)
        },[])
 
-  async function listUsers(){
-    try{
-      var userslist = await API.graphql({query: queries.listUsers});
-      console.log(userslist.data.listUsers.items);
-      data={columns: COLUMNS,
-            rows: userslist.data.listUsers.items  }
-     //setDatatable(data);
-    }catch(err){
-        console.log("Error:>> ",err);
+  async function listUsers() {
+      try {
+          var userslist = await API.graphql({query: queries.listUsers});
+          console.log(userslist.data.listUsers.items);
+          return userslist;
+      } catch (err) {
+          console.log("Error:>> ", err);
       }
-    }
-    
-    
-      
+  }
+
   return (<>
-    {pageType === "custList" && (<><Container>
+    {hasData && pageType === "custList" && (<><Container>
 <h4 className="text-center display-4">Customer list</h4>
 <span>Click on the customer to view answers</span>
 </Container>
@@ -90,9 +101,9 @@ answers.data.listAnswers.items.map( function (ans){
         getValueCheckBox={(e) => {
           showLogs2(e);}}
           />
-    </div>
+    </div>{/*
     <Link to= {{pathname: "/expertview/assess" ,state: checkbox1}}><Button className= "ml-5 mb-5" onSubmit={viewAnswers} type="submit">View Answers</Button></Link>
-    <div>
+   */} <div>
       {checkbox1 && <p>{JSON.stringify(delete checkbox1.checkbox && checkbox1)}</p>}
     </div>
     </>)}
