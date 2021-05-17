@@ -1,23 +1,72 @@
-import React, {useMemo} from 'react';
+import React, {useState,useMemo, useEffect} from 'react';
 import {useTable} from 'react-table';
+import { MDBDataTableV5 } from 'mdbreact';
 import { AnsCOLUMNS } from "./anscolumns.js";
 import {Button, Container} from 'react-bootstrap'
+import * as queries from "../graphql/queries"
+import API, {graphqlOperation} from '@aws-amplify/api'
 import { MOCK_DATA } from "./MOCK_DATA.js";
 import "./table.css"
 
 export const ExpertViewAssess = (props) => {
- const columns = useMemo(()=> AnsCOLUMNS,[]);
- const data = useMemo(()=> MOCK_DATA,[]);
-const tableInstance = useTable({columns: columns, data: data});
- const { getTableProps, getTableBodyProps, headerGroups,rows, prepareRow} = tableInstance;
+const { state } = props.location;
+const [checkbox1, setCheckbox1] = useState('');
+const [datatable, setDatatable] = useState('');
+const [hasAnswers, setHasAnswers] = useState(false)
+let questionnaire;
+let answers =[];
+const showLogs2 = (e) => {
+     console.log('SHOWLOGS:::', e);
+     setCheckbox1(e);
+ };
+ let data;
+useEffect(()=>{
+  
+   
+     getAnswersbyQuestionnaire().then(answerData =>{
+        data = {
+                 columns: AnsCOLUMNS,
+                 rows: answerData
+             }
+             console.log("answer data is::::", data);
+             setDatatable(data)
+            }).finally(()=>{
+              setHasAnswers(true);
+            })
+     
+},[])
 
-
-async function getQuestionnaire(userID){
+async function getQuestionnaire(){
+let questionnaires = await API.graphql({query: queries.listQuestionnaires});
+questionnaires.data.listQuestionnaires.items.map(function (qnaire) {
+  if(state.id === qnaire.userId){
+    console.log("The questionnaireId is::::", qnaire.id)
+    questionnaire = qnaire.id
+  }
+});
+console.log("Questionnaire id is set to::::", questionnaire);
+return questionnaire;
 
 }
-
 async function getAnswersbyQuestionnaire(){
+  let questionnaires = await API.graphql({query: queries.listQuestionnaires});
+questionnaires.data.listQuestionnaires.items.map(function (qnaire) {
+  if(state.id === qnaire.userId){
+    console.log("The questionnaireId is::::", qnaire.id)
+    questionnaire = qnaire.id
+  }
+});
+console.log("Questionnaire id is set to::::", questionnaire);
   
+let listanswers = await API.graphql({query: queries.listAnswers});
+  listanswers.data.listAnswers.items.map(function (ans) {
+  if(questionnaire === ans.questionnaireID){
+    console.log("The answer is::::", ans)
+    answers.push(ans);
+  }
+});
+console.log("Answers set as::::", answers)
+return answers;
 }
 
 function convert(){
@@ -40,39 +89,17 @@ function base64ToArrayBuffer(base64) {
 <h4 className="text-center display-4">Customer Answers</h4>
 <span>Click on download to get .pdf/.xls file of the  </span>
 </Container>
-  <table {...getTableProps()}>
-<thead >
- {headerGroups.map((headerGroup)=>(
- <tr {...headerGroup.getHeaderGroupProps()}>
-  {
-   headerGroup.headers.map(column => (
-    <th {...column.getHeaderProps({
-                  style: { minWidth: column.minWidth, width: column.width },
-                })}>
-{column.render('Header')}
-    </th>
-  
-   ))
-  }
- </tr>))}
-</thead>
-<tbody {...getTableBodyProps}>
- {rows.map(row => {
-   prepareRow(row)
-   return (
- <tr {...row.getRowProps()}>
-  {row.cells.map((cell) => {
-   return(
-    <td {...cell.getCellProps({
-                      style: {
-                        minWidth: cell.column.minWidth,
-                        width: cell.column.width,
-                      },
-                    })}>{cell.render('Cell')}</td>)
-  })}
- </tr>
-   )})}
-</tbody>
-  </table>
+<div className="py-3">
+      {hasAnswers && (<MDBDataTableV5
+        hover
+        data={datatable}
+        autoWidth
+        checkbox
+        headCheckboxID='id2'
+        bodyCheckboxID='checkboxes2'
+        getValueCheckBox={(e) => {
+          showLogs2(e);}}
+          />)}
+    </div>
   <Button onClick={convert}>Download</Button>
   </>)}
