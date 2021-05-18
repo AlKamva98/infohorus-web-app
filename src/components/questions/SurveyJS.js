@@ -39,6 +39,7 @@ export function SurveyJS(props) {
   const [documentUrl, setDocUrl] = useState(null);
   const [loading, setLoading] = useState(false);
   var currentQNaireId;
+  const [sendData, setSendData] = useState(false);
   const [recipientName, setRecipientName] = useState("");
   const [recipientEmail, setRecipientEmail] = useState("");
   const [loginUser, setLoginUser] = useState(null);
@@ -163,174 +164,10 @@ var storageName = "questionaire_data"
 
     window.localStorage.setItem(storageName, JSON.stringify(data))
   }
-function getAnswerPerPage(data){
+function getAnswerPerPage(){//get answers from the page
   try{
-    var ans;
-    var pageNo = data.pageNo;
-    if (data.qmain1 !==undefined && (data.pageNo === 0)) {
-      ans = {qmain1: data.qmain1}
-      if(data.followupQ1a || data.followupQ1b || data.followupQ1c){
-        ans.followupQ1a = data.followupQ1a;
-        ans.followupQ1b = data.followupQ1b;
-        ans.followupQ1c = data.followupQ1c;
-        ans.page = 1;
-      }
-      console.log("Qmain 1 answers sent:", ans);
-    }else if(data.qmain2 !==undefined && (data.pageNo === 1)){
-       ans = {qmain2: data.qmain2}
-       if(data.followupQ2a || data.followupQ2b||data.followupQ2c ){
-        ans.followupQ2a = data.followupQ2a;
-        ans.followupQ2b = data.followupQ2b;
-        ans.followupQ2c = data.followupQ2c;
-
-        ans.page = 2;
-      }
-       console.log("Qmain 2 answers sent:", ans);
-    }else if(data.qmain3 !==undefined && (data.pageNo === 2)){
-      ans = {qmain3:data.qmain3}
-      if(data.followupQ3a || data.followupQ3b ){
-        ans.followupQ3a = data.followupQ3a;
-        ans.followupQ3b = data.followupQ3b;
-        ans.page = 3;
-      }
-      console.log("Qmain 3 answers sent:", ans);
-    }else if(data.qmain4 !==undefined && (data.pageNo == 3)){
-      ans = {qmain4: data.qmain4}
-      if(data.followupQ4a || data.followupQ4b || data.followupQ4c|| data.followupQ4d){
-        ans.followupQ4a = data.followupQ4a;
-        ans.followupQ4b = data.followupQ4b;
-        ans.followupQ4c = data.followupQ4c;
-        ans.followupQ4d = data.followupQ4d;
-
-        ans.page = 4;
-      }
-       console.log("Qmain 4 answers sent:");
-    }else if(data.qmain5 !==undefined && (data.pageNo == 4)){
-      ans = {qmain5: data.qmain5}
-      if(data.followupQ5a || data.followupQ5b){
-        ans.followupQ5a = data.followupQ5a;
-        ans.followupQ5b = data.followupQ5b;
-
-        ans.page = 5;
-      }
-       console.log("Qmain 5 answers sent:");
-    }else if(data.qmain6 !==undefined && (data.pageNo == 5)){
-      ans = {qmain6: data.qmain6}
-      if(data.followupQ6a || data.followupQ6b || data.followupQ6c){
-        ans.followupQ6a = data.followupQ6a;
-        ans.followupQ6b = data.followupQ6b;
-        ans.followupQ6c = data.followupQ6c;
-
-        ans.page = 6;
-      }
-       console.log("Qmain 6 answers sent:");
-    }else if(data.qmain7 !==undefined && (data.pageNo == 6)){
-      ans = {qmain7: data.qmain7}
-      if(data.followupQ7a || data.followupQ7b || data.followupQ7c|| data.followupQ7d||data.followupQ7e){
-        ans.followupQ7a = data.followupQ7a;
-        ans.followupQ7b = data.followupQ7b;
-        ans.followupQ7c = data.followupQ7c;
-        ans.followupQ7d = data.followupQ7d;
-        ans.followupQ7e = data.followupQ7e;
-
-        ans.page = 7;
-      }
-       console.log("Qmain 7 answers sent:");
-    }else if(data.qmain8 !==undefined && (data.pageNo == 7)){
-      ans = {qmain8: data.qmain8}
-      if(data.followupQ8a || data.followupQ8b || data.followupQ8c|| data.followupQ8d||data.followupQ8e||data.followupQ8f||data.followupQ8g||data.followupQ8h||data.followupQ8i){
-        ans.followupQ8a = data.followupQ8a;
-        ans.followupQ8b = data.followupQ8b;
-        ans.followupQ8c = data.followupQ8c;
-        ans.followupQ8d = data.followupQ8d;
-        ans.followupQ8e = data.followupQ8e;
-        ans.followupQ8f = data.followupQ8f;
-        ans.followupQ8g = data.followupQ8g;
-        ans.followupQ8h = data.followupQ8h;
-        ans.followupQ8i = data.followupQ8i;
-
-        ans.page = 8;
-      }
-       console.log("Qmain 8 answers sent:");
-    }else if(data.qmain9 !==undefined && (data.pageNo == 8)){
-      ans = {qmain9: data.qmain9}
-      if(data.followupQ9a || data.followupQ9b ){
-        ans.followupQ9a = data.followupQ9a;
-        ans.followupQ9b = data.followupQ9b;
-
-        ans.page = 9;
-      }
-       console.log("Qmain 9 answers sent:");
-    }else if(data.qmain10 !==undefined && (data.pageNo == 9)){
-      ans = {qmain10: data.qmain10}
-      if(data.followupQ10a || data.followupQ10b ){
-        ans.followupQ10a = data.followupQ10a;
-        ans.followupQ10b = data.followupQ10b;
-
-        ans.page = 10;
-      }
-       console.log("Qmain 10 answers sent:");
-    }else if(data.qmain11 !==undefined && (data.pageNo == 10)){
-      ans = {qmain11: data.qmain11}
-      if(data.followupQ11a || data.followupQ11b){
-        ans.followupQ11a = data.followupQ11a;
-        ans.followupQ11b = data.followupQ11b;
-
-        ans.page = 11;
-      }
-       console.log("Qmain 11 answers sent:");
-    }else if(data.qmain12 !==undefined && (data.pageNo == 11)){
-      ans = {qmain12: data.qmain12}
-      if(data.followupQ12a || data.followupQ12b || data.followupQ12c){
-        ans.followupQ12a = data.followupQ12a;
-        ans.followupQ12b = data.followupQ12b;
-        ans.followupQ12c = data.followupQ12c;
-
-        ans.page = 12;
-      }
-       console.log("Qmain 12 answers sent:");
-    }else if(data.qmain13 !==undefined && (data.pageNo == 12)){
-      ans = {qmain13: data.qmain13}
-      if(data.followupQ13a || data.followupQ13b){
-        ans.followupQ13a = data.followupQ13a;
-        ans.followupQ13b = data.followupQ13b;
-
-        ans.page = 13;
-      }
-       console.log("Qmain 13 answers sent:");
-    }else if(data.qmain14 !==undefined && (data.pageNo == 13)){
-      ans = {qmain14: data.qmain14}
-      if(data.followupQ14a || data.followupQ14b || data.followupQ14c){
-        ans.followupQ14a = data.followupQ14a;
-        ans.followupQ14b = data.followupQ14b;
-        ans.followupQ14c = data.followupQ14c;
-
-        ans.page = 14;
-      }
-       console.log("Qmain 14 answers sent:");
-    }else if(data.qmain15 !==undefined && (data.pageNo == 14)){
-      ans = {qmain14: data.qmain14}
-      if(data.followupQ15a || data.followupQ15b || data.followupQ15c){
-        ans.followupQ15a = data.followupQ15a;
-        ans.followupQ15b = data.followupQ15b;
-        ans.followupQ15c = data.followupQ15c;
-
-        ans.page = 15;
-      }
-       console.log("Qmain 14 answers sent:");
-    }else if(data.qmain16 !==undefined && (data.pageNo == 15)){
-      ans = {qmain16: data.qmain16}
-      if(data.followupQ16a || data.followupQ16b || data.followupQ16c|| data.followupQ16d){
-        ans.followupQ16a = data.followupQ16a;
-        ans.followupQ16b = data.followupQ16b;
-        ans.followupQ16c = data.followupQ16c;
-        ans.followupQ16d = data.followupQ16d;
-
-        ans.page = 16;
-      }
-       console.log("Qmain 16 answers sent:");
-    }
-
+    var ans = survey.currentPage.getValue();
+    console.log("Answers on this screen are::::", ans);
     return ans;
   }catch(err){
     console.log("Get Answer per page Error: ",err);
@@ -342,28 +179,28 @@ function getDocAnswers(data){
 {var ans;
 var doc;
 var qname;
-  if(data.followupQ11a!== undefined && (data.pageNo === 9)){
+  if(data.followupQ11a!== undefined){
     console.log("Follow up 11 a",data.followupQ11a[0])
   doc = data.followupQ11a[0]
   qname=0
-  }else if(data.followupQ8a!== undefined && (data.pageNo === 6)){
+  }else if(data.followupQ8a!== undefined ){
     console.log("Follow up 8a",data.followupQ8a[0])
   doc = data.followupQ8a[0]
   qname=1
   console.log("answers recieved")
-  }else if(data.followupQ8c!== undefined && (data.pageNo === 7)){
+  }else if(data.followupQ8c!== undefined ){
     console.log("Follow up 8c",data.followupQ8c[0])
   doc = data.followupQ8c[0]
   qname=2
-  }else if(data.followupQ14c!== undefined && (data.pageNo === 12)){
+  }else if(data.followupQ14c!== undefined ){
     console.log("Follow up 14c",data.followupQ14c[0])
   doc = data.followupQ14c[0]
   qname=3
-  }else if(data.followupQ15b!== undefined && (data.pageNo === 13)){
+  }else if(data.followupQ15b!== undefined ){
     console.log("Follow up 15b",data.followupQ15b[0])
   doc = data.followupQ15b[0]
   qname=4
-  }else if(data.followupQ16b!== undefined && (data.pageNo === 14)){
+  }else if(data.followupQ16b!== undefined ){
     console.log("Follow up 16b",data.followupQ16b[0])
   doc = data.followupQ16b[0]
   qname=5
@@ -379,65 +216,13 @@ ans = text
 
 async function uploadAnswersPerPage(ans){
   if(ans){
-    console.log(ans);
-    switch (ans.page) {
-      case 1:
-      case 2:
-      case 3:
-      case 4:
-      case 5:
-      case 6:
-      case 7:
-      case 8:
-      case 9:
-      case 10:
-      case 11:
-      case 12:
-      case 13:
-      case 14:
-      case 15:
-      case 16:
+     try{
+        console.log(ans);
         var anspq;
-        var questionID
+
         for( anspq in ans ) {
-          if(anspq==="qmain1"){
-            questionID =1
-          }else if(anspq==="qmain2"){
-            questionID=6
-          }else if(anspq==="qmain3"){
-            questionID=10
-          }else if(anspq==="qmain4"){
-            questionID=13
-          }else if(anspq==="qmain5"){
-            questionID=18
-          }else if(anspq==="qmain6"){
-            questionID=21
-          }else if(anspq==="qmain7"){
-            questionID=25
-          }else if(anspq==="qmain8"){
-            questionID=31
-          }else if(anspq==="qmain9"){
-            questionID=41
-          }else if(anspq==="qmain10"){
-            questionID=44
-          }else if(anspq==="qmain11"){
-            questionID=47
-          }else if(anspq==="qmain12"){
-            questionID=50
-          }else if(anspq==="qmain13"){
-            questionID=54
-          }else if(anspq==="qmain14"){
-            questionID=57
-          }else if(anspq==="qmain15"){
-            questionID=61
-          }else if(anspq==="qmain16"){
-            questionID=64
-          }else if(anspq==="qmain17"){
-            questionID=69
-          }
-          if(ans[anspq]!== undefined && anspq !== "page"){
+          if(ans[anspq]!== undefined ){
           console.log("Answer is: ", ans[anspq]);
-          console.log("questionID is: 00"+questionID);
         await API.graphql(graphqlOperation(
                 addAns, {
                   input: {
@@ -445,18 +230,7 @@ async function uploadAnswersPerPage(ans){
                     questionnaireID: currentQNaireId,
                   }
                 }
-                ))
-        }
-        questionID++;
-      }
-        break;
-
-      default:
-        console.log("Nothing happened!!!");
-        break;
-    }
-    try{
-
+                ))}}
     }catch(err){
       console.log("Answer per page upload Error: ",err);
     }
@@ -464,7 +238,7 @@ async function uploadAnswersPerPage(ans){
 }
 
 async function uploadDocuments(ans, data){
-  if(data.followupQ11a||data.followupQ8a||data.followupQ14c||data.followupQ15b){
+  if(data.followupQ11a||data.followupQ8a||data.followupQ14c||data.followupQ15b){//checks if the answers are for document uploading questions
 var doc = ans.docObj
 var qname = ans.quesname
 
@@ -488,76 +262,23 @@ var qname = ans.quesname
 
               switch (qname) {
                 case 0:
-               data.followupQ11a[0] = url;
-               await API.graphql(graphqlOperation(
-                addAns, {
-                  input: {
-                    answer: data.followupQ11a,
-                    questionaireID: currentQNaireId,
-                  }
-                }
-                ))
-
+               data.followupQ11a = doc.name;
                 break;
               case 1:
-               data.followupQ8a[0] = url;
-
-               await API.graphql(graphqlOperation(
-                addAns, {
-                  input: {
-                    answer: data.followupQ8a,
-                    questionaireID: currentQNaireId,
-                  }
-                }
-                ))
+               data.followupQ8a = doc.name;
+               console.log("Name of FollowupQ8a document", data.followupQ8a);
                 break;
                 case 2:
-               data.followupQ8c[0] = url;
-
-               await API.graphql(graphqlOperation(
-                addAns, {
-                  input: {
-                    answer: data.followupQ8c,
-                    questionaireID: currentQNaireId,
-                  }
-                }
-                ))
+               data.followupQ8c = doc.name;
                 break;
                 case 3:
-               data.followupQ14c[0] = url;
-               await API.graphql(graphqlOperation(
-                addAns, {
-                  input: {
-                    answer: data.followupQ14c,
-                    questionaireID: currentQNaireId,
-                  }
-                }
-                ))
-
+               data.followupQ14c = doc.name;
                 break;
                 case 4:
-               data.followupQ15b[0] = url;
-               await API.graphql(graphqlOperation(
-                addAns, {
-                  input: {
-                    answer: data.followupQ15b,
-                    questionaireID: currentQNaireId,
-                  }
-                }
-                ))
-               console.log("Document url: ",data.followupQ15b[0]);
+               data.followupQ15b = doc.name;
                 break;
                 case 5:
-               data.followupQ16b[0] = url;
-               await API.graphql(graphqlOperation(
-                addAns, {
-                  input: {
-                    answer: data.followupQ16a,
-                    questionaireID: currentQNaireId,
-                  }
-                }
-                ))
-               console.log("Document url: ",data.followupQ16b[0]);
+               data.followupQ16b = doc.name;
                 break;
                 default:
                console.log("Nothing happened");
@@ -567,7 +288,9 @@ var qname = ans.quesname
               } catch (err) {
                 console.log("upload error: ",err);
               }  }
-          }     }   
+          }  
+        return data;//returns the answer as the document name
+        }   
 
 
 
@@ -581,11 +304,13 @@ var qname = ans.quesname
   * ================================================================================================
   */
   survey.onPartialSend.add(function (result){
+    setSendData(true);
     saveSurveyData(result, qnaireUUID)
-    var doc = getDocAnswers(result.data);
-    var ans = getAnswerPerPage(result.data)
-    uploadDocuments(doc, result.data)
-    uploadAnswersPerPage(ans)
+    var ans = getAnswerPerPage();
+    var doc = getDocAnswers(ans);
+    uploadDocuments(doc, ans).then(ans=>{
+      uploadAnswersPerPage(ans)
+    })
     handleSurveyState()
 
 })

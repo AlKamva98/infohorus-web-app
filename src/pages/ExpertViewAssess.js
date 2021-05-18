@@ -5,6 +5,7 @@ import { AnsCOLUMNS } from "./anscolumns.js";
 import {Button, Container} from 'react-bootstrap'
 import * as queries from "../graphql/queries"
 import API, {graphqlOperation} from '@aws-amplify/api'
+import AWS from 'aws-sdk'
 import { MOCK_DATA } from "./MOCK_DATA.js";
 import "./table.css"
 
@@ -13,6 +14,12 @@ const { state } = props.location;
 const [checkbox1, setCheckbox1] = useState('');
 const [datatable, setDatatable] = useState('');
 const [hasAnswers, setHasAnswers] = useState(false)
+
+const s3 = new AWS.S3({
+  accessKeyId:  "dsfsldfmml454dfdf5",//IAM_USER_KEY,  /* required */ //# Put your iam user key
+  secretAccessKey: "46546retrkmmxzcmoerersfadf4sd5f4s5d4fsdf6", //IAM_USER_SECRET, /* required */  //# Put your iam user secret key
+  Bucket: "userdocumentsbucket60519-staging" //BUCKET_NAME     /* required */    // # Put your bucket name
+});
 let questionnaire;
 let answers =[];
 const showLogs2 = (e) => {
@@ -67,6 +74,23 @@ let listanswers = await API.graphql({query: queries.listAnswers});
 });
 console.log("Answers set as::::", answers)
 return answers;
+}
+
+const s3download = function (params) {
+    return new Promise((resolve, reject) => {
+        s3.createBucket({
+            Bucket: "userdocumentsbucket60519-staging"        /* Put your bucket name */
+        }, function () {
+            s3.getObject(params, function (err, data) {
+                if (err) {
+                    reject(err);
+                } else {
+                    console.log("Successfully dowloaded data from  bucket");
+                    resolve(data);
+                }
+            });
+        });
+    });
 }
 
 function convert(){
