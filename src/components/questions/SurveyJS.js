@@ -27,7 +27,7 @@ export function SurveyJS(props) {
   const [questionnaireState, setQuestionnaireState] = useState(false)
   const [modal, setModal] = useState(false);
   const toggle = () => {setModal(!modal);
-  handleSurveyState()}
+ }
   Survey.StylesManager.applyTheme("modern");
   let survey = new Survey.Model(SurveyJSON);
   const [authus, setAuthus] = useState();
@@ -38,6 +38,7 @@ export function SurveyJS(props) {
   const [shouldBlockNavigation, setShouldBlockNavigation] = useState(true)
   const [documentUrl, setDocUrl] = useState(null);
   const [loading, setLoading] = useState(false);
+  let questCount = 1;
   var currentQNaireId;
   const [sendData, setSendData] = useState(false);
   const [recipientName, setRecipientName] = useState("");
@@ -55,8 +56,7 @@ export function SurveyJS(props) {
   useEffect(() => {
     survey.storeDataAsText = false;
     checkUser()
-    handleSurveyState()
-    //window.localStorage.removeItem(questionaireId)
+    //window.localStorage.removeItem("questionaire_data")
   }, [])
 
   async function checkUser(){
@@ -67,14 +67,8 @@ export function SurveyJS(props) {
 
     }
   }
-
-  function handleSurveyState(){
-}
-
   
-
-
-    function setName(event){
+  function setName(event){
         setRecipientName(event.target.value);
     }
 
@@ -219,22 +213,74 @@ async function uploadAnswersPerPage(ans){
      try{
         console.log(ans);
         var anspq;
-
+        var qid = 0;
         for( anspq in ans ) {
           if(ans[anspq]!== undefined ){
+            if(anspq ==="qmain1"){
+              qid = questCount;
+            }
+            var questionID ="00"+qid;
+            
+            if(qid>=10){
+              questionID="0"+qid;
+            }
           console.log("Answer is: ", ans[anspq]);
         await API.graphql(graphqlOperation(
                 addAns, {
                   input: {
                     answer: ans[anspq],
                     questionnaireID: currentQNaireId,
+                    questionID:questionID,
                   }
                 }
-                ))}}
+                ))
+              }
+            qid++;
+          }
+          questCount= qid;
     }catch(err){
       console.log("Answer per page upload Error: ",err);
     }
   }
+}
+function setQid(q){
+var questionID;
+  if(q==="qmain1"){
+            questionID =1
+          }else if(q==="qmain2"){
+            questionID=6
+          }else if(q==="qmain3"){
+            questionID=10
+          }else if(q==="qmain4"){
+            questionID=13
+          }else if(q==="qmain5"){
+            questionID=18
+          }else if(q==="qmain6"){
+            questionID=21
+          }else if(q==="qmain7"){
+            questionID=25
+          }else if(q==="qmain8"){
+            questionID=31
+          }else if(q==="qmain9"){
+            questionID=41
+          }else if(q==="qmain10"){
+            questionID=44
+          }else if(q==="qmain11"){
+            questionID=47
+          }else if(q==="qmain12"){
+            questionID=50
+          }else if(q==="qmain13"){
+            questionID=54
+          }else if(q==="qmain14"){
+            questionID=57
+          }else if(q==="qmain15"){
+            questionID=61
+          }else if(q==="qmain16"){
+            questionID=64
+          }else if(q==="qmain17"){
+            questionID=69
+          }
+          return questionID;
 }
 
 async function uploadDocuments(ans, data){
@@ -311,7 +357,7 @@ var qname = ans.quesname
     uploadDocuments(doc, ans).then(ans=>{
       uploadAnswersPerPage(ans)
     })
-    handleSurveyState()
+   
 
 })
 
@@ -343,6 +389,7 @@ survey.onStarted.add(async function(){
   const QQ =await API.graphql(graphqlOperation(mutations.createQuestionnaireQuestion, {
   input:{
     questionnaireId: currentQNaireId,
+    
   }
 }))
 console.log("Questionnaire Question: ",QQ)
@@ -376,7 +423,6 @@ console.log("Questionnaire Question: ",qqId)
 })
   survey.onComplete.add(async function (result) {
   
-  var answers = JSON.stringify(result.data, null, 3) 
   try{
 
     setQuestionnaireState(true);

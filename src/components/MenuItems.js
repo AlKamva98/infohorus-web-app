@@ -21,8 +21,8 @@ export const MenuItems =[
  
  },
  {
-  title: 'Findings',
-  url: '/findings',
+  title: 'Dashboard',
+  url: '/findings ',
   cName: 'navbar-links'
  },
   {

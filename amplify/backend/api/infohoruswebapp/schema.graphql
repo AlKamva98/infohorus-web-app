@@ -29,13 +29,15 @@ type Section @model @auth(rules: [{allow: public}]) @key(name: "byQuestionSectio
   questionsectionID: ID
 }
 
-type Answer @model @auth(rules: [{allow: public}]) @key(name: "byAnswerQuestion", fields: ["answerquestionID"]) @key(name: "byQuestionnaire", fields: ["questionnaireID"]) {
+type Answer @model @auth(rules: [{allow: public}]) @key(name: "byAnswerQuestion", fields: ["answerquestionID"]) @key(name: "byQuestionnaire", fields: ["questionnaireID"]) @key(name: "byQuestion", fields: ["questionID"]) {
   id: ID!
   answer: String
   AnswerQuestion: AnswerQuestion @connection
   answerquestionID: ID
   Questionnaire: Questionnaire @connection
   questionnaireID: ID
+  Question: Question @connection
+  questionID: ID
 }
 
 type Question @model @auth(rules: [{allow: public}]) @key(name: "byQuestionnaireQuestion", fields: ["questionnairequestionID"]) @key(name: "byQuestionSection", fields: ["questionsectionID"]) {
@@ -47,6 +49,7 @@ type Question @model @auth(rules: [{allow: public}]) @key(name: "byQuestionnaire
   AnswerQuestions: [AnswerQuestion] @connection(keyName: "byQuestion", fields: ["id"])
   questionsectionID: ID
   QuestionSection: QuestionSection @connection
+  Answers: [Answer] @connection(keyName: "byQuestion", fields: ["id"])
 }
 
 type Questionnaire @model @auth(rules: [{allow: public}]) {

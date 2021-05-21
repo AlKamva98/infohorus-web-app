@@ -18,5 +18,11 @@ export const AnsCOLUMNS =[
         sort: 'asc',
         width: 150,
 
+      },{
+        label:'Question ID',
+        field:'questionID',
+        sort: 'asc',
+        width: 150,
+
       }
 ]

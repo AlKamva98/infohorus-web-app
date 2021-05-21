@@ -548,6 +548,7 @@ export const createAnswer = /* GraphQL */ `
       answer
       answerquestionID
       questionnaireID
+      questionID
       _version
       _deleted
       _lastChangedAt

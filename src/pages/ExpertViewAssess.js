@@ -1,12 +1,11 @@
 import React, {useState,useMemo, useEffect} from 'react';
-import {useTable} from 'react-table';
 import { MDBDataTableV5 } from 'mdbreact';
 import { AnsCOLUMNS } from "./anscolumns.js";
 import {Button, Container} from 'react-bootstrap'
 import * as queries from "../graphql/queries"
 import API, {graphqlOperation} from '@aws-amplify/api'
 import AWS from 'aws-sdk'
-import { MOCK_DATA } from "./MOCK_DATA.js";
+
 import "./table.css"
 
 export const ExpertViewAssess = (props) => {
@@ -16,8 +15,8 @@ const [datatable, setDatatable] = useState('');
 const [hasAnswers, setHasAnswers] = useState(false)
 
 const s3 = new AWS.S3({
-  accessKeyId:  "dsfsldfmml454dfdf5",//IAM_USER_KEY,  /* required */ //# Put your iam user key
-  secretAccessKey: "46546retrkmmxzcmoerersfadf4sd5f4s5d4fsdf6", //IAM_USER_SECRET, /* required */  //# Put your iam user secret key
+  accessKeyId:  "",//IAM_USER_KEY,  /* required */ //# Put your iam user key
+  secretAccessKey: "", //IAM_USER_SECRET, /* required */  //# Put your iam user secret key
   Bucket: "userdocumentsbucket60519-staging" //BUCKET_NAME     /* required */    // # Put your bucket name
 });
 let questionnaire;

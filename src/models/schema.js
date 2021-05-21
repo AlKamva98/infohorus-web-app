@@ -234,6 +234,20 @@ export const schema = {
                         "connectionType": "BELONGS_TO",
                         "targetName": "questionQuestionSectionId"
                     }
+                },
+                "Answers": {
+                    "name": "Answers",
+                    "isArray": true,
+                    "type": {
+                        "model": "Answer"
+                    },
+                    "isRequired": false,
+                    "attributes": [],
+                    "isArrayNullable": true,
+                    "association": {
+                        "connectionType": "HAS_MANY",
+                        "associatedWith": "questionID"
+                    }
                 }
             },
             "syncable": true,
@@ -485,6 +499,26 @@ export const schema = {
                     "type": "ID",
                     "isRequired": false,
                     "attributes": []
+                },
+                "Question": {
+                    "name": "Question",
+                    "isArray": false,
+                    "type": {
+                        "model": "Question"
+                    },
+                    "isRequired": false,
+                    "attributes": [],
+                    "association": {
+                        "connectionType": "BELONGS_TO",
+                        "targetName": "answerQuestionId"
+                    }
+                },
+                "questionID": {
+                    "name": "questionID",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": false,
+                    "attributes": []
                 }
             },
             "syncable": true,
@@ -509,6 +543,15 @@ export const schema = {
                         "name": "byQuestionnaire",
                         "fields": [
                             "questionnaireID"
+                        ]
+                    }
+                },
+                {
+                    "type": "key",
+                    "properties": {
+                        "name": "byQuestion",
+                        "fields": [
+                            "questionID"
                         ]
                     }
                 },
@@ -735,5 +778,5 @@ export const schema = {
     },
     "enums": {},
     "nonModels": {},
-    "version": "1b0130c82279bc555478a45f1db95684"
+    "version": "272eb3074201fac36332ab1c9aea76a4"
 };

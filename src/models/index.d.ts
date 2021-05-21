@@ -33,6 +33,7 @@ export declare class Question {
   readonly AnswerQuestions?: (AnswerQuestion | null)[];
   readonly questionsectionID?: string;
   readonly QuestionSection?: QuestionSection;
+  readonly Answers?: (Answer | null)[];
   constructor(init: ModelInit<Question>);
   static copyOf(source: Question, mutator: (draft: MutableModel<Question>) => MutableModel<Question> | void): Question;
 }
@@ -63,6 +64,8 @@ export declare class Answer {
   readonly answerquestionID?: string;
   readonly Questionnaire?: Questionnaire;
   readonly questionnaireID?: string;
+  readonly Question?: Question;
+  readonly questionID?: string;
   constructor(init: ModelInit<Answer>);
   static copyOf(source: Answer, mutator: (draft: MutableModel<Answer>) => MutableModel<Answer> | void): Answer;
 }
