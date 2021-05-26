@@ -44,7 +44,7 @@ function App(){
       <Router>
       <div className="App">
       <Switch>
-        <Route path="/" exact component={Landing}/>
+        <Route path="/" exact component={Home}/>
         <Route path="/about" component={About} />
         <Route path="/contact"component={Contact}/>
         <Route path="/pricing"component={Pricing}/>

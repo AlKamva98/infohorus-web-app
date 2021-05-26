@@ -10,7 +10,13 @@ export function Home() {
     <>
     <Header/>
     <div className="Home align-items-center">
-      <Jumbotron head="Welcome to Infohorus" body={body} btn1Link="/about" btn1Text="Learn More" jumboType="two-btns" />
+      <Jumbotron head="Welcome to Infohorus" 
+      body={body} 
+      btn1Link="/about" 
+      btn1Text="Learn More" 
+      btn2Link="/questions" 
+      btn2Text="Take Questionnaire" 
+      jumboType="two-btns" />
       <Featurerette/>
       <Customer/>
       </div>

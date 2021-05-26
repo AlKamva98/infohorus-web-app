@@ -9,6 +9,7 @@ import * as queries from '../../graphql/queries'
 import * as Survey from 'survey-react';
 import { PopUp } from '../Modal.js';
 import configData from '../../config/config.json';
+import { questionIDs } from './questionId.js';
 
 
 export function SurveyJS(props) {
@@ -38,9 +39,8 @@ export function SurveyJS(props) {
   const [shouldBlockNavigation, setShouldBlockNavigation] = useState(true)
   const [documentUrl, setDocUrl] = useState(null);
   const [loading, setLoading] = useState(false);
-  let questCount = 1;
+  let qids = questionIDs;
   var currentQNaireId;
-  const [sendData, setSendData] = useState(false);
   const [recipientName, setRecipientName] = useState("");
   const [recipientEmail, setRecipientEmail] = useState("");
   const [loginUser, setLoginUser] = useState(null);
@@ -152,12 +152,10 @@ var storageName = "questionaire_data"
     var data= result.data;
     data.pageNo = result.currentPageNo;
     data.uuid = uuid;
-    var ansperpage= survey.getPlainData();
     console.log("Saved data is",data);
-    //console.log(ansperpage);
-
     window.localStorage.setItem(storageName, JSON.stringify(data))
   }
+  
 function getAnswerPerPage(){//get answers from the page
   try{
     var ans = survey.currentPage.getValue();
@@ -190,13 +188,13 @@ var qname;
     console.log("Follow up 14c",data.followupQ14c[0])
   doc = data.followupQ14c[0]
   qname=3
-  }else if(data.followupQ15b!== undefined ){
-    console.log("Follow up 15b",data.followupQ15b[0])
-  doc = data.followupQ15b[0]
-  qname=4
   }else if(data.followupQ16b!== undefined ){
     console.log("Follow up 16b",data.followupQ16b[0])
   doc = data.followupQ16b[0]
+  qname=4
+  }else if(data.followupQ17a!== undefined ){
+    console.log("Follow up 17a",data.followupQ17a[0])
+  doc = data.followupQ17a[0]
   qname=5
   }
   var text ={ docObj : doc , quesname: qname };
@@ -204,7 +202,7 @@ ans = text
   console.log("answers stored and returned", doc)
   return ans;
 }catch(err){
-                console.log("ans return error: ",err);
+  console.log("ans return error: ",err);
 }
 }
 
@@ -213,19 +211,20 @@ async function uploadAnswersPerPage(ans){
      try{
         console.log(ans);
         var anspq;
-        var qid = 0;
+        var questionID;
         for( anspq in ans ) {
           if(ans[anspq]!== undefined ){
-            if(anspq ==="qmain1"){
-              qid = questCount;
-            }
-            var questionID ="00"+qid;
             
-            if(qid>=10){
-              questionID="0"+qid;
-            }
-          console.log("Answer is: ", ans[anspq]);
-        await API.graphql(graphqlOperation(
+            console.log("Answer is: ", ans[anspq]);
+            qids.map(function (qid){
+              let qname =String(qid.questionName)
+              if(qname.valueOf()=== String(anspq).valueOf()){
+                questionID = qid.id;
+              }
+          });
+
+
+        var storedAns = await API.graphql(graphqlOperation(
                 addAns, {
                   input: {
                     answer: ans[anspq],
@@ -234,63 +233,29 @@ async function uploadAnswersPerPage(ans){
                   }
                 }
                 ))
-              }
-            qid++;
+        var said=String(storedAns.data.createAnswer.id);
+        await API.graphql(graphqlOperation(
+          mutations.createQuestionnaireQuestionAnswer,{
+            input:{
+              answerID: said,
+              questionID: questionID,
+              questionnaireID: currentQNaireId,
+            }
           }
-          questCount= qid;
+        ))
+        } }
     }catch(err){
       console.log("Answer per page upload Error: ",err);
     }
   }
 }
-function setQid(q){
-var questionID;
-  if(q==="qmain1"){
-            questionID =1
-          }else if(q==="qmain2"){
-            questionID=6
-          }else if(q==="qmain3"){
-            questionID=10
-          }else if(q==="qmain4"){
-            questionID=13
-          }else if(q==="qmain5"){
-            questionID=18
-          }else if(q==="qmain6"){
-            questionID=21
-          }else if(q==="qmain7"){
-            questionID=25
-          }else if(q==="qmain8"){
-            questionID=31
-          }else if(q==="qmain9"){
-            questionID=41
-          }else if(q==="qmain10"){
-            questionID=44
-          }else if(q==="qmain11"){
-            questionID=47
-          }else if(q==="qmain12"){
-            questionID=50
-          }else if(q==="qmain13"){
-            questionID=54
-          }else if(q==="qmain14"){
-            questionID=57
-          }else if(q==="qmain15"){
-            questionID=61
-          }else if(q==="qmain16"){
-            questionID=64
-          }else if(q==="qmain17"){
-            questionID=69
-          }
-          return questionID;
-}
+
 
 async function uploadDocuments(ans, data){
-  if(data.followupQ11a||data.followupQ8a||data.followupQ14c||data.followupQ15b){//checks if the answers are for document uploading questions
-var doc = ans.docObj
-var qname = ans.quesname
-
-
+  if(data.followupQ11a||data.followupQ8a||data.followupQ14c||data.followupQ16b||data.followup17a){//checks if the answers are for document uploading questions
+  var doc = ans.docObj
+  var qname = ans.quesname
  if (doc){
-
           try{
             console.log("Uploading document to S3 Bucket...")
               await Storage.put(doc.name, doc.content, {
@@ -321,10 +286,10 @@ var qname = ans.quesname
                data.followupQ14c = doc.name;
                 break;
                 case 4:
-               data.followupQ15b = doc.name;
+               data.followupQ16b = doc.name;
                 break;
                 case 5:
-               data.followupQ16b = doc.name;
+               data.followupQ17a = doc.name;
                 break;
                 default:
                console.log("Nothing happened");
@@ -349,34 +314,29 @@ var qname = ans.quesname
   * Survey Functions
   * ================================================================================================
   */
+ 
+  //onPartialSend///
   survey.onPartialSend.add(function (result){
-    setSendData(true);
     saveSurveyData(result, qnaireUUID)
     var ans = getAnswerPerPage();
     var doc = getDocAnswers(ans);
     uploadDocuments(doc, ans).then(ans=>{
       uploadAnswersPerPage(ans)
     })
-   
+    })
 
-})
-
-survey.onStarted.add(async function(){
+    //onStarted//
+  survey.onStarted.add(async function(){
     console.log("Current questionnaire ID",currentQNaireId)
-
-  let email = authus.attributes.email;
-  console.log(email)
- 
-
-  try{
-    const listquestions = await API.graphql({query: queries.listQuestions});
-    const questions = listquestions.data.listQuestions;
-    console.log(questions)
+    let email = authus.attributes.email;
+    console.log(email)
+    try{
+    
     console.log("Current questionnaire ID",currentQNaireId)
-
     var us = await API.graphql(graphqlOperation(queries.listUsers))
     let userId
     var qUser
+  
     us.data.listUsers.items.map(function (user){
       console.log("The user is: ", user.email)
       console.log("The current user is: ", email)
@@ -385,16 +345,14 @@ survey.onStarted.add(async function(){
          qUser = user;
       }
     })
+
     console.log("Current questionnaire ID",currentQNaireId)
-  const QQ =await API.graphql(graphqlOperation(mutations.createQuestionnaireQuestion, {
-  input:{
-    questionnaireId: currentQNaireId,
-    
-  }
-}))
-console.log("Questionnaire Question: ",QQ)
-var qqId = String(QQ.data.createQuestionnaireQuestion.id);
-console.log("Questionnaire Question: ",qqId)
+    // const QQA =await API.graphql(graphqlOperation(mutations.createQuestionnaireQuestionAnswer, {
+    // input:{questionnaireId: currentQNaireId,}
+    // }))
+    // console.log("Questionnaire Question: ",QQA)
+    // var qqId = String(QQA.data.createQuestionnaireQuestionAnswer.id);
+    // console.log("Questionnaire Question: ",qqId)
 
     const qn= await API.graphql(graphqlOperation(
        addQuestionnaire, {
@@ -402,63 +360,60 @@ console.log("Questionnaire Question: ",qqId)
            id: currentQNaireId,
            questionaireCompleted: false,
            userId: userId,
-           questionnaireQuestionId:qqId,
-
           }
         }
         ));
         console.log("Questionnaire: ",qn)
-
-    // const updatedUser = await API.graphql(graphqlOperation(
-    //   mutations.updateUser,{
-    //     condition: { id: userId},
-    //     input: {
-    //         questionnaireId: currentQNaireId,
-    //     }
-    //   }
-    // ))
+        const updatedUserDetails = {
+        id:userId,
+        questionnaireID:qn.data.createQuestionnaire.id
+      } 
+      await API.graphql({query: mutations.updateUser, variables:{input:updatedUserDetails}})
       }catch(err){
         console.log("On Start Error:", err)
       }
 })
+
+  //onComplete//
   survey.onComplete.add(async function (result) {
-  
   try{
+    saveSurveyData(result, qnaireUUID)
+    var ans = getAnswerPerPage();
+    var doc = getDocAnswers(ans);
+    uploadDocuments(doc, ans).then(ans=>{
+      uploadAnswersPerPage(ans)
+    })
 
     setQuestionnaireState(true);
-    await API.graphql(graphqlOperation(
-      mutations.updateQuestionnaire,{
-
-      }
-    ))
-          
-console.log("Questionnaire state upadated!");
+    const updatedQNaire = {
+      id: currentQNaireId,
+      questionaireCompleted: questionnaireState,
+      } 
+    
+    await API.graphql( {query: mutations.updateQuestionnaire, variables:{input: updatedQNaire }});      
+    console.log("Questionnaire state upadated!");
  }catch(err){
-console.log("This is the Error:",err);
-
- }  
-
+    console.log("This is the Error:",err);
+    }  
     });
     
+  //
   var prevData = window.localStorage.getItem(storageName)||null;
   if(prevData){
    var data = JSON.parse(prevData)
    survey.data = data;
-  //
-  console.log(survey.data)
-  console.log(prevData)
-  currentQNaireId=data.uuid;
-    console.log("Current questionnaire ID",currentQNaireId)
+   console.log(survey.data)
+   console.log(prevData)
+   currentQNaireId=data.uuid;
+   console.log("Current questionnaire ID",currentQNaireId)
 
    if(data.pageNo){
    survey.currentPageNo = data.pageNo;
    console.log("Page no is:",survey.currentPageNo)
-
- }
- console.log("ID set: ",qnaireUUID);
- console.log("Current ID:",currentQNaireId);
-
- }
+   }
+   console.log("ID set: ",qnaireUUID);
+   console.log("Current ID:",currentQNaireId);
+  }
 /**================================================================================================
   * End of Survey Functions
   * ================================================================================================
