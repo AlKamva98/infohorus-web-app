@@ -66,3 +66,10 @@ export declare class User {
   constructor(init: ModelInit<User>);
   static copyOf(source: User, mutator: (draft: MutableModel<User>) => MutableModel<User> | void): User;
 }
+
+export declare class File {
+  readonly id: string;
+  readonly data?: string;
+  constructor(init: ModelInit<File>);
+  static copyOf(source: File, mutator: (draft: MutableModel<File>) => MutableModel<File> | void): File;
+}

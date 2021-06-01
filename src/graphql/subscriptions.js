@@ -1135,3 +1135,42 @@ export const onDeleteUser = /* GraphQL */ `
     }
   }
 `;
+export const onCreateFile = /* GraphQL */ `
+  subscription OnCreateFile {
+    onCreateFile {
+      id
+      data
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateFile = /* GraphQL */ `
+  subscription OnUpdateFile {
+    onUpdateFile {
+      id
+      data
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteFile = /* GraphQL */ `
+  subscription OnDeleteFile {
+    onDeleteFile {
+      id
+      data
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+    }
+  }
+`;
