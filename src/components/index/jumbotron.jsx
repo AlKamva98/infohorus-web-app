@@ -4,7 +4,8 @@ import {Button, Image,Container, Card, Row, Col} from 'react-bootstrap';
 import {Link} from 'react-router-dom'
 import './index.css'
 
-export function Jumbotron(){
+export function Jumbotron(props){
+  const {jumboType, head, body, btn1Link,btn1Text ,btn2Link,btn2Text} = props;
 const [signedIn, setSignedIn] = useState(false);
 
 useEffect(()=>{
@@ -21,14 +22,13 @@ async function checkUserSignedIn(){
 <Container className="jumbotron overflow-hidden d-flex justify-content-center text-center mb-5 mt-4 " >
  <Row>
   <Col className=" py-5 px-5 mx-auto my-auto order-md-1 mb-3 shadow-sm bgtxt">
-   <h1 className="display-4 fw-normal d-md-block text-center text-white">Welcome to Infohorus</h1>
+   <h1 className="display-4 fw-normal d-md-block text-center text-white">{head}</h1>
     <div className="col-md-12 ">
-      <p className="lead fw-normal text-white text-center ">Infohorus offers cybersecurity services that combine diverse expertise in the areas of cybersecurity, defensive social engineering, cyber negotiations, intelligence, and other specialized operations to enhance critical infrastructure cyber resilience.</p>
+      <p className="lead fw-normal text-white text-center ">{body}</p>
       
       <div className="d-flex justify-content-between" >
-      <Link to="/about"><Button className="mx-4 shadow-sm">Learn more</Button></Link>
-      {signedIn ?(<Link to="/questions"><Button className="mx-4 shadow-sm">Take Questionaire</Button></Link>):
-      (null)}
+      <Link to={btn1Link}><Button className="mx-4 shadow-sm">{btn1Text}</Button></Link>
+      { jumboType==="two-btns" ? <Link to={btn2Link}><Button className="mx-4 shadow-sm">{btn2Text}</Button></Link> : null}      
       </div>
 
 </div>

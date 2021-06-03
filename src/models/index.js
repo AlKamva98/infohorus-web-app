@@ -4,15 +4,12 @@ import { schema } from './schema';
 
 
 
-const { QuestionSection, Section, Question, QuestionnaireQuestion, AnswerQuestion, Answer, Questionnaire, User } = initSchema(schema);
+const { QuestionnaireQuestionAnswer, Answer, Question, Questionnaire, User } = initSchema(schema);
 
 export {
-  QuestionSection,
-  Section,
-  Question,
-  QuestionnaireQuestion,
-  AnswerQuestion,
+  QuestionnaireQuestionAnswer,
   Answer,
+  Question,
   Questionnaire,
   User
 };

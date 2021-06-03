@@ -39,7 +39,7 @@ export const SurveyJSON={
       {
        "type": "radiogroup",
        "name": "qmain1",
-       "title": "Does your organization have someone in charge of cybersecurity?",
+       "title": "Has your organisation appointed someone to be in charge of cybersecurity?",
        "titleLocation": "top",
        "hideNumber": true,
        
@@ -81,7 +81,7 @@ export const SurveyJSON={
        "name": "followupQ1b",
        "visible": false,
        "visibleIf": "{qmain1} = 'Yes'",
-       "title": "Does this individual have the authority to shutdown all systems during a cyber attack?",
+       "title": "Does this person have the authority to shutdown all IT systems in the event of a cyber attack?	",
        "titleLocation": "top",
        "hideNumber": true,
        "choices": [
@@ -96,23 +96,31 @@ export const SurveyJSON={
        ]
       },
       {
-       "type": "multipletext",
+       "type": "text",
        "name": "followupQ1c",
        "visible": false,
        "visibleIf": "{followupQ1b} = 'No'",
-       "title": "If not, who has this authority? Please enter this person's name, title, and contact information.",
+       "title": "If not, who has the authority to shutdown all IT systems in the event of a cyberattack?",
+       "hideNumber": true
+      },
+      {
+       "type": "multipletext",
+       "name": "followupQ1d",
+       "visible": false,
+       "visibleIf": "{followupQ1b} = 'No'",
+       "title": "What is this person's name, title, and contact information?",
        "hideNumber": true,
        "items": [
         {
-         "name": "cybName",
+         "name": "cybAuthName",
          "title": "Name"
         },
         {
-         "name": "jobTitle",
+         "name": "authJobTitle",
          "title": "Title"
         },
         {
-         "name": "contact",
+         "name": "authContact",
          "title": "Contact"
         }
        ]
@@ -134,7 +142,7 @@ export const SurveyJSON={
       {
        "type": "radiogroup",
        "name": "qmain2",
-       "title": "Does your organisation have a  communication plan for a cyberattack?",
+       "title": "Has your organisation developed and communicated a communication plan for a cyberattack?",
        "hideNumber": true,
        
        "choices": [
@@ -153,7 +161,7 @@ export const SurveyJSON={
        "name": "followupQ2a",
        "visible": false,
        "visibleIf": "{qmain2} = 'Yes'",
-       "title": "Does it outline how employees should report suspicious activity?",
+       "title": "Does your communication plan outline how employees should report suspicious activity?	",
        "hideNumber": true,
        "choices": [
         {
@@ -171,7 +179,7 @@ export const SurveyJSON={
       "name": "followupQ2b",
       "visible": false,
        "visibleIf": "{qmain2} = 'Yes'",
-       "title": "Does it outline how information and updates regarding an attack will be shared internally and externally?",
+       "title": "Does your communication plan outline how information and updates regarding an attack will be shared internally and externally?	",
        "hideNumber": true,
        "choices": [
         {
@@ -189,7 +197,7 @@ export const SurveyJSON={
        "name": "followupQ2c",
        "visible": false,
        "visibleIf": "{qmain2} = 'Yes'",
-       "title": "Has the communication plan been tested for effectiveness?",
+       "title": "Has the cybersecurity attack communication plan been tested for effectiveness?",
        "hideNumber": true,
        "choices": [
         {
@@ -218,7 +226,7 @@ export const SurveyJSON={
       {
        "type": "radiogroup",
        "name": "qmain3",
-       "title": "Has your organisation been in touch with cyber security experts/advisors from outside your organizations regarding your planned response to a cyber attack?",
+       "title": "Has your organisation been in touch with cyber security experts and/or advisors from outside your organizations regarding your planned response to a cyber attack?	",
        "hideNumber": true,
        
        "choices": [
@@ -237,7 +245,7 @@ export const SurveyJSON={
        "name": "followupQ3a",
        "visible": false,
        "visibleIf": "{qmain3} = 'Yes'",
-       "title": "Have you already called on cyber security experts/advisors from outside your organizations in response to a cyber attack of any kind?",
+       "title": "Have you already called on cyber security experts and/or advisors from outside your organizations in response to a cyber attack of any kind?	",
        "hideNumber": true,
        "choices": [
         {
@@ -255,7 +263,7 @@ export const SurveyJSON={
        "name": "followupQ3b",
        "visible": false,
        "visibleIf": "{qmain3} = 'Yes'",
-       "title": "Please describe the attack and how cyber security experts/advisors from outside your organizations offered assistance?",
+       "title": "Please describe a previous cyber attack and how cyber security experts and/or advisors from outside your organizations offered assistance?",
        "hideNumber": true
       }
      ],
@@ -274,7 +282,7 @@ export const SurveyJSON={
       {
        "type": "radiogroup",
        "name": "qmain4",
-       "title": "Has your organisation reached out to the government to discuss your cybersecurity plan and capabilities?",
+       "title": "Has your organisation reached out to the government, law enforcement or government agencies to discuss your cybersecurity plan and capabilities?",
        "hideNumber": true,
        
        "choices": [
@@ -293,7 +301,7 @@ export const SurveyJSON={
        "name": "followupQ4a",
        "visible": false,
        "visibleIf": "{qmain4} = 'Yes'",
-       "title": "Who is/was your contact in the government and what assistance did they provide?",
+       "title": "Who is or was your contact in the government and what assistance did they provide with regards to cyberattacks?",
        "hideNumber": true
       },
       {
@@ -301,7 +309,7 @@ export const SurveyJSON={
        "name": "followupQ4b",
        "visible": false,
        "visibleIf": "{qmain4} = 'Yes'",
-       "title": "Does your organisation have a private cybersecurity consultant on call?",
+       "title": "Does your organisation have an external cybersecurity consultant or expert on call?	",
        "hideNumber": true,
        "choices": [
         {
@@ -319,7 +327,7 @@ export const SurveyJSON={
        "name": "followupQ4c",
        "visible": false,
        "visibleIf": "{followupQ4b} = 'Yes'",
-       "title": "Who is that?",
+       "title": "Who is your external cybersecurity consultant or expert that you have on call?",
        "hideNumber": true
       },
       {
@@ -327,7 +335,7 @@ export const SurveyJSON={
        "name": "followupQ4d",
        "visible": false,
        "visibleIf": "{followupQ4b} = 'Yes'",
-       "title": "What assistance have they already provided?",
+       "title": "What assistance has your external cybersecurity consultant already provided?	",
        "hideNumber": true
       }
       
@@ -347,7 +355,7 @@ export const SurveyJSON={
       {
        "type": "radiogroup",
        "name": "qmain5",
-       "title": "Are there other local, regional, and national organizations your agency collaborates with to enhance your ability to avoid or deal with a cyberattack?",
+       "title": "Are there other local, regional, and national organizations your organization collaborates with to enhance your ability to avoid or deal with a cyberattack?	",
        "hideNumber": true,
        
        "choices": [
@@ -366,7 +374,7 @@ export const SurveyJSON={
        "name": "followupQ5a",
        "visible": false,
        "visibleIf": "{qmain5} = 'yes'",
-       "title": "What organizations?",
+       "title": "What are those organizations?",
        "hideNumber": true
       },
       {
@@ -393,7 +401,7 @@ export const SurveyJSON={
       {
        "type": "radiogroup",
        "name": "qmain6",
-       "title": "Does your organisation have a specific annual budget line item for cybersecurity?",
+       "title": "Does your organization have a specific annual budget line item for cybersecurity?",
        "hideNumber": true,
        
        "choices": [
@@ -412,7 +420,7 @@ export const SurveyJSON={
        "name": "followup6a",
        "visible": false,
        "visibleIf": "{qmain6} = 'Yes'",
-       "title": "If so, what is the budget?",
+       "title": "If cybersecurity has a line item in your organizations budget, what is the budget?	",
        "hideNumber": true
       },
       {
@@ -420,7 +428,7 @@ export const SurveyJSON={
        "name": "followup6b",
        "visible": false,
        "visibleIf": "{qmain6} = 'Yes'",
-       "title": "What has been spent on cybersecurity improvements each of the past three years?",
+       "title": "What has been spent on cybersecurity improvements each of the past three years",
        "hideNumber": true
       },
       {
@@ -447,7 +455,7 @@ export const SurveyJSON={
       {
        "type": "radiogroup",
        "name": "qmain7",
-       "title": "Does your organisation require cybersecurity awareness and best practices training for all new employees?",
+       "title": "Does your organisation provide cybersecurity awareness and best practices training for all new employees?",
        "hideNumber": true,
        
        "choices": [
@@ -502,7 +510,7 @@ export const SurveyJSON={
        "name": "followupQ7c",
        "visible": false,
        "visibleIf": "{qmain7} = 'Yes'",
-       "title": "What are the most important best practices that are taught?",
+       "title": "What are the most important best practices that are taught in your awareness training?	",
        "hideNumber": true
       },
       {
@@ -510,7 +518,7 @@ export const SurveyJSON={
        "name": "followupQ7d",
        "visible": false,
        "visibleIf": "{qmain7} = 'Yes'",
-       "title": "Who teaches them?",
+       "title": "Who conducts the cybersecurity best practice training?	",
        "hideNumber": true
       },
       {
@@ -518,7 +526,7 @@ export const SurveyJSON={
        "name": "followupQ7e",
        "visible": false,
        "visibleIf": "{qmain7} = 'Yes'",
-       "title": "Who determines whether these practices are being followed successfully?",
+       "title": "Who determines whether these cybersecurity best practices are being followed successfully?	",
        "hideNumber": true
       }
      ],
@@ -556,7 +564,7 @@ export const SurveyJSON={
        "name": "followupQ8a",
        "visible": false,
        "visibleIf": "{qmain8} = 'Yes'",
-       "title": "Can we see the plan?",
+       "title": "Can we see the plan? (Please attach the documentation)	",
        "hideNumber": true,
        "maxSize": 0
       },
@@ -583,7 +591,7 @@ export const SurveyJSON={
        "name": "followupQ8c",
        "visible": false,
        "visibleIf": "{followupQ8b} = 'Yes'",
-       "title": "If so, can we see the policy?",
+       "title": "If so, can we see the policy? (Please attach the document)	",
        "hideNumber": true,
        "maxSize": 0
       },
@@ -592,7 +600,7 @@ export const SurveyJSON={
        "name": "followupQ8d",
        "visible": false,
        "visibleIf": "{followupQ8b} = 'Yes'",
-       "title": "How did you decide to buy insurance?",
+       "title": "What process was followed in making the decision to buy insurance?",
        "hideNumber": true
       },
       {
@@ -600,7 +608,7 @@ export const SurveyJSON={
        "name": "followupQ8e",
        "visible": false,
        "visibleIf": "{followupQ8b} = 'Yes'",
-       "title": "Can we know what amount is paid per year for the insurance?",
+       "title": "What amount is paid per year for the insurance?",
        "hideNumber": true
       },
       {
@@ -608,7 +616,7 @@ export const SurveyJSON={
        "name": "followupQ8f",
        "visible": false,
        "visibleIf": "{followupQ8b} = 'Yes'",
-       "title": "Who provides this insurance?",
+       "title": "Who provides your cybersecurity insurance?	",
        "hideNumber": true
       },
       {
@@ -616,7 +624,7 @@ export const SurveyJSON={
        "name": "followupQ8g",
        "visible": false,
        "visibleIf": "{followupQ8b} = 'Yes'",
-       "title": "Has your organisation received payments from this insurance?",
+       "title": "Has your organisation received payouts from your cybersecurity insurance?	",
        "hideNumber": true,
        "choices": [
         {
@@ -634,7 +642,7 @@ export const SurveyJSON={
        "name": "followupQ8h",
        "visible": false,
        "visibleIf": "{followupQ8g} = 'Yes'",
-       "title": "If so, please describe each instance and the amount received.",
+       "title": "If you have received any cybersecurity insurance payouts, please describe each instance and the amount received.",
        "hideNumber": true
       },
       {
@@ -642,7 +650,7 @@ export const SurveyJSON={
        "name": "followupQ8i",
        "visible": false,
        "visibleIf": "{qmain8} = 'No'",
-       "title": "If no insurance, why did you decided to not buy it?",
+       "title": "If you have no cybersecurity insurance, why did you decided to not buy it?	",
        "hideNumber": true
       }
      ],
@@ -680,7 +688,7 @@ export const SurveyJSON={
        "name": "followupQ9a",
        "visible": false,
        "visibleIf": "{qmain9} = 'Yes'",
-       "title": "Whose responsibility is this?",
+       "title": "Who's responsibility is to ensure timely updating of operating software and installing patches?",
        "hideNumber": true
       },
       {
@@ -688,7 +696,7 @@ export const SurveyJSON={
        "name": "followupQ9b",
        "visible": false,
        "visibleIf": "{qmain9} = 'Yes'",
-       "title": "How often is software updates? What is the process for installing updates?",
+       "title": "How often is software updated? What is the process for installing software updates?",
        "hideNumber": true
       }
      ],
@@ -707,7 +715,7 @@ export const SurveyJSON={
       {
        "type": "radiogroup",
        "name": "qmain10",
-       "title": "Has your organisation identified which systems are critical to the agency's operations?",
+       "title": "Has your organisation identified which systems are critical to it's operations?",
        "hideNumber": true,
        
        "choices": [
@@ -744,7 +752,7 @@ export const SurveyJSON={
        "name": "followupQ10b",
        "visible": false,
        "visibleIf": "{qmain10} = 'Yes'",
-       "title": "Has your organisation made an effort to calculate the cost of  losing control of these critical assets for a few hours or a few days?",
+       "title": "Has your organisation made an effort to calculate the cost of losing control of these critical assets for a few hours or a few days?	",
        "hideNumber": true,
        "choices": [
         {
@@ -792,7 +800,7 @@ export const SurveyJSON={
        "name": "followupQ11a",
        "visible": false,
        "visibleIf": "{qmain11} = 'Yes'",
-       "title": "Can we see the inventory list?",
+       "title": "Can we see the inventory list? (Please attach document)",
        "hideNumber": true,
        "maxSize": 0
       },
@@ -801,7 +809,7 @@ export const SurveyJSON={
        "name": "followupQ11b",
        "visible": false,
        "visibleIf": "{qmain11} = 'No'",
-       "title": "What are the challenges to doing so?",
+       "title": "If not, what are the challenges to doing so?",
       " hideNumber": true
       }
      ],
@@ -839,7 +847,7 @@ export const SurveyJSON={
        "name": "followupQ12a",
        "visible": false,
        "visibleIf": "{qmain12} = 'Yes'",
-       "title": "Where and how are they backed up?",
+       "title": "Where and how are the organization's systems backed up?	",
        "hideNumber": true
       },
       {
@@ -893,7 +901,7 @@ export const SurveyJSON={
        "name": "followupQ13a",
        "visible": false,
        "visibleIf": "{qmain13} = 'Yes'",
-       "title": "Who determines who has access?",
+       "title": "Who determines who has access to what systems and environments?",
        "hideNumber": true
       },
       {
@@ -901,7 +909,7 @@ export const SurveyJSON={
        "name": "followupQ13b",
        "visible": false,
        "visibleIf": "{qmain13} = 'Yes'",
-       "title": "What are the criteria for determining who is given access?",
+       "title": "What are the criteria for determining who is granted system access?	",
        "hideNumber": true
       }
      ],
@@ -939,7 +947,7 @@ export const SurveyJSON={
        "name": "followupQ14a",
        "visible": false,
        "visibleIf": "{qmain14} = 'Yes'",
-       "title": "What are the related risks?",
+       "title": "If so, what are the related risks?	",
        "hideNumber": true
       },
       {
@@ -963,7 +971,7 @@ export const SurveyJSON={
        "name": "followupQ14c",
        "visible": false,
        "visibleIf": "{followupQ14b} = 'Yes'",
-       "title": "Can we see the agreements?",
+       "title": "Can we see these agreements? (Please attach documents)	",
        "hideNumber": true,
        "maxSize": 0
       }
@@ -983,7 +991,7 @@ export const SurveyJSON={
       {
        "type": "radiogroup",
        "name": "qmain15",
-       "title": "Is there a comprehensive system shut  down plan in place in case of a ransomware attack?",
+       "title": "Do you have a comprehensive system shut down plan in place in the event of a ransomware attack?	",
        "hideNumber": true,
        
        "choices": [
@@ -1002,7 +1010,7 @@ export const SurveyJSON={
        "name": "followupQ15a",
        "visible": false,
        "visibleIf": "{qmain15} = 'Yes'",
-       "title": "Do all employees know what  to do if there is such an attack?",
+       "title": "Do all employees know what to do in the event of a ransomware attack?	",
        "hideNumber": true,
        "choices": [
         {
@@ -1014,15 +1022,6 @@ export const SurveyJSON={
          "text": "No"
         }
        ]
-      },
-      {
-       "type": "file",
-       "name": "followupQ15b",
-       "visible": false,
-       "visibleIf": "{qmain15} = 'Yes'",
-       "title": "Can we see the plan?",
-       "hideNumber": true,
-       "maxSize": 0
       },
       {
        "type": "radiogroup",
@@ -1095,7 +1094,7 @@ export const SurveyJSON={
        "name": "followupQ16b",
        "visible": false,
        "visibleIf": "{qmain16} = 'Yes'",
-       "title": "Can we see the cost/benefit analysis?",
+       "title": "Can we see your ransomware negotiation cost/benefit analysis? (Please attach document)	",
        "hideNumber": true,
        "maxSize": 0
       },
@@ -1104,7 +1103,7 @@ export const SurveyJSON={
        "name": "followupQ16c",
        "visible": false,
        "visibleIf": "{followupQ16a} = 'Yes'",
-       "title": "Who is in charge of such a negotiation?",
+       "title": "Who is in charge of ransomware negotiations on behalf of your organisation?",
        "hideNumber": true
       },
       {
@@ -1112,7 +1111,7 @@ export const SurveyJSON={
        "name": "followupQ16d",
        "visible": false,
        "visibleIf": "{qmain16} = 'Yes'",
-       "title": "Has this happened yet at your agency?",
+       "title": "Has your organization previously engaged in ransomware negotiations?",
        "hideNumber": true,
        "choices": [
         {
@@ -1141,7 +1140,7 @@ export const SurveyJSON={
       {
        "type": "radiogroup",
        "name": "qmain17",
-       "title": "Does your agency have an incident review process?",
+       "title": "After an attack has occured, does your organization have a ransomware incident review process in place?",
        "hideNumber": true,
        
        "choices": [
@@ -1160,7 +1159,7 @@ export const SurveyJSON={
        "name": "followupQ17a",
        "visible": false,
        "visibleIf": "{qmain17} = 'Yes'",
-       "title": "Can we see the incident review plan?",
+       "title": "Can we see the post-ransomware incident review plan? (Please attach document)",
        "hideNumber": true,
        "maxSize": 0
       }
