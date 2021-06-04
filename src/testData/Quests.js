@@ -1,4 +1,4 @@
-[{
+export const questions =  [{
  "id":"001",
  "question":"Does your organisation have someone in charge of cybersecurity?",
  "questionName": "qmain1",

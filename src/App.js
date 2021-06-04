@@ -5,7 +5,7 @@ import Contact from './pages/EndUser/Contact.js'
 import {Pricing} from './pages/EndUser/Pricing.js'
 import {Recomendations} from './pages/EndUser/Recomendations.js'
 import './App.css';
-import {BrowserRouter as Router, Switch, Route, useLocation} from 'react-router-dom';
+import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import Amplify from 'aws-amplify';
 //import aws_exports from './aws-exports';
 import {Questions} from './pages/EndUser/Questions.js';
@@ -15,11 +15,11 @@ import {Findings} from "./pages/EndUser/Findings";
 import {ExpertViewCustList} from "./pages/ExpertViewCustList";
 import {ExpertViewAssess} from "./pages/ExpertViewAssess";
 import {SignIn} from './components/Sign-in/Sign-in.js';
-import { Landing } from './pages/EndUser/Landing.js';
+
 import './css/style.scss';
 
 import AOS from 'aos';
-import { focusHandling } from 'cruip-js-toolkit';
+
 function App(){
    //const location = useLocation();
 

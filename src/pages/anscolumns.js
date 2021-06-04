@@ -1,9 +1,17 @@
 export const AnsCOLUMNS =[
  {
-        label: 'ID',
-        field: 'id',
+        label:'Question ID',
+        field:'questionID',
         sort: 'asc',
-        width: 100
+        width: 150,
+
+      },
+      {
+        label:'Question',
+        field:'question',
+        sort: 'asc',
+        width: 150,
+
       },
       {
         label: 'Answer',
@@ -11,18 +19,5 @@ export const AnsCOLUMNS =[
         sort: 'asc',
         width: 150,
        
-      },
-      {
-        label:'Questionnaire ID',
-        field:'questionnaireID',
-        sort: 'asc',
-        width: 150,
-
-      },{
-        label:'Question ID',
-        field:'questionID',
-        sort: 'asc',
-        width: 150,
-
       }
 ]

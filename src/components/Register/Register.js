@@ -7,7 +7,6 @@ import {selectOptionsCountry, selectEmpOptions, selectOptionsIndustry} from '../
 import { useForm, Controller } from "react-hook-form";
 import { Amplify, API, Auth, Storage,graphqlOperation } from 'aws-amplify';
 import {registerOptions} from './registerOptions';
-import nextId from 'react-id-generator';
 import * as mutations from '../../graphql/mutations'
 import { PopUp } from '../Modal.js';
 const awsConfig = require('../../aws-exports').default;

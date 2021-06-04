@@ -1,10 +1,11 @@
-import React, {useState,useMemo, useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 import { MDBDataTableV5 } from 'mdbreact';
 import { AnsCOLUMNS } from "./anscolumns.js";
 import {Button, Container} from 'react-bootstrap'
 import * as queries from "../graphql/queries"
-import API, {graphqlOperation} from '@aws-amplify/api'
-import AWS from 'aws-sdk'
+import {Storage } from 'aws-amplify';
+import {questions} from '../testData/Quests'
+import API from '@aws-amplify/api'
 
 import "./table.css"
 
@@ -13,21 +14,15 @@ const { state } = props.location;
 const [checkbox1, setCheckbox1] = useState('');
 const [datatable, setDatatable] = useState('');
 const [hasAnswers, setHasAnswers] = useState(false)
-AWS.config.region = 'eu-west-1'; // Region
-AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-    IdentityPoolId: 'eu-west-1:85d9c869-a59b-4ea2-8bf0-9da2c39aa1d4',
-});
 
 let questionnaire;
 let answers =[];
-const showLogs2 = (e) => {
+const handleCheckBox = (e) => {
      console.log('SHOWLOGS:::', e);
      setCheckbox1(e);
  };
  let data;
 useEffect(()=>{
-  
-   
      getAnswersbyQuestionnaire().then(answerData =>{
         data = {
                  columns: AnsCOLUMNS,
@@ -41,29 +36,9 @@ useEffect(()=>{
      
 },[])
 
-var lambda = new AWS.Lambda({region: 'eu-west-1', apiVersion: '2015-03-31'});
-// create JSON object for parameters for invoking Lambda function
-var pullParams = {
-  FunctionName : 'GetFileFromS3',
-  InvocationType : 'RequestResponse',
-  LogType : 'None'
-};
-// create variable to hold data returned by that Lambda function
-var pullResults;
 
 
-function getFileFromS3(){
-lambda.invoke(pullParams, function(error, data) {
-console.log(error,data)
-  if (error) {
-    prompt(error);
-  } else {
-    pullResults = JSON.parse(data.Payload);
-    //console.log("This is the result from the Function",pullResults)
-    return pullResults;
-  }
-});
-}
+
 async function getAnswersbyQuestionnaire(){
 
   let questionnaires = await API.graphql({query: queries.listQuestionnaires});
@@ -71,12 +46,22 @@ async function getAnswersbyQuestionnaire(){
   if(state.id === qnaire.userId){
     console.log("The questionnaireId is::::", qnaire.id)
     questionnaire = qnaire.id
-    }});
+    }
+
+  });
   console.log("Questionnaire id is set to::::", questionnaire); 
   let listanswers = await API.graphql({query: queries.listAnswers});
   listanswers.data.listAnswers.items.map(function (ans) {
   if(questionnaire === ans.questionnaireID){
     console.log("The answer is::::", ans)
+    console.log("The Question Id is::::", ans.questionID)
+    questions.map(function (quest) {
+                            let qid = String(quest.id);
+                            if (qid.valueOf() === String(ans.questionID).valueOf()) {
+                              ans.question =quest.question;
+                              console.log("Question is:::", ans.question);    
+                            }
+                        });
     answers.push(ans);
   }
   });
@@ -85,13 +70,26 @@ async function getAnswersbyQuestionnaire(){
   }
 
 
-function convert(){
-  console.log("File that will be converted:",getFileFromS3())
-    // const data = getFileFromS3();
-    // const arrayBuffer = base64ToArrayBuffer(data.Body.data);
-    // const blob = new Blob([arrayBuffer], {type: 'application/pdf'});
-    // const url = window.URL.createObjectURL(blob);
-    // window.open(url);
+async function downloadDocument(){
+  var doc = checkbox1.answer;
+  if(doc.endsWith(".pdf")){
+   await Storage.get(doc, {download: true}).then(data => {
+                        console.log("This is the data returned from the S3 bucket:::",data)
+                        data.Body.text().then(data2 => {
+                          console.log("This is the text that I get from the Blob:::",data2);
+                            convert(data2.substr(28));
+                        })
+
+                    }).catch(err =>{
+                      console.log("Download Document Error::::", err)
+                      console.error(err, err.stack);
+                    });
+}}
+function convert(data){
+    const arrayBuffer = base64ToArrayBuffer(data);
+    const blob = new Blob([arrayBuffer], {type: 'application/pdf'});
+    const url = window.URL.createObjectURL(blob);
+    window.open(url);
 }
 
 function base64ToArrayBuffer(base64) {
@@ -100,14 +98,6 @@ function base64ToArrayBuffer(base64) {
     return bytes.map((byte, i) => binaryString.charCodeAt(i));
 }
 
-async function getDocument(){
-  try{  
-    const encryptedDoc = await API.graphql(graphqlOperation(    ));
-    convert(encryptedDoc);
-  }catch(err){
-    console.error(err, err.stack);
-  }
- }
 
  return (
    <>
@@ -124,8 +114,11 @@ async function getDocument(){
         headCheckboxID='id2'
         bodyCheckboxID='checkboxes2'
         getValueCheckBox={(e) => {
-          showLogs2(e);}}
+          handleCheckBox(e);}}
           />)}
     </div>
-  <Button onClick={convert}>Download</Button>
+    <div>
+      {checkbox1 && <p>{JSON.stringify(delete checkbox1.checkbox && checkbox1.answer)}</p>}
+    </div>
+  <Button onClick={downloadDocument}>Download</Button>
   </>)}
