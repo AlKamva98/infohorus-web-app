@@ -3,13 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@craco/craco": "^6.1.2",
+    "@tailwindui/react": "^0.1.1",
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.5",
     "@testing-library/user-event": "^12.7.3",
     "amplify": "0.0.11",
     "aos": "^3.0.0-beta.6",
     "apollo-client": "^2.6.10",
-    "autoprefixer": "^9.8.6",
     "aws-amplify": "^3.3.21",
     "aws-amplify-react": "^4.2.25",
     "aws-appsync": "^4.0.3",
@@ -19,7 +20,6 @@
     "dotenv": "^8.2.0",
     "mdbreact": "^5.0.2",
     "node-sass": "^5.0.0",
-    "postcss": "^8.2.9",
     "react": "^17.0.2",
     "react-apollo": "^3.1.5",
     "react-bootstrap": "^1.5.0",
@@ -36,14 +36,13 @@
     "reactstrap": "^8.9.0",
     "styled-components": "^5.2.1",
     "survey-react": "^1.8.37",
-    "tailwindcss": "^2.1.1",
     "web-vitals": "^1.1.1",
     "xmlhttprequest": "^1.8.0"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
+    "start": "craco start",
+    "build": "craco build",
+    "test": "craco test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -63,5 +62,10 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "autoprefixer": "^9.8.6",
+    "postcss": "^7.0.35",
+    "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.1.4"
   }
 }

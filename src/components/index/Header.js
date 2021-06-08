@@ -1,63 +1,60 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+ import React,{useState,useEffect} from 'react';
+import {MenuItems} from '../MenuItems'
+import {Link} from 'react-router-dom'
+import {Button,Image,Navbar} from 'react-bootstrap'
+import { Transition } from '@tailwindui/react'
+import Auth from '@aws-amplify/auth';
 
-function Header() {
+export  function Header () {
+    const [signedIn, setSignedIn]= useState(false);
 
-  const [top, setTop] = useState(true);
+    useEffect(()=>{
+    handleSignedIn();
+    },[])
 
-  // detect whether user has scrolled the page down by 10px 
-  useEffect(() => {
-    const scrollHandler = () => {
-      window.pageYOffset > 10 ? setTop(false) : setTop(true)
-    };
-    window.addEventListener('scroll', scrollHandler);
-    return () => window.removeEventListener('scroll', scrollHandler);
-  }, [top]);  
-
-  return (
-    <header className={`fixed w-full z-30 md:bg-opacity-90 transition duration-300 ease-in-out ${!top && 'bg-white blur shadow-lg'}`}>
-      <div className="max-w-6xl mx-auto px-5 sm:px-6">
-        <div className="flex items-center justify-between h-16 md:h-20">
-
-          {/* Site branding */}
-          <div className="flex-shrink-0 mr-4">
-            {/* Logo */}
-            <Link to="/" className="block" aria-label="Cruip">
-              <svg className="w-8 h-8" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
-                <defs>
-                  <radialGradient cx="21.152%" cy="86.063%" fx="21.152%" fy="86.063%" r="79.941%" id="header-logo">
-                    <stop stopColor="#4FD1C5" offset="0%" />
-                    <stop stopColor="#81E6D9" offset="25.871%" />
-                    <stop stopColor="#338CF5" offset="100%" />
-                  </radialGradient>
-                </defs>
-                <rect width="32" height="32" rx="16" fill="url(#header-logo)" fillRule="nonzero" />
-              </svg>
-            </Link>
-          </div>
-
-          {/* Site navigation */}
-          <nav className="flex flex-grow">
-            <ul className="flex flex-grow justify-end flex-wrap items-center">
-              <li>
-                <Link to="/signin" className="font-medium text-gray-600 hover:text-gray-900 px-5 py-3 flex items-center transition duration-150 ease-in-out">Sign in</Link>
-              </li>
-              <li>
-                <Link to="/signup" className="btn-sm text-gray-200 bg-gray-900 hover:bg-gray-800 ml-3">
-                  <span>Sign up</span>
-                  <svg className="w-3 h-3 fill-current text-gray-400 flex-shrink-0 ml-2 -mr-1" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M11.707 5.293L7 .586 5.586 2l3 3H0v2h8.586l-3 3L7 11.414l4.707-4.707a1 1 0 000-1.414z" fillRule="nonzero" />
-                  </svg>                  
-                </Link>
-              </li>
-            </ul>
-
-          </nav>
-
-        </div>
-      </div>
-    </header>
-  );
+async function handleSignedIn(){
+ const user = await Auth.currentAuthenticatedUser();
+  if(user !== undefined){
+    setSignedIn(true);
+  }else{
+    setSignedIn(false);
+  }
 }
+   const signOut=async()=>{
+      console.log("Signing out");
+      await Auth.signOut();
+      window.location.reload();
+      console.log("Signed out");
+    }  
+    const show = true;
 
-export default Header;
+    return (      
+      <section className="relative w-full px-8 text-gray-700 bg-white body-font">
+        <div className="container flex flex-col flex-wrap items-center justify-between py-5 mx-auto md:flex-row max-w-7xl">
+          <Link className="relative z-10 flex items-center w-auto text-2xl font-extrabold leading-none text-black select-none"><Image className="img-fluid" src="./images/logok.png" alt="logo"  width="150" height="50"/></Link>
+            <ul className="top-0 left-0 z-0 flex items-center justify-center w-full h-full py-5 -ml-0 space-x-5 text-base md:-ml-5 md:py-0 md:absolute">
+          {MenuItems.map((item,index)=>{
+            return(
+              <li key={index}>
+                <Link className={item.cName} to={item.url} x-data="{ hover: false }">
+                <span className="block">{item.title}</span>
+                <Transition show={show} className="absolute inset-0 inline-block w-full h-1 h-full transform bg-gray-900"  enter="transition ease duration-200" enter-start="scale-0" enter-end="scale-100" leave="transition ease-out duration-300" leave-start="scale-100" leave-end="scale-0" >
+                <span className="absolute bottom-0 left-0 inline-block w-full h-0.5 -mb-1 overflow-hidden">
+              </span> </Transition>
+                </Link>
+              </li>)})}
+        </ul>
+            <div className="relative z-10 inline-flex  items-center space-x-3 md:ml-5 lg:justify-end">
+            {signedIn ? null:(<Link to="/register" className="inline-flex items-center justify-center px-4 py-2 text-base font-medium leading-6 btn text-gray-600 whitespace-no-wrap bg-white border border-gray-200 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:shadow-none">
+              Sign up
+            </Link>)}
+            <span className="inline-flex rounded-md shadow-sm">
+              {signedIn ?(<Link to="/"><Button className="inline-flex btn items-center justify-center px-4 py-2 text-base font-medium leading-6 text-white whitespace-no-wrap bg-blue-600 border border-blue-700 rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" onClick={signOut}>Sign Out</Button></Link>):(<Link to="/signIn" className="inline-flex btn items-center justify-center px-4 py-2 text-base font-medium leading-6 text-white whitespace-no-wrap bg-blue-600 border border-blue-700 rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+              Sign In
+              </Link>)}
+            </span>
+          </div>
+        </div>
+      </section>
+          );
+  }

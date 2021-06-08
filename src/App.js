@@ -12,6 +12,9 @@ import {Questions} from './pages/EndUser/Questions.js';
 import '@aws-amplify/ui/dist/style.css';
 import Register from './components/Register/Register.js';
 import {Findings} from "./pages/EndUser/Findings";
+import {Demo} from "./pages/EndUser/Demo";
+import Terms from './pages/Terms'
+import PrivacyNotice from './pages/PrivacyNotice'
 import {ExpertViewCustList} from "./pages/ExpertViewCustList";
 import {ExpertViewAssess} from "./pages/ExpertViewAssess";
 import {SignIn} from './components/Sign-in/Sign-in.js';
@@ -47,7 +50,7 @@ function App(){
         <Route path="/" exact component={Home}/>
         <Route path="/about" component={About} />
         <Route path="/contact"component={Contact}/>
-        <Route path="/pricing"component={Pricing}/>
+        <Route path="/demo"component={Demo}/>
         <Route path="/register"component={Register}/>
         <Route path="/questions" exact component ={Questions}/>
         <Route path="/signIn" component={SignIn}/>
@@ -55,6 +58,43 @@ function App(){
         <Route path="/findings" exact component={Findings}/>
         <Route path="/expertview/custlist" exact component={ExpertViewCustList}/>
         <Route path="/expertview/assess" exact component={ExpertViewAssess}/>
+        <Route path='/instagram' >
+  {() => { 
+       window.location.href = 'https://www.instagram.com/bahatitech/'; 
+     return null;
+  }}
+</Route>
+        <Route path='/twitter' >
+  {() => { 
+       window.location.href = 'https://twitter.com/bahati_tech/'; 
+     return null;
+  }}
+</Route>
+        <Route path='/facebook' >
+  {() => { 
+          window.location.href = 'https://www.facebook.com/bahatitech17/'; 
+       return null;
+  }}
+</Route>
+        <Route path='/linkedin' >
+  {() => { 
+          window.location.href = 'https://www.linkedin.com/company/bahati-tech/'; 
+       return null;
+  }}
+</Route>
+        <Route path='/bahati' >
+  {() => { 
+          window.location.href = 'https://www.bahatitech.co.za/'; 
+       return null;
+  }}
+</Route>
+        <Route path="/terms">
+          <Terms />
+        </Route>
+        <Route path="/privacy">
+          <PrivacyNotice />
+        </Route>
+  
       </Switch>
       </div>
       </Router>

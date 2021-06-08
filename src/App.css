@@ -1,8 +1,4 @@
-.App{
-  font-family: 'Alegreya Sans SC',
-  sans-serif;
-   background-color: #C3E0E5;
-}
+
 
 .App-logo {
   animation: App-logo-spin infinite 20s linear;
@@ -10,8 +6,7 @@
 }
 
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+    min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;

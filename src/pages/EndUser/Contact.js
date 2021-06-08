@@ -1,7 +1,8 @@
 import React,{useState} from 'react';
 import {Container, Row, Image, Col,Card,Form} from 'react-bootstrap';
-import {Label, Input, FormGroup,Button, Modal, ModalBody,ModalFooter,ModalHeader} from 'reactstrap';
-import Header from '../../components/Header';
+import {Label, Input, FormGroup,Button} from 'reactstrap';
+import {Header} from '../../components/index/Header';
+import Footer from '../../components/index/Footer';
 import './body.css';
 
 
