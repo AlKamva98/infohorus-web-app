@@ -436,6 +436,9 @@ export function SurveyJS(props) {
                             </Col>
                             </Container> */}
                         <div ref={emailContainer}><Survey.Survey model={survey} css={myCss}/></div>
+                        <hr className="bg-secondary"/>
+                        <span className="fw-bold fs-2 m-4">Need to consult a colleague on this answer?<p
+                            className="btn-link d-none d-md-inline-block pointer m-1" onClick={toggle}>Send an internal message</p>directly to them for a quick response.</span>
                         <Modal isOpen={modal} toggle={toggle} className={className}>
                             <ModalHeader toggle={toggle}><h5 className="modal-title" id="exampleModalLabel">Send
                                 Question to Colleague</h5></ModalHeader>
@@ -459,9 +462,7 @@ export function SurveyJS(props) {
                                     message</Button>
                             </ModalFooter>
                         </Modal>
-                        <hr className="bg-secondary"/>
-                        <span className="fw-bold fs-2 m-4">Need to consult a colleague on this answer?<p
-                            className="btn-link d-none d-md-inline-block pointer m-1" onClick={toggle}>Send an internal message</p>directly to them for a quick response.</span>
+                        
                     </div>
                 )}
                
