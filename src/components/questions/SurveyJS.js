@@ -1,5 +1,6 @@
 import React, {useEffect, useState, useRef} from 'react';
 import{Modal, ModalBody, ModalHeader,ModalFooter, Button, Form, FormGroup} from 'reactstrap'
+import{Container, Col} from 'react-bootstrap'
 import { API, Auth, graphqlOperation, Storage } from 'aws-amplify';
 import {Prompt} from 'react-router-dom'
 import {SurveyJSON,surveyCss} from './survey.js'
@@ -429,6 +430,11 @@ export function SurveyJS(props) {
                         <Prompt
                             when={shouldBlockNavigation}
                             message="Are you sure you want to leave?"/>
+                            {/* <Container className =" overflow-hidden p-5  bg-light bdy">
+                            <Col className="col-md-12">
+                            <h5>Please fill in the following questionnaire</h5><br/>
+                            </Col>
+                            </Container> */}
                         <div ref={emailContainer}><Survey.Survey model={survey} css={myCss}/></div>
                         <Modal isOpen={modal} toggle={toggle} className={className}>
                             <ModalHeader toggle={toggle}><h5 className="modal-title" id="exampleModalLabel">Send
@@ -458,14 +464,7 @@ export function SurveyJS(props) {
                             className="btn-link d-none d-md-inline-block pointer m-1" onClick={toggle}>Send an internal message</p>directly to them for a quick response.</span>
                     </>
                 )}
-                {authus === undefined &&
-                <PopUp isOpen={modal} btnTxtPositive="Retry" btnTxtNegative="Return to Home"
-                       btnNegativeLink="/"
-                       popupType="two-btns"
-                       title="User is not registered"
-                       body={msg}
-                       toggle={toggle} className={className}/>
-                }
+               
             </>
         );
     }
