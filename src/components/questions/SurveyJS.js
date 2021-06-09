@@ -426,7 +426,7 @@ export function SurveyJS(props) {
 
         return (<>
                 {authus !== undefined && (
-                    <>
+                    <div className={className}>
                         <Prompt
                             when={shouldBlockNavigation}
                             message="Are you sure you want to leave?"/>
@@ -462,7 +462,7 @@ export function SurveyJS(props) {
                         <hr className="bg-secondary"/>
                         <span className="fw-bold fs-2 m-4">Need to consult a colleague on this answer?<p
                             className="btn-link d-none d-md-inline-block pointer m-1" onClick={toggle}>Send an internal message</p>directly to them for a quick response.</span>
-                    </>
+                    </div>
                 )}
                
             </>
