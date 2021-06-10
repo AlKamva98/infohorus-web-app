@@ -2,7 +2,7 @@ import React,{useState, useEffect} from 'react';
 import {Container, Row, Image, Col,Card,Form} from 'react-bootstrap';
 import {Label, Input, FormGroup,Button} from 'reactstrap';
 import Select  from 'react-select';
-import {Redirect} from 'react-router-dom';
+import {Redirect, Link} from 'react-router-dom';
 import {selectOptionsCountry, selectEmpOptions, selectOptionsIndustry} from '../../testData/selectOptions.js'
 import { useForm, Controller } from "react-hook-form";
 import { Amplify, API, Auth, Storage,graphqlOperation } from 'aws-amplify';
@@ -226,11 +226,31 @@ updateFormState(()=>({...formState, formType: "signIn"}))
 
 )}
 { formType === 'verifyMail' && (
-<Container className="mt-3 pt3 "><h1>Verify email address</h1>
-<span>Check your email and click the link to verify your email.</span><br/>
-<span>Once your email is verified click continue to proceed to login.</span>
-<Button  className="btn btn-primary pointer" onClick={verifyEmail}>Continue</Button>
-</Container>
+<section className="flex items-center justify-center py-10 text-white bg-white sm:py-16 md:py-24 lg:py-32">
+  <div className="relative max-w-3xl px-10 text-center text-white auto lg:px-0">
+    <div className="flex flex-col w-full md:flex-row">
+      {/* Top Text */}
+      <div className="flex justify-between">
+        <h1 className="relative flex flex-col text-6xl font-extrabold text-left text-black">
+        Thank you  
+          <span>for</span>
+          <span>Signing up</span>
+        </h1>
+      </div>
+      {/* Right Image */}
+      <div className="relative top-0 right-0 h-64 mt-12 md:-mt-16 md:absolute md:h-96">
+        <img src="https://cdn.devdojo.com/images/december2020/designs3d.png" className="object-cover mt-3 mr-5 h-80 lg:h-96" />
+      </div>
+    </div>
+    {/* Separator */}
+    <div className="my-16 border-b border-gray-300 lg:my-24" />
+    {/* Bottom Text */}
+    <h2 className="text-left text-gray-500 xl:text-xl">
+      Thank you for signing up. You've been sent an email to the email you signed up with. Please verify your email and sign in to begin your journey.
+    </h2>
+<Link to="/signIn" className="btn justify-right bg-indigo-500 rounded-md text-white shadow-sm hover:bg-indigo-700" onClick={verifyEmail}>Continue</Link>
+  </div>
+</section>
 )}
 { formType === 'signedIn' && (
    <Redirect to="/" />

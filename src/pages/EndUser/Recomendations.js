@@ -1,6 +1,6 @@
 import React from 'react'
 import { Card,Button, Form, Col, Row } from 'react-bootstrap'
-import Header from '../../components/Header'
+import {Header} from '../../components/index/Header'
 import Sidebar from '../../components/Sidebar'
 import "./body.css"
 
