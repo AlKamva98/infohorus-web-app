@@ -8,19 +8,33 @@ import "./body.css"
 export function About(){
  return(<>
    <Header/>
-  <Container>
-   <div className="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center ">
-    <h1 className="display-4">Our Mission</h1>
-    <p className="lead">We reduce the vulnerability that critical infrastructure faces in cyberspace by implementing combined technical and non-technical interventions that neutralize advanced threats, thereby contributing to the improvement of security for all.</p>
-   
+  <section className="px-2 py-4 bg-white md:px-0">
+   <div className="container items-center max-w-6xl px-8 mx-auto xl:px-5">
+          <div className="flex flex-wrap items-center sm:-mx-3">
+   <div className="w-full md:w-1/2 md:px-3">
+              <div className="w-full pb-6 space-y-6 sm:max-w-md lg:max-w-lg md:space-y-4 lg:space-y-8 xl:space-y-9 sm:pr-5 lg:pr-0 md:pb-0">
+                <h1 className="text-4xl font-extrabold tracking-tight text-gray-900 sm:text-5xl md:text-4xl lg:text-5xl xl:text-6xl">
+                  <span className="block xl:inline">Our Mission</span>
+                </h1>
+                <p className="mx-auto text-base text-gray-500 sm:max-w-md lg:text-xl md:max-w-3xl">We reduce the vulnerability that critical infrastructure faces in cyberspace by implementing combined technical and non-technical interventions that neutralize advanced threats, thereby contributing to the improvement of security for all.</p>
+                 <h5 className="text-2xl font-extrabold tracking-tight text-gray-900 sm:text-5xl md:text-3xl lg:text-4xl xl:text-5xl">Our Vision</h5>
+                  <p className="mx-auto text-base text-gray-500 sm:max-w-md lg:text-xl md:max-w-3xl">We are developing as a reputable cyberdefense technology lab that deploys advanced tecnology to mitigate and manage the risk of hostile attacks from bad actors.</p>
+                <div className="relative flex flex-col sm:flex-row sm:space-x-4">
+                </div>
+              </div>
+            </div>
+    <div className="w-full md:w-1/2 ">
+    <Image className="w-full h-auto overflow-hidden rounded-md shadow-xl sm:rounded-xl" alt="about us image" src="../../images/jumbobg.png" width="450" height="450"/>
+   </div>
   </div>
+  </div>
+  </section>
+  <Container>
   <Row>
    <Col className="w-full md:w-1/2 ">
     <Image className="w-full h-auto overflow-hidden rounded-md shadow-xl sm:rounded-xl" alt="about us image" src="../../images/jumbobg.png" width="450" height="450"/>
    </Col>
    <Col className="w-full md:w-1/2 px-3">
-    <h5 className="display-4 text-center">Our Vision</h5>
-    <p className="lead">We are developing as a reputable cyberdefense technology lab that deploys advanced tecnology to mitigate and manage the risk of hostile attacks from bad actors.</p>
     <h5 className="display-4 text-center">Goals</h5>
     <p className="lead">Create a safe cyberspace for our clients by helping them grow cybersecurity culture that improves their security posture and increases their strategic and competitive advantage.</p>
    </Col>
