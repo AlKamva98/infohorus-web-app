@@ -45,11 +45,9 @@ async function handleSignedIn(){
               </li>)})}
         </ul>
             <div className="relative z-10 inline-flex  items-center space-x-3 md:ml-5 lg:justify-end">
-            {signedIn ? null:(<Link to="/register" className="inline-flex items-center justify-center px-4 py-2 text-base font-medium leading-6 btn text-gray-600 whitespace-no-wrap bg-white border border-gray-200 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:shadow-none">
-              Sign up
-            </Link>)}
+            
             <span className="inline-flex rounded-md shadow-sm">
-              {signedIn ?(<Link to="/"><Button className="inline-flex btn items-center justify-center px-4 py-2 text-base font-medium leading-6 text-white whitespace-no-wrap bg-blue-600 border border-blue-700 rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" onClick={signOut}>Sign Out</Button></Link>):(<Link to="/signIn" className="inline-flex btn items-center justify-center px-4 py-2 text-base font-medium leading-6 text-white whitespace-no-wrap bg-blue-600 border border-blue-700 rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+              {signedIn ?(<Link to="/"><Button className="inline-flex items-center justify-center px-4 py-2 text-base font-medium leading-6 btn text-gray-600 whitespace-no-wrap bg-white border border-gray-200 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:shadow-none" onClick={signOut}>Sign Out</Button></Link>):(<Link to="/signIn" className="inline-flex items-center justify-center px-4 py-2 text-base font-medium leading-6 btn text-gray-600 whitespace-no-wrap bg-white border border-gray-200 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:shadow-none">
               Sign In
               </Link>)}
             </span>

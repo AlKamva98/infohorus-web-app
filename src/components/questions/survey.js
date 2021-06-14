@@ -1139,8 +1139,5 @@ export const SurveyJSON={
  progressBarType: "questions",
  pageNextText: "Save & Continue",
  completeText: "Save & Submit",
- previewText: "Review Answers",
- editText: "Change Answer",
- showPreviewBeforeComplete: "showAnsweredQuestions"
 }
 
