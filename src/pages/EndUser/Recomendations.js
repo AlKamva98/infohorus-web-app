@@ -9,8 +9,8 @@ export const Recomendations = () => {
   <div>
    <Header/>
    <div className="main">
-   <h4 className="text-center display-4 bdy">Recomendations</h4>
-   <p className="mx-5 px-3 fs-2 mb-3 mt-3">Click onx the Recomendations you think would work for your company</p>
+   <h4 className="text-center display-4 ">Recomendations</h4>
+   <p className="mx-5 px-3 fs-2 mb-3 mt-3">Click on the Recomendations you think would work for your company</p>
     <Form className="col-md-11 border bg-white border-secondary mt-3 pt-3 mx-auto px-3 pb-5 mb-4 rounded">
     <Col>
     <Row>
