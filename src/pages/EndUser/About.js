@@ -15,13 +15,13 @@ export function About(){
    
   </div>
   <Row>
-   <Col className="col-md-6 ">
-    <Image className="mx-auto" alt="about us image" src="../../images/vector1.png" width="450" height="450"/>
+   <Col className="w-full md:w-1/2 ">
+    <Image className="w-full h-auto overflow-hidden rounded-md shadow-xl sm:rounded-xl" alt="about us image" src="../../images/jumbobg.png" width="450" height="450"/>
    </Col>
-   <Col className="col-md-6 px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-    <h5 className="display-4">Our Vision</h5>
+   <Col className="w-full md:w-1/2 px-3">
+    <h5 className="display-4 text-center">Our Vision</h5>
     <p className="lead">We are developing as a reputable cyberdefense technology lab that deploys advanced tecnology to mitigate and manage the risk of hostile attacks from bad actors.</p>
-    <h5 className="display-4">Goals</h5>
+    <h5 className="display-4 text-center">Goals</h5>
     <p className="lead">Create a safe cyberspace for our clients by helping them grow cybersecurity culture that improves their security posture and increases their strategic and competitive advantage.</p>
    </Col>
   </Row>
@@ -39,7 +39,7 @@ export function About(){
     <p className="lead">Infohorus launches an online assessment that you can complete based on your organizations' policies and security implementation. You are able to include your relevant colleagues in the assessment at various levels. Once the assessment is completed the system will produce a recommendations report to be adopted by your organization. When the recommendations have been adopted, action steps will be published against the recommendations to facilitate the implementation. Each action is assigned and tracked to completion.</p>
    </Col>
    <Col className="col-md-4 ">
-    <Image className="mx-auto" alt="about us image" src="../../images/vector1.png" width="450" height="450"/>
+    <Image className="mx-auto" alt="about us image" src="../../images/aboutimg.png" width="450" height="450"/>
    </Col>
    
   </Row>
