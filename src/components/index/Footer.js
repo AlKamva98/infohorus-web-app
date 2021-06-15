@@ -14,7 +14,7 @@ function Footer() {
             </div>
             <div className="px-5 py-2">
               <Link to="/about" className="text-base leading-6 text-gray-500 hover:text-gray-900">
-                About
+                Why Choose Infohorus
               </Link>
             </div>
             <div className="px-5 py-2">
@@ -27,7 +27,7 @@ function Footer() {
                 Demo
               </Link>
             </div>
-            <div className="px-5S py-2">
+            <div className="px-5 py-2">
               <Link to="/privacy" className="text-base leading-6 text-gray-500 hover:text-gray-900">
                 Privacy Policy
               </Link>
