@@ -14,7 +14,7 @@ export function About(){
    <div className="w-full md:w-11/12 md:px-3">
          
                 <h1 className="text-4xl font-extrabold text-center pb-6 tracking-tight text-gray-900 sm:text-5xl md:text-4xl lg:text-5xl xl:text-6xl">
-                  <span className="block xl:inline">Why Choose Infohorus</span>
+                  <span className="block xl:inline">Why Infohorus?</span>
                 </h1>
                 <p className="mx-auto text-base pb-4 text-gray-700 sm:max-w-md lg:text-xl md:max-w-3xl">Ransomware is the fastest-growing attack vector targeting all sorts of companies, institutions, and organizations. No organization is immune to cyber-attacks. Cyber attackers can demand money from companies and institutions of all sizes and industries including nonprofits, enterprises, and startups. The race against ransomware attacks on our critical infrastructure is intensifying and continuous. New threats, new attackers, and new targets are reported every day. Cybercriminals are constantly evolving and expanding their strategies to breach defenses. Does your organization have a strategy, plans, and resources to counter the threat? How quickly would you be able to respond and recover from an attack? What are your policies regarding dealing with extortionists holding your entire organization and those who rely on your products and services to ransom? Ransomware penetrates organizations in multiple ways, so fighting it requires an integrated risk management strategy.</p>
 

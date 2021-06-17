@@ -1139,5 +1139,6 @@ export const SurveyJSON={
  progressBarType: "questions",
  pageNextText: "Save & Continue",
  completeText: "Save & Submit",
+ completedHtml: "<p><h4>Thank you for completing the Assessment.</h4></p><p>We will contact you for further infomation</p>",
 }
 

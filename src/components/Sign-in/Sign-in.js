@@ -1,6 +1,7 @@
 import React,{useState, useEffect} from 'react';
 import {Container, Row, Image, Col,Card,Form} from 'react-bootstrap';
 import {Label, Input, FormGroup,Button} from 'reactstrap';
+import Footer from '../index/Footer'
 import {Link, Redirect} from 'react-router-dom';
 import {Auth} from 'aws-amplify';
 import { PopUp } from '../Modal';
@@ -55,23 +56,25 @@ export function SignIn (props) {
 
  return (<div>
   {formType === 'signIn' && (
-   <Container className="container my-auto mx-auto ">
+ <div>
+ <Container className="container my-auto mx-auto ">
     <Row>
       <Col className="col-md-5 mx-auto">
          <Card className="mt-3 mb-4 bg-light shadow" >
-                <Card.Body>
+                <Card.Body className="">
         <Image className=" d-block mx-auto img-fluid" src="./images/fav-logo.png" alt="Our logo" width="85" height="85"/>
-              <h1 className="text-center lead h3 mb-3 mt-5 fw-normal">Please sign in</h1>
-              <Label for="email" className="visually-hidden">Email address</Label>
-              <Input type="email" name="email" className="form-control" onChange={onChange} placeholder="Email address" required autoFocus/>
-              <Label for="password" className="visually-hidden">Password</Label>
-              <Input type="password" name="password" className="form-control" onChange={onChange} placeholder="Password" required/>
-              <div className="checkbox mb-3">
-                <Label>
-                  <Input type="checkbox" onChange={onChange} value="remember-me"/> Remember me
-                </Label>
+              <h4 className="w-full text-3xl text-center font-bold">Please Sign In</h4>
+              <div className="relative w-full mt-10 space-y-8">
+
+              <Label for="email" className="text-lg font-medium text-gray-900 mx-8 ">Email address</Label>
+              <Input type="email" name="email" className="block w-full px-4 py-4 mt-2 text-xl placeholder-gray-400 bg-gray-200 rounded-lg focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50 " onChange={onChange} placeholder="Email address" required autoFocus/>
+              <Label for="password" className="text-lg  font-medium mx-8 text-gray-900">Password</Label>
+              <Input type="password" name="password" className=" block w-full px-4 pb-5 py-4 mt-2 text-xl placeholder-gray-400 bg-gray-200 rounded-lg focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50 " onChange={onChange} placeholder="Password" required/>
               </div>
-              <Button className="w-100 btn btn-lg btn-primary" onClick={handleSignIn} type="submit">Sign in</Button>
+              <div className="relative">
+
+              <Button className="inline-block w-full px-5 py-4 text-lg font-medium text-center text-white transition duration-200 bg-blue-600 rounded-lg hover:bg-blue-700 ease" onClick={handleSignIn} type="submit">Sign in</Button>
+              </div>
               <PopUp isOpen={modal} btnTxtPositive="Retry" btnTxtNegative="Sign up" popupType="two-btns" 
                title="Sign up Failed" 
                btnNegativeLink="/register"
@@ -83,7 +86,10 @@ export function SignIn (props) {
             </Card>
       </Col>
     </Row>
-  </Container>)}
+  </Container>
+  <Footer/>
+  </div>
+  )}
 { formType === 'signedIn' && (<Redirect to="/" />)}
  </div>
  )

@@ -385,10 +385,10 @@ export function SurveyJS(props) {
                     uploadAnswersPerPage(ans)
                 })
 
-                setQuestionnaireState(true);
+                // setQuestionnaireState(true);
                 const updatedQNaire = {
                     id: currentQNaireId,
-                    questionaireCompleted: questionnaireState,
+                    questionaireCompleted: true,
                 }
 
                 await API.graphql({query: mutations.updateQuestionnaire, variables: {input: updatedQNaire}});
