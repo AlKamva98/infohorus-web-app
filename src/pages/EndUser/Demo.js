@@ -33,7 +33,7 @@ export const Demo = () => {
               </div>
             </div>
             <div className="w-full bg-white lg:w-6/12 xl:w-5/12">
-            <Form formHead="Schedule Demo" formBtnText="Submit" />
+            {/* <Form formHead="Schedule Demo" formBtnText="Submit" /> */}
             </div>
           </div>
         </div>
