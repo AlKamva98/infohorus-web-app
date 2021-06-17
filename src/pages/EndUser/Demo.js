@@ -14,7 +14,6 @@ export const Demo = () => {
               <div className="relative flex flex-col items-center justify-center w-full h-full px-10 my-20 lg:px-16 lg:my-0">
                 <div className="flex flex-col items-start space-y-8 tracking-tight lg:max-w-3xl">
                   <div className="relative">
-                    <p className="mb-2 font-medium text-gray-700 uppercase">{head}</p>
                       <h4 className="text-2xl font-extrabold mr-20 pb-4 tracking-tight text-center text-gray-900 sm:text-5xl md:text-3xl lg:text-4xl xl:text-5xl">Get a Free Demo of Infohorus Ransomware Risk Management platform.</h4>
     <p className=" mx-28 text-base pb-4 text-gray-800 sm:max-w-md lg:text-xl md:max-w-3xl">See for yourself how Infohorus can help you improve, assess and improve your cybersecurity posture, build a collaborative cybersecurity culture across your organization and prepare to respond and recover from any attacks you may encounter.</p>
     <p className=" mx-28 text-base text-gray-800 sm:max-w-md lg:text-xl md:max-w-3xl">Infohorus Ransomware Risk Management platform is everything you need to be able to:</p>
