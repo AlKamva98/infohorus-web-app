@@ -5,11 +5,6 @@ export const MenuItems =[
   cName : 'relative font-medium leading-6 text-gray-600 transition duration-150 ease-out hover:text-gray-900'
  },
  {
-  title: 'Contact Us',
-  url: '/contact',
-  cName : 'relative font-medium leading-6 text-gray-600 transition duration-150 ease-out hover:text-gray-900'
- },
- {
  title: 'Why Infohorus',
  url: '/about',
  cName : 'relative font-medium leading-6 text-gray-600 transition duration-150 ease-out hover:text-gray-900'
@@ -18,7 +13,12 @@ export const MenuItems =[
   title: 'Demo',
   url: '/demo',
   cName : 'relative font-medium leading-6 text-gray-600 transition duration-150 ease-out hover:text-gray-900'
- 
+  
+ },
+ {
+  title: 'Contact Us',
+  url: '/contact',
+  cName : 'relative font-medium leading-6 text-gray-600 transition duration-150 ease-out hover:text-gray-900'
  },
  // {
  //  title: 'Dashboard',
