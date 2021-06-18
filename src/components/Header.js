@@ -34,8 +34,9 @@ async function handleSignedIn(){
   
  
   return (
-      <Navbar fixed="top" className="NavbarItems">
-        <Link to="/"><Image className="img-fluid" src="./images/logok.png" alt="logo"  width="250" height="100"/></Link>
+      <Navbar fixed="top" className="NavbarItems ">
+      <div className="bg-gray-200">
+        <Link to="/"><Image className="img-fluid" src="./images/logok.png" alt="logo"  width="200" height="75"/></Link>
         <div className="menu-icon" onClick={handleClick}> 
           <i className={clicked ? 'fas fa-times': 'fas fa-bars'}></i>
         </div>
@@ -54,6 +55,7 @@ async function handleSignedIn(){
         <div>
           {signedIn ? null:(<Link to="/signIn"><h4>Login</h4></Link>)}
         </div>
+                </div>
       </Navbar>
   )}
 
