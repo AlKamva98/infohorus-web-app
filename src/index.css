@@ -13,6 +13,20 @@ code {
     monospace;
 }
 
+.background {
+
+  position:
+    absolute;
+
+  display:
+    block;
+
+  top: 0;
+
+  left: 0;
+
+  z-index: 0;
+}
 @tailwind base;
 
 @tailwind components;
