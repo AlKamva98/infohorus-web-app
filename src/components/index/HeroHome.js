@@ -1,9 +1,10 @@
 import React, {useState,useEffect} from 'react';
 import Modal from '../../utils/Modal';
 import {Link} from 'react-router-dom'
-import Auth from '@aws-amplify/auth';
+import { Auth} from '@aws-amplify';
 import "./index.css";
 import {Player} from 'video-react';
+
 
 function HeroHome() {
 
@@ -22,6 +23,7 @@ async function handleSignedIn(){
     setSignedIn(false);
   }
 }
+
 
   return (
    <section className="px-2 py-4 bg-white md:px-0">
@@ -54,7 +56,7 @@ async function handleSignedIn(){
                 <Player 
                 playsInline
                 poster=".\images\bg2.png"
-                src="https://drive.google.com/file/d/13K8vrsZo5ixlti7-2eHiWJvoMD1QOfdO"
+                src="https://infohorus-videos.s3.eu-west-1.amazonaws.com/Black+and+White+Commercial+Real+Estate+Slideshow+Video.mp4"
                 />
               </div>
             </div>

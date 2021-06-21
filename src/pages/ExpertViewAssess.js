@@ -55,13 +55,13 @@ async function getAnswersbyQuestionnaire(){
   if(questionnaire === ans.questionnaireID){
     console.log("The answer is::::", ans)
     console.log("The Question Id is::::", ans.questionID)
-    questions.map(function (quest) {
+    for (quest in questions) {
                             let qid = String(quest.id);
                             if (qid.valueOf() === String(ans.questionID).valueOf()) {
                               ans.question =quest.question;
                               console.log("Question is:::", ans.question);    
                             }
-                        });
+                        };
     answers.push(ans);
   }
   });
