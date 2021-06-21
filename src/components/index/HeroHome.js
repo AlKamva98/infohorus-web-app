@@ -2,8 +2,7 @@ import React, {useState,useEffect} from 'react';
 import Modal from '../../utils/Modal';
 import {Link} from 'react-router-dom'
 import Auth from '@aws-amplify/auth';
-
-//import "node_modules/video-react/dist/video-react.css";
+import "./index.css";
 import {Player} from 'video-react';
 
 function HeroHome() {
@@ -55,7 +54,7 @@ async function handleSignedIn(){
                 <Player 
                 playsInline
                 poster=".\images\bg2.png"
-                src="https://media.w3.org/2010/05/sintel/trailer_hd.mp4"
+                src="https://drive.google.com/file/d/13K8vrsZo5ixlti7-2eHiWJvoMD1QOfdO"
                 />
               </div>
             </div>
