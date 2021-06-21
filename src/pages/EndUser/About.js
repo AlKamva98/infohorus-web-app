@@ -23,22 +23,22 @@ export function About() {
 
     <h1 className = "text-4xl font-extrabold text-center pb-6 tracking-tight text-gray-900 sm:text-5xl md:text-4xl lg:text-5xl xl:text-6xl" >
     <span className = "block xl:inline" > Why Infohorus ? </span> </h1>
-<Carousel>
+<Carousel className = "w-1/4 mx-auto pb-4 ">
   <div>
     <Image src = "./images/hacked.jpg"
     alt = "Head pic"
-    className = "w-3/4 mx-auto pb-4 " /> 
+    /> 
     </div>
 
     <div>
  <Image src = "./images/hacker.jpg"
     alt = "Head pic"
-    className = " w-3/4 mx-auto pb-4 " />
+     />
     </div>
     <div>
     <Image src = "./images/head.jpg"
     alt = "Head pic"
-    className = " w-3/4 mx-auto pb-4 " />
+     />
     </div>
     </Carousel>
 
