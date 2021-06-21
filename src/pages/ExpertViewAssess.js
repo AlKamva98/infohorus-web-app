@@ -55,7 +55,7 @@ async function getAnswersbyQuestionnaire(){
   if(questionnaire === ans.questionnaireID){
     console.log("The answer is::::", ans)
     console.log("The Question Id is::::", ans.questionID)
-    for (quest in questions) {
+    for (let quest in questions) {
                             let qid = String(quest.id);
                             if (qid.valueOf() === String(ans.questionID).valueOf()) {
                               ans.question =quest.question;

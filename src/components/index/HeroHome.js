@@ -1,7 +1,7 @@
 import React, {useState,useEffect} from 'react';
 import Modal from '../../utils/Modal';
 import {Link} from 'react-router-dom'
-import { Auth} from '@aws-amplify';
+import Auth from '@aws-amplify/auth';
 import "./index.css";
 import {Player} from 'video-react';
 
