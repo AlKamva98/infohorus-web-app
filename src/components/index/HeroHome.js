@@ -56,7 +56,7 @@ async function handleSignedIn(){
                 <Player 
                 playsInline
                 poster=".\images\bg2.png"
-                src="https://infohorus-videos.s3.eu-west-1.amazonaws.com/Black+and+White+Commercial+Real+Estate+Slideshow+Video.mp4"
+                src="https://media.w3.org/2010/05/sintel/trailer_hd.mp4"
                 />
               </div>
             </div>
