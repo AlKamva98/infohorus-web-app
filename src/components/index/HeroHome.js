@@ -52,12 +52,12 @@ async function handleSignedIn(){
             </div>
             <div className="w-full md:w-1/2">
               <div className="w-full h-auto overflow-hidden rounded-md shadow-xl sm:rounded-xl">
-                {/* <img src=".\images\bg2.png" className /> */}
-                <Player 
+                <img src=".\images\home.gif" alt="home gif" />
+                {/* <Player 
                 playsInline
                 poster=".\images\bg2.png"
                 src="https://infohorus-videos.s3.eu-west-1.amazonaws.com/Black+and+White+Commercial+Real+Estate+Slideshow+Video.mp4"
-                />
+                /> */}
               </div>
             </div>
           </div>
