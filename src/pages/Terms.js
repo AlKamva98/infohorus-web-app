@@ -1,5 +1,5 @@
 import React from 'react';
-
+//Asa
 function Terms() {
   return (
     <section className="relative">

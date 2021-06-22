@@ -8,7 +8,7 @@ import {questions} from '../testData/Quests'
 import API from '@aws-amplify/api'
 
 import "./table.css"
-
+//Save me
 export const ExpertViewAssess = (props) => {
 const { state } = props.location;
 const [checkbox1, setCheckbox1] = useState('');
@@ -42,16 +42,17 @@ useEffect(()=>{
 async function getAnswersbyQuestionnaire(){
 
   let questionnaires = await API.graphql({query: queries.listQuestionnaires});
-  questionnaires.data.listQuestionnaires.items.map(function (qnaire) {
+  let questionnairelist =questionnaires.data.listQuestionnaires.items;
+  for(let qnaire in questionnairelist) {
   if(state.id === qnaire.userId){
     console.log("The questionnaireId is::::", qnaire.id)
     questionnaire = qnaire.id
     }
-
-  });
+  };
   console.log("Questionnaire id is set to::::", questionnaire); 
   let listanswers = await API.graphql({query: queries.listAnswers});
-  listanswers.data.listAnswers.items.map(function (ans) {
+  let answerslist= listanswers.data.listAnswers.items;
+  for(let ans in answerslist) {
   if(questionnaire === ans.questionnaireID){
     console.log("The answer is::::", ans)
     console.log("The Question Id is::::", ans.questionID)
@@ -64,7 +65,7 @@ async function getAnswersbyQuestionnaire(){
                         };
     answers.push(ans);
   }
-  });
+  };
   console.log("Answers set as::::", answers)
     return answers;
   }

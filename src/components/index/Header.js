@@ -1,7 +1,7 @@
  import React,{useState,useEffect} from 'react';
 import {MenuItems} from '../MenuItems'
 import {Link} from 'react-router-dom'
-import {Button,Image,Navbar} from 'react-bootstrap'
+import {Button,Image} from 'react-bootstrap'
 import { Transition } from '@tailwindui/react'
 import Auth from '@aws-amplify/auth';
 
