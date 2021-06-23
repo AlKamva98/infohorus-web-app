@@ -84,7 +84,8 @@ module.exports = {
     backgroundImage: theme => ({
          'slide-one': "url('hacked.jpg')",
          'slide-two': "url('hacker.jpg')",
-         'slide-three': "url('head.jpg')",
+         'slide-three': "url('slide3.jpg')",
+	 'slide-four': "url('head.jpg')",
       none: 'none',
       'gradient-to-t': 'linear-gradient(to top, var(--tw-gradient-stops))',
       'gradient-to-tr': 'linear-gradient(to top right, var(--tw-gradient-stops))',
