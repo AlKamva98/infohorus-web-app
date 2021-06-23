@@ -1,288 +1,263 @@
 export const selectOptionsCountry = [
-     { value: "Australia", label: "Australia" },
-     { value: "Botswana", label: "Botswana" },
-     { value: "China", label: "China" },
-     { value: "Denmark", label: "Denmark" },
-     { value: "England", label: "England" },
-     { value: "France", label: "France" },
-     { value: "Germany", label: "Germany" },
-     { value: "Haiti", label: "Haiti" },
-     { value: "India", label: "India" },
-     { value: "Japan", label: "Japan" },
-     { value: "Kenya", label: "Kenya" },
-     { value: "Liberia", label: "Liberia" },
-     { value: "Mexico", label: "Mexico" },
-     { value: "Netherlands", label: "Netherlands" },
-     { value: "Oman", label: "Oman" },
-     { value: "Pakistan", label: "Pakistan" },
-     { value: "Qatar", label: "Qatar" },
-     { value: "Russia", label: "Russia" },
-     { value: "South Africa", label: "South Africa" },
-     { value: "Tunisia", label: "Tunisia" },
-     { value: "Uganda", label: "Uganda" },
-     { value: "Venenzuela", label: "Venenzuela" },
-     { value: "Wales", label: "Wales" },
-     { value: "Yemen", label: "Yemen" },
-     { value: "Zimbabwe", label: "Zimbabwe" }
+     {value: "Afganistan", label: "Afghanistan"},
+      {value: "Albania", label: "Albania"},
+      {value: "Algeria", label: "Algeria"},
+      {value: "American Samoa", label: "American Samoa"},
+      {value: "Andorra", label: "Andorra"},
+      {value: "Angola", label: "Angola"},
+      {value: "Anguilla", label: "Anguilla"},
+      {value: "Antigua & Barbuda", label: "Antigua & Barbuda"},
+      {value: "Argentina", label: "Argentina"},
+      {value: "Armenia", label: "Armenia"},
+      {value: "Aruba", label: "Aruba"},
+      {value: "Australia", label: "Australia"},
+      {value: "Austria", label: "Austria"},
+      {value: "Azerbaijan", label: "Azerbaijan"},
+      {value: "Bahamas", label: "Bahamas"},
+      {value: "Bahrain", label: "Bahrain"},
+      {value: "Bangladesh", label: "Bangladesh"},
+      {value: "Barbados", label: "Barbados"},
+      {value: "Belarus", label: "Belarus"},
+      {value: "Belgium", label: "Belgium"},
+      {value: "Belize", label: "Belize"},
+      {value: "Benin", label: "Benin"},
+      {value: "Bermuda", label: "Bermuda"},
+      {value: "Bhutan", label: "Bhutan"},
+      {value: "Bolivia", label: "Bolivia"},
+      {value: "Bonaire", label: "Bonaire"},
+      {value: "Bosnia & Herzegovina", label: "Bosnia & Herzegovina"},
+      {value: "Botswana", label: "Botswana"},
+      {value: "Brazil", label: "Brazil"},
+      {value: "British Indian Ocean Ter", label: "British Indian Ocean Ter"},
+      {value: "Brunei", label: "Brunei"},
+      {value: "Bulgaria", label: "Bulgaria"},
+      {value: "Burkina Faso", label: "Burkina Faso"},
+      {value: "Burundi", label: "Burundi"},
+      {value: "Cambodia", label: "Cambodia"},
+      {value: "Cameroon", label: "Cameroon"},
+      {value: "Canada", label: "Canada"},
+      {value: "Canary Islands", label: "Canary Islands"},
+      {value: "Cape Verde", label: "Cape Verde"},
+      {value: "Cayman Islands", label: "Cayman Islands"},
+      {value: "Central African Republic", label: "Central African Republic"}, 
+      {value: "Chad", label: "Chad"},
+      {value: "Channel Islands", label: "Channel Islands"},
+      {value: "Chile", label: "Chile"},
+      {value: "China", label: "China"},
+      {value: "Christmas Island", label: "Christmas Island"},
+      {value: "Cocos Island", label: "Cocos Island"},
+      {value: "Colombia", label: "Colombia"},
+      {value: "Comoros", label: "Comoros"},
+      {value: "Congo", label: "Congo"},
+      {value: "Cook Islands", label: "Cook Islands"},
+      {value: "Costa Rica", label: "Costa Rica"},
+      {value: "Cote DIvoire", label: "Cote DIvoire"},
+      {value: "Croatia", label: "Croatia"},
+      {value: "Cuba", label: "Cuba"},
+      {value: "Curaco", label: "Curacao"},
+      {value: "Cyprus", label: "Cyprus"},
+      {value: "Czech Republic", label: "Czech Republic"},
+      {value: "Denmark", label: "Denmark"},
+      {value: "Djibouti", label: "Djibouti"},
+      {value: "Dominica", label: "Dominica"},
+      {value: "Dominican Republic", label: "Dominican Republic"},
+      {value: "East Timor", label: "East Timor"},
+      {value: "Ecuador", label: "Ecuador"},
+      {value: "Egypt", label: "Egypt"},
+      {value: "El Salvador", label: "El Salvador"},
+      {value: "Equatorial Guinea", label: "Equatorial Guinea"},
+      {value: "Eritrea", label: "Eritrea"},
+      {value: "Estonia", label: "Estonia"},
+      {value: "Ethiopia", label: "Ethiopia"},
+      {value: "Falkland Islands", label: "Falkland Islands"},
+      {value: "Faroe Islands", label: "Faroe Islands"},
+      {value: "Fiji", label: "Fiji"},
+      {value: "Finland", label: "Finland"},
+      {value: "France", label: "France"},
+      {value: "French Guiana", label: "French Guiana"},
+      {value: "French Polynesia", label: "French Polynesia"},
+      {value: "French Southern Ter", label: "French Southern Ter"},
+      {value: "Gabon", label: "Gabon"},
+      {value: "Gambia", label: "Gambia"},
+      {value: "Georgia", label: "Georgia"},
+      {value: "Germany", label: "Germany"},
+      {value: "Ghana", label: "Ghana"},
+      {value: "Gibraltar", label: "Gibraltar"},
+      {value: "Great Britain", label: "Great Britain"},
+      {value: "Greece", label: "Greece"},
+      {value: "Greenland", label: "Greenland"},
+      {value: "Grenada", label: "Grenada"},
+      {value: "Guadeloupe", label: "Guadeloupe"},
+      {value: "Guam", label: "Guam"},
+      {value: "Guatemala", label: "Guatemala"},
+      {value: "Guinea", label: "Guinea"},
+      {value: "Guyana", label: "Guyana"},
+      {value: "Haiti", label: "Haiti"},
+      {value: "Hawaii", label: "Hawaii"},
+      {value: "Honduras", label: "Honduras"}, 
+      {value: "Hong Kong", label: "Hong Kong"},
+      {value: "Hungary", label: "Hungary"},
+      {value: "Iceland", label: "Iceland"},
+      {value: "Indonesia", label: "Indonesia"},
+      {value: "India", label: "India"},
+      {value: "Iran", label: "Iran"},
+      {value: "Iraq", label: "Iraq"},
+      {value: "Ireland", label: "Ireland"},
+      {value: "Isle of Man", label: "Isle of Man"},
+      {value: "Israel", label: "Israel"},
+      {value: "Italy", label: "Italy"},
+      {value: "Jamaica", label: "Jamaica"},
+      {value: "Japan", label: "Japan"},
+      {value: "Jordan", label: "Jordan"},
+      {value: "Kazakhstan", label: "Kazakhstan"},
+      {value: "Kenya", label: "Kenya"},
+      {value: "Kiribati", label: "Kiribati"},
+      {value: "Korea North", label: "Korea North"},
+      {value: "Korea Sout", label: "Korea South"},
+      {value: "Kuwait", label: "Kuwait"},
+      {value: "Kyrgyzstan", label: "Kyrgyzstan"},
+      {value: "Laos", label: "Laos"},
+      {value: "Latvia", label: "Latvia"},
+      {value: "Lebanon", label: "Lebanon"},
+      {value: "Lesotho", label: "Lesotho"},
+      {value: "Liberia", label: "Liberia"},
+      {value: "Libya", label: "Libya"},
+      {value: "Liechtenstein", label: "Liechtenstein"},
+      {value: "Lithuania", label: "Lithuania"},
+      {value: "Luxembourg", label: "Luxembourg"},
+      {value: "Macau", label: "Macau"},
+      {value: "Macedonia", label: "Macedonia"},
+      {value: "Madagascar", label: "Madagascar"},
+      {value: "Malaysia", label: "Malaysia"},
+      {value: "Malawi", label: "Malawi"},
+      {value: "Maldives", label: "Maldives"},
+      {value: "Mali", label: "Mali"},
+      {value: "Malta", label: "Malta"},
+      {value: "Marshall Islands", label: "Marshall Islands"},
+      {value: "Martinique", label: "Martinique"},
+      {value: "Mauritania", label: "Mauritania"},
+      {value: "Mauritius", label: "Mauritius"},
+      {value: "Mayotte", label: "Mayotte"},
+      {value: "Mexico", label: "Mexico"},
+      {value: "Midway Islands", label: "Midway Islands"},
+      {value: "Moldova", label: "Moldova"}, 
+      {value: "Monaco", label: "Monaco"},
+      {value: "Mongolia", label: "Mongolia"},
+      {value: "Montserrat", label: "Montserrat"},
+      {value: "Morocco", label: "Morocco"},
+      {value: "Mozambique", label: "Mozambique"}, 
+      {value: "Myanmar", label: "Myanmar"}, 
+      {value: "Nambia", label: "Nambia"},
+      {value: "Nauru", label: "Nauru"},
+      {value: "Nepal", label: "Nepal"},
+      {value: "Netherland Antilles", label: "Netherland Antilles"},
+      {value: "Netherlands", label: "Netherlands (Holland, Europe)"},
+      {value: "Nevis", label: "Nevis"},
+      {value: "New Caledonia", label: "New Caledonia"},
+      {value: "New Zealand", label: "New Zealand"},
+      {value: "Nicaragua", label: "Nicaragua"},
+      {value: "Niger", label: "Niger"},
+      {value: "Nigeria", label: "Nigeria"},
+      {value: "Niue", label: "Niue"},
+      {value: "Norfolk Island", label: "Norfolk Island"},
+      {value: "Norway", label: "Norway"},
+      {value: "Oman", label: "Oman"},
+      {value: "Pakistan", label: "Pakistan"},
+      {value: "Palau Island", label: "Palau Island"},
+      {value: "Palestine", label: "Palestine"},
+      {value: "Panama", label: "Panama"},
+      {value: "Papua New Guinea", label: "Papua New Guinea"},
+      {value: "Paraguay", label: "Paraguay"},
+      {value: "Peru", label: "Peru"},
+      {value: "Phillipines", label: "Philippines"},
+      {value: "Pitcairn Island", label: "Pitcairn Island"},
+      {value: "Poland", label: "Poland"},
+      {value: "Portugal", label: "Portugal"},
+      {value: "Puerto Rico", label: "Puerto Rico"},
+      {value: "Qatar", label: "Qatar"},
+      {value: "Republic of Montenegro", label: "Republic of Montenegro"},
+      {value: "Republic of Serbia", label: "Republic of Serbia"},
+      {value: "Reunion", label: "Reunion"},
+      {value: "Romania", label: "Romania"},
+      {value: "Russia", label: "Russia"},
+      {value: "Rwanda", label: "Rwanda"},
+      {value: "St Barthelemy", label: "St Barthelemy"},
+      {value: "St Eustatius", label: "St Eustatius'"},
+      {value: "St Helena", label: "St Helena"},
+      {value: "St Kitts-Nevis", label: "St Kitts-Nevis"},
+      {value: "St Lucia", label: "St Lucia"},
+      {value: "St Maarten", label: "St Maarten"},
+      {value: "St Pierre & Miquelon", label: "St Pierre & Miquelon"},
+      {value: "St Vincent & Grenadines", label: "St Vincent & Grenadines"},
+      {value: "Saipan", label: "Saipan"},
+      {value: "Samoa", label: "Samoa"},
+      {value: "Samoa American", label: "Samoa American"}, 
+      {value: "San Marino", label: "San Marino"},
+      {value: "Sao Tome & Principe", label: "Sao Tome & Principe"},
+      {value: "Saudi Arabia", label: "Saudi Arabia"},
+      {value: "Senegal", label: "Senegal"},
+      {value: "Seychelles", label: "Seychelles"},
+      {value: "Sierra Leone", label: "Sierra Leone"},
+      {value: "Singapore", label: "Singapore"},
+      {value: "Slovakia", label: "Slovakia"},
+      {value: "Slovenia", label: "Slovenia"},
+      {value: "Solomon Islands", label: "Solomon Islands"},
+      {value: "Somalia", label: "Somalia"},
+      {value: "South Africa", label: "South Africa"},
+      {value: "Spain", label: "Spain"},
+      {value: "Sri Lanka", label: "Sri Lanka"},
+      {value: "Sudan", label: "Sudan"},
+      {value: "Suriname", label: "Suriname"},
+      {value: "Swaziland", label: "Swaziland"},
+      {value: "Sweden", label: "Sweden"},
+      {value: "Switzerland", label: "Switzerland"},
+      {value: "Syria", label: "Syria"},
+      {value: "Tahiti", label: "Tahiti"},
+      {value: "Taiwan", label: "Taiwan"}, 
+      {value: "Tajikistan", label: "Tajikistan"},
+      {value: "Tanzania", label: "Tanzania"},
+      {value: "Thailand", label: "Thailand"},
+      {value: "Togo", label: "Togo"}, 
+      {value: "Tokelau", label: "Tokelau"}, 
+      {value: "Tonga", label: "Tonga"},
+      {value: "Trinidad & Tobago", label: "Trinidad & Tobago"},
+      {value: "Tunisia", label: "Tunisia"},
+      {value: "Turkey", label: "Turkey"},
+      {value: "Turkmenistan", label: "Turkmenistan"},
+      {value: "Turks & Caicos Is", label: "Turks & Caicos Is"},
+      {value: "Tuvalu", label: "Tuvalu"},
+      {value: "Uganda", label: "Uganda"},
+      {value: "United Kingdom", label: "United Kingdom"},
+      {value: "Ukraine", label: "Ukraine"},
+      {value: "United Arab Erimates", label: "United Arab Emirates"},
+      {value: "United States of America", label: "United States of America"},
+      {value: "Uraguay", label: "Uruguay"},
+      {value: "Uzbekistan", label: "Uzbekistan"},
+      {value: "Vanuatu", label: "Vanuatu"},
+      {value: "Vatican City State", label: "Vatican City State"},
+      {value: "Venezuela", label: "Venezuela"},
+      {value: "Vietnam", label: "Vietnam"},
+      {value: "Virgin Islands (Brit)", label: "Virgin Islands (Brit)"},
+      {value: "Virgin Islands (USA)", label: "Virgin Islands (USA)"},
+      {value: "Wake Island", label: "Wake Island"},
+      {value: "Wallis & Futana Is", label: "Wallis & Futana Is"},
+      {value: "Yemen", label: "Yemen"},
+      {value: "Zaire", label: "Zaire"},
+      {value: "Zambia", label: "Zambia"},
+      {value: "Zimbabwe", label: "Zimbabwe"},
      ];
 
 export const selectEmpOptions = [
-     { value:"1-10 employees", label: "1-10 employees"},
-     { value:"11-20 employees", label: "11-20 employees"},
-     { value:"21-99 employees", label: "21-99 employees"},
-     { value:"100-199 employees", label: "100-199 employees"},
-     { value:"200-499 employees", label: "200-499 employees"}
+     {value:"1-10 employees", label: "1-10 employees"},
+     {value:"11-20 employees", label: "11-20 employees"},
+     {value:"21-99 employees", label: "21-99 employees"},
+     {value:"100-199 employees", label: "100-199 employees"},
+     {value:"200-499 employees", label: "200-499 employees"}
       ];
 export const selectOptionsIndustry = [
-     { value:"Mining", label: "Mining"},
-     { value:"Water sanitation", label: "Water sanitation"},
-     { value:"Power and Energy", label: "Power and Energy"},
-     { value:"Agriculture", label: "Agriculture"},
-     { value:"Government", label: "Government"}
+     {value:"Mining", label: "Mining"},
+     {value:"Water sanitation", label: "Water sanitation"},
+     {value:"Power and Energy", label: "Power and Energy"},
+     {value:"Agriculture", label: "Agriculture"},
+     {value:"Government", label: "Government"}
       ];
-// value: "Afganistan">Afghanistan
-//       value: "Albania">Albania
-//       value: "Algeria">Algeria
-//       value: "American Samoa">American Samoa
-//       value: "Andorra">Andorra
-//       value: "Angola">Angola
-//       value: "Anguilla">Anguilla
-//       value: "Antigua & Barbuda">Antigua &amp; Barbuda
-//       value: "Argentina">Argentina
-//       value: "Armenia">Armenia
-//       value: "Aruba">Aruba
-//       value: "Australia">Australia
-//       value: "Austria">Austria
-//       value: "Azerbaijan">Azerbaijan
-//       value: "Bahamas">Bahamas
-//       value: "Bahrain">Bahrain
-//       value: "Bangladesh">Bangladesh
-//       value: "Barbados">Barbados
-//       value: "Belarus">Belarus
-//       value: "Belgium">Belgium
-//       value: "Belize">Belize
-//       value: "Benin">Benin
-//       value: "Bermuda">Bermuda
-//       value: "Bhutan">Bhutan
-//       value: "Bolivia">Bolivia
-//       value: "Bonaire">Bonaire
-//       value: "Bosnia & Herzegovina">Bosnia &amp; Herzegovina
-//       value: "Botswana">Botswana
-//       value: "Brazil">Brazil
-//       value: "British Indian Ocean Ter">British Indian Ocean Ter
-//       value: "Brunei">Brunei
-//       value: "Bulgaria">Bulgaria
-//       value: "Burkina Faso">Burkina Faso
-//       value: "Burundi">Burundi
-//       value: "Cambodia">Cambodia
-//       value: "Cameroon">Cameroon
-//       value: "Canada">Canada
-//       value: "Canary Islands">Canary Islands
-//       value: "Cape Verde">Cape Verde
-//       value: "Cayman Islands">Cayman Islands
-//       value: "Central African Republic">Central African Republic
-//       value: "Chad">Chad
-//       value: "Channel Islands">Channel Islands
-//       value: "Chile">Chile
-//       value: "China">China
-//       value: "Christmas Island">Christmas Island
-//       value: "Cocos Island">Cocos Island
-//       value: "Colombia">Colombia
-//       value: "Comoros">Comoros
-//       value: "Congo">Congo
-//       value: "Cook Islands">Cook Islands
-//       value: "Costa Rica">Costa Rica
-//       value: "Cote DIvoire">Cote DIvoire
-//       value: "Croatia">Croatia
-//       value: "Cuba">Cuba
-//       value: "Curaco">Curacao
-//       value: "Cyprus">Cyprus
-//       value: "Czech Republic">Czech Republic
-//       value: "Denmark">Denmark
-//       value: "Djibouti">Djibouti
-//       value: "Dominica">Dominica
-//       value: "Dominican Republic">Dominican Republic
-//       value: "East Timor">East Timor
-//       value: "Ecuador">Ecuador
-//       value: "Egypt">Egypt
-//       value: "El Salvador">El Salvador
-//       value: "Equatorial Guinea">Equatorial Guinea
-//       value: "Eritrea">Eritrea
-//       value: "Estonia">Estonia
-//       value: "Ethiopia">Ethiopia
-//       value: "Falkland Islands">Falkland Islands
-//       value: "Faroe Islands">Faroe Islands
-//       value: "Fiji">Fiji
-//       value: "Finland">Finland
-//       value: "France">France
-//       value: "French Guiana">French Guiana
-//       value: "French Polynesia">French Polynesia
-//       value: "French Southern Ter">French Southern Ter
-//       value: "Gabon">Gabon
-//       value: "Gambia">Gambia
-//       value: "Georgia">Georgia
-//       value: "Germany">Germany
-//       value: "Ghana">Ghana
-//       value: "Gibraltar">Gibraltar
-//       value: "Great Britain">Great Britain
-//       value: "Greece">Greece
-//       value: "Greenland">Greenland
-//       value: "Grenada">Grenada
-//       value: "Guadeloupe">Guadeloupe
-//       value: "Guam">Guam
-//       value: "Guatemala">Guatemala
-//       value: "Guinea">Guinea
-//       value: "Guyana">Guyana
-//       value: "Haiti">Haiti
-//       value: "Hawaii">Hawaii
-//       value: "Honduras">Honduras
-//       value: "Hong Kong">Hong Kong
-//       value: "Hungary">Hungary
-//       value: "Iceland">Iceland
-//       value: "Indonesia">Indonesia
-//       value: "India">India
-//       value: "Iran">Iran
-//       value: "Iraq">Iraq
-//       value: "Ireland">Ireland
-//       value: "Isle of Man">Isle of Man
-//       value: "Israel">Israel
-//       value: "Italy">Italy
-//       value: "Jamaica">Jamaica
-//       value: "Japan">Japan
-//       value: "Jordan">Jordan
-//       value: "Kazakhstan">Kazakhstan
-//       value: "Kenya">Kenya
-//       value: "Kiribati">Kiribati
-//       value: "Korea North">Korea North
-//       value: "Korea Sout">Korea South
-//       value: "Kuwait">Kuwait
-//       value: "Kyrgyzstan">Kyrgyzstan
-//       value: "Laos">Laos
-//       value: "Latvia">Latvia
-//       value: "Lebanon">Lebanon
-//       value: "Lesotho">Lesotho
-//       value: "Liberia">Liberia
-//       value: "Libya">Libya
-//       value: "Liechtenstein">Liechtenstein
-//       value: "Lithuania">Lithuania
-//       value: "Luxembourg">Luxembourg
-//       value: "Macau">Macau
-//       value: "Macedonia">Macedonia
-//       value: "Madagascar">Madagascar
-//       value: "Malaysia">Malaysia
-//       value: "Malawi">Malawi
-//       value: "Maldives">Maldives
-//       value: "Mali">Mali
-//       value: "Malta">Malta
-//       value: "Marshall Islands">Marshall Islands
-//       value: "Martinique">Martinique
-//       value: "Mauritania">Mauritania
-//       value: "Mauritius">Mauritius
-//       value: "Mayotte">Mayotte
-//       value: "Mexico">Mexico
-//       value: "Midway Islands">Midway Islands
-//       value: "Moldova">Moldova
-//       value: "Monaco">Monaco
-//       value: "Mongolia">Mongolia
-//       value: "Montserrat">Montserrat
-//       value: "Morocco">Morocco
-//       value: "Mozambique">Mozambique
-//       value: "Myanmar">Myanmar
-//       value: "Nambia">Nambia
-//       value: "Nauru">Nauru
-//       value: "Nepal">Nepal
-//       value: "Netherland Antilles">Netherland Antilles
-//       value: "Netherlands">Netherlands (Holland, Europe)
-//       value: "Nevis">Nevis
-//       value: "New Caledonia">New Caledonia
-//       value: "New Zealand">New Zealand
-//       value: "Nicaragua">Nicaragua
-//       value: "Niger">Niger
-//       value: "Nigeria">Nigeria
-//       value: "Niue">Niue
-//       value: "Norfolk Island">Norfolk Island
-//       value: "Norway">Norway
-//       value: "Oman">Oman
-//       value: "Pakistan">Pakistan
-//       value: "Palau Island">Palau Island
-//       value: "Palestine">Palestine
-//       value: "Panama">Panama
-//       value: "Papua New Guinea">Papua New Guinea
-//       value: "Paraguay">Paraguay
-//       value: "Peru">Peru
-//       value: "Phillipines">Philippines
-//       value: "Pitcairn Island">Pitcairn Island
-//       value: "Poland">Poland
-//       value: "Portugal">Portugal
-//       value: "Puerto Rico">Puerto Rico
-//       value: "Qatar">Qatar
-//       value: "Republic of Montenegro">Republic of Montenegro
-//       value: "Republic of Serbia">Republic of Serbia
-//       value: "Reunion">Reunion
-//       value: "Romania">Romania
-//       value: "Russia">Russia
-//       value: "Rwanda">Rwanda
-//       value: "St Barthelemy">St Barthelemy
-//       value: "St Eustatius">St Eustatius
-//       value: "St Helena">St Helena
-//       value: "St Kitts-Nevis">St Kitts-Nevis
-//       value: "St Lucia">St Lucia
-//       value: "St Maarten">St Maarten
-//       value: "St Pierre & Miquelon">St Pierre &amp; Miquelon
-//       value: "St Vincent & Grenadines">St Vincent &amp; Grenadines
-//       value: "Saipan">Saipan
-//       value: "Samoa">Samoa
-//       value: "Samoa American">Samoa American
-//       value: "San Marino">San Marino
-//       value: "Sao Tome & Principe">Sao Tome &amp; Principe
-//       value: "Saudi Arabia">Saudi Arabia
-//       value: "Senegal">Senegal
-//       value: "Seychelles">Seychelles
-//       value: "Sierra Leone">Sierra Leone
-//       value: "Singapore">Singapore
-//       value: "Slovakia">Slovakia
-//       value: "Slovenia">Slovenia
-//       value: "Solomon Islands">Solomon Islands
-//       value: "Somalia">Somalia
-//       value: "South Africa">South Africa
-//       value: "Spain">Spain
-//       value: "Sri Lanka">Sri Lanka
-//       value: "Sudan">Sudan
-//       value: "Suriname">Suriname
-//       value: "Swaziland">Swaziland
-//       value: "Sweden">Sweden
-//       value: "Switzerland">Switzerland
-//       value: "Syria">Syria
-//       value: "Tahiti">Tahiti
-//       value: "Taiwan">Taiwan
-//       value: "Tajikistan">Tajikistan
-//       value: "Tanzania">Tanzania
-//       value: "Thailand">Thailand
-//       value: "Togo">Togo
-//       value: "Tokelau">Tokelau
-//       value: "Tonga">Tonga
-//       value: "Trinidad & Tobago">Trinidad &amp; Tobago
-//       value: "Tunisia">Tunisia
-//       value: "Turkey">Turkey
-//       value: "Turkmenistan">Turkmenistan
-//       value: "Turks & Caicos Is">Turks &amp; Caicos Is
-//       value: "Tuvalu">Tuvalu
-//       value: "Uganda">Uganda
-//       value: "United Kingdom">United Kingdom
-//       value: "Ukraine">Ukraine
-//       value: "United Arab Erimates">United Arab Emirates
-//       value: "United States of America">United States of America
-//       value: "Uraguay">Uruguay
-//       value: "Uzbekistan">Uzbekistan
-//       value: "Vanuatu">Vanuatu
-//       value: "Vatican City State">Vatican City State
-//       value: "Venezuela">Venezuela
-//       value: "Vietnam">Vietnam
-//       value: "Virgin Islands (Brit)">Virgin Islands (Brit)
-//       value: "Virgin Islands (USA)">Virgin Islands (USA)
-//       value: "Wake Island">Wake Island
-//       value: "Wallis & Futana Is">Wallis &amp; Futana Is
-//       value: "Yemen">Yemen
-//       value: "Zaire">Zaire
-//       value: "Zambia">Zambia
-//       value: "Zimbabwe">Zimbabwe

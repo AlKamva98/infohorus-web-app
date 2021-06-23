@@ -82,10 +82,10 @@ module.exports = {
     backdropSepia: (theme) => theme('sepia'),
     backgroundColor: (theme) => theme('colors'),
     backgroundImage: theme => ({
-         'slide-one': "url('hacked.jpg')",
-         'slide-two': "url('hacker.jpg')",
+         'slide-one': "url('slide1.jpg')",
+         'slide-two': "url('slide2.jpg')",
          'slide-three': "url('slide3.jpg')",
-	 'slide-four': "url('head.jpg')",
+	 'slide-four': "url('slide4.jpg')",
       none: 'none',
       'gradient-to-t': 'linear-gradient(to top, var(--tw-gradient-stops))',
       'gradient-to-tr': 'linear-gradient(to top right, var(--tw-gradient-stops))',
