@@ -15,7 +15,7 @@ export function About() {
 
     <h1 className = "text-4xl font-extrabold text-center pb-6 tracking-tight text-gray-900 sm:text-5xl md:text-4xl lg:text-5xl xl:text-6xl" >
     <span className = "block xl:inline" > Why Infohorus? </span> </h1>
-<Carousel dynamicHeight={true} infiniteLoop={true} interval={12000} autoPlay={true} className = "w-full bg-gray-500 mx-auto ">
+<Carousel dynamicHeight={true} autoFocus={true} infiniteLoop={true} interval={12000} autoPlay={true} className = "w-full bg-gray-500 mx-auto ">
   <div  className="flex flex-wrap items-center bg-cover bg-no-repeat bg-center bg-slide-one w-full mx-auto "> 
     <div className="w-1/2 mx-auto my-44 mb-40 pt-3 pb-3 pr-3 pl-3 opacity-70 bg-white rounded-md ">
        <p className = "mx-auto text-lg text-center pb-4 text-gray-900 sm:max-w-md lg:text-2xl md:max-w-3xl" > Ransomware is the fastest - growing attack vector targeting all sorts of companies, institutions, and organizations. No organization is immune to cyber - attacks. Cyber attackers can demand money from companies and institutions of all sizes and industries including nonprofits, enterprises, and startups. </p> 

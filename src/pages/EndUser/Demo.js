@@ -7,7 +7,7 @@ import React,{useState} from 'react'
 
 export const Demo = () => {
  const initialFormState = {
-        email:"", lname:"", fname:"", company:"", employees:""
+        email:"", fname:"", country:"",organisation:"", jobtitle:"",phone:"", agreement:"",marketing:""
     };
     const [formState, updateFormState] = useState(initialFormState);
     const { errors, control } = useForm();
@@ -17,6 +17,7 @@ export const Demo = () => {
     
         updateFormState(()=>({...formState, [e.target.name]: e.target.value}))
     }
+
 
   return (
   <>
@@ -60,9 +61,9 @@ export const Demo = () => {
     <input type="text" onChange={onChange} name="email" className="w-full px-4 py-4 mt-2 text-xl placeholder-gray-400 bg-gray-200 rounded-lg focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50" placeholder="Email Address" required />
     <input type="tel" className="w-full px-4 py-4 mt-2 text-xl placeholder-gray-400 bg-gray-200 rounded-lg focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50" name="phone" placeholder="Phone" required />
     <Controller name="country" className="block w-full px-4 py-4 mt-2 text-xl placeholder-gray-400 bg-gray-200 rounded-lg focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50" control={control} as={Select} onChange={onChange} options={selectOptionsCountry} defaultValue="Country" />
-    <p style={{color: 'grey'}}><span><input type="checkbox" required /></span> I agree to the <a href="bahati-tech-complete-online-privacy-statement (1).pdf" target="blank">Subscription Agreement.</a></p>
+    <p style={{color: 'grey'}}><span><input type="checkbox" onChange={onChange} name="agreement" required /></span> I agree to the <a href="bahati-tech-complete-online-privacy-statement (1).pdf" target="blank">Subscription Agreement.</a></p>
     <p className=" text-base pb-4 text-gray-800 sm:max-w-md lg:text-lg md:max-w-2xl">By registering, you agree to the processing of your personal data by <a href="http://bahatitech.co.za" target="_blank">Bahati Tech</a> as described in the <a href="bahati-tech-complete-online-privacy-statement (1).pdf" target="blank">Privacy Statement.</a></p>
-    <p className=" text-base pb-4 text-gray-800 sm:max-w-md lg:text-lg md:max-w-2xl"><span><input type="checkbox" name="marketing" /></span> Yes, I would like to receive marketing communications regarding Bahati Tech products, services, and events. I can unsubscribe at a later time.
+    <p className=" text-base pb-4 text-gray-800 sm:max-w-md lg:text-lg md:max-w-2xl"><span><input type="checkbox" name="marketing" onChange={onChange} /></span> Yes, I would like to receive marketing communications regarding Bahati Tech products, services, and events. I can unsubscribe at a later time.
     </p>
      <div className="relative">
             <button type="submit" className="inline-block w-full px-5 py-4 text-lg font-medium text-center text-white transition duration-200 bg-blue-600 rounded-lg hover:bg-blue-700 ease">Request Demo</button>
@@ -79,34 +80,5 @@ export const Demo = () => {
     </>
  )
 }
-
-// <div className="flex flex-col items-start space-y-8 tracking-tight lg:max-w-3xl">
-//                   <h4 className="w-full text-3xl font-bold">Request Demo</h4>
-//                 <div className="relative w-full mt-10 space-y-8">
-//                   <div className="relative">
-//                     <label className="font-medium text-gray-900">Name</label>
-//                     <input type="text" onChange={onChange} name="fname" className="block w-full px-4 py-4 mt-2 text-xl placeholder-gray-400 bg-gray-200 rounded-lg focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50" placeholder="Enter Your Name" />
-//                   </div>
-                  
-//                   <div className="relative">
-//                     <label className="font-medium text-gray-900">Email</label>
-//                     <input type="text" onChange={onChange} name="email" className="block w-full px-4 py-4 mt-2 text-xl placeholder-gray-400 bg-gray-200 rounded-lg focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50" placeholder="Enter Your Email Address" />
-//                   </div>
-//                   <div className="relative">
-//                     <label className="font-medium text-gray-900">Company</label>
-//                     <input type="text" onChange={onChange} className="block w-full px-4 py-4 mt-2 text-xl placeholder-gray-400 bg-gray-200 rounded-lg focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50" placeholder="Company" name="company" />
-//                   </div>
-//                   <div className="relative">
-//                   <label for="employees" className="visually-hidden">Number of employees</label>  
-//                   
-                   
-//           </div>
-//                   <div className="relative">
-//                     <button type="submit" className="inline-block w-full px-5 py-4 text-lg font-medium text-center text-white transition duration-200 bg-blue-600 rounded-lg hover:bg-blue-700 ease">Request Demo</button>
-                    
-//                   </div>
-//                 </div>
-                
-//                 </div>
 
  
