@@ -1,14 +1,16 @@
 import React from 'react'
 import { Card,Button, Form, Col, Row } from 'react-bootstrap'
-import Header from '../../components/Header'
+import {Header} from '../../components/index/Header'
+import Sidebar from '../../components/Sidebar'
 import "./body.css"
 
 export const Recomendations = () => {
  return (
   <div>
    <Header/>
-   <h4 className="text-center display-4 bdy">Recomendations</h4>
-   <p className="mx-5 px-3 fs-2 mb-3 mt-3">Click onx the Recomendations you think would work for your company</p>
+   <div className="main">
+   <h4 className="text-center display-4 ">Recomendations</h4>
+   <p className="mx-5 px-3 fs-2 mb-3 mt-3">Click on the Recomendations you think would work for your company</p>
     <Form className="col-md-11 border bg-white border-secondary mt-3 pt-3 mx-auto px-3 pb-5 mb-4 rounded">
     <Col>
     <Row>
@@ -43,6 +45,9 @@ export const Recomendations = () => {
    </Row>
    </Col>
    </Form>
+   </div>
+   <Sidebar/>
+
   </div>
  )
 }

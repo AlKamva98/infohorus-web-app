@@ -2,24 +2,29 @@ export const MenuItems =[
  {
   title: 'Home',
   url: '/',
-  cName : 'navbar-links'
+  cName : 'relative font-medium leading-6 text-gray-600 transition duration-150 ease-out hover:text-gray-900'
  },
-  {
-  title: 'About',
-  url: '/about',
-  cName : 'navbar-links'
+ {
+ title: 'Why Infohorus',
+ url: '/about',
+ cName : 'relative font-medium leading-6 text-gray-600 transition duration-150 ease-out hover:text-gray-900'
+},
+ {
+  title: 'Demo',
+  url: '/demo',
+  cName : 'relative font-medium leading-6 text-gray-600 transition duration-150 ease-out hover:text-gray-900'
+  
  },
-  {
+ {
   title: 'Contact Us',
   url: '/contact',
-  cName : 'navbar-links'
+  cName : 'relative font-medium leading-6 text-gray-600 transition duration-150 ease-out hover:text-gray-900'
  },
-  {
-  title: 'Pricing',
-  url: '/pricing',
-  cName : 'navbar-links'
- 
- },
+ // {
+ //  title: 'Dashboard',
+ //  url: '/findings ',
+ //  cName: 'relative font-medium leading-6 text-gray-600 transition duration-150 ease-out hover:text-gray-900'
+ // },
   {
   title: 'Sign in',
   url: '#',

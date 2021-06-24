@@ -1,98 +1,820 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const createAnswers = /* GraphQL */ `
-  mutation CreateAnswers(
-    $input: CreateAnswersInput!
-    $condition: ModelAnswersConditionInput
+export const createQuestionnaireQuestionAnswer = /* GraphQL */ `
+  mutation CreateQuestionnaireQuestionAnswer(
+    $input: CreateQuestionnaireQuestionAnswerInput!
+    $condition: ModelQuestionnaireQuestionAnswerConditionInput
   ) {
-    createAnswers(input: $input, condition: $condition) {
+    createQuestionnaireQuestionAnswer(input: $input, condition: $condition) {
       id
-      username
-      answers
-      documents
-      completed
+      questionID
+      answerID
+      questionnaireID
       _version
       _deleted
       _lastChangedAt
       createdAt
       updatedAt
-      UserAnswers {
+      Answers {
+        items {
+          id
+          answer
+          questionnaireID
+          questionID
+          questionnairequestionanswerID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        nextToken
+        startedAt
+      }
+      Questions {
+        items {
+          id
+          question
+          questionName
+          questionnairequestionanswerID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        nextToken
+        startedAt
+      }
+      Questionnaire {
         id
-        username
-        fname
-        lname
-        jobtitle
-        company
-        employees
-        industry
-        country
+        questionaireCompleted
+        questionnaireQuestionanswerID
+        userId
         _version
         _deleted
         _lastChangedAt
         createdAt
         updatedAt
+        QuestionnaireQuestionAnswer {
+          id
+          questionID
+          answerID
+          questionnaireID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        Answers {
+          nextToken
+          startedAt
+        }
+        User {
+          id
+          first_name
+          last_name
+          email
+          job_title
+          company
+          employees
+          industry
+          country
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
       }
     }
   }
 `;
-export const updateAnswers = /* GraphQL */ `
-  mutation UpdateAnswers(
-    $input: UpdateAnswersInput!
-    $condition: ModelAnswersConditionInput
+export const updateQuestionnaireQuestionAnswer = /* GraphQL */ `
+  mutation UpdateQuestionnaireQuestionAnswer(
+    $input: UpdateQuestionnaireQuestionAnswerInput!
+    $condition: ModelQuestionnaireQuestionAnswerConditionInput
   ) {
-    updateAnswers(input: $input, condition: $condition) {
+    updateQuestionnaireQuestionAnswer(input: $input, condition: $condition) {
       id
-      username
-      answers
-      documents
-      completed
+      questionID
+      answerID
+      questionnaireID
       _version
       _deleted
       _lastChangedAt
       createdAt
       updatedAt
-      UserAnswers {
+      Answers {
+        items {
+          id
+          answer
+          questionnaireID
+          questionID
+          questionnairequestionanswerID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        nextToken
+        startedAt
+      }
+      Questions {
+        items {
+          id
+          question
+          questionName
+          questionnairequestionanswerID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        nextToken
+        startedAt
+      }
+      Questionnaire {
         id
-        username
-        fname
-        lname
-        jobtitle
-        company
-        employees
-        industry
-        country
+        questionaireCompleted
+        questionnaireQuestionanswerID
+        userId
         _version
         _deleted
         _lastChangedAt
         createdAt
         updatedAt
+        QuestionnaireQuestionAnswer {
+          id
+          questionID
+          answerID
+          questionnaireID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        Answers {
+          nextToken
+          startedAt
+        }
+        User {
+          id
+          first_name
+          last_name
+          email
+          job_title
+          company
+          employees
+          industry
+          country
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
       }
     }
   }
 `;
-export const deleteAnswers = /* GraphQL */ `
-  mutation DeleteAnswers(
-    $input: DeleteAnswersInput!
-    $condition: ModelAnswersConditionInput
+export const deleteQuestionnaireQuestionAnswer = /* GraphQL */ `
+  mutation DeleteQuestionnaireQuestionAnswer(
+    $input: DeleteQuestionnaireQuestionAnswerInput!
+    $condition: ModelQuestionnaireQuestionAnswerConditionInput
   ) {
-    deleteAnswers(input: $input, condition: $condition) {
+    deleteQuestionnaireQuestionAnswer(input: $input, condition: $condition) {
       id
-      username
-      answers
-      documents
-      completed
+      questionID
+      answerID
+      questionnaireID
       _version
       _deleted
       _lastChangedAt
       createdAt
       updatedAt
-      UserAnswers {
+      Answers {
+        items {
+          id
+          answer
+          questionnaireID
+          questionID
+          questionnairequestionanswerID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        nextToken
+        startedAt
+      }
+      Questions {
+        items {
+          id
+          question
+          questionName
+          questionnairequestionanswerID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        nextToken
+        startedAt
+      }
+      Questionnaire {
         id
-        username
-        fname
-        lname
-        jobtitle
+        questionaireCompleted
+        questionnaireQuestionanswerID
+        userId
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        QuestionnaireQuestionAnswer {
+          id
+          questionID
+          answerID
+          questionnaireID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        Answers {
+          nextToken
+          startedAt
+        }
+        User {
+          id
+          first_name
+          last_name
+          email
+          job_title
+          company
+          employees
+          industry
+          country
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+      }
+    }
+  }
+`;
+export const createAnswer = /* GraphQL */ `
+  mutation CreateAnswer(
+    $input: CreateAnswerInput!
+    $condition: ModelAnswerConditionInput
+  ) {
+    createAnswer(input: $input, condition: $condition) {
+      id
+      answer
+      questionnaireID
+      questionID
+      questionnairequestionanswerID
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      Questionnaire {
+        id
+        questionID
+        answerID
+        questionnaireID
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        Answers {
+          nextToken
+          startedAt
+        }
+        Questions {
+          nextToken
+          startedAt
+        }
+        Questionnaire {
+          id
+          questionaireCompleted
+          questionnaireQuestionanswerID
+          userId
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+      }
+      Question {
+        id
+        questionID
+        answerID
+        questionnaireID
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        Answers {
+          nextToken
+          startedAt
+        }
+        Questions {
+          nextToken
+          startedAt
+        }
+        Questionnaire {
+          id
+          questionaireCompleted
+          questionnaireQuestionanswerID
+          userId
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+      }
+      QuestionnaireQuestionAnswer {
+        id
+        questionID
+        answerID
+        questionnaireID
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        Answers {
+          nextToken
+          startedAt
+        }
+        Questions {
+          nextToken
+          startedAt
+        }
+        Questionnaire {
+          id
+          questionaireCompleted
+          questionnaireQuestionanswerID
+          userId
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+      }
+    }
+  }
+`;
+export const updateAnswer = /* GraphQL */ `
+  mutation UpdateAnswer(
+    $input: UpdateAnswerInput!
+    $condition: ModelAnswerConditionInput
+  ) {
+    updateAnswer(input: $input, condition: $condition) {
+      id
+      answer
+      questionnaireID
+      questionID
+      questionnairequestionanswerID
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      Questionnaire {
+        id
+        questionID
+        answerID
+        questionnaireID
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        Answers {
+          nextToken
+          startedAt
+        }
+        Questions {
+          nextToken
+          startedAt
+        }
+        Questionnaire {
+          id
+          questionaireCompleted
+          questionnaireQuestionanswerID
+          userId
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+      }
+      Question {
+        id
+        questionID
+        answerID
+        questionnaireID
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        Answers {
+          nextToken
+          startedAt
+        }
+        Questions {
+          nextToken
+          startedAt
+        }
+        Questionnaire {
+          id
+          questionaireCompleted
+          questionnaireQuestionanswerID
+          userId
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+      }
+      QuestionnaireQuestionAnswer {
+        id
+        questionID
+        answerID
+        questionnaireID
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        Answers {
+          nextToken
+          startedAt
+        }
+        Questions {
+          nextToken
+          startedAt
+        }
+        Questionnaire {
+          id
+          questionaireCompleted
+          questionnaireQuestionanswerID
+          userId
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+      }
+    }
+  }
+`;
+export const deleteAnswer = /* GraphQL */ `
+  mutation DeleteAnswer(
+    $input: DeleteAnswerInput!
+    $condition: ModelAnswerConditionInput
+  ) {
+    deleteAnswer(input: $input, condition: $condition) {
+      id
+      answer
+      questionnaireID
+      questionID
+      questionnairequestionanswerID
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      Questionnaire {
+        id
+        questionID
+        answerID
+        questionnaireID
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        Answers {
+          nextToken
+          startedAt
+        }
+        Questions {
+          nextToken
+          startedAt
+        }
+        Questionnaire {
+          id
+          questionaireCompleted
+          questionnaireQuestionanswerID
+          userId
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+      }
+      Question {
+        id
+        questionID
+        answerID
+        questionnaireID
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        Answers {
+          nextToken
+          startedAt
+        }
+        Questions {
+          nextToken
+          startedAt
+        }
+        Questionnaire {
+          id
+          questionaireCompleted
+          questionnaireQuestionanswerID
+          userId
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+      }
+      QuestionnaireQuestionAnswer {
+        id
+        questionID
+        answerID
+        questionnaireID
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        Answers {
+          nextToken
+          startedAt
+        }
+        Questions {
+          nextToken
+          startedAt
+        }
+        Questionnaire {
+          id
+          questionaireCompleted
+          questionnaireQuestionanswerID
+          userId
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+      }
+    }
+  }
+`;
+export const createQuestion = /* GraphQL */ `
+  mutation CreateQuestion(
+    $input: CreateQuestionInput!
+    $condition: ModelQuestionConditionInput
+  ) {
+    createQuestion(input: $input, condition: $condition) {
+      id
+      question
+      questionName
+      questionnairequestionanswerID
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      QuestionnaireQuestionAnswers {
+        items {
+          id
+          questionID
+          answerID
+          questionnaireID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        nextToken
+        startedAt
+      }
+      Answers {
+        items {
+          id
+          answer
+          questionnaireID
+          questionID
+          questionnairequestionanswerID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        nextToken
+        startedAt
+      }
+    }
+  }
+`;
+export const updateQuestion = /* GraphQL */ `
+  mutation UpdateQuestion(
+    $input: UpdateQuestionInput!
+    $condition: ModelQuestionConditionInput
+  ) {
+    updateQuestion(input: $input, condition: $condition) {
+      id
+      question
+      questionName
+      questionnairequestionanswerID
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      QuestionnaireQuestionAnswers {
+        items {
+          id
+          questionID
+          answerID
+          questionnaireID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        nextToken
+        startedAt
+      }
+      Answers {
+        items {
+          id
+          answer
+          questionnaireID
+          questionID
+          questionnairequestionanswerID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        nextToken
+        startedAt
+      }
+    }
+  }
+`;
+export const deleteQuestion = /* GraphQL */ `
+  mutation DeleteQuestion(
+    $input: DeleteQuestionInput!
+    $condition: ModelQuestionConditionInput
+  ) {
+    deleteQuestion(input: $input, condition: $condition) {
+      id
+      question
+      questionName
+      questionnairequestionanswerID
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      QuestionnaireQuestionAnswers {
+        items {
+          id
+          questionID
+          answerID
+          questionnaireID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        nextToken
+        startedAt
+      }
+      Answers {
+        items {
+          id
+          answer
+          questionnaireID
+          questionID
+          questionnairequestionanswerID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        nextToken
+        startedAt
+      }
+    }
+  }
+`;
+export const createQuestionnaire = /* GraphQL */ `
+  mutation CreateQuestionnaire(
+    $input: CreateQuestionnaireInput!
+    $condition: ModelQuestionnaireConditionInput
+  ) {
+    createQuestionnaire(input: $input, condition: $condition) {
+      id
+      questionaireCompleted
+      questionnaireQuestionanswerID
+      userId
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      QuestionnaireQuestionAnswer {
+        id
+        questionID
+        answerID
+        questionnaireID
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        Answers {
+          nextToken
+          startedAt
+        }
+        Questions {
+          nextToken
+          startedAt
+        }
+        Questionnaire {
+          id
+          questionaireCompleted
+          questionnaireQuestionanswerID
+          userId
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+      }
+      Answers {
+        items {
+          id
+          answer
+          questionnaireID
+          questionID
+          questionnairequestionanswerID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        nextToken
+        startedAt
+      }
+      User {
+        id
+        first_name
+        last_name
+        email
+        job_title
         company
         employees
         industry
@@ -102,6 +824,199 @@ export const deleteAnswers = /* GraphQL */ `
         _lastChangedAt
         createdAt
         updatedAt
+        Questionnaire {
+          id
+          questionID
+          answerID
+          questionnaireID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+      }
+    }
+  }
+`;
+export const updateQuestionnaire = /* GraphQL */ `
+  mutation UpdateQuestionnaire(
+    $input: UpdateQuestionnaireInput!
+    $condition: ModelQuestionnaireConditionInput
+  ) {
+    updateQuestionnaire(input: $input, condition: $condition) {
+      id
+      questionaireCompleted
+      questionnaireQuestionanswerID
+      userId
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      QuestionnaireQuestionAnswer {
+        id
+        questionID
+        answerID
+        questionnaireID
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        Answers {
+          nextToken
+          startedAt
+        }
+        Questions {
+          nextToken
+          startedAt
+        }
+        Questionnaire {
+          id
+          questionaireCompleted
+          questionnaireQuestionanswerID
+          userId
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+      }
+      Answers {
+        items {
+          id
+          answer
+          questionnaireID
+          questionID
+          questionnairequestionanswerID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        nextToken
+        startedAt
+      }
+      User {
+        id
+        first_name
+        last_name
+        email
+        job_title
+        company
+        employees
+        industry
+        country
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        Questionnaire {
+          id
+          questionID
+          answerID
+          questionnaireID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+      }
+    }
+  }
+`;
+export const deleteQuestionnaire = /* GraphQL */ `
+  mutation DeleteQuestionnaire(
+    $input: DeleteQuestionnaireInput!
+    $condition: ModelQuestionnaireConditionInput
+  ) {
+    deleteQuestionnaire(input: $input, condition: $condition) {
+      id
+      questionaireCompleted
+      questionnaireQuestionanswerID
+      userId
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      QuestionnaireQuestionAnswer {
+        id
+        questionID
+        answerID
+        questionnaireID
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        Answers {
+          nextToken
+          startedAt
+        }
+        Questions {
+          nextToken
+          startedAt
+        }
+        Questionnaire {
+          id
+          questionaireCompleted
+          questionnaireQuestionanswerID
+          userId
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+      }
+      Answers {
+        items {
+          id
+          answer
+          questionnaireID
+          questionID
+          questionnairequestionanswerID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        nextToken
+        startedAt
+      }
+      User {
+        id
+        first_name
+        last_name
+        email
+        job_title
+        company
+        employees
+        industry
+        country
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        Questionnaire {
+          id
+          questionID
+          answerID
+          questionnaireID
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
       }
     }
   }
@@ -113,10 +1028,10 @@ export const createUser = /* GraphQL */ `
   ) {
     createUser(input: $input, condition: $condition) {
       id
-      username
-      fname
-      lname
-      jobtitle
+      first_name
+      last_name
+      email
+      job_title
       company
       employees
       industry
@@ -126,6 +1041,36 @@ export const createUser = /* GraphQL */ `
       _lastChangedAt
       createdAt
       updatedAt
+      Questionnaire {
+        id
+        questionID
+        answerID
+        questionnaireID
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        Answers {
+          nextToken
+          startedAt
+        }
+        Questions {
+          nextToken
+          startedAt
+        }
+        Questionnaire {
+          id
+          questionaireCompleted
+          questionnaireQuestionanswerID
+          userId
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+      }
     }
   }
 `;
@@ -136,10 +1081,10 @@ export const updateUser = /* GraphQL */ `
   ) {
     updateUser(input: $input, condition: $condition) {
       id
-      username
-      fname
-      lname
-      jobtitle
+      first_name
+      last_name
+      email
+      job_title
       company
       employees
       industry
@@ -149,6 +1094,36 @@ export const updateUser = /* GraphQL */ `
       _lastChangedAt
       createdAt
       updatedAt
+      Questionnaire {
+        id
+        questionID
+        answerID
+        questionnaireID
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        Answers {
+          nextToken
+          startedAt
+        }
+        Questions {
+          nextToken
+          startedAt
+        }
+        Questionnaire {
+          id
+          questionaireCompleted
+          questionnaireQuestionanswerID
+          userId
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+      }
     }
   }
 `;
@@ -159,14 +1134,92 @@ export const deleteUser = /* GraphQL */ `
   ) {
     deleteUser(input: $input, condition: $condition) {
       id
-      username
-      fname
-      lname
-      jobtitle
+      first_name
+      last_name
+      email
+      job_title
       company
       employees
       industry
       country
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      Questionnaire {
+        id
+        questionID
+        answerID
+        questionnaireID
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        Answers {
+          nextToken
+          startedAt
+        }
+        Questions {
+          nextToken
+          startedAt
+        }
+        Questionnaire {
+          id
+          questionaireCompleted
+          questionnaireQuestionanswerID
+          userId
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+      }
+    }
+  }
+`;
+export const createFile = /* GraphQL */ `
+  mutation CreateFile(
+    $input: CreateFileInput!
+    $condition: ModelFileConditionInput
+  ) {
+    createFile(input: $input, condition: $condition) {
+      id
+      data
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateFile = /* GraphQL */ `
+  mutation UpdateFile(
+    $input: UpdateFileInput!
+    $condition: ModelFileConditionInput
+  ) {
+    updateFile(input: $input, condition: $condition) {
+      id
+      data
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteFile = /* GraphQL */ `
+  mutation DeleteFile(
+    $input: DeleteFileInput!
+    $condition: ModelFileConditionInput
+  ) {
+    deleteFile(input: $input, condition: $condition) {
+      id
+      data
       _version
       _deleted
       _lastChangedAt

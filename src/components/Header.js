@@ -13,10 +13,10 @@ function Header (){
       setClicked(!clicked)
     }
  useEffect(()=>{
-    checkUserSignedIn();
+    handleSignedIn();
     },[])
 
-async function checkUserSignedIn(){
+async function handleSignedIn(){
  const user = await Auth.currentAuthenticatedUser();
   if(user !== undefined){
     setSignedIn(true);
@@ -27,15 +27,16 @@ async function checkUserSignedIn(){
    const signOut=async()=>{
       console.log("Signing out");
       await Auth.signOut();
+      window.location.reload();
       console.log("Signed out");
-      
     }
 
   
  
   return (
-      <Navbar fixed="top" className="NavbarItems">
-        <Link to="/"><Image className="img-fluid" src="./images/logok.png" alt="logo"  width="250" height="100"/></Link>
+      <Navbar fixed="top" className="NavbarItems ">
+      <div className="bg-gray-200">
+        <Link to="/"><Image className="img-fluid" src="./images/logok.png" alt="logo"  width="200" height="75"/></Link>
         <div className="menu-icon" onClick={handleClick}> 
           <i className={clicked ? 'fas fa-times': 'fas fa-bars'}></i>
         </div>
@@ -46,13 +47,15 @@ async function checkUserSignedIn(){
                 <Link className={item.cName} to={item.url}>
                 {item.title} 
                 </Link>
-              </li>
-            )
-          })}
+              </li>)})}
         </ul>
         <div className="signin-icon">
           {signedIn ? (<Link to="/"><Button className="mx-4" onClick={signOut}>Sign Out</Button></Link>):(<Link to="/register"><Button className="mx-4">Start My Free Trial</Button></Link>)}
         </div>
+        <div>
+          {signedIn ? null:(<Link to="/signIn"><h4>Login</h4></Link>)}
+        </div>
+                </div>
       </Navbar>
   )}
 
