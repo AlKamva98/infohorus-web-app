@@ -59,7 +59,7 @@ export const Demo = () => {
               <div className="relative flex flex-col items-center justify-center w-full h-full px-10 my-20 lg:px-16 lg:my-0">
                 <div className="flex flex-col items-start space-y-8 tracking-tight lg:max-w-3xl">
   <h4 className="w-full text-3xl font-bold">Request Demo</h4>
-  <h5 className="w-full text-base ">Complete the form below and a representative will be in touch shortly to discuss your trial.</h5>
+  <h5 className="w-full text-base ">Complete the form below and a representative will be in touch shortly to discuss and schedule the demo.</h5>
   <form className="w-full mt-10 pb-3 space-y-8"  method="POST">
     
     <input type="text" onChange={onChange} name="fname" className=" w-full inline-block px-4 py-4 mt-2 text-xl placeholder-gray-400 bg-gray-200 rounded-lg focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50" placeholder="Name" required />
@@ -68,8 +68,8 @@ export const Demo = () => {
     <input type="text" onChange={onChange} className=" w-full px-4 py-4 mt-2 text-xl placeholder-gray-400 bg-gray-200 rounded-lg focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50" name="jobtitle" placeholder="Job title" required />
     <input type="text" onChange={onChange} name="email" className="w-full px-4 py-4 mt-2 text-xl placeholder-gray-400 bg-gray-200 rounded-lg focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50" placeholder="Email Address" required />
     <input type="tel" className="w-full px-4 py-4 mt-2 text-xl placeholder-gray-400 bg-gray-200 rounded-lg focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50" name="phone" placeholder="Phone" required />
-    <Controller name="country" className="block w-full px-4 py-4 mt-2 text-xl placeholder-gray-400 bg-gray-200 rounded-lg focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50" control={control} as={Select} onChange={onChange} options={selectOptionsCountry} defaultValue="Country" />
-    <p style={{color: 'grey'}}><span><input type="checkbox" onChange={onChange} name="agreement" required /></span> I agree to the <a href="bahati-tech-complete-online-privacy-statement (1).pdf" target="blank">Subscription Agreement.</a></p>
+    <Controller name="country" className="block w-full px-4 py-4 mt-2 text-xl placeholder-gray-400 bg-gray-200 rounded-lg focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50" placeholder="Country" control={control} as={Select} onChange={onChange} options={selectOptionsCountry} defaultValue="Country" />
+   
     <p className=" text-base pb-4 text-gray-800 sm:max-w-md lg:text-lg md:max-w-2xl">By registering, you agree to the processing of your personal data by <a href="http://bahatitech.co.za" target="_blank">Bahati Tech</a> as described in the <a href="bahati-tech-complete-online-privacy-statement (1).pdf" target="blank">Privacy Statement.</a></p>
     <p className=" text-base pb-4 text-gray-800 sm:max-w-md lg:text-lg md:max-w-2xl"><span><input type="checkbox" name="marketing" onChange={onChange} /></span> Yes, I would like to receive marketing communications regarding Bahati Tech products, services, and events. I can unsubscribe at a later time.
     </p>
