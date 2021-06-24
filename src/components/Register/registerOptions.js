@@ -12,6 +12,7 @@ export const registerOptions = {
     },
     jobtitle:{ required: "Job Title is required"},
     company:{ required: "Company name is required"},
+phone:{ required: "Phone number is required"},
     employees: {required: "Number of employees is required"},
     country: {required: "Country is required"},
     industry:{required: "Industry is required"}
