@@ -4,6 +4,14 @@ import {useForm, Controller } from "react-hook-form";
 import {selectOptionsCountry} from '../../testData/selectOptions'
 import Footer from '../../components/index/Footer';
 import React,{useState} from 'react'
+import { Amplify, API, Auth, Storage,graphqlOperation } from 'aws-amplify';
+const awsConfig = require('../../aws-exports').default;
+
+Amplify.register(API)
+Amplify.register(Storage)
+Amplify.register(Auth)
+Amplify.configure(awsConfig)
+
 
 export const Demo = () => {
  const initialFormState = {
@@ -22,8 +30,8 @@ export const Demo = () => {
   return (
   <>
  <Header/>
- <div>
-   <section className="w-full bg-white">
+ <div className="bg-cover bg-no-repeat bg-center bg-demo">
+   <section className="w-full opacity-80 bg-white">
         <div className="mx-auto max-w-7xl">
           <div className="flex flex-col lg:flex-row">
                <div className="relative w-full bg-cover lg:w-6/12 xl:w-7/12 bg-gradient-to-r from-white via-white to-gray-100">

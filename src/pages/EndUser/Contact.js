@@ -20,8 +20,8 @@ import './body.css';
 
  return(<>
  <Header/>
- <div>
-   <section className="w-full bg-white">
+ <div className="bg-cover bg-no-repeat bg-center bg-contact">
+   <section className="w-full opacity-80 bg-white">
         <div className="mx-auto max-w-7xl">
           <div className="flex flex-col lg:flex-row">
                <div className="relative w-full bg-cover lg:w-6/12 xl:w-7/12 bg-gradient-to-r from-white via-white to-gray-100">
@@ -55,9 +55,6 @@ import './body.css';
                     <p className="mb-2 font-medium text-gray-700 uppercase"></p>
                     <h2 className="text-5xl font-bold text-gray-900 xl:text-6xl">Contact Us</h2>
                   </div>
-                  <p className="text-lg text-gray-700 pb-4">Brought first let lesser appear that give two called forth fill. Firmament. Saying deep, abundantly blessed so. Itself said seed evening and air seed beast of fruitful, open.</p>
-                  <img className="img-fluid text-center pb-4"  src="./images/jumbobg.png" width="500" height="400" alt="vector"/>
-                  <p className="text-lg text-gray-700">All seed for cattle good which. Stars us saying grass morning spirit seed one fourth very said you sixth spirit. Created days</p>
                   
                 </div>
               </div>
@@ -70,5 +67,10 @@ import './body.css';
     </>
  )
 }
+
+//<p className="text-lg text-gray-700 pb-4">Brought first let lesser appear that give two called forth fill. Firmament. Saying deep, abundantly blessed so. Itself said seed evening and air seed beast of fruitful, open.</p>
+                 // <img className="img-fluid text-center pb-4"  src="./images/jumbobg.png" width="500" height="400" alt="vector"/>
+                 // <p className="text-lg text-gray-700">All seed for cattle good which. Stars us saying grass morning spirit seed one fourth very said you sixth spirit. Created days</p>
+                  
 
 export default Contact;

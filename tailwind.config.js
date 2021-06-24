@@ -86,6 +86,8 @@ module.exports = {
          'slide-two': "url('slide2.png')",
          'slide-three': "url('slide3.png')",
 	 'slide-four': "url('slide4.png')",
+	 'contact': "url('contactbg.png')",
+	 'demo': "url('slide1.png')",
       none: 'none',
       'gradient-to-t': 'linear-gradient(to top, var(--tw-gradient-stops))',
       'gradient-to-tr': 'linear-gradient(to top right, var(--tw-gradient-stops))',
