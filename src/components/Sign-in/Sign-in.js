@@ -80,8 +80,8 @@ export function SignIn (props) {
                btnNegativeLink="/register"
                body={signinFailMsg} 
                toggle={toggle} className={className}/>
-              <p className="mt-5 mb-3 text-muted">Don't have account? Click <Link to="/register">here</Link> to register.</p>
-              <p className="mt-5 mb-3 text-muted text-center">&copy;2021</p>
+              <p className="mx-2 my-8  text-muted">Don't have account? Click <Link to="/demo">here</Link> to request a demo.</p>
+              
 </Card.Body>
             </Card>
       </Col>

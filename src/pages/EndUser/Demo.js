@@ -6,6 +6,7 @@ import Footer from '../../components/index/Footer';
 import {Input} from 'reactstrap';
 import React,{useState} from 'react';
 import {registerOptions} from '../../components/Register/registerOptions';
+import {PopUp} from '../../components/Modal.js'
 import {Link} from 'react-router-dom';
 import { Amplify, API, Auth, Storage } from 'aws-amplify';
 const awsConfig = require('../../aws-exports').default;
@@ -20,6 +21,8 @@ export const Demo = () => {
  const initialFormState = {
         email:"", fname:"", country:"",organisation:"", jobtitle:"",phone:"",marketing:""
     };
+    const [modal, setModal] = useState(false);
+    const toggle = () => setModal(!modal);
     const [formState, updateFormState] = useState(initialFormState);
     const { register, handleSubmit, errors, control } = useForm();
     const handleError = (errors) => { console.log("Form Errors: ", errors)};
@@ -39,6 +42,7 @@ export const Demo = () => {
         // }))
       console.log("This is the users data:"+JSON.stringify(data))
       console.log("Data sent to the API")
+	toggle();
       }
       catch(err){
         console.log("API err:", err )
@@ -55,7 +59,7 @@ export const Demo = () => {
   return (
   <>
  <Header/>
- <div className="bg-cover bg-no-repeat bg-center bg-demo">
+ <div className="bg-cover bg-no-repeat bg-center bg-demo ">
    <section className="w-full opacity-80 bg-white">
         <div className="mx-auto max-w-7xl">
           <div className="flex flex-col lg:flex-row">
@@ -108,6 +112,14 @@ export const Demo = () => {
       </section>
     <Footer/>
   </div>
+<PopUp
+title="Demo Request sent"
+body="Thank you for filling in your details, your demo request has been sent. A Bahati Tech employee will contact you to shedule the requested demo." 
+btnTxtPositive="Okay"
+bg="bg-demo"
+toggle={toggle}
+isOpen={modal}
+/>
     </>
  )
 }
