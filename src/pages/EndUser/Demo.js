@@ -7,7 +7,8 @@ import {Input} from 'reactstrap';
 import React,{useState} from 'react';
 import {PopUp} from '../../components/Modal.js'
 import {Link} from 'react-router-dom';
-import { Amplify, API, Auth, Storage } from 'aws-amplify';
+import * as queries from '../../graphql/queries'
+import { Amplify, API, Auth, Storage, graphqlOperation } from 'aws-amplify';
 const awsConfig = require('../../aws-exports').default;
 
 Amplify.register(API)
