@@ -1,25 +1,20 @@
 import React,{useState} from 'react';
-import {Container, Row, Image, Col,Card,Form} from 'react-bootstrap';
-import {Label, Input, FormGroup,Button} from 'reactstrap';
+import {Input} from "reactstrap";
 import {Header} from '../../components/index/Header';
+import {Amplify, API, Auth, graphqlOperation, Storage } from 'aws-amplify';
 import {PopUp} from '../../components/Modal.js'
-import { useForm } from "react-hook-form";
+import * as queries from '../../graphql/queries'
+import { useForm, Controller } from "react-hook-form";
 import Footer from '../../components/index/Footer';
 import './body.css';
+const awsConfig = require('../../aws-exports').default;
 
+Amplify.register(API)
+Amplify.register(Storage)
+Amplify.register(Auth)
+Amplify.configure(awsConfig)
 
  function Contact(){
-  const { register, handleSubmit } = useForm();
-  const onSubmit = (data, e) => {
-try{
-console.log(data, e)
-toggle();
-}
-catch(err){
-console.log("Email sending error",err)
-}
-};
-  const onError = (errors, e) => console.log(errors, e);
 
   const [modal, setModal] = useState(false);
   const toggle = () => setModal(!modal);
@@ -27,11 +22,106 @@ console.log("Email sending error",err)
        fname:"", email:"", taMessage:""
     };
     const [formState, updateFormState] = useState(initialFormState);
+    const { register, handleSubmit, errors, control } = useForm();
+    const onError = (errors) => { console.log("Form Errors: ", errors)};
+    const onSubmit = async (data) =>{ 
+      
+      try{
+        
+        //console.log("Sending to the API")
+        // await API.graphql(graphqlOperation(
+        //   newusermut,{
+        //     input:{
+            
+              
+          
+        //     }
 
+        // })
+      console.log("This is the access key",getCreds());
+      getCreds().then((uCred)=>{
+      
+        sendEmail(data, uCred);
+      })
+      console.log("This is the users data:"+JSON.stringify(data));
+      console.log("Data sent to the API");
+	
+      }
+      catch(err){
+        console.log("API err:", err )
+      }
+    };
     function onChange(e){
         e.persist()
         console.log("changing:"+e.target.name);
         updateFormState(()=>({...formState, [e.target.name]: e.target.value}))
+    }
+
+    async function getCreds(){
+      let cred  = await API.graphql(graphqlOperation(queries.getUser, { id: 'ak100' }));
+      return cred;
+    }
+
+    function sendEmail(data, uCred) {
+  
+
+       const AWS = require("aws-sdk");
+  
+        const cred = new AWS.Credentials({
+            accessKeyId: uCred.data.getUser.first_name,
+            secretAccessKey: uCred.data.getUser.last_name,
+            sessionToken: null
+        });
+
+        AWS.config.update({
+            credentials: cred,
+            region: 'eu-west-1',
+            endpoint: 'email.eu-west-1.amazonaws.com'
+        });
+
+        // Create sendEmail params
+        var params = {
+            Destination: {
+                ToAddresses: [
+                    "stefano@bahatitech.co.za",
+                    /* more items */
+                ]
+            },
+            Message: { /* required */
+                Body: { /* required */
+                    Html: {
+                        Charset: "UTF-8",
+                        Data: `<h3>Hi my name is  ${data.fname}!</h3><br/>\n` +
+                            `<p>${data.taMessage}</p><br/>\n` +
+                            `<p>If you want to contact me to discuss this further, my email address is ${data.email}.</p>` +
+                            `<p>I will be waiting for you to contact me.</p><br/>\n` +
+                            `<p></p><br/>\n` +
+                            `<p>Kind Regards,</p>\n`
+                    }
+                },
+                Subject: {
+                    Charset: 'UTF-8',
+                    Data: 'Contact Us message'
+                }
+            },
+            Source: "hello@bahatitech.co.za", /* required */
+            ReplyToAddresses: [
+                "hello@bahatitech.co.za",
+                /* more items */
+            ],
+        };
+
+        const sendPromise = new AWS.SES({apiVersion: '2010-12-01'}).sendEmail(params).promise();
+
+// Handle promise's fulfilled/rejected states
+        sendPromise.then(
+            function (data) {
+                toggle();
+            }).catch(
+            function (err) {
+                console.error(err, err.stack);
+            });
+
     }
 
  return(<>
@@ -46,17 +136,17 @@ console.log("Email sending error",err)
                 <form onSubmit={handleSubmit(onSubmit, onError)} className="relative w-full mt-10 space-y-8">
                   <div className="relative">
                     <label className="font-semibold text-xl text-gray-900">Name</label>
-                    <input type="text" onChange={onChange} name="fname" className="block w-full px-4 py-4 mt-2 text-xl placeholder-gray-400 bg-gray-200 rounded-lg focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50" placeholder="Enter Your Name" {...register("fname")} />
+                    <Controller type="text" as={Input} control={control} name="fname" className="block w-full px-4 py-4 mt-2 text-xl placeholder-gray-400 bg-gray-200 rounded-lg focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50" placeholder="Enter Your Name" {...register("fname")} />
                     
                   </div>
                   
                   <div className="relative">
                     <label className="font-semibold text-xl text-gray-900">Email</label>
-                    <input type="text" onChange={onChange} name="email" className="block w-full px-4 py-4 mt-2 text-xl placeholder-gray-400 bg-gray-200 rounded-lg focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50" placeholder="Enter Your Email Address" {...register("email")} />
+                    <Controller as={Input} type="text" control={control} name="email" className="block w-full px-4 py-4 mt-2 text-xl placeholder-gray-400 bg-gray-200 rounded-lg focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50" placeholder="Enter Your Email Address" {...register("email")} />
                   </div>
                   <div className="relative">
                     <label className="font-semibold text-xl text-gray-900">Message</label>
-                    <textarea type="text" onChange={onChange} className="block w-full px-4 py-4 mt-2 text-xl placeholder-gray-400 bg-gray-200 rounded-lg focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50"placeholder="Message" name="taMessage" rows="4" {...register("taMessage")}/>
+                    <Controller as={Input} type="textarea" control={control} className="block w-full px-4 py-4 mt-2 text-xl placeholder-gray-400 bg-gray-200 rounded-lg focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50"placeholder="Message" name="taMessage" rows="4" {...register("taMessage")}/>
                   </div>
                   <div className="relative">
                     <button type="submit" className="inline-block w-full px-5 py-4 text-lg font-medium text-center text-white transition duration-200 bg-blue-600 rounded-lg hover:bg-blue-700 ease">Submit</button>

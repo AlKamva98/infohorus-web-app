@@ -5,7 +5,6 @@ import {selectOptionsCountry} from '../../testData/selectOptions'
 import Footer from '../../components/index/Footer';
 import {Input} from 'reactstrap';
 import React,{useState} from 'react';
-import {registerOptions} from '../../components/Register/registerOptions';
 import {PopUp} from '../../components/Modal.js'
 import {Link} from 'react-router-dom';
 import { Amplify, API, Auth, Storage } from 'aws-amplify';
@@ -30,7 +29,7 @@ export const Demo = () => {
       
       try{
         
-        console.log("Sending to the API")
+        //console.log("Sending to the API")
         // await API.graphql(graphqlOperation(
         //   newusermut,{
         //     input:{
@@ -40,9 +39,13 @@ export const Demo = () => {
         //     }
 
         // }))
-      console.log("This is the users data:"+JSON.stringify(data))
-      console.log("Data sent to the API")
-	toggle();
+      getCreds().then((uCred)=>{
+      
+        sendEmail(data, uCred);
+      })
+      console.log("This is the users data:"+JSON.stringify(data));
+      console.log("Data sent to the API");
+	
       }
       catch(err){
         console.log("API err:", err )
@@ -55,6 +58,75 @@ export const Demo = () => {
         updateFormState(()=>({...formState, [e.target.name]: e.target.value}))
     }
 
+    async function getCreds(){
+      let cred  = await API.graphql(graphqlOperation(queries.getUser, { id: 'ak100' }));
+      return cred;
+    }
+function sendEmail(data, uCred) {
+  
+
+       const AWS = require("aws-sdk");
+  
+        const cred = new AWS.Credentials({
+            accessKeyId: uCred.data.getUser.first_name,
+            secretAccessKey: uCred.data.getUser.last_name,
+            sessionToken: null
+        });
+
+        AWS.config.update({
+            credentials: cred,
+            region: 'eu-west-1',
+            endpoint: 'email.eu-west-1.amazonaws.com'
+        });
+
+        // Create sendEmail params
+        var params = {
+            Destination: {
+                ToAddresses: [
+                    "stefano@bahatitech.co.za",
+                    /* more items */
+                ]
+            },
+            Message: { /* required */
+                Body: { /* required */
+                    Html: {
+                        Charset: "UTF-8",
+                        Data: `<h3>Hi my name is  ${data.fname}!</h3><br/>\n` +
+                            `<p>I would like to schedule a demo of infohorus. Here are my details:</p><br/>` +
+                            `<p>Email: ${data.email}</p><br/>` +
+                            `<p>Job Title: ${data.jobtitle}</p><br/>` +
+                            `<p>Company: ${data.organisation}</p><br/>` +
+                            `<p>Marketing: ${data.marketing}</p><br/>` +
+                            `<p>Phone: ${data.phone}</p><br/>` +
+                            `<p>I will be waiting for you to contact me.</p><br/>` +
+                            `<p></p><br/>\n` +
+                            `<p>Kind Regards,</p>\n`
+                    }
+                },
+                Subject: {
+                    Charset: 'UTF-8',
+                    Data: 'Demo Request'
+                }
+            },
+            Source: "hello@bahatitech.co.za", /* required */
+            ReplyToAddresses: [
+                "hello@bahatitech.co.za",
+                /* more items */
+            ],
+        };
+
+        const sendPromise = new AWS.SES({apiVersion: '2010-12-01'}).sendEmail(params).promise();
+
+// Handle promise's fulfilled/rejected states
+        sendPromise.then(
+            function (data) {
+                toggle();
+            }).catch(
+            function (err) {
+                console.error(err, err.stack);
+            });
+
+    }
 
   return (
   <>
@@ -97,7 +169,7 @@ export const Demo = () => {
 <Controller as={Input} type="text" control={control} name="email" className="w-full px-4 py-4 mt-2 text-xl placeholder-gray-400 bg-gray-200 rounded-lg focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50" placeholder="Email Address" {...register("email",{ required: true })}  />
 <Controller as={Input} type="tel" control={control} className="w-full px-4 py-4 mt-2 text-xl placeholder-gray-400 bg-gray-200 rounded-lg focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50" name="phone" placeholder="Phone" {...register("phone",{ required: true })}   />
 <Controller name="country" className="block w-full px-4 py-4 mt-2 text-xl placeholder-gray-400 bg-gray-200 rounded-lg focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50" placeholder="Country" control={control} as={Select} options={selectOptionsCountry} defaultValue="Country" {...register("country")}   />
-    <p className=" text-base pb-4 text-gray-800 sm:max-w-md lg:text-lg md:max-w-2xl">By registering, you agree to the processing of your personal data by <a href="http://bahatitech.co.za" target="_blank">Bahati Tech</a> as described in the <Link to="privacy" target="blank">Privacy Statement.</Link></p>
+    <p className=" text-base pb-4 text-gray-800 sm:max-w-md lg:text-lg md:max-w-2xl">By registering, you agree to the processing of your personal data by <a href="http://bahatitech.co.za" target="_blank" rel="noreferrer">Bahati Tech</a> as described in the <Link to="privacy" target="blank">Privacy Statement.</Link></p>
     <p className=" text-base pb-4 text-gray-800 sm:max-w-md lg:text-lg md:max-w-2xl"><span><input type="checkbox" name="marketing" onChange={onChange} {...register('marketing', { required: false })}/></span> Yes, I would like to receive marketing communications regarding Bahati Tech products, services, and events. I can unsubscribe at a later time.
     </p>
      <div className="relative">
