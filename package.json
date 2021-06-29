@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@craco/craco": "^6.1.2",
+    "@hookform/error-message": "^2.0.0",
     "@mailchimp/mailchimp_transactional": "^1.0.27",
     "@tailwindui/react": "^0.1.1",
     "@testing-library/jest-dom": "^5.11.9",

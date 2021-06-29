@@ -4,6 +4,7 @@ import {useForm, Controller } from "react-hook-form";
 import {selectOptionsCountry} from '../../testData/selectOptions'
 import Footer from '../../components/index/Footer';
 import {Input} from 'reactstrap';
+import { ErrorMessage } from "@hookform/error-message";
 import React,{useState} from 'react';
 import {PopUp} from '../../components/Modal.js'
 import {Link} from 'react-router-dom';
@@ -24,8 +25,8 @@ export const Demo = () => {
     const [modal, setModal] = useState(false);
     const toggle = () => setModal(!modal);
     const [formState, updateFormState] = useState(initialFormState);
-    const { register, handleSubmit, errors, control } = useForm();
-    const handleError = (errors) => { console.log("Form Errors: ", errors)};
+    const { register, handleSubmit, formState: { errors }, control } = useForm();
+    //const handleError = (errors) => { console.log("Form Errors: ", errors)};
     const handleRegistration = async (data) =>{ 
       
       try{
@@ -84,7 +85,7 @@ function sendEmail(data, uCred) {
         var params = {
             Destination: {
                 ToAddresses: [
-                    "stefano@bahatitech.co.za",
+                    "hello@bahatitech.co.za",
                     /* more items */
                 ]
             },
@@ -93,13 +94,13 @@ function sendEmail(data, uCred) {
                     Html: {
                         Charset: "UTF-8",
                         Data: `<h3>Hi my name is  ${data.fname}!</h3><br/>\n` +
-                            `<p>I would like to schedule a demo of infohorus. Here are my details:</p><br/>` +
-                            `<p>Email: ${data.email}</p><br/>` +
-                            `<p>Job Title: ${data.jobtitle}</p><br/>` +
-                            `<p>Company: ${data.organisation}</p><br/>` +
-                            `<p>Marketing: ${data.marketing}</p><br/>` +
-                            `<p>Phone: ${data.phone}</p><br/>` +
-                            `<p>I will be waiting for you to contact me.</p><br/>` +
+                            `<p>I would like to schedule a demo of infohorus. Here are my details:</p>` +
+                            `<p>Email: ${data.email}</p>` +
+                            `<p>Job Title: ${data.jobtitle}</p>` +
+                            `<p>Company: ${data.organisation}</p>` +
+                            `<p>Marketing: ${data.marketing}</p>` +
+                            `<p>Phone: ${data.phone}</p>` +
+                            `<p>I will be waiting for you to contact me.</p>` +
                             `<p></p><br/>\n` +
                             `<p>Kind Regards,</p>\n`
                     }
@@ -109,9 +110,9 @@ function sendEmail(data, uCred) {
                     Data: 'Demo Request'
                 }
             },
-            Source: "hello@bahatitech.co.za", /* required */
+            Source: "stefano@bahatitech.co.za", /* required */
             ReplyToAddresses: [
-                "hello@bahatitech.co.za",
+                "stefano@bahatitech.co.za",
                 /* more items */
             ],
         };
@@ -162,14 +163,26 @@ function sendEmail(data, uCred) {
                 <div className="flex flex-col items-start space-y-8 tracking-tight lg:max-w-3xl">
   <h4 className="w-full text-3xl font-bold">Request Demo</h4>
   <h5 className="w-full text-base ">Complete the form below and a representative will be in touch shortly to discuss and schedule the demo.</h5>
-  <form className="w-full mt-10 pb-3 space-y-8" onSubmit={handleSubmit(handleRegistration, handleError)}>
+  <form className="w-full mt-10 pb-3 space-y-8" onSubmit={handleSubmit(handleRegistration)}>
 
-    <Controller as={Input} type="text" control={control} name="fname" className=" w-full inline-block px-4 py-4 mt-2 text-xl placeholder-gray-400 bg-gray-200 rounded-lg focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50" placeholder="Name" {...register("fname" ,{ required: true })}  />
-<Controller as={Input} type="text" control={control} className="w-full px-4 py-4 mt-2 text-xl placeholder-gray-400 bg-gray-200 rounded-lg focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50" name="organisation" placeholder="Company" {...register("organisation",{ required: true })}   /> 
-<Controller as={Input} type="text" control={control} className=" w-full px-4 py-4 mt-2 text-xl placeholder-gray-400 bg-gray-200 rounded-lg focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50" name="jobtitle" placeholder="Job title" {...register("jobtitle",{ required: true })}  />
-<Controller as={Input} type="text" control={control} name="email" className="w-full px-4 py-4 mt-2 text-xl placeholder-gray-400 bg-gray-200 rounded-lg focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50" placeholder="Email Address" {...register("email",{ required: true })}  />
-<Controller as={Input} type="tel" control={control} className="w-full px-4 py-4 mt-2 text-xl placeholder-gray-400 bg-gray-200 rounded-lg focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50" name="phone" placeholder="Phone" {...register("phone",{ required: true })}   />
-<Controller name="country" className="block w-full px-4 py-4 mt-2 text-xl placeholder-gray-400 bg-gray-200 rounded-lg focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50" placeholder="Country" control={control} as={Select} options={selectOptionsCountry} defaultValue="Country" {...register("country")}   />
+    <Controller as={Input} type="text" control={control} name="fname" className=" w-full inline-block px-4 py-4 mt-2 text-xl placeholder-gray-400 bg-gray-200 rounded-lg focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50" placeholder="Name" {...register("fname" )} rules={{ required: "Please fill in your name"}}  />
+    <ErrorMessage errors={errors} className="err mb-4" name="fname" as="p" />
+    
+    <Controller as={Input} type="text" control={control} className="w-full px-4 py-4 mt-2 text-xl placeholder-gray-400 bg-gray-200 rounded-lg focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50" name="organisation" placeholder="Company" {...register("organisation")} rules={{ required:  "Please fill in your company's name"}}    />
+    <ErrorMessage errors={errors} className="err mb-4" name="organisation" as="p" />
+    
+    <Controller as={Input} type="text" control={control} className=" w-full px-4 py-4 mt-2 text-xl placeholder-gray-400 bg-gray-200 rounded-lg focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50" name="jobtitle" placeholder="Job title" {...register("jobtitle")}  rules={{ required:  "Please fill in your Job title"}} />
+    <ErrorMessage errors={errors} className="err mb-4" name="jobtitle" as="p" />
+
+    <Controller as={Input} type="text" control={control} name="email" className="w-full px-4 py-4 mt-2 text-xl placeholder-gray-400 bg-gray-200 rounded-lg focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50" placeholder="Email Address" {...register("email")} rules={{ required: "Email is required" }}  />
+    <ErrorMessage errors={errors} className="err mb-4" name="email" as="p" />
+
+    <Controller as={Input} type="tel" control={control} className="w-full px-4 py-4 mt-2 text-xl placeholder-gray-400 bg-gray-200 rounded-lg focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50" name="phone" placeholder="Phone" {...register("phone")} rules={{ required: "Please fill in your phone number"}} />
+    <ErrorMessage errors={errors} className="err mb-4" name="phone" as="p" />
+
+    <Controller name="country" className="block w-full px-4 py-4 mt-2 text-xl placeholder-gray-400 bg-gray-200 rounded-lg focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50" placeholder="Country" control={control} as={Select} options={selectOptionsCountry} defaultValue="Country" {...register("country")}  rules={{ required: "Please Select your country"}} />
+    <ErrorMessage errors={errors} className="err mb-4" name="country" as="p" />
+
     <p className=" text-base pb-4 text-gray-800 sm:max-w-md lg:text-lg md:max-w-2xl">By registering, you agree to the processing of your personal data by <a href="http://bahatitech.co.za" target="_blank" rel="noreferrer">Bahati Tech</a> as described in the <Link to="privacy" target="blank">Privacy Statement.</Link></p>
     <p className=" text-base pb-4 text-gray-800 sm:max-w-md lg:text-lg md:max-w-2xl"><span><input type="checkbox" name="marketing" onChange={onChange} {...register('marketing', { required: false })}/></span> Yes, I would like to receive marketing communications regarding Bahati Tech products, services, and events. I can unsubscribe at a later time.
     </p>

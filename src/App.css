@@ -18,6 +18,14 @@
 .App-link {
   color: #61dafb;
 }
+.err {
+  color: #bf1650;
+}
+
+.err::before {
+  display: inline;
+  content: "⚠ ";
+}
 
 @keyframes App-logo-spin {
   from {
