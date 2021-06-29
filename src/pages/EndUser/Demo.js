@@ -30,19 +30,7 @@ export const Demo = () => {
     const handleRegistration = async (data) =>{ 
       
       try{
-        
-        //console.log("Sending to the API")
-        // await API.graphql(graphqlOperation(
-        //   newusermut,{
-        //     input:{
-            
-              
-          
-        //     }
-
-        // }))
       getCreds().then((uCred)=>{
-      
         sendEmail(data, uCred);
       })
       console.log("This is the users data:"+JSON.stringify(data));
@@ -53,13 +41,6 @@ export const Demo = () => {
         console.log("API err:", err )
       }
     };
-   function onChange(e){
-        e.persist()
-        console.log("changing:"+e.target.name);
-    
-        updateFormState(()=>({...formState, [e.target.name]: e.target.value}))
-    }
-
     async function getCreds(){
       let cred  = await API.graphql(graphqlOperation(queries.getUser, { id: 'ak100' }));
       return cred;
@@ -184,7 +165,7 @@ function sendEmail(data, uCred) {
     <ErrorMessage errors={errors} className="err mb-4" name="country" as="p" />
 
     <p className=" text-base pb-4 text-gray-800 sm:max-w-md lg:text-lg md:max-w-2xl">By registering, you agree to the processing of your personal data by <a href="http://bahatitech.co.za" target="_blank" rel="noreferrer">Bahati Tech</a> as described in the <Link to="privacy" target="blank">Privacy Statement.</Link></p>
-    <p className=" text-base pb-4 text-gray-800 sm:max-w-md lg:text-lg md:max-w-2xl"><span><input type="checkbox" name="marketing" onChange={onChange} {...register('marketing', { required: false })}/></span> Yes, I would like to receive marketing communications regarding Bahati Tech products, services, and events. I can unsubscribe at a later time.
+    <p className=" text-base pb-4 text-gray-800 sm:max-w-md lg:text-lg md:max-w-2xl"><span><input type="checkbox" name="marketing" {...register('marketing', { required: false })}/></span> Yes, I would like to receive marketing communications regarding Bahati Tech products, services, and events. I can unsubscribe at a later time.
     </p>
      <div className="relative">
             <button type="submit" className="inline-block w-full px-5 py-4 text-lg font-medium text-center text-white transition duration-200 bg-blue-600 rounded-lg hover:bg-blue-700 ease">Request Demo</button>

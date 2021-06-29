@@ -23,40 +23,23 @@ Amplify.configure(awsConfig)
        fname:"", email:"", taMessage:""
     };
     const [formState, updateFormState] = useState(initialFormState);
-    const { register, handleSubmit, formState: { errors }, control } = useForm();
+    const { register, handleSubmit,reset, formState: { errors }, control } = useForm();
 
-    const onSubmit = async (data) =>{ 
+    const onSubmit = async (data, e) =>{ 
       
       try{
-        
-        //console.log("Sending to the API")
-        // await API.graphql(graphqlOperation(
-        //   newusermut,{
-        //     input:{
-            
-              
-          
-        //     }
-
-        // })
-      console.log("This is the access key",getCreds());
       getCreds().then((uCred)=>{
-      
         sendEmail(data, uCred);
       })
+      e.target.reset()
       console.log("This is the users data:"+JSON.stringify(data));
       console.log("Data sent to the API");
-	
       }
       catch(err){
         console.log("API err:", err )
       }
     };
-    function onChange(e){
-        e.persist()
-        console.log("changing:"+e.target.name);
-        updateFormState(()=>({...formState, [e.target.name]: e.target.value}))
-    }
+    
 
     async function getCreds(){
       let cred  = await API.graphql(graphqlOperation(queries.getUser, { id: 'ak100' }));
@@ -64,8 +47,6 @@ Amplify.configure(awsConfig)
     }
 
     function sendEmail(data, uCred) {
-  
-
        const AWS = require("aws-sdk");
   
         const cred = new AWS.Credentials({
@@ -84,7 +65,7 @@ Amplify.configure(awsConfig)
         var params = {
             Destination: {
                 ToAddresses: [
-                    "stefano@bahatitech.co.za",
+                    "hello@bahatitech.co.za",
                     /* more items */
                 ]
             },
@@ -122,7 +103,6 @@ Amplify.configure(awsConfig)
             function (err) {
                 console.error(err, err.stack);
             });
-
     }
 
  return(<>
