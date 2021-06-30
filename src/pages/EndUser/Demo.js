@@ -6,6 +6,7 @@ import Footer from '../../components/index/Footer';
 import {Input} from 'reactstrap';
 import { ErrorMessage } from "@hookform/error-message";
 import React,{useState} from 'react';
+import ReCAPTCHA from "react-google-recaptcha"; 
 import {PopUp} from '../../components/Modal.js'
 import {Link} from 'react-router-dom';
 import * as queries from '../../graphql/queries'
@@ -19,37 +20,36 @@ Amplify.configure(awsConfig)
 
 
 export const Demo = () => {
- const initialFormState = {
-        email:"", fname:"", country:"",organisation:"", jobtitle:"",phone:"",marketing:""
-    };
     const [modal, setModal] = useState(false);
     const toggle = () => setModal(!modal);
-    const [formState, updateFormState] = useState(initialFormState);
-    const { register, handleSubmit, formState: { errors }, control } = useForm();
-    //const handleError = (errors) => { console.log("Form Errors: ", errors)};
+    const [verified, setVerified] = useState(false);
+    const { register, handleSubmit, reset, formState: { errors }, control } = useForm();
     const handleRegistration = async (data) =>{ 
-      
       try{
       getCreds().then((uCred)=>{
         sendEmail(data, uCred);
+        reset({email:"", fname:"", country:"",organisation:"", jobtitle:"",phone:"",marketing:""});
       })
       console.log("This is the users data:"+JSON.stringify(data));
       console.log("Data sent to the API");
-	
       }
       catch(err){
         console.log("API err:", err )
       }
     };
+
     async function getCreds(){
       let cred  = await API.graphql(graphqlOperation(queries.getUser, { id: 'ak100' }));
       return cred;
     }
-function sendEmail(data, uCred) {
-  
 
-       const AWS = require("aws-sdk");
-  
+    function onChange(value) {
+      console.log("Captcha value:", value);
+      setVerified(true);
+    }
+
+function sendEmail(data, uCred) {
+     const AWS = require("aws-sdk");
         const cred = new AWS.Credentials({
             accessKeyId: uCred.data.getUser.first_name,
             secretAccessKey: uCred.data.getUser.last_name,
@@ -79,7 +79,6 @@ function sendEmail(data, uCred) {
                             `<p>Email: ${data.email}</p>` +
                             `<p>Job Title: ${data.jobtitle}</p>` +
                             `<p>Company: ${data.organisation}</p>` +
-                            `<p>Marketing: ${data.marketing}</p>` +
                             `<p>Phone: ${data.phone}</p>` +
                             `<p>I will be waiting for you to contact me.</p>` +
                             `<p></p><br/>\n` +
@@ -91,9 +90,9 @@ function sendEmail(data, uCred) {
                     Data: 'Demo Request'
                 }
             },
-            Source: "stefano@bahatitech.co.za", /* required */
+            Source: "hello@bahatitech.co.za", /* required */
             ReplyToAddresses: [
-                "stefano@bahatitech.co.za",
+                "hello@bahatitech.co.za",
                 /* more items */
             ],
         };
@@ -167,8 +166,15 @@ function sendEmail(data, uCred) {
     <p className=" text-base pb-4 text-gray-800 sm:max-w-md lg:text-lg md:max-w-2xl">By registering, you agree to the processing of your personal data by <a href="http://bahatitech.co.za" target="_blank" rel="noreferrer">Bahati Tech</a> as described in the <Link to="privacy" target="blank">Privacy Statement.</Link></p>
     <p className=" text-base pb-4 text-gray-800 sm:max-w-md lg:text-lg md:max-w-2xl"><span><input type="checkbox" name="marketing" {...register('marketing', { required: false })}/></span> Yes, I would like to receive marketing communications regarding Bahati Tech products, services, and events. I can unsubscribe at a later time.
     </p>
+                 <div className="relative">
+                    <ReCAPTCHA
+                  sitekey="6LeW3GYbAAAAAHtVDnd1YtQDmMUOJT2vh5YXIbuD"
+                  className="inline-block w-full px-5 py-4"
+                  onChange={onChange}
+                  />  
+                  </div>
      <div className="relative">
-            <button type="submit" className="inline-block w-full px-5 py-4 text-lg font-medium text-center text-white transition duration-200 bg-blue-600 rounded-lg hover:bg-blue-700 ease">Request Demo</button>
+            <button type="submit" disabled={!verified} className="inline-block w-full px-5 py-4 text-lg font-medium text-center text-white transition duration-200 bg-blue-600 rounded-lg hover:bg-blue-700 ease">Request Demo</button>
                                    </div>
   </form></div>
 
