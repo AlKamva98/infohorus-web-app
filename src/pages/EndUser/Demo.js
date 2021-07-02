@@ -170,8 +170,7 @@ function sendEmail(data, uCred) {
                     <ReCAPTCHA
                   sitekey="6LeW3GYbAAAAAHtVDnd1YtQDmMUOJT2vh5YXIbuD"
                   className="inline-block w-full px-5 py-4"
-                  onChange={onChange}
-                  />  
+                  onChange={onChange}/>  
                   </div>
      <div className="relative">
             <button type="submit" disabled={!verified} className="inline-block w-full px-5 py-4 text-lg font-medium text-center text-white transition duration-200 bg-blue-600 rounded-lg hover:bg-blue-700 ease">Request Demo</button>

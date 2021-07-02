@@ -11,16 +11,26 @@ import Amplify from 'aws-amplify';
 import {Questions} from './pages/EndUser/Questions.js';
 import '@aws-amplify/ui/dist/style.css';
 import Register from './components/Register/Register.js';
-import {Findings} from "./pages/EndUser/Findings";
 import {Demo} from "./pages/EndUser/Demo";
 import Terms from './pages/Terms'
 import PrivacyNotice from './pages/PrivacyNotice'
 import {ExpertViewCustList} from "./pages/ExpertViewCustList";
 import {ExpertViewAssess} from "./pages/ExpertViewAssess";
 import {SignIn} from './components/Sign-in/Sign-in.js';
-
+import Dashboard from './dashboard/app/dashboard/Dashboard';
+import Buttons from './dashboard/app/basic-ui/Buttons'
+import Dropdowns from './dashboard/app/basic-ui/Dropdowns';
+import BasicElements from './dashboard/app/form-elements/BasicElements' ;
+import BasicTable from './dashboard/app/tables/BasicTable';
+import Mdi from './dashboard/app/icons/Mdi';
+import ChartJs from './dashboard/app/charts/ChartJs';
+import Error404 from './dashboard/app/error-pages/Error404';
+import Error500 from './dashboard/app/error-pages/Error500';
+import Login from './dashboard/app/user-pages/Login';
+import Register1 from './dashboard/app/user-pages/Register';
+//This is the data
 import './css/style.scss';
-
+import './dashboard/app/App.scss'
 import AOS from 'aos';
 
 function App(){
@@ -55,9 +65,21 @@ function App(){
         <Route path="/questions" exact component ={Questions}/>
         <Route path="/signIn" component={SignIn}/>
         <Route path="/recomendations" exact component={Recomendations}/>
-        <Route path="/findings" exact component={Findings}/>
         <Route path="/expertview/custlist" exact component={ExpertViewCustList}/>
         <Route path="/expertview/assess" exact component={ExpertViewAssess}/>
+        <Route exact path="/dashboard" component={ Dashboard } />
+
+          <Route path="/basic-ui/buttons" component={ Buttons } />
+          <Route path="/basic-ui/dropdowns" component={ Dropdowns } />
+          <Route path="/form-Elements/basic-elements" component={ BasicElements } />
+          <Route path="/tables/basic-table" component={ BasicTable } />
+          <Route path="/icons/mdi" component={ Mdi } />
+          <Route path="/charts/chart-js" component={ ChartJs } />
+          <Route path="/user-pages/login-1" component={ Login } />
+          <Route path="/user-pages/register-1" component={ Register1 } />
+          <Route path="/error-pages/error-404" component={ Error404 } />
+          <Route path="/error-pages/error-500" component={ Error500 } />
+
         <Route path='/instagram' >
   {() => { 
        window.location.href = 'https://www.instagram.com/bahatitech/'; 
