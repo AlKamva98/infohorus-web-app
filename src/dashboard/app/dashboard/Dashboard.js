@@ -689,226 +689,25 @@ export class Dashboard extends Component {
   componentDidMount(){
 
     //your code
-    var ctx = document.getElementById('visitChart').getContext("2d")
-    var gradientBar1 = ctx.createLinearGradient(0, 0, 0, 181)
-    gradientBar1.addColorStop(1, 'rgba(110,123,247,0.7)')
-    gradientBar1.addColorStop(0, 'rgba(255,255,255,0)')
-
-    var ctx2 = document.getElementById('imoressionChart').getContext("2d")
-    var gradientBar2 = ctx2.createLinearGradient(0, 0, 0, 181)
-    gradientBar2.addColorStop(1, 'rgba(110,123,247,0.7)')
-    gradientBar2.addColorStop(0, 'rgba(255,255,255,0)')
-
-    var ctx3 = document.getElementById('conversionChart').getContext("2d")
-    var gradientBar3 = ctx3.createLinearGradient(0, 0, 0, 181)
-    gradientBar3.addColorStop(1, 'rgba(110,123,247,0.7)')
-    gradientBar3.addColorStop(0, 'rgba(255,255,255,0)')
-
-    var ctx4 = document.getElementById('downloadChart').getContext("2d")
-    var gradientBar4 = ctx4.createLinearGradient(0, 0, 0, 181)
-    gradientBar4.addColorStop(1, 'rgba(110,123,247,0.7)')
-    gradientBar4.addColorStop(0, 'rgba(255,255,255,0)')
-
-    var ctx5 = document.getElementById('salesStatisticsChart').getContext("2d")
-    var gradientBar5 = ctx5.createLinearGradient(0, 0, 0, 450)
-    gradientBar5.addColorStop(1, 'rgba(255,255,255, 0.0)')
-    gradientBar5.addColorStop(0, 'rgba(102,78,235, 0.2)')
-
-    var ctx6 = document.getElementById('salesStatisticsChart').getContext("2d")
-    var gradientBar6 = ctx6.createLinearGradient(0, 0, 0, 400)
-    gradientBar6.addColorStop(1, 'rgba(255, 255, 255, 0.01)')
-    gradientBar6.addColorStop(0, '#14c671')
-
-    var ctx7 = document.getElementById('totaltransactionChart').getContext("2d")
-    var gradientBar7 = ctx7.createLinearGradient(0, 100, 200, 0)
-    gradientBar7.addColorStop(1, '#fa3252')
-    gradientBar7.addColorStop(0, '#fa5539')
-
-    
-
-    const visitData = {
-      labels: ["Day 1", "Day 2", "Day 3", "Day 4", "Day 5", "Day 6", "Day 7", "Day 8", "Day 9", "Day 10", "Day 11", "Day 12", "Day 13"],
-      datasets: [{
-        label: 'Profit',
-        data: [7, 6, 9, 7, 8, 6, 8, 5, 7, 8, 6, 7, 7],
-        borderColor: '#6d7cfc',
-        backgroundColor: gradientBar1,
-        borderWidth: 3,
-        fill: true
-      }]
-    };
-    const impressionData = {
-      labels: ["Day 1", "Day 2", "Day 3", "Day 4", "Day 5", "Day 6", "Day 7", "Day 8", "Day 9", "Day 10", "Day 11", "Day 12", "Day 13"],
-      datasets: [{
-        label: 'Profit',
-        data: [7, 6, 8, 5, 7, 8, 6, 7, 7, 6, 9, 7, 8],
-        borderColor: '#6d7cfc',
-        backgroundColor: gradientBar2,
-        borderWidth: 3,
-        fill: true
-      }]
-    };
-    const conversionData = {
-      labels: ["Day 1", "Day 2", "Day 3", "Day 4", "Day 5", "Day 6", "Day 7", "Day 8", "Day 9", "Day 10", "Day 11", "Day 12", "Day 13"],
-      datasets: [{
-        label: 'Profit',
-        data: [8, 6, 7, 8, 5, 7, 9, 7, 8, 7, 6, 7, 6],
-        borderColor: '#6d7cfc',
-        backgroundColor: gradientBar3,
-        borderWidth: 3,
-        fill: true
-      }]
-    };
-    const downloadData = {
-      labels: ["Day 1", "Day 2", "Day 3", "Day 4", "Day 5", "Day 6", "Day 7", "Day 8", "Day 9", "Day 10", "Day 11", "Day 12", "Day 13"],
-      datasets: [{
-        label: 'Profit',
-        data: [7, 6, 8, 5, 8, 6, 8, 7, 8, 6, 9, 7, 7],
-        borderColor: '#6d7cfc',
-        backgroundColor: gradientBar4,
-        borderWidth: 3,
-        fill: true
-      }]
-    };
-  
-
-    var Datas = [60, 75, 65, 130, 130, 145, 110, 145, 155, 149, 170];
-    var Datas1 = [0, 25, 20, 40, 70, 52, 49, 90, 70, 94, 110, 135];
-
-
-
-
-  
-
-    const salesStatisticsData = {
-      labels: ["Jan 1", "Jan 7", "Jan 14", "Jan 21", "Jan 28", "Feb 4", "Feb 11", "Feb 18"],
-      datasets: [{
-        label: 'Revenue',
-        data: Datas,
-        borderColor: '#8862e0',
-        backgroundColor: gradientBar5,
-        borderWidth: 2,
-        fill: true
-      }, {
-        label: 'Sales',
-        data: Datas1,
-        borderColor: '#5ed2a1',
-        backgroundColor: gradientBar6,
-        borderWidth: 2,
-        fill: true
-      }]
-    };
-
-    this.setState(salesStatisticsData);
-
-
-
-    const netProfitData = {
-      labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug"],
-          datasets: [{
-            label: "Sales",
-            backgroundColor: 'rgba(88, 208, 222,0.8)',
-            borderColor: 'rgba(88, 208, 222,0.8)',
-            borderWidth: 0,
-            fill: true,
-            radius: 0,
-            pointRadius: 0,
-            pointBorderWidth: 0,
-            pointBackgroundColor: 'rgba(88, 208, 222,0.8)',
-            pointHoverRadius: 10,
-            pointHitRadius: 5,
-            data: [54, 45, 60, 70, 54, 75, 60, 54]
-          }, {
-            label: "Orders",
-            backgroundColor: 'rgba(150, 77, 247,1)',
-            borderColor: 'rgba(150, 77, 247,1)',
-            borderWidth: 0,
-            fill: true,
-            radius: 0,
-            pointRadius: 0,
-            pointBorderWidth: 0,
-            pointBackgroundColor: 'rgba(150, 77, 247,1)',
-            pointHoverRadius: 10,
-            pointHitRadius: 5,
-            data: [65, 75, 70, 80, 60, 80, 36, 60]
-          }]
-    };
-    const totaltransactionData = {
-      labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
-      datasets: [{
-        label: 'Sessions',
-        data: [320, 280, 300, 280, 300, 270, 350],
-        backgroundColor: gradientBar7,
-        borderColor: '#fa394e',
-        borderWidth: 0,
-        pointBackgroundColor: "#fa394e",
-        pointRadius: 7,
-        pointBorderWidth: 3,
-        pointBorderColor: '#fff',
-        pointHoverRadius: 7,
-        pointHoverBackgroundColor: "#fa394e",
-        pointHoverBorderColor: "#fa394e",
-        pointHoverBorderWidth: 2,
-        pointHitRadius: 7,
-      }]
-    };
-    this.setState({visitChartData: visitData, impressionChartData:impressionData, conversionChartData:conversionData, downloadChartData:downloadData, salesStatisticsChartData:salesStatisticsData, netProfitChartData:netProfitData, totaltransactionChartData:totaltransactionData} )
-  }
- componentDidUpdate(prevProps) {
-    if (this.props.location !== prevProps.location) {
-      this.onRouteChanged();
-    }
   }
 
-  onRouteChanged() {
-    console.log("ROUTE CHANGED");
-    const body = document.querySelector('body');
-   
-    window.scrollTo(0, 0);
-    const fullPageLayoutRoutes = ['/user-pages/login-1', '/user-pages/login-2', '/user-pages/register-1', '/user-pages/register-2', '/user-pages/lockscreen', '/error-pages/error-404', '/error-pages/error-500', '/general-pages/landing-page'];
-    for ( let i = 0; i < fullPageLayoutRoutes.length; i++ ) {
-      if (this.props.location.pathname === fullPageLayoutRoutes[i]) {
-        this.setState({
-          isFullPageLayout: true
-        })
-        document.querySelector('.page-body-wrapper').classList.add('full-page-wrapper');
-        break;
-      } else {
-        this.setState({
-          isFullPageLayout: false
-        })
-        document.querySelector('.page-body-wrapper').classList.remove('full-page-wrapper');
-      }
-    }
-  }
   toggleProBanner() {
     document.querySelector('.proBanner').classList.toggle("hide");
   }
   render () {
-
-    let navbarComponent = !this.state.isFullPageLayout ? <Navbar/> : '' ;
-    let sidebarComponent = !this.state.isFullPageLayout ? <Sidebar/> : '';
-    let SettingsPanelComponent = !this.state.isFullPageLayout ? <SettingsPanel/> : '';
-    let footerComponent = !this.state.isFullPageLayout ? <Footer/> : '';
-            
+    let navbarComponent = <Navbar/> ;
+    let sidebarComponent =  <Sidebar/>;
+    let SettingsPanelComponent = <SettingsPanel/> ;
+    let footerComponent = <Footer/>;
     return (
       <div>
-        
-      <div className="container-scroller">
+     <div className="container-scroller">
         { navbarComponent }
         <div className="container-fluid page-body-wrapper">
           { sidebarComponent }
           <div className="main-panel">
             <div className=" content-wrapper">
-        <div className="row proBanner">
-          <div className="col-12">
-            <span className="d-flex align-items-center purchase-popup">
-              <p>Get tons of UI components, Plugins, multiple layouts, 20+ sample pages, and more!</p>
-              <a href="https://www.bootstrapdash.com/product/star-admin-pro-react/" rel="noopener noreferrer" target="_blank" className="btn purchase-button ml-auto">Check Pro Version</a>
-              <i className="mdi mdi-close bannerClose" onClick={this.toggleProBanner}></i>
-            </span>
-          </div>
-        </div>
+
         <div className="row page-title-header">
           <div className="col-12">
             <div className="page-header">
@@ -927,207 +726,10 @@ export class Dashboard extends Component {
               </div>
             </div>
           </div>
-          <div className="col-md-12">
-            <div className="page-header-toolbar">
-              <div className="btn-group toolbar-item" role="group" aria-label="Basic example">
-                <button type="button" className="btn btn-secondary"><i className="mdi mdi-chevron-left"></i></button>
-                <button type="button" className="btn btn-secondary">03/02/2019 - 20/08/2019</button>
-                <button type="button" className="btn btn-secondary"><i className="mdi mdi-chevron-right"></i></button>
-              </div>
-              <div className="filter-wrapper">
-                <div className="dropdown toolbar-item">
-                  <Dropdown>
-                    <Dropdown.Toggle variant="btn btn-secondary dropdown-toggle" id="dropdownMenuButton1">
-                    All Day
-                    </Dropdown.Toggle>
-                    <Dropdown.Menu>
-                      <Dropdown.Header>Last Day</Dropdown.Header>
-                      <Dropdown.Item>Last Month</Dropdown.Item>
-                      <Dropdown.Item>Last Year</Dropdown.Item>
-                    </Dropdown.Menu>
-                  </Dropdown>
-                </div>
-                <a href="!#" onClick={evt =>evt.preventDefault()} className="advanced-link toolbar-item">Advanced Options</a>
-              </div>
-              <div className="sort-wrapper justify-content-between">
-              <button type="button" className="btn btn-primary">New</button>
-                <Dropdown>
-                  <Dropdown.Toggle variant="btn btn-secondary dropdown-toggle  toolbar-item" id="dropdownMenuButton2">
-                    Export
-                  </Dropdown.Toggle>
-                  <Dropdown.Menu>
-                    <Dropdown.Header>Export as PDF</Dropdown.Header>
-                    <Dropdown.Item>Export as DOCX</Dropdown.Item>
-                    <Dropdown.Item>Export as CDR</Dropdown.Item>
-                  </Dropdown.Menu>
-                </Dropdown>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="row">
-          <div className="col-md-12 grid-margin">
-            <div className="card">
-              <div className="card-body">
-                <div className="row">
-                  <div className="col-xl-3 col-lg-6 col-sm-6 grid-margin-xl-0 grid-margin">
-                    <div className="d-flex">
-                      <div className="wrapper">
-                        <h3 className="mb-0 font-weight-semibold">32,451</h3>
-                        <h5 className="mb-0 font-weight-medium text-primary">Visits</h5>
-                        <p className="mb-0 text-muted">+14.00(+0.50%)</p>
-                      </div>
-                      <div className="wrapper my-auto ml-auto ml-lg-4">
-                        <Line ref='chart' data={this.state.visitChartData} options={this.state.areaOptions}  datasetKeyProvider={this.state.datasetKeyProvider} height={50} width={100} id="visitChart" />
-                      </div>
-                    </div>
-                  </div>
-                  <div className="col-xl-3 col-lg-6 col-sm-6 mt-md-0 mt-4 grid-margin-xl-0 grid-margin">
-                    <div className="d-flex">
-                      <div className="wrapper">
-                        <h3 className="mb-0 font-weight-semibold">15,236</h3>
-                        <h5 className="mb-0 font-weight-medium text-primary">Impressions</h5>
-                        <p className="mb-0 text-muted">+138.97(+0.54%)</p>
-                      </div>
-                      <div className="wrapper my-auto ml-auto ml-lg-4">
-                        <Line ref='chart' data={this.state.impressionChartData} options={this.state.areaOptions}  datasetKeyProvider={this.state.datasetKeyProvider} height={50} width={100} id="imoressionChart" />
-                      </div>
-                    </div>
-                  </div>
-                  <div className="col-xl-3 col-lg-6 col-sm-6 mt-md-0 mt-4 grid-margin-xl-0 grid-margin">
-                    <div className="d-flex">
-                      <div className="wrapper">
-                        <h3 className="mb-0 font-weight-semibold">7,688</h3>
-                        <h5 className="mb-0 font-weight-medium text-primary">Conversion</h5>
-                        <p className="mb-0 text-muted">+57.62(+0.76%)</p>
-                      </div>
-                      <div className="wrapper my-auto ml-auto ml-lg-4">
-                        <Line ref='chart' data={this.state.conversionChartData} options={this.state.areaOptions}  datasetKeyProvider={this.state.datasetKeyProvider} height={50} width={100} id="conversionChart" />
-                      </div>
-                    </div>
-                  </div>
-                  <div className="col-xl-3 col-lg-6 col-sm-6 mt-md-0 mt-4 grid-margin-xl-0 grid-margin">
-                    <div className="d-flex">
-                      <div className="wrapper">
-                        <h3 className="mb-0 font-weight-semibold">1,553</h3>
-                        <h5 className="mb-0 font-weight-medium text-primary">Downloads</h5>
-                        <p className="mb-0 text-muted">+138.97(+0.54%)</p>
-                      </div>
-                      <div className="wrapper my-auto ml-auto ml-lg-4">
-                        <Line ref='chart' data={this.state.downloadChartData} options={this.state.areaOptions}  datasetKeyProvider={this.state.datasetKeyProvider} height={50} width={100} id="downloadChart" />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="row">
-          <div className="col-md-8 grid-margin stretch-card">
-            <div className="card">
-              <div className="card-body">
-                <h4 className="card-title mb-0">Sales Statistics Overview</h4>
-                <div className="d-xl-flex flex-column flex-lg-row">
-                  <p>Lorem ipsum is placeholder text commonly used</p>
-                  <ul className="nav nav-tabs sales-mini-tabs ml-lg-auto mb-4 mb-md-0" role="tablist">
-                    <li className="nav-item">
-                      <button className={`nav-link ${this.state.active === "sales-statistics_switch_1"? 'active': ''}`} id="sales-statistics_switch_1" onClick={this.changeChartOneData} data-toggle="tab" role="tab" aria-selected="false">1D</button>
-                    </li>
-                    <li className="nav-item">
-                      <button className={`nav-link ${this.state.active === "sales-statistics_switch_2"? 'active': ''}`} id="sales-statistics_switch_2" onClick={this.changeChartTwoData} data-toggle="tab" role="tab" aria-selected="false">5D</button>
-                    </li>
-                    <li className="nav-item">
-                      <button className={`nav-link ${this.state.active === "sales-statistics_switch_3"? 'active': ''}`} id="sales-statistics_switch_3" onClick={this.changeChartThreeData} data-toggle="tab" role="tab" aria-selected="false">1M</button>
-                    </li>
-                    <li className="nav-item">
-                      <button className={`nav-link ${this.state.active === "sales-statistics_switch_4"? 'active': ''}`} id="sales-statistics_switch_4" onClick={this.changeChartFourData} data-toggle="tab" role="tab" aria-selected="false">1Y</button>
-                    </li>
-                  </ul>
-                </div>
-                <div className="d-xl-flex flex-column flex-lg-row">
-                  <div className="data-wrapper d-flex mt-2 mt-lg-0">
-                    <div className="wrapper pr-5">
-                      <h5 className="mb-0">Total Cost</h5>
-                      <div className="d-xl-flex align-items-center">
-                        <h4 className="font-weight-semibold mb-0">15,263</h4>
-                        <small className="ml-2 text-gray d-none d-lg-block"><b>89.5%</b> of 20,000 Total</small>
-                      </div>
-                    </div>
-                    <div className="wrapper">
-                      <h5 className="mb-0">Total Revenue</h5>
-                      <div className="d-xl-flex align-items-center">
-                        <h4 className="font-weight-semibold mb-0">$753,098</h4>
-                        <small className="ml-2 text-gray d-none d-lg-block"><b>10.5%</b> of 20,000 Total</small>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="ml-lg-auto" id="sales-statistics-legend">
-                  <div className="chartjs-legend line-legend">
-                    <ul>
-                      <li>
-                        <span className="bg-info"></span>Revenue
-                      </li>
-                      <li>
-                        <span className="bg-success"></span>Sales
-                      </li>
-                    </ul>
-                  </div>
-                  </div>
-                </div>
-                <Line data={this.state} options={this.state.salesStaticsOptions}  datasetKeyProvider={this.datasetKeyProvider} height={50} width={100} id="salesStatisticsChart" />               
-              </div>
-            </div>
-          </div>
-          <div className="col-md-4 grid-margin stretch-card">
-            <div className="card">
-              <div className="card-body d-flex flex-column">
-                <div className="wrapper">
-                  <h4 className="card-title mb-0">Net Profit Margin</h4>
-                  <p>Started collecting data from February 2019</p>
-                  <div className="mb-4 rounded-legend" id="net-profit-legend">
-                  <ul>
-                    <li>
-                      <span className="bg-success"></span>Sales
-                    </li>
-                    <li>
-                      <span className="bg-info"></span>Orders
-                    </li>
-                  </ul>
-                  </div>
-                </div>
-                <Radar data={this.state.netProfitChartData} options={this.state.netProfitOptions} height={280}/>
-              </div>
-            </div>
-          </div>
         </div>
         <div className="row">
           <div className="col-md-8">
             <div className="row">
-              <div className="col-xl-6 col-lg-12 grid-margin stretch-card">
-                <div className="card">
-                  <div className="card-body pb-0">
-                    <div className="d-flex justify-content-between">
-                      <h4 className="card-title mb-0">Total Revenue</h4>
-                      <p className="font-weight-semibold mb-0">+1.37%</p>
-                    </div>
-                    <h3 className="font-weight-medium mb-4">184.42K</h3>
-                  </div>
-                  <Line data={this.totalRevenueData} options={this.totalRevenueOptions} height={75}/>
-                </div>
-              </div>
-              <div className="col-xl-6 col-lg-12 grid-margin stretch-card">
-                <div className="card">
-                  <div className="card-body pb-0">
-                    <div className="d-flex justify-content-between">
-                      <h4 className="card-title mb-0">Transaction</h4>
-                      <p className="font-weight-semibold mb-0">-2.87%</p>
-                    </div>
-                    <h3 className="font-weight-medium">147.7K</h3>
-                  </div>
-                  <Line data={this.state.totaltransactionChartData} options={this.state.totaltransactionChartOptions} height={75} id="totaltransactionChart"/>
-                </div>
-              </div>
               <div className="col-md-12 grid-margin">
                 <div className="card">
                   <div className="card-body">
@@ -1377,45 +979,6 @@ export class Dashboard extends Component {
                   </div>
                 </div>
               </div>
-              <div className="col-md-12 grid-margin">
-                <div className="card">
-                  <div className="card-body">
-                    <h4 className="card-title mb-0">Top Performer</h4>
-                    <div className="d-flex mt-3 py-2 border-bottom">
-                      <img className="img-sm rounded-circle" src={require("../../assets/images/faces/face3.jpg")} alt="profile" />
-                      <div className="wrapper ml-2">
-                        <p className="mb-n1 font-weight-semibold">Ray Douglas</p>
-                        <small>162543</small>
-                      </div>
-                      <small className="text-muted ml-auto">1 Hours ago</small>
-                    </div>
-                    <div className="d-flex py-2 border-bottom">
-                      <span className="img-sm rounded-circle bg-warning text-white text-avatar">OH</span>
-                      <div className="wrapper ml-2">
-                        <p className="mb-n1 font-weight-semibold">Ora Hill</p>
-                        <small>162543</small>
-                      </div>
-                      <small className="text-muted ml-auto">4 Hours ago</small>
-                    </div>
-                    <div className="d-flex py-2 border-bottom">
-                      <img className="img-sm rounded-circle" src={require("../../assets/images/faces/face4.jpg")} alt="profile" />
-                      <div className="wrapper ml-2">
-                        <p className="mb-n1 font-weight-semibold">Brian Dean</p>
-                        <small>162543</small>
-                      </div>
-                      <small className="text-muted ml-auto">4 Hours ago</small>
-                    </div>
-                    <div className="d-flex pt-2">
-                      <span className="img-sm rounded-circle bg-success text-white text-avatar">OB</span>
-                      <div className="wrapper ml-2">
-                        <p className="mb-n1 font-weight-semibold">Olive Bridges</p>
-                        <small>162543</small>
-                      </div>
-                      <small className="text-muted ml-auto">7 Hours ago</small>
-                    </div>
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
         </div>
@@ -1539,14 +1102,18 @@ export class Dashboard extends Component {
             </div>
           </div>
         </div>
-      { SettingsPanelComponent }
-            </div>
-            { footerComponent }
+        
+  { footerComponent }
           </div>
         </div>  
       </div> 
       </div>
+      </div>
+       
     );
   }
 }
 export default Dashboard;
+   
+        
+           

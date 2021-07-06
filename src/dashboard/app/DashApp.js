@@ -1,19 +1,19 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
-import './dashboard/app/App.scss';
-import AppRoutes from './dashboard/app/AppRoutes';
-import Navbar from './dashboard/app/shared/Navbar';
-import Sidebar from './dashboard/app/shared/Sidebar';
-import SettingsPanel from './dashboard/app/shared/SettingsPanel';
-import Footer from './dashboard/app/shared/Footer';
-import MainAppRoutes from './MainAppRoutes'
+import Navbar from './shared/Navbar';
+import Sidebar from './shared/Sidebar';
+import SettingsPanel from './shared/SettingsPanel';
+import Footer from './shared/Footer';
+import AppRoutes from './AppRoutes'
+import './App.scss';
 import { withTranslation } from "react-i18next";
 
-class App extends Component {
+class DashApp extends Component {
   state = {}
   componentDidMount() {
+    console.log("DashApp");
     this.onRouteChanged();
-  }
+  }//tr
   render () {
     let navbarComponent = !this.state.isFullPageLayout ? <Navbar/> : '' ;
     let sidebarComponent = !this.state.isFullPageLayout ? <Sidebar/> : '';
@@ -25,8 +25,8 @@ class App extends Component {
         <div className="container-fluid page-body-wrapper">
           { sidebarComponent }
           <div className="main-panel">
-            <div className="content-wrapper">
-              <MainAppRoutes/>
+            <div className="wrapper">
+              <AppRoutes/>
               { SettingsPanelComponent }
             </div>
             { footerComponent }
@@ -74,4 +74,4 @@ class App extends Component {
 
 }
 
-export default withTranslation()(withRouter(App));
+export default withTranslation()(withRouter(DashApp));

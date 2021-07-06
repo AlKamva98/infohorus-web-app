@@ -1,220 +1,133 @@
 import React, { Component } from 'react'
 import { ProgressBar } from 'react-bootstrap';
+import Navbar from '../shared/Navbar';
+import Sidebar from '../shared/Sidebar';
+import SettingsPanel from '../shared/SettingsPanel';
+import Footer from '../shared/Footer';
 
 export class BasicTable extends Component {
+
   render() {
+let navbarComponent = <Navbar/> ;
+    let sidebarComponent =  <Sidebar/>;
+    let SettingsPanelComponent = <SettingsPanel/> ;
+    let footerComponent = <Footer/>;
     return (
       <div>
+	 <div className="container-scroller">
+        { navbarComponent }
+        <div className="container-fluid page-body-wrapper">
+          { sidebarComponent }
+          <div className="main-panel">
+            <div className=" content-wrapper">
         <div className="page-header">
-          <h3 className="page-title"> Basic Tables </h3>
+          <h3 className="page-title"> Colleagues </h3>
           <nav aria-label="breadcrumb">
             <ol className="breadcrumb">
               <li className="breadcrumb-item"><a href="!#" onClick={event => event.preventDefault()}>Tables</a></li>
-              <li className="breadcrumb-item active" aria-current="page">Basic tables</li>
+              <li className="breadcrumb-item active" aria-current="page">Employees</li>
             </ol>
           </nav>
         </div>
         <div className="row">
-          <div className="col-lg-6 grid-margin stretch-card">
+           <div className="col-lg-12 grid-margin stretch-card">
             <div className="card">
               <div className="card-body">
-                <h4 className="card-title">Basic Table</h4>
-                <p className="card-description"> Add className <code>.table</code>
-                </p>
-                <div className="table-responsive">
-                  <table className="table">
-                    <thead>
-                      <tr>
-                        <th>Profile</th>
-                        <th>VatNo.</th>
-                        <th>Created</th>
-                        <th>Status</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>Jacob</td>
-                        <td>53275531</td>
-                        <td>12 May 2017</td>
-                        <td><label className="badge badge-danger">Pending</label></td>
-                      </tr>
-                      <tr>
-                        <td>Messsy</td>
-                        <td>53275532</td>
-                        <td>15 May 2017</td>
-                        <td><label className="badge badge-warning">In progress</label></td>
-                      </tr>
-                      <tr>
-                        <td>John</td>
-                        <td>53275533</td>
-                        <td>14 May 2017</td>
-                        <td><label className="badge badge-info">Fixed</label></td>
-                      </tr>
-                      <tr>
-                        <td>Peter</td>
-                        <td>53275534</td>
-                        <td>16 May 2017</td>
-                        <td><label className="badge badge-success">Completed</label></td>
-                      </tr>
-                      <tr>
-                        <td>Dave</td>
-                        <td>53275535</td>
-                        <td>20 May 2017</td>
-                        <td><label className="badge badge-warning">In progress</label></td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="col-lg-6 grid-margin stretch-card">
-            <div className="card">
-              <div className="card-body">
-                <h4 className="card-title">Hoverable Table</h4>
-                <p className="card-description"> Add className <code>.table-hover</code>
-                </p>
-                <div className="table-responsive">
-                  <table className="table table-hover">
-                    <thead>
-                      <tr>
-                        <th>User</th>
-                        <th>Product</th>
-                        <th>Sale</th>
-                        <th>Status</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>Jacob</td>
-                        <td>Photoshop</td>
-                        <td className="text-danger"> 28.76% <i className="mdi mdi-arrow-down"></i></td>
-                        <td><label className="badge badge-danger">Pending</label></td>
-                      </tr>
-                      <tr>
-                        <td>Messsy</td>
-                        <td>Flash</td>
-                        <td className="text-danger"> 21.06% <i className="mdi mdi-arrow-down"></i></td>
-                        <td><label className="badge badge-warning">In progress</label></td>
-                      </tr>
-                      <tr>
-                        <td>John</td>
-                        <td>Premier</td>
-                        <td className="text-danger"> 35.00% <i className="mdi mdi-arrow-down"></i></td>
-                        <td><label className="badge badge-info">Fixed</label></td>
-                      </tr>
-                      <tr>
-                        <td>Peter</td>
-                        <td>After effects</td>
-                        <td className="text-success"> 82.00% <i className="mdi mdi-arrow-up"></i></td>
-                        <td><label className="badge badge-success">Completed</label></td>
-                      </tr>
-                      <tr>
-                        <td>Dave</td>
-                        <td>53275535</td>
-                        <td className="text-success"> 98.05% <i className="mdi mdi-arrow-up"></i></td>
-                        <td><label className="badge badge-warning">In progress</label></td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="col-lg-12 grid-margin stretch-card">
-            <div className="card">
-              <div className="card-body">
-                <h4 className="card-title">Striped Table</h4>
-                <p className="card-description"> Add className <code>.table-striped</code>
-                </p>
-                <div className="table-responsive">
+                <h4 className="card-title">Company Employees</h4>                
+		<div className="flex ">
+		<div className="flex justify-content-end">
+		 <button type="button" className="btn btn-success mx-2">New</button>
+		<button type="button" className="btn btn-danger mx-2">Delete</button>
+		<button type="button" className="btn btn-warning mx-2">Update</button>
+                </div></div>
+		<div className="table-responsive">
                   <table className="table table-striped">
                     <thead>
                       <tr>
                         <th> User </th>
                         <th> First name </th>
                         <th> Progress </th>
-                        <th> Amount </th>
+                        <th> Email </th>
                         <th> Deadline </th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr>
                         <td className="py-1">
-                          <img src={require("../../assets/images/faces/face1.jpg")} alt="user icon" />
+                          <i className="mdi mdi-account-box"></i>
                         </td>
                         <td> Herman Beck </td>
                         <td>
                           <ProgressBar variant="success" now={25} />
                         </td>
-                        <td> $ 77.99 </td>
-                        <td> May 15, 2015 </td>
+                        <td> hermanb985@example.co.za </td>
+                        <td> Seo 15, 2021 </td>
                       </tr>
                       <tr>
                         <td className="py-1">
-                          <img src={require("../../assets/images/faces/face2.jpg")} alt="user icon" />
+                          <i className="mdi mdi-account-box"></i>
                         </td>
                         <td> Messsy Adam </td>
                         <td>
                           <ProgressBar variant="danger" now={75} />
                         </td>
-                        <td> $245.30 </td>
-                        <td> July 1, 2015 </td>
+                        <td> messy.adam435@example.co.za </td>
+                        <td> July 20, 2021 </td>
                       </tr>
                       <tr>
                         <td className="py-1">
-                          <img src={require("../../assets/images/faces/face3.jpg")} alt="user icon" />
+                          <i className="mdi mdi-account-box"></i>
                         </td>
                         <td> John Richards </td>
                         <td>
                           <ProgressBar variant="warning" now={90} />
                         </td>
-                        <td> $138.00 </td>
-                        <td> Apr 12, 2015 </td>
+                        <td> richards.john972@example.co.za </td>
+                        <td> Jul 12, 2021 </td>
                       </tr>
                       <tr>
                         <td className="py-1">
-                          <img src={require("../../assets/images/faces/face4.jpg")} alt="user icon" />
+                          <i className="mdi mdi-account-box"></i>
                         </td>
                         <td> Peter Meggik </td>
                         <td>
                           <ProgressBar variant="primary" now={50} />
                         </td>
-                        <td> $ 77.99 </td>
-                        <td> May 15, 2015 </td>
+                        <td> meggik.peter547@example.co.za </td>
+                        <td> Aug 19, 2021 </td>
                       </tr>
                       <tr>
                         <td className="py-1">
-                          <img src={require("../../assets/images/faces/face5.jpg")} alt="user icon" />
+                          <i className="mdi mdi-account-box"></i>
                         </td>
-                        <td> Edward </td>
+                        <td> Edward Sulivan </td>
                         <td>
                           <ProgressBar variant="danger" now={60} />
                         </td>
-                        <td> $ 160.25 </td>
-                        <td> May 03, 2015 </td>
+                        <td> ted.sulivan@example.co.za </td>
+                        <td> Aug 15, 2021 </td>
                       </tr>
                       <tr>
                         <td className="py-1">
-                          <img src={require("../../assets/images/faces/face6.jpg")} alt="user icon" />
+                        <i className="mdi mdi-account-box"></i>
                         </td>
                         <td> John Doe </td>
                         <td>
                           <ProgressBar variant="info" now={65} />
                         </td>
-                        <td> $ 123.21 </td>
-                        <td> April 05, 2015 </td>
+                        <td> john.doe435@example.co.za </td>
+                        <td> Aug 18, 2021 </td>
                       </tr>
                       <tr>
                         <td className="py-1">
-                          <img src={require("../../assets/images/faces/face7.jpg")} alt="user icon" />
+                          <i className="mdi mdi-account-box"></i>
                         </td>
                         <td> Henry Tom </td>
                         <td>
                           <ProgressBar variant="warning" now={20} />
                         </td>
-                        <td> $ 150.00 </td>
-                        <td> June 16, 2015 </td>
+                        <td> tom.henry852@example.co.za </td>
+                        <td> Sept 16, 2021 </td>
                       </tr>
                     </tbody>
                   </table>
@@ -222,220 +135,15 @@ export class BasicTable extends Component {
               </div>
             </div>
           </div>
-          <div className="col-lg-12 grid-margin stretch-card">
-            <div className="card">
-              <div className="card-body">
-                <h4 className="card-title">Bordered table</h4>
-                <p className="card-description"> Add className <code>.table-bordered</code>
-                </p>
-                <div className="table-responsive">
-                  <table className="table table-bordered">
-                    <thead>
-                      <tr>
-                        <th> # </th>
-                        <th> First name </th>
-                        <th> Progress </th>
-                        <th> Amount </th>
-                        <th> Deadline </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td> 1 </td>
-                        <td> Herman Beck </td>
-                        <td>
-                          <ProgressBar variant="success" now={25} />
-                        </td>
-                        <td> $ 77.99 </td>
-                        <td> May 15, 2015 </td>
-                      </tr>
-                      <tr>
-                        <td> 2 </td>
-                        <td> Messsy Adam </td>
-                        <td>
-                          <ProgressBar variant="danger" now={75} />
-                        </td>
-                        <td> $245.30 </td>
-                        <td> July 1, 2015 </td>
-                      </tr>
-                      <tr>
-                        <td> 3 </td>
-                        <td> John Richards </td>
-                        <td>
-                          <ProgressBar variant="warning" now={90} />
-                        </td>
-                        <td> $138.00 </td>
-                        <td> Apr 12, 2015 </td>
-                      </tr>
-                      <tr>
-                        <td> 4 </td>
-                        <td> Peter Meggik </td>
-                        <td>
-                          <ProgressBar variant="primary" now={50} />
-                        </td>
-                        <td> $ 77.99 </td>
-                        <td> May 15, 2015 </td>
-                      </tr>
-                      <tr>
-                        <td> 5 </td>
-                        <td> Edward </td>
-                        <td>
-                          <ProgressBar variant="danger" now={35} />
-                        </td>
-                        <td> $ 160.25 </td>
-                        <td> May 03, 2015 </td>
-                      </tr>
-                      <tr>
-                        <td> 6 </td>
-                        <td> John Doe </td>
-                        <td>
-                          <ProgressBar variant="info" now={65} />
-                        </td>
-                        <td> $ 123.21 </td>
-                        <td> April 05, 2015 </td>
-                      </tr>
-                      <tr>
-                        <td> 7 </td>
-                        <td> Henry Tom </td>
-                        <td>
-                        <ProgressBar now={60} />
-                          <ProgressBar variant="warning" now={20} />
-                        </td>
-                        <td> $ 150.00 </td>
-                        <td> June 16, 2015 </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="col-lg-12 grid-margin stretch-card">
-            <div className="card">
-              <div className="card-body">
-                <h4 className="card-title">Inverse table</h4>
-                <p className="card-description"> Add className <code>.table-dark</code>
-                </p>
-                <div className="table-responsive">
-                  <table className="table table-dark">
-                    <thead>
-                      <tr>
-                        <th> # </th>
-                        <th> First name </th>
-                        <th> Amount </th>
-                        <th> Deadline </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td> 1 </td>
-                        <td> Herman Beck </td>
-                        <td> $ 77.99 </td>
-                        <td> May 15, 2015 </td>
-                      </tr>
-                      <tr>
-                        <td> 2 </td>
-                        <td> Messsy Adam </td>
-                        <td> $245.30 </td>
-                        <td> July 1, 2015 </td>
-                      </tr>
-                      <tr>
-                        <td> 3 </td>
-                        <td> John Richards </td>
-                        <td> $138.00 </td>
-                        <td> Apr 12, 2015 </td>
-                      </tr>
-                      <tr>
-                        <td> 4 </td>
-                        <td> Peter Meggik </td>
-                        <td> $ 77.99 </td>
-                        <td> May 15, 2015 </td>
-                      </tr>
-                      <tr>
-                        <td> 5 </td>
-                        <td> Edward </td>
-                        <td> $ 160.25 </td>
-                        <td> May 03, 2015 </td>
-                      </tr>
-                      <tr>
-                        <td> 6 </td>
-                        <td> John Doe </td>
-                        <td> $ 123.21 </td>
-                        <td> April 05, 2015 </td>
-                      </tr>
-                      <tr>
-                        <td> 7 </td>
-                        <td> Henry Tom </td>
-                        <td> $ 150.00 </td>
-                        <td> June 16, 2015 </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="col-lg-12 stretch-card">
-            <div className="card">
-              <div className="card-body">
-                <h4 className="card-title">Table with contextual classNames</h4>
-                <p className="card-description"> Add className <code>.table-&#123;color&#125;</code>
-                </p>
-                <div className="table-responsive">
-                  <table className="table table-bordered">
-                    <thead>
-                      <tr>
-                        <th> # </th>
-                        <th> First name </th>
-                        <th> Product </th>
-                        <th> Amount </th>
-                        <th> Deadline </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr className="table-info">
-                        <td> 1 </td>
-                        <td> Herman Beck </td>
-                        <td> Photoshop </td>
-                        <td> $ 77.99 </td>
-                        <td> May 15, 2015 </td>
-                      </tr>
-                      <tr className="table-warning">
-                        <td> 2 </td>
-                        <td> Messsy Adam </td>
-                        <td> Flash </td>
-                        <td> $245.30 </td>
-                        <td> July 1, 2015 </td>
-                      </tr>
-                      <tr className="table-danger">
-                        <td> 3 </td>
-                        <td> John Richards </td>
-                        <td> Premeire </td>
-                        <td> $138.00 </td>
-                        <td> Apr 12, 2015 </td>
-                      </tr>
-                      <tr className="table-success">
-                        <td> 4 </td>
-                        <td> Peter Meggik </td>
-                        <td> After effects </td>
-                        <td> $ 77.99 </td>
-                        <td> May 15, 2015 </td>
-                      </tr>
-                      <tr className="table-primary">
-                        <td> 5 </td>
-                        <td> Edward </td>
-                        <td> Illustrator </td>
-                        <td> $ 160.25 </td>
-                        <td> May 03, 2015 </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-          </div>
+          
         </div>
-      </div>
+  { SettingsPanelComponent }
+            </div>
+            { footerComponent }
+          </div>
+        </div>  
+      </div> 
+       </div>
     )
   }
 }

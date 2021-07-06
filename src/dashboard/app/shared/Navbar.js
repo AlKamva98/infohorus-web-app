@@ -185,7 +185,7 @@ class Navbar extends Component {
               </Dropdown>
             </li>
           </ul>
-          <button className="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" onClick={this.toggleOffcanvas}>
+          <button className="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" onClick={this.toggleRightSidebar}>
             <span className="mdi mdi-menu"></span>
           </button>
         </div>

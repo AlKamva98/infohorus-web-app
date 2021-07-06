@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import {Home} from './pages/EndUser/Home.js'
 import {About} from './pages/EndUser/About.js'
 import Contact from './pages/EndUser/Contact.js'
-import {Pricing} from './pages/EndUser/Pricing.js'
+import DashApp from './dashboard/app/DashApp'
 import {Recomendations} from './pages/EndUser/Recomendations.js'
 import './App.css';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
@@ -28,7 +28,6 @@ import Error404 from './dashboard/app/error-pages/Error404';
 import Error500 from './dashboard/app/error-pages/Error500';
 import Login from './dashboard/app/user-pages/Login';
 import Register1 from './dashboard/app/user-pages/Register';
-//This is the data
 import './css/style.scss';
 import './dashboard/app/App.scss'
 import AOS from 'aos';
@@ -68,7 +67,6 @@ function App(){
         <Route path="/expertview/custlist" exact component={ExpertViewCustList}/>
         <Route path="/expertview/assess" exact component={ExpertViewAssess}/>
         <Route exact path="/dashboard" component={ Dashboard } />
-
           <Route path="/basic-ui/buttons" component={ Buttons } />
           <Route path="/basic-ui/dropdowns" component={ Dropdowns } />
           <Route path="/form-Elements/basic-elements" component={ BasicElements } />
@@ -79,7 +77,7 @@ function App(){
           <Route path="/user-pages/register-1" component={ Register1 } />
           <Route path="/error-pages/error-404" component={ Error404 } />
           <Route path="/error-pages/error-500" component={ Error500 } />
-
+      
         <Route path='/instagram' >
   {() => { 
        window.location.href = 'https://www.instagram.com/bahatitech/'; 

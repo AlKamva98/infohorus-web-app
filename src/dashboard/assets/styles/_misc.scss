@@ -25,13 +25,20 @@ body {
   &.full-page-wrapper {
     min-height: 100vh;
     padding-top: 0;
+    transition-property: margin-left;
+    transition-duration: 1s;
+
+
     .main-panel {
       width: 100%;
       transition: none;
-      margin-top:-$navbar-height;
+      margin-top: -$navbar-height;
+      margin-right: auto;
+
       .content-wrapper {
         padding: 0;
-        > div {
+
+        >div {
           height: 100%;
         }
       }
@@ -40,16 +47,20 @@ body {
 }
 
 .main-panel {
-  transition: width $action-transition-duration $action-transition-timing-function, margin $action-transition-duration $action-transition-timing-function;
+  transition: width $action-transition-duration $action-transition-timing-function, margin-left $action-transition-duration $action-transition-timing-function;
   width: calc(100% - #{$sidebar-width-lg});
+  margin-left: #{$sidebar-width-lg};
   min-height: calc(100vh - #{$navbar-height});
   padding-top: $navbar-height;
+
   @include display-flex();
   @include flex-direction(column);
+
   @media (max-width: 991px) {
     margin-left: 0;
     width: 100%;
   }
+
   &.main-panel-only {
     transition: none;
   }
@@ -60,6 +71,7 @@ body {
   padding: 1.5rem 1.7rem;
   width: 100%;
   @include flex-grow(1);
+
   @media (max-width: 991px) {
     padding: 2rem 2rem 0 2rem;
   }
@@ -88,20 +100,23 @@ code {
   display: flex;
   @extend .justify-content-between;
   @extend .align-items-center;
-  margin: 0 0 1.5rem 0; 
+  margin: 0 0 1.5rem 0;
 
   @media (min-width: 768px) {
     display: block;
   }
+
   .breadcrumb {
     border: 0;
     margin-bottom: 0;
   }
 }
+
 .page-title {
   color: $black;
   font-size: 1.125rem;
   margin-bottom: 0;
+
   .page-title-icon {
     display: inline-block;
     width: 36px;
@@ -109,12 +124,14 @@ code {
     border-radius: 4px;
     text-align: center;
     box-shadow: 0px 3px 8.3px 0.7px rgba(163, 93, 255, 0.35);
+
     i {
       font-size: .9375rem;
       line-height: 36px;
     }
   }
 }
+
 .dropdown-toggle {
   &.hide-carret {
     &:after {
@@ -126,13 +143,16 @@ code {
 
 .bg-transparent {
   background: transparent;
-  
+
 }
-@each $color, $value in $social-colors {
+
+@each $color,
+$value in $social-colors {
   .text-#{$color} {
     @include text-color(social-color($color));
   }
 }
+
 .page-header {
   display: flex;
   width: 100%;
@@ -141,7 +161,7 @@ code {
   margin-bottom: 15px;
 
   @media (max-width: 992px) {
-      display: inline-block;
+    display: inline-block;
   }
 }
 
@@ -150,9 +170,10 @@ code {
   margin-bottom: 2px;
 
   @media (max-width: 992px) {
-      margin-botttom: 15px;
+    margin-botttom: 15px;
   }
 }
+
 .quick-links {
   list-style: none;
   margin-bottom: 0;
@@ -162,31 +183,32 @@ code {
   padding-left: 0;
 
   @media (min-width: 992px) {
-      padding-left: 10px;
+    padding-left: 10px;
   }
 
   li {
-      margin-right: 10px;
-      border-right: 1px solid $body-color;
-      line-height: 1;
+    margin-right: 10px;
+    border-right: 1px solid $body-color;
+    line-height: 1;
+
+    a {
+      display: inline-block;
+      color: $body-color;
+      text-decoration: none;
+      padding-right: 10px;
+    }
+
+    &:last-child {
+      margin-right: 0;
+      border-right: none;
 
       a {
-          display: inline-block;
-          color: $body-color;
-          text-decoration: none;
-          padding-right: 10px;
+        padding-right: 0;
       }
-
-      &:last-child {
-          margin-right: 0;
-          border-right: none;
-
-          a {
-              padding-right: 0;
-          }
-      }
+    }
   }
 }
+
 .page-title-header {
   margin-bottom: 20px;
 }
@@ -197,39 +219,40 @@ code {
   width: 100%;
 
   @media (max-width: 992px) {
-      display: inline-block;
+    display: inline-block;
 
-      .toolbar-item {
-          margin-top: 20px;
-      }
+    .toolbar-item {
+      margin-top: 20px;
+    }
   }
 
   .btn-group,
   .btn {
-      border: none;
+    border: none;
 
-      i {
-          font-size: 1.24rem;
-          color: $page-header-toolbar-btn-color;
-      }
+    i {
+      font-size: 1.24rem;
+      color: $page-header-toolbar-btn-color;
+    }
 
-      &.dropdown-toggle {
-          &:after {
-              color: $page-header-toolbar-btn-color;
-          }
+    &.dropdown-toggle {
+      &:after {
+        color: $page-header-toolbar-btn-color;
       }
+    }
   }
 }
 
 .filter-wrapper {
   display: flex;
   margin-left: 15px;
+
   @media (max-width: 768px) {
     margin-bottom: 1rem;
   }
 
   @media (max-width: 992px) {
-      margin-left: 0;
+    margin-left: 0;
   }
 }
 
@@ -238,7 +261,7 @@ code {
   width: 46%;
 
   @media (max-width: 992px) {
-      width: 100%;
+    width: 100%;
   }
 }
 
