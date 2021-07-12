@@ -15,7 +15,7 @@ Amplify.register(API)
 Amplify.register(Storage)
 Amplify.register(Auth)
 Amplify.configure(awsConfig)
-
+//trying to fix the front end
 function Contact(){
   
   const [modal, setModal] = useState(false);
