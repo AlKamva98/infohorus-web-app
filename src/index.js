@@ -7,7 +7,7 @@ import * as serviceWorker from './serviceWorker';
 
 
 ReactDOM.render(<GoogleReCaptchaProvider
-    reCaptchaKey="6LdTEZYbAAAAAL71MMJPtgjDn0O6W0jCsKBco6Hi" >
+    reCaptchaKey="6LfqjJYbAAAAABwtO95eI0vFzHIbm0IEFasCv9CW" >
 <App /></GoogleReCaptchaProvider>, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change

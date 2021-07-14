@@ -168,7 +168,7 @@ function sendEmail(data, uCred) {
     </p>
                  <div className="relative">
                     <ReCAPTCHA
-                  sitekey="6LdTEZYbAAAAAL71MMJPtgjDn0O6W0jCsKBco6Hi"
+                  sitekey = "6LfqjJYbAAAAABwtO95eI0vFzHIbm0IEFasCv9CW"
                   className="inline-block w-full px-5 py-4"
                   onChange={onChange}/>  
                   </div>
