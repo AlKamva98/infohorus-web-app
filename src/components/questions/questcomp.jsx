@@ -12,7 +12,9 @@ function QuestionsComp(props) {
 
   return (<>
     <Header />
-    <SurveyJS className="justify-center mx-auto" />
+    <div className="w-3/4 mx-auto bg-cover bg-no-repeat bg-center bg-contact" >
+    <SurveyJS className="justify-center bg-white opacity-90" />
+    </div>
     <Footer />
   </>
   )
