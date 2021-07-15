@@ -1,0 +1,8 @@
+{
+    "CreateAPIKey": 1,
+    "AppSyncApiName": "infohoruswebapp",
+    "DynamoDBBillingMode": "PAY_PER_REQUEST",
+    "DynamoDBEnableServerSideEncryption": false,
+    "S3DeploymentBucket": "amplify-infohoruswebapp-staging-60519-deployment",
+    "S3DeploymentRootKey": "amplify-appsync-files/77f28c276fc1e21356eed5b0490e8edd8e45c3ab"
+}

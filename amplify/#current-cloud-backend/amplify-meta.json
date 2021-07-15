@@ -1,0 +1,169 @@
+{
+  "providers": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-infohoruswebapp-staging-60519-authRole",
+      "UnauthRoleArn": "arn:aws:iam::957365067607:role/amplify-infohoruswebapp-staging-60519-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::957365067607:role/amplify-infohoruswebapp-staging-60519-authRole",
+      "Region": "eu-west-1",
+      "DeploymentBucketName": "amplify-infohoruswebapp-staging-60519-deployment",
+      "UnauthRoleName": "amplify-infohoruswebapp-staging-60519-unauthRole",
+      "StackName": "amplify-infohoruswebapp-staging-60519",
+      "StackId": "arn:aws:cloudformation:eu-west-1:957365067607:stack/amplify-infohoruswebapp-staging-60519/94d66330-8ad4-11eb-b073-0a92513c65fd",
+      "AmplifyAppId": "dg1vh6yf28mdl"
+    }
+  },
+  "function": {
+    "infohorusauthPostConfirmation": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda",
+      "output": {
+        "Region": "eu-west-1",
+        "Arn": "arn:aws:lambda:eu-west-1:957365067607:function:infohorusauthPostConfirmation-staging",
+        "Name": "infohorusauthPostConfirmation-staging",
+        "LambdaExecutionRole": "infohorusauthPostConfirmation-staging"
+      },
+      "lastPushTimeStamp": "2021-07-14T08:29:13.846Z",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-infohoruswebapp-staging-60519-deployment/amplify-cfn-templates/function/infohorusauthPostConfirmation-cloudformation-template.json",
+        "logicalId": "functioninfohorusauthPostConfirmation"
+      },
+      "s3Bucket": {
+        "deploymentBucketName": "amplify-infohoruswebapp-staging-60519-deployment",
+        "s3Key": "amplify-builds/infohorusauthPostConfirmation-35362f4156436f795073-build.zip"
+      },
+      "lastBuildTimeStamp": "2021-07-14T08:28:11.030Z",
+      "lastPackageTimeStamp": "2021-07-14T08:28:11.135Z",
+      "distZipFilename": "infohorusauthPostConfirmation-35362f4156436f795073-build.zip",
+      "lastPushDirHash": "WiKjSIc/QJ7l4NPabAwQRMDybUk="
+    }
+  },
+  "auth": {
+    "userPoolGroups": {
+      "service": "Cognito-UserPool-Groups",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [
+        {
+          "category": "auth",
+          "resourceName": "infohorusauth",
+          "attributes": [
+            "UserPoolId",
+            "AppClientIDWeb",
+            "AppClientID",
+            "IdentityPoolId"
+          ]
+        }
+      ],
+      "output": {
+        "EndUsersGroupRole": "arn:aws:iam::957365067607:role/eu-west-1_UlvaBWIqz-EndUsersGroupRole",
+        "AssessorsGroupRole": "arn:aws:iam::957365067607:role/eu-west-1_UlvaBWIqz-AssessorsGroupRole"
+      },
+      "lastPushTimeStamp": "2021-07-14T08:29:13.846Z",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-infohoruswebapp-staging-60519-deployment/amplify-cfn-templates/auth/template.json",
+        "logicalId": "authuserPoolGroups"
+      },
+      "lastPushDirHash": "V4+1QwGkPBrg4ib3SJz8WIYwgaI="
+    },
+    "infohorusauth": {
+      "service": "Cognito",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [
+        {
+          "category": "function",
+          "resourceName": "infohorusauthPostConfirmation",
+          "triggerProvider": "Cognito",
+          "attributes": [
+            "Arn",
+            "Name"
+          ]
+        }
+      ],
+      "customAuth": false,
+      "output": {
+        "UserPoolId": "eu-west-1_UlvaBWIqz",
+        "AppClientIDWeb": "128btamls8m70vbm0h3nm688fs",
+        "AppClientID": "6224cr7ej3r9nratmjh2o4vji2",
+        "IdentityPoolId": "eu-west-1:6b122b7a-c531-4261-8724-81f72ff96413",
+        "IdentityPoolName": "infohoruswebapp_identitypool__staging",
+        "UserPoolName": "infohoruswebapp_userpool"
+      },
+      "lastPushTimeStamp": "2021-07-14T08:29:13.846Z",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-infohoruswebapp-staging-60519-deployment/amplify-cfn-templates/auth/infohorusauth-cloudformation-template.yml",
+        "logicalId": "authinfohorusauth"
+      },
+      "lastPushDirHash": "MHgR3mL9rXzOWECu+9gO7uNAHiM="
+    }
+  },
+  "api": {
+    "infohoruswebapp": {
+      "service": "AppSync",
+      "providerPlugin": "awscloudformation",
+      "output": {
+        "authConfig": {
+          "defaultAuthentication": {
+            "authenticationType": "API_KEY",
+            "apiKeyConfig": {
+              "apiKeyExpirationDays": 30,
+              "description": "api key description"
+            }
+          },
+          "additionalAuthenticationProviders": [
+            {
+              "authenticationType": "AWS_IAM"
+            }
+          ]
+        },
+        "GraphQLAPIIdOutput": "clwapeb4gvdrtig2mj7em7du3y",
+        "GraphQLAPIEndpointOutput": "https://hz42cxnj3bglxg7jzixqltzw3q.appsync-api.eu-west-1.amazonaws.com/graphql",
+        "GraphQLAPIKeyOutput": "da2-q2mzetcza5hdzlvfgsgdku4usu"
+      },
+      "lastPushTimeStamp": "2021-07-14T08:29:13.846Z",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-infohoruswebapp-staging-60519-deployment/amplify-cfn-templates/api/cloudformation-template.json",
+        "logicalId": "apiinfohoruswebapp"
+      },
+      "lastPushDirHash": "bgg1wMOxs1mMIYtn7pPV2Whb20o="
+    }
+  },
+  "storage": {
+    "userDocuments": {
+      "service": "S3",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [
+        {
+          "category": "auth",
+          "resourceName": "infohorusauth",
+          "attributes": [
+            "UserPoolId"
+          ]
+        },
+        {
+          "category": "auth",
+          "resourceName": "userPoolGroups",
+          "attributes": [
+            "EndUsersGroupRole"
+          ]
+        },
+        {
+          "category": "auth",
+          "resourceName": "userPoolGroups",
+          "attributes": [
+            "AssessorsGroupRole"
+          ]
+        }
+      ],
+      "output": {
+        "BucketName": "userdocumentsbucket60519-staging",
+        "Region": "eu-west-1"
+      },
+      "lastPushTimeStamp": "2021-07-14T08:29:13.846Z",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-infohoruswebapp-staging-60519-deployment/amplify-cfn-templates/storage/s3-cloudformation-template.json",
+        "logicalId": "storageuserDocuments"
+      },
+      "lastPushDirHash": "oiPmDhny43piEO6XT4aI8I7hODA="
+    }
+  }
+}

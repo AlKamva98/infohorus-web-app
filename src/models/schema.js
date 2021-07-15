@@ -1,34 +1,13 @@
 export const schema = {
     "models": {
-        "QuestionnaireQuestionAnswer": {
-            "name": "QuestionnaireQuestionAnswer",
+        "Questionnaire": {
+            "name": "Questionnaire",
             "fields": {
                 "id": {
                     "name": "id",
                     "isArray": false,
                     "type": "ID",
                     "isRequired": true,
-                    "attributes": []
-                },
-                "questionID": {
-                    "name": "questionID",
-                    "isArray": false,
-                    "type": "ID",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "answerID": {
-                    "name": "answerID",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "questionnaireID": {
-                    "name": "questionnaireID",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": false,
                     "attributes": []
                 },
                 "Answers": {
@@ -42,52 +21,43 @@ export const schema = {
                     "isArrayNullable": true,
                     "association": {
                         "connectionType": "HAS_MANY",
-                        "associatedWith": "questionnairequestionanswerID"
+                        "associatedWith": "questionnaireID"
                     }
                 },
-                "Questions": {
-                    "name": "Questions",
-                    "isArray": true,
-                    "type": {
-                        "model": "Question"
-                    },
+                "questionnaireCompleted": {
+                    "name": "questionnaireCompleted",
+                    "isArray": false,
+                    "type": "String",
                     "isRequired": false,
-                    "attributes": [],
-                    "isArrayNullable": true,
-                    "association": {
-                        "connectionType": "HAS_MANY",
-                        "associatedWith": "questionnairequestionanswerID"
-                    }
+                    "attributes": []
                 },
-                "Questionnaire": {
-                    "name": "Questionnaire",
+                "userID": {
+                    "name": "userID",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "User": {
+                    "name": "User",
                     "isArray": false,
                     "type": {
-                        "model": "Questionnaire"
+                        "model": "User"
                     },
                     "isRequired": false,
                     "attributes": [],
                     "association": {
                         "connectionType": "BELONGS_TO",
-                        "targetName": "questionnaireQuestionAnswerQuestionnaireId"
+                        "targetName": "questionnaireUserId"
                     }
                 }
             },
             "syncable": true,
-            "pluralName": "QuestionnaireQuestionAnswers",
+            "pluralName": "Questionnaires",
             "attributes": [
                 {
                     "type": "model",
                     "properties": {}
-                },
-                {
-                    "type": "key",
-                    "properties": {
-                        "name": "byQuestion",
-                        "fields": [
-                            "questionID"
-                        ]
-                    }
                 },
                 {
                     "type": "auth",
@@ -128,7 +98,7 @@ export const schema = {
                     "name": "Questionnaire",
                     "isArray": false,
                     "type": {
-                        "model": "QuestionnaireQuestionAnswer"
+                        "model": "Question"
                     },
                     "isRequired": false,
                     "attributes": [],
@@ -148,7 +118,7 @@ export const schema = {
                     "name": "Question",
                     "isArray": false,
                     "type": {
-                        "model": "QuestionnaireQuestionAnswer"
+                        "model": "Question"
                     },
                     "isRequired": false,
                     "attributes": [],
@@ -160,27 +130,7 @@ export const schema = {
                 "questionID": {
                     "name": "questionID",
                     "isArray": false,
-                    "type": "ID",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "QuestionnaireQuestionAnswer": {
-                    "name": "QuestionnaireQuestionAnswer",
-                    "isArray": false,
-                    "type": {
-                        "model": "QuestionnaireQuestionAnswer"
-                    },
-                    "isRequired": false,
-                    "attributes": [],
-                    "association": {
-                        "connectionType": "BELONGS_TO",
-                        "targetName": "answerQuestionnaireQuestionAnswerId"
-                    }
-                },
-                "questionnairequestionanswerID": {
-                    "name": "questionnairequestionanswerID",
-                    "isArray": false,
-                    "type": "ID",
+                    "type": "Int",
                     "isRequired": false,
                     "attributes": []
                 }
@@ -198,24 +148,6 @@ export const schema = {
                         "name": "byQuestionnaire",
                         "fields": [
                             "questionnaireID"
-                        ]
-                    }
-                },
-                {
-                    "type": "key",
-                    "properties": {
-                        "name": "byQuestion",
-                        "fields": [
-                            "questionID"
-                        ]
-                    }
-                },
-                {
-                    "type": "key",
-                    "properties": {
-                        "name": "byQuestionnaireQuestionAnswer",
-                        "fields": [
-                            "questionnairequestionanswerID"
                         ]
                     }
                 },
@@ -247,8 +179,28 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
+                "Answer": {
+                    "name": "Answer",
+                    "isArray": false,
+                    "type": {
+                        "model": "Answer"
+                    },
+                    "isRequired": false,
+                    "attributes": [],
+                    "association": {
+                        "connectionType": "BELONGS_TO",
+                        "targetName": "questionAnswerId"
+                    }
+                },
                 "question": {
                     "name": "question",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "questionCategory": {
+                    "name": "questionCategory",
                     "isArray": false,
                     "type": "String",
                     "isRequired": false,
@@ -261,150 +213,16 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
-                "Answers": {
-                    "name": "Answers",
-                    "isArray": true,
-                    "type": {
-                        "model": "Answer"
-                    },
-                    "isRequired": false,
-                    "attributes": [],
-                    "isArrayNullable": true,
-                    "association": {
-                        "connectionType": "HAS_MANY",
-                        "associatedWith": "questionID"
-                    }
-                },
-                "QuestionnaireQuestionAnswers": {
-                    "name": "QuestionnaireQuestionAnswers",
-                    "isArray": true,
-                    "type": {
-                        "model": "QuestionnaireQuestionAnswer"
-                    },
-                    "isRequired": false,
-                    "attributes": [],
-                    "isArrayNullable": true,
-                    "association": {
-                        "connectionType": "HAS_MANY",
-                        "associatedWith": "questionID"
-                    }
-                },
-                "questionnairequestionanswerID": {
-                    "name": "questionnairequestionanswerID",
+                "questionNu": {
+                    "name": "questionNu",
                     "isArray": false,
-                    "type": "ID",
+                    "type": "String",
                     "isRequired": false,
                     "attributes": []
                 }
             },
             "syncable": true,
             "pluralName": "Questions",
-            "attributes": [
-                {
-                    "type": "model",
-                    "properties": {}
-                },
-                {
-                    "type": "key",
-                    "properties": {
-                        "name": "byQuestionnaireQuestionAnswer",
-                        "fields": [
-                            "questionnairequestionanswerID"
-                        ]
-                    }
-                },
-                {
-                    "type": "auth",
-                    "properties": {
-                        "rules": [
-                            {
-                                "allow": "public",
-                                "operations": [
-                                    "create",
-                                    "update",
-                                    "delete",
-                                    "read"
-                                ]
-                            }
-                        ]
-                    }
-                }
-            ]
-        },
-        "Questionnaire": {
-            "name": "Questionnaire",
-            "fields": {
-                "id": {
-                    "name": "id",
-                    "isArray": false,
-                    "type": "ID",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "questionaireCompleted": {
-                    "name": "questionaireCompleted",
-                    "isArray": false,
-                    "type": "Boolean",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "questionnaireQuestionanswerID": {
-                    "name": "questionnaireQuestionanswerID",
-                    "isArray": false,
-                    "type": "ID",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "User": {
-                    "name": "User",
-                    "isArray": false,
-                    "type": {
-                        "model": "User"
-                    },
-                    "isRequired": false,
-                    "attributes": [],
-                    "association": {
-                        "connectionType": "BELONGS_TO",
-                        "targetName": "questionnaireUserId"
-                    }
-                },
-                "userId": {
-                    "name": "userId",
-                    "isArray": false,
-                    "type": "ID",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "Answers": {
-                    "name": "Answers",
-                    "isArray": true,
-                    "type": {
-                        "model": "Answer"
-                    },
-                    "isRequired": false,
-                    "attributes": [],
-                    "isArrayNullable": true,
-                    "association": {
-                        "connectionType": "HAS_MANY",
-                        "associatedWith": "questionnaireID"
-                    }
-                },
-                "QuestionnaireQuestionAnswer": {
-                    "name": "QuestionnaireQuestionAnswer",
-                    "isArray": false,
-                    "type": {
-                        "model": "QuestionnaireQuestionAnswer"
-                    },
-                    "isRequired": false,
-                    "attributes": [],
-                    "association": {
-                        "connectionType": "BELONGS_TO",
-                        "targetName": "questionnaireQuestionnaireQuestionAnswerId"
-                    }
-                }
-            },
-            "syncable": true,
-            "pluralName": "Questionnaires",
             "attributes": [
                 {
                     "type": "model",
@@ -438,15 +256,8 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
-                "first_name": {
-                    "name": "first_name",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "last_name": {
-                    "name": "last_name",
+                "name": {
+                    "name": "name",
                     "isArray": false,
                     "type": "String",
                     "isRequired": false,
@@ -480,15 +291,15 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
-                "industry": {
-                    "name": "industry",
+                "country": {
+                    "name": "country",
                     "isArray": false,
                     "type": "String",
                     "isRequired": false,
                     "attributes": []
                 },
-                "country": {
-                    "name": "country",
+                "industry": {
+                    "name": "industry",
                     "isArray": false,
                     "type": "String",
                     "isRequired": false,
@@ -498,7 +309,7 @@ export const schema = {
                     "name": "Questionnaire",
                     "isArray": false,
                     "type": {
-                        "model": "QuestionnaireQuestionAnswer"
+                        "model": "Questionnaire"
                     },
                     "isRequired": false,
                     "attributes": [],
@@ -506,6 +317,13 @@ export const schema = {
                         "connectionType": "BELONGS_TO",
                         "targetName": "userQuestionnaireId"
                     }
+                },
+                "questionnaireID": {
+                    "name": "questionnaireID",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
                 }
             },
             "syncable": true,
@@ -532,52 +350,9 @@ export const schema = {
                     }
                 }
             ]
-        },
-        "File": {
-            "name": "File",
-            "fields": {
-                "id": {
-                    "name": "id",
-                    "isArray": false,
-                    "type": "ID",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "data": {
-                    "name": "data",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": false,
-                    "attributes": []
-                }
-            },
-            "syncable": true,
-            "pluralName": "Files",
-            "attributes": [
-                {
-                    "type": "model",
-                    "properties": {}
-                },
-                {
-                    "type": "auth",
-                    "properties": {
-                        "rules": [
-                            {
-                                "allow": "public",
-                                "operations": [
-                                    "create",
-                                    "update",
-                                    "delete",
-                                    "read"
-                                ]
-                            }
-                        ]
-                    }
-                }
-            ]
         }
     },
     "enums": {},
     "nonModels": {},
-    "version": "4fb6913e1baaa18abb9e58e1fff745f4"
+    "version": "c251b5091423222b332b21d967c25d41"
 };
