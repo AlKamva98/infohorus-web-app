@@ -4,7 +4,7 @@ import { CContainer, CSpinner } from '@coreui/react'
 
 // routes config
 import {mainRoutes} from '../../routes'
-const Index = React.lazy(() => import('./Home/views/index/Index'))
+const Index = React.lazy(() => import('../views/index/Index'))
 
 const Content = () => {
 

@@ -4,7 +4,7 @@ import { CContainer, CSpinner } from '@coreui/react'
 
 // routes config
 import {routes} from '../../routes'
-const Dashboard = React.lazy(() => import('./Dash/views/dashboard/Dashboard'))
+const Dashboard = React.lazy(() => import('../views/dashboard/Dashboard'))
 
 const AppContent = () => {
   return (
