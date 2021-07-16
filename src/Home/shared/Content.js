@@ -4,6 +4,7 @@ import { CContainer, CSpinner } from '@coreui/react'
 
 // routes config
 import {mainRoutes} from '../../routes'
+const Index = React.lazy(() => import('./Home/views/index/Index'))
 
 const Content = () => {
 
@@ -13,7 +14,8 @@ const Content = () => {
     <CContainer lg>
       <Suspense fallback={<CSpinner color="primary" />}>
         <Switch>
-          {mainRoutes.map((route, idx) => {
+          <Route path="/main/index" name="index" render={(props) => <Index {...props} />} />
+          {/* {mainRoutes.map((route, idx) => {
             return (
               route.component && (
                 <Route
@@ -30,7 +32,7 @@ const Content = () => {
                 )
             )
           })}
-          <Redirect from="/main" to='/main/index'/>
+          <Redirect from="/main" to='/main/index'/> */}
         </Switch>
       </Suspense>
     </CContainer>

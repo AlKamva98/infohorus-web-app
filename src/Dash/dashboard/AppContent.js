@@ -4,13 +4,15 @@ import { CContainer, CSpinner } from '@coreui/react'
 
 // routes config
 import {routes} from '../../routes'
+const Dashboard = React.lazy(() => import('./Dash/views/dashboard/Dashboard'))
 
 const AppContent = () => {
   return (
     <CContainer lg>
       <Suspense fallback={<CSpinner color="primary" />}>
         <Switch>
-          {routes.map((route, idx) => {
+          <Route path="/dash/dashboard" name="dashboard" render={(props) => <Dashboard {...props} />} />
+          {/* {routes.map((route, idx) => {
             return (
               route.component && (
                 <Route
@@ -27,7 +29,7 @@ const AppContent = () => {
               )
             )
           })}
-        <Redirect from="/dash" to="/dash/dashboard" />
+        <Redirect from="/dash" to="/dash/dashboard" />*/}
         </Switch>
       </Suspense> 
     </CContainer>
