@@ -14,7 +14,7 @@ const Layouts = () => {
         <Switch>
           <Route path="/dash" name="DashboardHome" render={(props) => <DefaultLayout {...props} />} />
           <Route path="/main" name="Main" render={(props) => <MainLayout {...props} />} />
-          <Redirect from="/" to="/main"/>
+          <Redirect from="/" to="/dash"/>
         </Switch>
       </Suspense>
     
