@@ -50,4 +50,4 @@ import { Carousel } from 'react-responsive-carousel';
     </>
   );
 }
-export default About;
+export default React.memo(About);

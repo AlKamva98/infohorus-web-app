@@ -14,8 +14,7 @@ const Content = () => {
     <CContainer lg>
       <Suspense fallback={<CSpinner color="primary" />}>
         <Switch>
-          <Route path="/main/index" name="index" render={(props) => <Index {...props} />} />
-          {/* {mainRoutes.map((route, idx) => {
+          {mainRoutes.map((route, idx) => {
             return (
               route.component && (
                 <Route
@@ -32,7 +31,7 @@ const Content = () => {
                 )
             )
           })}
-          <Redirect from="/main" to='/main/index'/> */}
+          <Redirect from="/main" to='/main/index'/>
         </Switch>
       </Suspense>
     </CContainer>

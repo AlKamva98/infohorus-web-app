@@ -11,8 +11,7 @@ const AppContent = () => {
     <CContainer lg>
       <Suspense fallback={<CSpinner color="primary" />}>
         <Switch>
-          <Route path="/dash/dashboard" name="dashboard" render={(props) => <Dashboard {...props} />} />
-          {/* {routes.map((route, idx) => {
+          {routes.map((route, idx) => {
             return (
               route.component && (
                 <Route
@@ -29,7 +28,7 @@ const AppContent = () => {
               )
             )
           })}
-        <Redirect from="/dash" to="/dash/dashboard" />*/}
+        <Redirect from="/dash" to="/dash/dashboard" />
         </Switch>
       </Suspense> 
     </CContainer>

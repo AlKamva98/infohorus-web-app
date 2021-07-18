@@ -16,9 +16,9 @@ const Layouts = () => {
           <Route path="/main" name="Main" render={(props) => <MainLayout {...props} />} />
           <Redirect from="/" to="/main"/>
         </Switch>
-      </Suspense>
+      </Suspense> 
     
-  )
+  ) 
 }
 
 export default React.memo(Layouts);

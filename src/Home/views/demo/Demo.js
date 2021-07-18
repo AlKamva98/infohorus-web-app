@@ -211,4 +211,4 @@ isOpen={modal}
 }
 
 
-export default Demo;
+export default React.memo(Demo);
