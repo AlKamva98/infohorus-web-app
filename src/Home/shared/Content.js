@@ -1,16 +1,15 @@
-import React, { Suspense, useState } from 'react'
+import React from 'react'
 import { Redirect, Route, Switch } from 'react-router-dom'
-import { CContainer, CSpinner } from '@coreui/react'
+import { CContainer } from '@coreui/react'
 
 // routes config
 import {mainRoutes} from '../../routes'
-const Index = React.lazy(() => import('../views/index/Index'))
 
 const Content = () => {
 
  
   return (
-    <div className="bg-white w-full">
+    
     <CContainer lg>
         <Switch>
           {mainRoutes.map((route, idx) => {
@@ -31,10 +30,8 @@ const Content = () => {
             )
           })}
           <Redirect from="/main" to='/main/index'/>
-        </Switch>
-      
+        </Switch> 
     </CContainer>
-                </div>
   )
 }
 

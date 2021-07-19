@@ -23,19 +23,19 @@
         "Name": "infohorusauthPostConfirmation-staging",
         "LambdaExecutionRole": "infohorusauthPostConfirmation-staging"
       },
-      "lastPushTimeStamp": "2021-07-14T08:29:13.846Z",
+      "lastPushTimeStamp": "2021-07-19T11:09:44.562Z",
       "providerMetadata": {
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-infohoruswebapp-staging-60519-deployment/amplify-cfn-templates/function/infohorusauthPostConfirmation-cloudformation-template.json",
         "logicalId": "functioninfohorusauthPostConfirmation"
       },
+      "lastBuildTimeStamp": "2021-07-19T11:06:11.936Z",
+      "lastPackageTimeStamp": "2021-07-19T11:06:13.871Z",
+      "distZipFilename": "infohorusauthPostConfirmation-4d2b4c5358692f555272-build.zip",
       "s3Bucket": {
         "deploymentBucketName": "amplify-infohoruswebapp-staging-60519-deployment",
-        "s3Key": "amplify-builds/infohorusauthPostConfirmation-35362f4156436f795073-build.zip"
+        "s3Key": "amplify-builds/infohorusauthPostConfirmation-4d2b4c5358692f555272-build.zip"
       },
-      "lastBuildTimeStamp": "2021-07-14T08:28:11.030Z",
-      "lastPackageTimeStamp": "2021-07-14T08:28:11.135Z",
-      "distZipFilename": "infohorusauthPostConfirmation-35362f4156436f795073-build.zip",
-      "lastPushDirHash": "WiKjSIc/QJ7l4NPabAwQRMDybUk="
+      "lastPushDirHash": "qGslG81qgeA+jgCQjcC6ELov2xQ="
     }
   },
   "auth": {
@@ -58,12 +58,12 @@
         "EndUsersGroupRole": "arn:aws:iam::957365067607:role/eu-west-1_UlvaBWIqz-EndUsersGroupRole",
         "AssessorsGroupRole": "arn:aws:iam::957365067607:role/eu-west-1_UlvaBWIqz-AssessorsGroupRole"
       },
-      "lastPushTimeStamp": "2021-07-14T08:29:13.846Z",
+      "lastPushTimeStamp": "2021-07-19T11:09:44.562Z",
       "providerMetadata": {
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-infohoruswebapp-staging-60519-deployment/amplify-cfn-templates/auth/template.json",
         "logicalId": "authuserPoolGroups"
       },
-      "lastPushDirHash": "V4+1QwGkPBrg4ib3SJz8WIYwgaI="
+      "lastPushDirHash": "bXB5wR2j3GjpAZgylHDvvrcBBJg="
     },
     "infohorusauth": {
       "service": "Cognito",
@@ -88,12 +88,12 @@
         "IdentityPoolName": "infohoruswebapp_identitypool__staging",
         "UserPoolName": "infohoruswebapp_userpool"
       },
-      "lastPushTimeStamp": "2021-07-14T08:29:13.846Z",
+      "lastPushTimeStamp": "2021-07-19T11:09:44.562Z",
       "providerMetadata": {
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-infohoruswebapp-staging-60519-deployment/amplify-cfn-templates/auth/infohorusauth-cloudformation-template.yml",
         "logicalId": "authinfohorusauth"
       },
-      "lastPushDirHash": "MHgR3mL9rXzOWECu+9gO7uNAHiM="
+      "lastPushDirHash": "AOseOy3jKmIKCAqjyJcRZ2VhHwQ="
     }
   },
   "api": {
@@ -119,12 +119,12 @@
         "GraphQLAPIEndpointOutput": "https://hz42cxnj3bglxg7jzixqltzw3q.appsync-api.eu-west-1.amazonaws.com/graphql",
         "GraphQLAPIKeyOutput": "da2-q2mzetcza5hdzlvfgsgdku4usu"
       },
-      "lastPushTimeStamp": "2021-07-14T08:29:13.846Z",
+      "lastPushTimeStamp": "2021-07-19T11:09:44.562Z",
       "providerMetadata": {
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-infohoruswebapp-staging-60519-deployment/amplify-cfn-templates/api/cloudformation-template.json",
         "logicalId": "apiinfohoruswebapp"
       },
-      "lastPushDirHash": "bgg1wMOxs1mMIYtn7pPV2Whb20o="
+      "lastPushDirHash": "eGWtK4NOmsSLuIu5n2cBGZNoU3k="
     }
   },
   "storage": {
@@ -158,12 +158,12 @@
         "BucketName": "userdocumentsbucket60519-staging",
         "Region": "eu-west-1"
       },
-      "lastPushTimeStamp": "2021-07-14T08:29:13.846Z",
+      "lastPushTimeStamp": "2021-07-19T11:09:44.562Z",
       "providerMetadata": {
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-infohoruswebapp-staging-60519-deployment/amplify-cfn-templates/storage/s3-cloudformation-template.json",
         "logicalId": "storageuserDocuments"
       },
-      "lastPushDirHash": "oiPmDhny43piEO6XT4aI8I7hODA="
+      "lastPushDirHash": "zeLHfKyW5gH0jPHTAUBiYCFJjSw="
     }
   }
 }

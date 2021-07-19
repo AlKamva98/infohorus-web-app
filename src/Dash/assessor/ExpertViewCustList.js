@@ -1,14 +1,12 @@
 import React, { useState, useEffect} from 'react';
-//import {useTable} from 'react-table';
 import {Button, Container} from 'react-bootstrap'
 import { MDBDataTableV5 } from 'mdbreact';
 import {Link} from 'react-router-dom'
 import {COLUMNS} from "./columns.js";
-//import * as queries from '../graphql/queries'
-//import "./table.css"
-//import API from '@aws-amplify/api';
+import * as queries from '../../graphql/queries'
+import API from '@aws-amplify/api';
 
-export const ExpertViewCustList = () => {
+function ExpertViewCustList(){
  const [checkbox1, setCheckbox1] = useState('');
  const [datatable, setDatatable] = useState('');
  const [hasData, setHasData] = useState(false);
@@ -21,7 +19,7 @@ export const ExpertViewCustList = () => {
          listUsers().then(listOfUsers => {
             let data = {
                  columns: COLUMNS,
-                 rows: listOfUsers.data.listUsers.items
+                 rows: null
              }
              setDatatable(data);
          }).finally(()=>{
@@ -31,9 +29,9 @@ export const ExpertViewCustList = () => {
 
   async function listUsers() {
       try {
-          // var userslist = await API.graphql({query: queries.listUsers});
-          // console.log(userslist.data.listUsers.items);
-          // return userslist;
+           var userslist = await API.graphql({query: queries.listUsers});
+          console.log(userslist.data.listUsers.items);
+          return userslist;
       } catch (err) {
           console.log("Error:>> ", err);
       }
@@ -64,3 +62,4 @@ export const ExpertViewCustList = () => {
     </>
   );}
  
+  export default ExpertViewCustList; 
