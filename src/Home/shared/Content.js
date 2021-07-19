@@ -12,7 +12,6 @@ const Content = () => {
   return (
     <div className="bg-white w-full">
     <CContainer lg>
-      <Suspense fallback={<CSpinner color="primary" />}>
         <Switch>
           {mainRoutes.map((route, idx) => {
             return (
@@ -33,7 +32,7 @@ const Content = () => {
           })}
           <Redirect from="/main" to='/main/index'/>
         </Switch>
-      </Suspense>
+      
     </CContainer>
                 </div>
   )
