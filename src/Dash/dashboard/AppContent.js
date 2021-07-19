@@ -7,7 +7,7 @@ import {routes} from '../../routes'
 
 const AppContent = () => {
   return (
-    <CContainer lg>
+    <CContainer lg className="w-full">
         <Switch>
           {routes.map((route, idx) => {
             return (

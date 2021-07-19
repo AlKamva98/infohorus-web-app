@@ -1,9 +1,8 @@
 import React from "react";
-import {Container} from 'react-bootstrap';
 
  function Features(){
  return(
-  <Container >
+  
        <section className="py-20 bg-white">
         <div className="container max-w-6xl mx-auto">
           <h2 className="text-4xl font-bold tracking-tight text-center">Features</h2>
@@ -54,8 +53,7 @@ import {Container} from 'react-bootstrap';
           </div>
         </div>
       </section>
-    </Container>
- )
+   )
  }
  
 export default Features;

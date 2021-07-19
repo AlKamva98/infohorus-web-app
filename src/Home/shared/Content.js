@@ -1,6 +1,6 @@
 import React from 'react'
 import { Redirect, Route, Switch } from 'react-router-dom'
-import { CContainer } from '@coreui/react'
+
 
 // routes config
 import {mainRoutes} from '../../routes'
@@ -10,7 +10,7 @@ const Content = () => {
  
   return (
     
-    <CContainer lg>
+    <div className="w-full">
         <Switch>
           {mainRoutes.map((route, idx) => {
             return (
@@ -31,7 +31,7 @@ const Content = () => {
           })}
           <Redirect from="/main" to='/main/index'/>
         </Switch> 
-    </CContainer>
+    </div>
   )
 }
 

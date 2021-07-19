@@ -6,7 +6,7 @@ const MainLayout = () => {
     <div>
       <div className="wrapper d-flex flex-column min-vh-100 bg-light">
         <Header signedIn={false} show={true} signOut= {()=>{console.log("Signing Out!!!")}} />
-        <div className="body flex-grow-1 px-3">
+        <div className="w-screen">
           <Content />
         </div>
         <Footer />
