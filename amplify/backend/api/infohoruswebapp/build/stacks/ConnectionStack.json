@@ -86,6 +86,225 @@
         }
     },
     "Resources": {
+        "AssessorReportAssessorResolver": {
+            "Type": "AWS::AppSync::Resolver",
+            "Properties": {
+                "ApiId": {
+                    "Ref": "GetAttGraphQLAPIApiId"
+                },
+                "DataSourceName": {
+                    "Fn::ImportValue": {
+                        "Fn::Join": [
+                            ":",
+                            [
+                                {
+                                    "Ref": "AppSyncApiId"
+                                },
+                                "GetAtt",
+                                "AssessorDataSource",
+                                "Name"
+                            ]
+                        ]
+                    }
+                },
+                "FieldName": "Assessor",
+                "TypeName": "AssessorReport",
+                "RequestMappingTemplateS3Location": {
+                    "Fn::Sub": [
+                        "s3://${S3DeploymentBucket}/${S3DeploymentRootKey}/resolvers/${ResolverFileName}",
+                        {
+                            "S3DeploymentBucket": {
+                                "Ref": "S3DeploymentBucket"
+                            },
+                            "S3DeploymentRootKey": {
+                                "Ref": "S3DeploymentRootKey"
+                            },
+                            "ResolverFileName": {
+                                "Fn::Join": [
+                                    ".",
+                                    [
+                                        "AssessorReport",
+                                        "Assessor",
+                                        "req",
+                                        "vtl"
+                                    ]
+                                ]
+                            }
+                        }
+                    ]
+                },
+                "ResponseMappingTemplateS3Location": {
+                    "Fn::Sub": [
+                        "s3://${S3DeploymentBucket}/${S3DeploymentRootKey}/resolvers/${ResolverFileName}",
+                        {
+                            "S3DeploymentBucket": {
+                                "Ref": "S3DeploymentBucket"
+                            },
+                            "S3DeploymentRootKey": {
+                                "Ref": "S3DeploymentRootKey"
+                            },
+                            "ResolverFileName": {
+                                "Fn::Join": [
+                                    ".",
+                                    [
+                                        "AssessorReport",
+                                        "Assessor",
+                                        "res",
+                                        "vtl"
+                                    ]
+                                ]
+                            }
+                        }
+                    ]
+                }
+            }
+        },
+        "AssessorReportQuestionnaireQuestionAnswersResolver": {
+            "Type": "AWS::AppSync::Resolver",
+            "Properties": {
+                "ApiId": {
+                    "Ref": "GetAttGraphQLAPIApiId"
+                },
+                "DataSourceName": {
+                    "Fn::ImportValue": {
+                        "Fn::Join": [
+                            ":",
+                            [
+                                {
+                                    "Ref": "AppSyncApiId"
+                                },
+                                "GetAtt",
+                                "QuestionnaireQuestionAnswerDataSource",
+                                "Name"
+                            ]
+                        ]
+                    }
+                },
+                "FieldName": "QuestionnaireQuestionAnswers",
+                "TypeName": "AssessorReport",
+                "RequestMappingTemplateS3Location": {
+                    "Fn::Sub": [
+                        "s3://${S3DeploymentBucket}/${S3DeploymentRootKey}/resolvers/${ResolverFileName}",
+                        {
+                            "S3DeploymentBucket": {
+                                "Ref": "S3DeploymentBucket"
+                            },
+                            "S3DeploymentRootKey": {
+                                "Ref": "S3DeploymentRootKey"
+                            },
+                            "ResolverFileName": {
+                                "Fn::Join": [
+                                    ".",
+                                    [
+                                        "AssessorReport",
+                                        "QuestionnaireQuestionAnswers",
+                                        "req",
+                                        "vtl"
+                                    ]
+                                ]
+                            }
+                        }
+                    ]
+                },
+                "ResponseMappingTemplateS3Location": {
+                    "Fn::Sub": [
+                        "s3://${S3DeploymentBucket}/${S3DeploymentRootKey}/resolvers/${ResolverFileName}",
+                        {
+                            "S3DeploymentBucket": {
+                                "Ref": "S3DeploymentBucket"
+                            },
+                            "S3DeploymentRootKey": {
+                                "Ref": "S3DeploymentRootKey"
+                            },
+                            "ResolverFileName": {
+                                "Fn::Join": [
+                                    ".",
+                                    [
+                                        "AssessorReport",
+                                        "QuestionnaireQuestionAnswers",
+                                        "res",
+                                        "vtl"
+                                    ]
+                                ]
+                            }
+                        }
+                    ]
+                }
+            }
+        },
+        "AssessorAssessorReportsResolver": {
+            "Type": "AWS::AppSync::Resolver",
+            "Properties": {
+                "ApiId": {
+                    "Ref": "GetAttGraphQLAPIApiId"
+                },
+                "DataSourceName": {
+                    "Fn::ImportValue": {
+                        "Fn::Join": [
+                            ":",
+                            [
+                                {
+                                    "Ref": "AppSyncApiId"
+                                },
+                                "GetAtt",
+                                "AssessorReportDataSource",
+                                "Name"
+                            ]
+                        ]
+                    }
+                },
+                "FieldName": "AssessorReports",
+                "TypeName": "Assessor",
+                "RequestMappingTemplateS3Location": {
+                    "Fn::Sub": [
+                        "s3://${S3DeploymentBucket}/${S3DeploymentRootKey}/resolvers/${ResolverFileName}",
+                        {
+                            "S3DeploymentBucket": {
+                                "Ref": "S3DeploymentBucket"
+                            },
+                            "S3DeploymentRootKey": {
+                                "Ref": "S3DeploymentRootKey"
+                            },
+                            "ResolverFileName": {
+                                "Fn::Join": [
+                                    ".",
+                                    [
+                                        "Assessor",
+                                        "AssessorReports",
+                                        "req",
+                                        "vtl"
+                                    ]
+                                ]
+                            }
+                        }
+                    ]
+                },
+                "ResponseMappingTemplateS3Location": {
+                    "Fn::Sub": [
+                        "s3://${S3DeploymentBucket}/${S3DeploymentRootKey}/resolvers/${ResolverFileName}",
+                        {
+                            "S3DeploymentBucket": {
+                                "Ref": "S3DeploymentBucket"
+                            },
+                            "S3DeploymentRootKey": {
+                                "Ref": "S3DeploymentRootKey"
+                            },
+                            "ResolverFileName": {
+                                "Fn::Join": [
+                                    ".",
+                                    [
+                                        "Assessor",
+                                        "AssessorReports",
+                                        "res",
+                                        "vtl"
+                                    ]
+                                ]
+                            }
+                        }
+                    ]
+                }
+            }
+        },
         "QuestionnaireQuestionAnswerAnswersResolver": {
             "Type": "AWS::AppSync::Resolver",
             "Properties": {

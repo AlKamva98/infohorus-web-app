@@ -4,6 +4,28 @@ import { ModelInit, MutableModel, PersistentModelConstructor } from "@aws-amplif
 
 
 
+export declare class AssessorReport {
+  readonly id: string;
+  readonly assrssorComment?: string;
+  readonly assessmentResult?: string;
+  readonly Assessor?: Assessor;
+  readonly assessorID?: string;
+  readonly QuestionnaireQuestionAnswers?: (QuestionnaireQuestionAnswer | null)[];
+  constructor(init: ModelInit<AssessorReport>);
+  static copyOf(source: AssessorReport, mutator: (draft: MutableModel<AssessorReport>) => MutableModel<AssessorReport> | void): AssessorReport;
+}
+
+export declare class Assessor {
+  readonly id: string;
+  readonly first_name?: string;
+  readonly last_name?: string;
+  readonly email?: string;
+  readonly numAssessed?: string;
+  readonly AssessorReports?: (AssessorReport | null)[];
+  constructor(init: ModelInit<Assessor>);
+  static copyOf(source: Assessor, mutator: (draft: MutableModel<Assessor>) => MutableModel<Assessor> | void): Assessor;
+}
+
 export declare class QuestionnaireQuestionAnswer {
   readonly id: string;
   readonly questionID?: string;
@@ -12,6 +34,7 @@ export declare class QuestionnaireQuestionAnswer {
   readonly Answers?: (Answer | null)[];
   readonly Questions?: (Question | null)[];
   readonly Questionnaire?: Questionnaire;
+  readonly assessorreportID?: string;
   constructor(init: ModelInit<QuestionnaireQuestionAnswer>);
   static copyOf(source: QuestionnaireQuestionAnswer, mutator: (draft: MutableModel<QuestionnaireQuestionAnswer>) => MutableModel<QuestionnaireQuestionAnswer> | void): QuestionnaireQuestionAnswer;
 }

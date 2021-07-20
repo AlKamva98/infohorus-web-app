@@ -4,9 +4,11 @@ import { schema } from './schema';
 
 
 
-const { QuestionnaireQuestionAnswer, Answer, Question, Questionnaire, User, File } = initSchema(schema);
+const { AssessorReport, Assessor, QuestionnaireQuestionAnswer, Answer, Question, Questionnaire, User, File } = initSchema(schema);
 
 export {
+  AssessorReport,
+  Assessor,
   QuestionnaireQuestionAnswer,
   Answer,
   Question,

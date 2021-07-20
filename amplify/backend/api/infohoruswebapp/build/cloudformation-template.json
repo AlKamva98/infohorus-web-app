@@ -172,6 +172,17 @@
                 "AdditionalAuthenticationProviders": [
                     {
                         "AuthenticationType": "AWS_IAM"
+                    },
+                    {
+                        "AuthenticationType": "AMAZON_COGNITO_USER_POOLS",
+                        "UserPoolConfig": {
+                            "UserPoolId": {
+                                "Ref": "AuthCognitoUserPoolId"
+                            },
+                            "AwsRegion": {
+                                "Ref": "AWS::Region"
+                            }
+                        }
                     }
                 ]
             }
@@ -192,7 +203,7 @@
                         {
                             "Ref": "APIKeyExpirationEpoch"
                         },
-                        1629284780
+                        1629014811
                     ]
                 }
             },
@@ -234,6 +245,156 @@
                     ]
                 }
             }
+        },
+        "AssessorReport": {
+            "Type": "AWS::CloudFormation::Stack",
+            "Properties": {
+                "Parameters": {
+                    "AppSyncApiId": {
+                        "Fn::GetAtt": [
+                            "GraphQLAPI",
+                            "ApiId"
+                        ]
+                    },
+                    "DynamoDBModelTableReadIOPS": {
+                        "Ref": "DynamoDBModelTableReadIOPS"
+                    },
+                    "DynamoDBModelTableWriteIOPS": {
+                        "Ref": "DynamoDBModelTableWriteIOPS"
+                    },
+                    "DynamoDBBillingMode": {
+                        "Ref": "DynamoDBBillingMode"
+                    },
+                    "DynamoDBEnablePointInTimeRecovery": {
+                        "Ref": "DynamoDBEnablePointInTimeRecovery"
+                    },
+                    "DynamoDBEnableServerSideEncryption": {
+                        "Ref": "DynamoDBEnableServerSideEncryption"
+                    },
+                    "AppSyncApiName": {
+                        "Ref": "AppSyncApiName"
+                    },
+                    "APIKeyExpirationEpoch": {
+                        "Ref": "APIKeyExpirationEpoch"
+                    },
+                    "CreateAPIKey": {
+                        "Ref": "CreateAPIKey"
+                    },
+                    "AuthCognitoUserPoolId": {
+                        "Ref": "AuthCognitoUserPoolId"
+                    },
+                    "env": {
+                        "Ref": "env"
+                    },
+                    "S3DeploymentBucket": {
+                        "Ref": "S3DeploymentBucket"
+                    },
+                    "S3DeploymentRootKey": {
+                        "Ref": "S3DeploymentRootKey"
+                    },
+                    "GetAttGraphQLAPIApiId": {
+                        "Fn::GetAtt": [
+                            "GraphQLAPI",
+                            "ApiId"
+                        ]
+                    }
+                },
+                "TemplateURL": {
+                    "Fn::Join": [
+                        "/",
+                        [
+                            "https://s3.amazonaws.com",
+                            {
+                                "Ref": "S3DeploymentBucket"
+                            },
+                            {
+                                "Ref": "S3DeploymentRootKey"
+                            },
+                            "stacks",
+                            "AssessorReport.json"
+                        ]
+                    ]
+                }
+            },
+            "DependsOn": [
+                "GraphQLSchema",
+                "NoneDataSource"
+            ]
+        },
+        "Assessor": {
+            "Type": "AWS::CloudFormation::Stack",
+            "Properties": {
+                "Parameters": {
+                    "AppSyncApiId": {
+                        "Fn::GetAtt": [
+                            "GraphQLAPI",
+                            "ApiId"
+                        ]
+                    },
+                    "DynamoDBModelTableReadIOPS": {
+                        "Ref": "DynamoDBModelTableReadIOPS"
+                    },
+                    "DynamoDBModelTableWriteIOPS": {
+                        "Ref": "DynamoDBModelTableWriteIOPS"
+                    },
+                    "DynamoDBBillingMode": {
+                        "Ref": "DynamoDBBillingMode"
+                    },
+                    "DynamoDBEnablePointInTimeRecovery": {
+                        "Ref": "DynamoDBEnablePointInTimeRecovery"
+                    },
+                    "DynamoDBEnableServerSideEncryption": {
+                        "Ref": "DynamoDBEnableServerSideEncryption"
+                    },
+                    "AppSyncApiName": {
+                        "Ref": "AppSyncApiName"
+                    },
+                    "APIKeyExpirationEpoch": {
+                        "Ref": "APIKeyExpirationEpoch"
+                    },
+                    "CreateAPIKey": {
+                        "Ref": "CreateAPIKey"
+                    },
+                    "AuthCognitoUserPoolId": {
+                        "Ref": "AuthCognitoUserPoolId"
+                    },
+                    "env": {
+                        "Ref": "env"
+                    },
+                    "S3DeploymentBucket": {
+                        "Ref": "S3DeploymentBucket"
+                    },
+                    "S3DeploymentRootKey": {
+                        "Ref": "S3DeploymentRootKey"
+                    },
+                    "GetAttGraphQLAPIApiId": {
+                        "Fn::GetAtt": [
+                            "GraphQLAPI",
+                            "ApiId"
+                        ]
+                    }
+                },
+                "TemplateURL": {
+                    "Fn::Join": [
+                        "/",
+                        [
+                            "https://s3.amazonaws.com",
+                            {
+                                "Ref": "S3DeploymentBucket"
+                            },
+                            {
+                                "Ref": "S3DeploymentRootKey"
+                            },
+                            "stacks",
+                            "Assessor.json"
+                        ]
+                    ]
+                }
+            },
+            "DependsOn": [
+                "GraphQLSchema",
+                "NoneDataSource"
+            ]
         },
         "QuestionnaireQuestionAnswer": {
             "Type": "AWS::CloudFormation::Stack",
@@ -758,10 +919,12 @@
             "DependsOn": [
                 "GraphQLSchema",
                 "NoneDataSource",
+                "Assessor",
+                "QuestionnaireQuestionAnswer",
+                "AssessorReport",
                 "Answer",
                 "Question",
                 "Questionnaire",
-                "QuestionnaireQuestionAnswer",
                 "User"
             ]
         },
@@ -808,6 +971,8 @@
             "DependsOn": [
                 "GraphQLAPI",
                 "GraphQLSchema",
+                "AssessorReport",
+                "Assessor",
                 "QuestionnaireQuestionAnswer",
                 "Answer",
                 "Question",

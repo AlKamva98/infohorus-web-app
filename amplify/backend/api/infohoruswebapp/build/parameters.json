@@ -3,6 +3,12 @@
     "AppSyncApiName": "infohoruswebapp",
     "DynamoDBBillingMode": "PAY_PER_REQUEST",
     "DynamoDBEnableServerSideEncryption": false,
-    "S3DeploymentBucket": "amplify-infohoruswebapp-staging-60519-deployment",
-    "S3DeploymentRootKey": "amplify-appsync-files/289d07b2cce260926dcc92b90ea55c1089acfaac"
+    "AuthCognitoUserPoolId": {
+        "Fn::GetAtt": [
+            "authinfohorusauth",
+            "Outputs.UserPoolId"
+        ]
+    },
+    "S3DeploymentBucket": "amplify-infohoruswebapp-main-91614-deployment",
+    "S3DeploymentRootKey": "amplify-appsync-files/3eada05a819e437df2594cd930b6ad41637332dd"
 }
