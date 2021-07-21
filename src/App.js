@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import Layouts from './Layouts'
+import Amplify from 'aws-amplify';
 import './Dash/scss/style.scss'
 
 // Pages
@@ -30,5 +31,6 @@ class App extends Component {
     )
   }
 }
+  Amplify.Logger.LOG_LEVEL = "DEBUG";
 
 export default React.memo(App)

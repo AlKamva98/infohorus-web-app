@@ -1,4 +1,4 @@
-import React,{useState, useEffect, Suspense} from 'react'
+import React,{useState, useEffect} from 'react'
 import { Link, Redirect } from 'react-router-dom'
 import {Auth} from 'aws-amplify';
 import {
@@ -51,19 +51,15 @@ const Login = (props) => {
  async function handleSignIn(){
     try{
         const {email, password} = formState
-       // await Auth.signIn(email, password)   
+        await Auth.signIn(email, password)   
         updateFormState(()=>({...formState, formType: "signedIn"}))
         console.log("Logged in", email)
         console.log("Logged in", password)
-        return(
-          <Suspense fallback={<CSpinner color="primary" className="mx-auto my-auto" />}>
-            <Redirect to="/"/>
-          </Suspense>
-        )
+      
         }catch(err){
             //signinFailMsg = err;
             toggle();
-            console.log("Sign in Error: "+ JSON.stringify(err));
+            console.log("Sign in Error: ",err);
        }
 }
 
