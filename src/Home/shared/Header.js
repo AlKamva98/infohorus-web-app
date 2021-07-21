@@ -26,7 +26,7 @@ import logo from '../assets/mainlogo.png'
             <div className="relative z-10 inline-flex  items-center space-x-3 md:ml-5 lg:justify-end">
             
             <span className="inline-flex">
-              {signedIn ?(<Link to="/" onClick={signOut} className="inline-flex items-center font-semibold justify-center btn px-4 py-2 text-gray-600 bg-gray-100 border border-gray-100 text-lg leading-6 whitespace-no-wrap rounded-md shadow-sm hover:bg-gray-600 hover:text-white ">Sign Out</Link>):(<Link to="/signIn" className="inline-flex items-center justify-center px-4 py-2 text-lg leading-6 btn text-gray-600 whitespace-no-wrap bg-gray-100 font-semibold border border-gray-200 rounded-md shadow-sm hover:bg-gray-600 hover:text-white focus:outline-none focus:shadow-none">
+              {signedIn ?(<Link to="/" onClick={signOut} className="inline-flex items-center font-semibold justify-center btn px-4 py-2 text-gray-600 bg-gray-100 border border-gray-100 text-lg leading-6 whitespace-no-wrap rounded-md shadow-sm hover:bg-gray-600 hover:text-white ">Sign Out</Link>):(<Link to="/login" className="inline-flex items-center justify-center px-4 py-2 text-lg leading-6 btn text-gray-600 whitespace-no-wrap bg-gray-100 font-semibold border border-gray-200 rounded-md shadow-sm hover:bg-gray-600 hover:text-white focus:outline-none focus:shadow-none">
               Sign In
               </Link>)}
             </span>

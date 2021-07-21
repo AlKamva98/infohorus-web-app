@@ -70,7 +70,8 @@ const Login = (props) => {
 
   return (
     <div className="bg-light min-vh-100 d-flex flex-row align-items-center">
-      <CContainer>
+    {formType === "signIn" &&
+      (<CContainer>
         <CRow className="justify-content-center">
           <CCol md="8">
             <CCardGroup>
@@ -134,7 +135,9 @@ const Login = (props) => {
             </CCardGroup>
           </CCol>
         </CRow>
-      </CContainer>
+      </CContainer>)}
+      {formType==="signedIn" &&
+      (<Redirect to="/dash" />)}
     </div>
   )
 }

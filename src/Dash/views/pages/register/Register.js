@@ -31,6 +31,8 @@ function Register(props) {
   const [modalErrPop, setModalErrPop] = useState(false);
   const toggleErrPop = () => setModalErrPop(!modalErrPop);
   const [formState, updateFormState] = useState(initialFormState);
+  var errTitle;
+  var errMess;
     const [user, setUser] = useState(null);
     useEffect(()=>{
     checkUser();
@@ -74,7 +76,9 @@ function Register(props) {
     }
       catch(err){
         console.log("API err:", err )
-        errPop(err)
+        errTitle = err.code;
+        errMess = err.message;
+        toggleErrPop();
       }
     };
     let {formType}= formState;
@@ -84,15 +88,6 @@ function Register(props) {
         updateFormState(()=>({...formState, [e.target.name]: e.target.value}))
       }
       
-      function errPop(err){
-        toggleErrPop()
-        return(<PopUp isOpen={modalErrPop} 
-               btnTxtPositive="Retry" 
-               title={err.code} 
-               body={err.message} 
-               toggle={toggleErrPop} 
-               className={className}/>)
-      }
       async function checkUser(){
         try{
           const user = await Auth.currentAuthenticatedUser();
@@ -216,6 +211,12 @@ function Register(props) {
                 <input type="checkbox" value="newsletter"/>   Yes, I would like to receive marketing communications regarding Bahati Tech products, services, and events. I can unsubscribe at a later time.</span>
             <Button type="submit" className="w-100 my-3 text-lg text-white fw-semibold py-3 bg-blue-700  hover:bg-blue-500 focus:bg-blue-600 focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50"  >REGISTER</Button>
             </FormGroup>
+            <PopUp isOpen={modalErrPop} 
+               btnTxtPositive="Retry" 
+               title={errTitle} 
+               body={errMess} 
+               toggle={toggleErrPop} 
+               className={className}/>
                {/* 
         <FormGroup className="col-md-6">
             <Label for="fname" className="visually-hidden" >First name</Label>

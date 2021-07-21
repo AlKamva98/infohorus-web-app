@@ -17,9 +17,10 @@ function ExpertViewCustList(){
  
     useEffect(() => {
          listUsers().then(listOfUsers => {
-            let data = {
+           console.log(listOfUsers)  
+          let data = {
                  columns: COLUMNS,
-                 rows: null
+                 rows: listOfUsers.data.listUsers.items
              }
              setDatatable(data);
          }).finally(()=>{
