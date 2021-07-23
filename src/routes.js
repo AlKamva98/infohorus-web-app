@@ -62,7 +62,7 @@ const routes = [
   { path: '/dash/theme', name: 'Theme', component: Colors, exact: true },
   { path: '/dash/theme/colors', name: 'Colors', component: Colors, exact: true },
   { path: '/dash/theme/typography', name: 'Typography', component: Typography, exact: true },
-  { path: '/dash/cust', name: 'Base', component: CustList, exact: true },
+  { path: '/dash/cust', name: 'Customer List', component: CustList, exact: true },
   { path: '/dash/assess', name: 'Assess', component: Assess, exact: true },
   { path: '/dash/base/accordion', name: 'Accordion', component: Accordion, exact: true },
   { path: '/dash/base/breadcrumbs', name: 'Breadcrumbs', component: Breadcrumbs, exact: true },

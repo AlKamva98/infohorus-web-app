@@ -55,7 +55,7 @@ function ExpertViewCustList(){
           showLogs2(e);}}
           />
     </div>
-    <Link to= {{pathname: "/expertview/assess" ,state: checkbox1}}><Button className= "ml-5 mb-5"  type="submit">Assess</Button></Link>
+    <Link to= {{pathname: "/dash/assess" ,state: checkbox1}}><Button className= "ml-5 mb-5"  type="submit">Assess</Button></Link>
    <div>
       {checkbox1 && <p>{JSON.stringify(delete checkbox1.checkbox && checkbox1.first_name)}</p>}
     </div>

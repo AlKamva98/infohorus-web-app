@@ -79,7 +79,7 @@ const Login = (props) => {
                 <CCardBody>
                   <CForm>
                     <div className=" mb-4">
-    <img className=" d-block mx-auto img-fluid" src={logo} alt="Our logo" width="40" height="40"/>
+    <img className=" d-block mx-auto img-fluid" src="./images/fav-logo.png" alt="Our logo" width="40" height="40"/>
               <h4 className="w-full mr-2 text-2xl text-center font-extrabold">Sign In</h4>
 </div> 
                     <p className="text-medium-emphasis">Sign In to your account</p>

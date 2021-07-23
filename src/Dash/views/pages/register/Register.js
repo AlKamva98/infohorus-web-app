@@ -130,7 +130,7 @@ function Register(props) {
 
         <FormGroup className="col-md-6">
             <Label for="lname" className="visually-hidden" >Last name</Label>
-            <Input type="text" {...register("lname" )} className="form-control" onChange={onChange} name="fname" placeholder="Last Name" rules={{ required: "Please fill in your Last Name"}} autofocus/> 
+            <Input type="text" {...register("lname" )} className="form-control" onChange={onChange} name="lname" placeholder="Last Name" rules={{ required: "Please fill in your Last Name"}} autofocus/> 
 </FormGroup>
             
             <FormGroup className="col-12">

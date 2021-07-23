@@ -7,14 +7,15 @@ import React,{useState} from 'react';
 import ReCAPTCHA from "react-google-recaptcha"; 
 import {PopUp} from '../../shared/utils/Modal'
 import {Link} from 'react-router-dom';
-// import * as queries from '../../graphql/queries'
-// import { Amplify, API, Auth, Storage, graphqlOperation } from 'aws-amplify';
-// const awsConfig = require('../../aws-exports').default;
+import {sendEmail} from '../../shared/functions/AwsFuncs'
+import * as queries from '../../../graphql/queries'
+import { Amplify, API, Auth, Storage, graphqlOperation } from 'aws-amplify';
+const awsConfig = require('../../../aws-exports').default;
 
-// Amplify.register(API)
-// Amplify.register(Storage)
-// Amplify.register(Auth)
-// Amplify.configure(awsConfig)
+Amplify.register(API)
+Amplify.register(Storage)
+Amplify.register(Auth)
+Amplify.configure(awsConfig)
 
 
  function Demo() {
@@ -24,10 +25,11 @@ import {Link} from 'react-router-dom';
     const { register, handleSubmit, reset, formState: { errors }, control } = useForm();
     const handleRegistration = async (data) =>{ 
       try{
-      // getCreds().then((uCred)=>{
-      //   sendEmail(data, uCred);
-      //   reset({email:"", fname:"", country:"",organisation:"", jobtitle:"",phone:"",marketing:""});
-      //})
+      getCreds().then((uCred)=>{
+        sendEmail("Demo",data, uCred);
+        toggle();
+        reset({email:"", fname:"", country:"",organisation:"", jobtitle:"",phone:"",marketing:""});
+      })
       console.log("This is the users data:"+JSON.stringify(data));
       console.log("Data sent to the API");
       }
@@ -36,77 +38,14 @@ import {Link} from 'react-router-dom';
       }
    };
 
-    // async function getCreds(){
-    //   let cred  = await API.graphql(graphqlOperation(queries.getUser, { id: 'ak100' }));
-    //   return cred;
-    // }
-
-    function onChange(value) {
-      console.log("Captcha value:", value);
-      setVerified(true);
+   function onChange(value) {
+     console.log("Captcha value:", value);
+     setVerified(true);
+   }
+    async function getCreds(){
+      let cred  = await API.graphql(graphqlOperation(queries.getUser, { id: 'ak100' }));
+      return cred;
     }
-
-// function sendEmail(data, uCred) {
-//      const AWS = require("aws-sdk");
-//         const cred = new AWS.Credentials({
-//             accessKeyId: uCred.data.getUser.first_name,
-//             secretAccessKey: uCred.data.getUser.last_name,
-//             sessionToken: null
-//         });
-//
-//         AWS.config.update({
-//             credentials: cred,
-//             region: 'eu-west-1',
-//             endpoint: 'email.eu-west-1.amazonaws.com'
-//         });
-
-//         // Create sendEmail params
-//         var params = {
-//             Destination: {
-//                 ToAddresses: [
-//                     "hello@bahatitech.co.za",
-//                     /* more items */
-//                 ]
-//             },
-//             Message: { /* required */
-//                 Body: { /* required */
-//                     Html: {
-//                         Charset: "UTF-8",
-//                         Data: `<h3>Hi my name is  ${data.fname}!</h3><br/>\n` +
-//                             `<p>I would like to schedule a demo of infohorus. Here are my details:</p>` +
-//                             `<p>Email: ${data.email}</p>` +
-//                             `<p>Job Title: ${data.jobtitle}</p>` +
-//                             `<p>Company: ${data.organisation}</p>` +
-//                             `<p>Phone: ${data.phone}</p>` +
-//                             `<p>I will be waiting for you to contact me.</p>` +
-//                             `<p></p><br/>\n` +
-//                             `<p>Kind Regards,</p>\n`
-//                     }
-//                 },
-//                 Subject: {
-//                     Charset: 'UTF-8',
-//                     Data: 'Demo Request'
-//                 }
-//             },
-//             Source: "hello@bahatitech.co.za", /* required */
-//             ReplyToAddresses: [
-//                 "hello@bahatitech.co.za",
-//                 /* more items */
-//             ],
-//         };
-
-//         const sendPromise = new AWS.SES({apiVersion: '2010-12-01'}).sendEmail(params).promise();
-
-// // Handle promise's fulfilled/rejected states
-//         sendPromise.then(
-//             function (data) {
-//                 toggle();
-//             }).catch(
-//             function (err) {
-//                 console.error(err, err.stack);
-//             });
-
-//     }
 
   return (
   <>

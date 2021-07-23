@@ -1,17 +1,18 @@
 import React,{useState} from 'react';
 import {Input} from "reactstrap";
-//import {Amplify, API, Auth, graphqlOperation, Storage } from 'aws-amplify';
 import {PopUp} from '../../shared/utils/Modal.js'
 import { ErrorMessage } from "@hookform/error-message";
 import ReCAPTCHA from "react-google-recaptcha"; 
 import { useForm, Controller } from "react-hook-form";
-//import sendEmail from '../../shared/utils/sendEmail'
-// const awsConfig = require('../../aws-exports').default;
+import * as queries from '../../../graphql/queries'
+import {Amplify, API, Auth, graphqlOperation, Storage } from 'aws-amplify';
+import {sendEmail} from '../../shared/functions/AwsFuncs'
+const awsConfig = require('../../../aws-exports').default;
 
-// Amplify.register(API)
-// Amplify.register(Storage)
-// Amplify.register(Auth)
-// Amplify.configure(awsConfig)
+Amplify.register(API)
+Amplify.register(Storage)
+Amplify.register(Auth)
+Amplify.configure(awsConfig)
 
 function Contact(){
   
@@ -22,10 +23,11 @@ function Contact(){
   const { register, handleSubmit,reset, formState: { errors }, control } = useForm();
   const onSubmit = async (data) =>{    
     try{
-      // getCreds().then((uCred)=>{
-      //   sendEmail(data, uCred);
-      //   reset({fname:"", email:"", phone:"", taMessage:""  });
-      // })
+      getCreds().then((uCred)=>{
+        sendEmail("Contact",data, uCred);
+        toggle();
+        reset({fname:"", email:"", phone:"", taMessage:""  });
+      })
       console.log("This is the users data:"+JSON.stringify(data));
       console.log("Data sent to the API");
     }
@@ -35,10 +37,10 @@ function Contact(){
     };
     
 
-    // async function getCreds(){
-    //   let cred  = await API.graphql(graphqlOperation(queries.getUser, { id: 'ak100' }));
-    //   return cred;
-    // }
+    async function getCreds(){
+      let cred  = await API.graphql(graphqlOperation(queries.getUser, { id: 'ak100' }));
+      return cred;
+    }
     
     function onChange(value) {
       console.log("Captcha value:", value);

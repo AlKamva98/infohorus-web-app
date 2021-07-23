@@ -1,6 +1,5 @@
 import React from 'react';
 import {Link} from 'react-router-dom'
-import home from '../../assets/home.gif';
 
 function HeroHome(props) {
   const {signedIn} = props;
@@ -32,7 +31,7 @@ function HeroHome(props) {
             </div>
             <div className="w-full md:w-1/2">
               <div className="w-full h-auto overflow-hidden rounded-md shadow-xl sm:rounded-xl">
-                <img src={home} alt="home image" />
+                <img src="\images\home.gif" alt="home gif" />
               </div>
             </div>
           </div>
