@@ -1,6 +1,8 @@
 import React, {useState, useEffect} from 'react';
-import { MDBDataTableV5 } from 'mdbreact';
-import { AnsCOLUMNS } from "./anscolumns.js";
+import Select  from 'react-select';
+import {Input} from "reactstrap";
+import {PopUp} from '../../Home/shared/utils/Modal.js'
+import { useForm, Controller } from "react-hook-form";
 import {Button, Container} from 'react-bootstrap'
 import * as queries from "../../graphql/queries"
 import {Storage } from 'aws-amplify';
@@ -11,8 +13,17 @@ import API from '@aws-amplify/api'
 function ExpertViewAssess (props){
 const { state } = props.location;
 const [checkbox1, setCheckbox1] = useState('');
-const [datatable, setDatatable] = useState('');
+const [modal, setModal] = useState(false);
+  const toggle = () => setModal(!modal);
 const [hasAnswers, setHasAnswers] = useState(false)
+const [Answers, setAnswers] = useState()
+const { register, handleSubmit,reset, formState: { errors }, control } = useForm();
+const selectOptionsAss = [
+     {value: "Yes", label: "Yes"},
+      {value: "No", label: "No"},]  
+const onSubmit = async (data) =>{    
+
+  }
 
 let questionnaire;
 let answers =[];
@@ -23,14 +34,52 @@ const handleCheckBox = (e) => {
  let data;
 useEffect(()=>{
      getAnswersbyQuestionnaire().then(answerData =>{
-        data = {
-                 columns: AnsCOLUMNS,
-                 rows: answerData
-             }
-             console.log("answer data is::::", data);
-             setDatatable(data)
+        console.log("answer data is::::", answerData);
+        answerData.sort((a,b) => (a.questionID > b.questionID) ? 1 : ((b.questionID > a.questionID) ? -1 : 0))
+        console.log("answer data sorted is::::", answerData);
+        setAnswers(answerData.map(val => {
+          const isDoc = val.answer.endsWith(".pdf");
+          return(
+          <>
+          <form onSubmit={handleSubmit(onSubmit)} className="mb-4">
+          <div className="flex flex-col mb-4">
+            <h3 className="text-2xl font-bold text-gray-900">{val.qnum}</h3>
+            <p className="text-xl font-semibold text-gray-900">Question type: {val.qname}</p>
+            <p className="text-xl font-semibold text-gray-900">Q: {val.question}</p>
+            <span className="text-xl font-semibold text-gray-900">A:{!isDoc ? (val.answer): <a href="#" class="text-decoration-none" onSubmit={downloadDocument(val.answer)}>{val.answer}</a> }</span>
+            </div>
+            <div>
+            <div className="relative">
+            <Controller name="assAns"   control={control} render={({ field }) => (
+              <Select placeholder="Assessor's Answer" className="block w-60  mt-2 text-xl placeholder-gray-400  rounded-lg focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50" options={selectOptionsAss} {...field}>
+                </Select>
+            )}   {...register("assAns")}  rules={{ required: "Please Select your Answer"}} />
+            </div>
+            <div className="relative">
+          <Controller control={control} render={({ field }) => (
+          <Input type="textarea" rows="4" className=" w-full inline-block px-4 py-4 mt-2 text-xl placeholder-gray-400 bg-gray-200 rounded-lg focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50" 
+          placeholder="Assessor's Comments" 
+          {...field} />
+          )} name="taAssNotes" {...register("taAssNotes")} />
+			                     
+          </div>
+            </div>
+            <Button onSubmit={toggle} >submit</Button>
+            </form>
+            <PopUp
+              title="Assessment Report"
+              body="The question assessment has been recorded." 
+              btnTxtPositive="Okay"
+              bg="bg-contact"
+              toggle={toggle}
+              isOpen={modal}/>
+            </>
+          )
+        }));
+            setHasAnswers(true);
+            console.log("Has answers is::::", hasAnswers);
+            console.log(" answers is::::", Answers);
             }).finally(()=>{
-              setHasAnswers(true);
             })
      
 },[])
@@ -40,38 +89,45 @@ useEffect(()=>{
 
 async function getAnswersbyQuestionnaire(){
 
-  let questionnaires = await API.graphql({query: queries.listQuestionnaires});
-  let questionnairelist =questionnaires.data.listQuestionnaires.items;
-  for(let qnaire in questionnairelist) {
-  if(state.id === qnaire.userId){
-    console.log("The questionnaireId is::::", qnaire.id)
-    questionnaire = qnaire.id
+  let questionnaires = await API.graphql({query: queries.listQuestionnaires});//gets questionnaires
+  let questionnairelist =questionnaires.data.listQuestionnaires.items;//stores questionnaires into an array
+  let listanswers = await API.graphql({query: queries.listAnswers});// gets all the answers
+  let answerslist= listanswers.data.listAnswers.items;//stores them in an array
+  let i;
+  console.log("Questionnaires",questionnairelist);//stores questionnaires into an array
+
+  for(let qnaire in questionnairelist) {//for loop that goes through the array in search of the qnaire of chosen user
+  console.log("The questionnaireId is::::", questionnairelist[qnaire])
+    if(state.id === questionnairelist[qnaire].userId){//gets questionnaire by id
+    console.log("The questionnaireId is::::", questionnairelist[qnaire].id)
+    questionnaire = questionnairelist[qnaire].id
     }
   };
   console.log("Questionnaire id is set to::::", questionnaire); 
-  let listanswers = await API.graphql({query: queries.listAnswers});
-  let answerslist= listanswers.data.listAnswers.items;
-  for(let ans in answerslist) {
-  if(questionnaire === ans.questionnaireID){
-    console.log("The answer is::::", ans)
-    console.log("The Question Id is::::", ans.questionID)
+  console.log("Answers list is set to::::", answerslist); 
+  for( i in answerslist) {//loops through answers array
+  console.log("The answer is::::", answerslist[i])  
+  if(questionnaire === answerslist[i].questionnaireID){//gets all answers with specific qnaire id
+    console.log("The Question Id is::::", answerslist[i].questionID)
     for (let quest in questions) {
-                            let qid = String(quest.id);
-                            if (qid.valueOf() === String(ans.questionID).valueOf()) {
-                              ans.question =quest.question;
-                              console.log("Question is:::", ans.question);    
-                            }
-                        };
-    answers.push(ans);
-  }
-  };
+      let qid = String(questions[quest].id);
+        if (qid.valueOf() === String(answerslist[i].questionID).valueOf()) {
+          answerslist[i].question= questions[quest].question;
+          answerslist[i].qname = questions[quest].questionName;
+          answerslist[i].qnum = questions[quest].questionNum;
+          console.log("Question is:::", answerslist[i].question);    
+        }
+      };
+    answers.push(answerslist[i]);
+      }
+      };
   console.log("Answers set as::::", answers)
     return answers;
   }
 
 
-async function downloadDocument(){
-  var doc = checkbox1.answer;
+async function downloadDocument(doc){
+  
   if(doc.endsWith(".pdf")){
    await Storage.get(doc, {download: true}).then(data => {
                         console.log("This is the data returned from the S3 bucket:::",data)
@@ -106,16 +162,7 @@ function base64ToArrayBuffer(base64) {
 <span>Click on download to get .pdf/.xls file of the  </span>
 </Container>
 <div className="py-3">
-      {hasAnswers && (<MDBDataTableV5
-        hover
-        data={datatable}
-        autoWidth
-        checkbox
-        headCheckboxID='id2'
-        bodyCheckboxID='checkboxes2'
-        getValueCheckBox={(e) => {
-          handleCheckBox(e);}}
-          />)}
+<p>{Answers}</p>
     </div>
     <div>
       {checkbox1 && <p>{JSON.stringify(delete checkbox1.checkbox && checkbox1.answer)}</p>}

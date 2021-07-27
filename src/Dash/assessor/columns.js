@@ -1,11 +1,5 @@
 export const COLUMNS =[
       {
-        label: 'ID',
-        field: 'id',
-        sort: 'asc',
-        width: 100
-      },
-      {
         label: 'Username',
         field: 'email',
         sort: 'asc',
@@ -40,12 +34,5 @@ export const COLUMNS =[
         width: 100
       }
      
-      ,
-      {
-        label: 'Industry',
-        field: 'industry',
-        sort: 'asc',
-        width: 100
-      }
       
     ]
