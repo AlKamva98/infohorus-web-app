@@ -9,7 +9,7 @@ function QuestionsComp(props) {
   } = props;
 
   return (
-    <div className="w-3/4 mx-auto bg-cover bg-no-repeat bg-center bg-contact" >
+    <div className="w-full mx-auto bg-cover bg-no-repeat bg-center bg-contact" >
       <SurveyJS className="justify-center bg-white opacity-90" />
     </div>)
 }

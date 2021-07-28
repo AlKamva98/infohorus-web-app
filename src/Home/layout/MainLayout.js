@@ -26,7 +26,9 @@ const MainLayout = () => {
   return (
     <div>
       <div className="wrapper d-flex flex-column min-vh-100 bg-light">
-        <Header signedIn={signedIn} show={true} signOut= {()=>{console.log("Signing Out!!!")}} />
+        <Header signedIn={signedIn} show={true} signOut= {async()=>{
+      console.log("Signing out");
+      await Auth.signOut();}} />
         <div className="w-screen">
           <Content />
         </div>

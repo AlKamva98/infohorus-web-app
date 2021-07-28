@@ -9,6 +9,7 @@ import CustList from './Dash/assessor/ExpertViewCustList'
 import Assess from './Dash/assessor/ExpertViewAssess'
 //routes
 import Colors from './Dash/views/theme/colors/Colors'
+import QuestionsComp from './Dash/views/assessment/questcomp'
 import Typography from './Dash/views/theme/typography/Typography'
 import Accordion from './Dash/views/components/base/accordion/Accordion'
 import Breadcrumbs from './Dash/views/components/base/breadcrumbs/Breadcrumbs'
@@ -58,8 +59,9 @@ import Dashboard from './Dash/views/dashboard/Dashboard'
 
 const routes = [
   { path: '/dash', exact: true, name: 'DashboardHome' },
-  { path: '/dash/dashboard', name: 'Dashboard', component: Dashboard, exact: true  },
   { path: '/dash/theme', name: 'Theme', component: Colors, exact: true },
+  { path: '/dash/assessment', name: 'Assessment', component: QuestionsComp, exact: true },
+  { path: '/dash/dashboard', name: 'Dashboard', component: Dashboard, exact: true  },
   { path: '/dash/theme/colors', name: 'Colors', component: Colors, exact: true },
   { path: '/dash/theme/typography', name: 'Typography', component: Typography, exact: true },
   { path: '/dash/cust', name: 'Customer List', component: CustList, exact: true },

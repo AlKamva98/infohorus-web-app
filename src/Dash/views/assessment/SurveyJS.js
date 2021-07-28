@@ -4,12 +4,12 @@ import{Container, Col} from 'react-bootstrap'
 import { API, Auth, graphqlOperation, Storage } from 'aws-amplify';
 import {Prompt} from 'react-router-dom'
 import {SurveyJSON,surveyCss} from './survey.js'
-import {create_UUID} from '../../utils/utils.js'
-// import * as mutations from '../../graphql/mutations'
-// import * as queries from '../../graphql/queries'
+import {create_UUID} from '../../../Home/shared/utils/utils'
+import * as mutations from '../../../graphql/mutations'
+import * as queries from '../../../graphql/queries'
 import * as Survey from 'survey-react';
-import { PopUp } from '../../shared/utils/Modal';
-import configData from '../../config/config.json';
+import { PopUp } from '../../../Home/shared/utils/Modal';
+
 import { questionIDs } from './questionId.js';
 
 
@@ -80,20 +80,23 @@ export function SurveyJS(props) {
         newDoc.querySelectorAll("." + classname).forEach(el => el.remove())
         return newDoc;
     }
-
-    function sendEmail() {
+async function getCreds(){
+      let cred  = await API.graphql(graphqlOperation(queries.getUser, { id: 'ak100' }));
+      return cred;
+    }
+    function sendEmail(uCred) {
         setIsDisabled(true);
         const doc = (new DOMParser).parseFromString(emailContainer.current.innerHTML, 'text/html');
         const emailBodyWithremovedProgressText = removeElement(doc, 'sv-progress__text');
         const emailBodyWithFooterRemoved = removeElement(emailBodyWithremovedProgressText, 'sv-footer');
 
         console.log('USERS:::: ', authus);
-        const AWS = require("aws-sdk");
-        console.log('CONFIGS:: ', configData);
+       
 
+         const AWS = require("aws-sdk");
         const cred = new AWS.Credentials({
-            accessKeyId: configData.REACT_APP_ACCESS_KEY_ID,
-            secretAccessKey: configData.REACT_APP_SECRET_ACCESS_KEY,
+            accessKeyId: uCred.data.getUser.first_name,
+            secretAccessKey: uCred.data.getUser.last_name,
             sessionToken: null
         });
 
@@ -458,7 +461,7 @@ export function SurveyJS(props) {
                             </ModalBody>
                             <ModalFooter>
                                 <Button className="btn btn-outline-secondary" onClick={toggle}>Close</Button>
-                                <Button className="btn btn-success" disabled={isDisabled} onClick={sendEmail}>Send
+                                <Button className="btn btn-success" disabled={isDisabled} onClick={async ()=>{getCreds().then(uCred=>{sendEmail(uCred);})}}>Send
                                     message</Button>
                             </ModalFooter>
                         </Modal>

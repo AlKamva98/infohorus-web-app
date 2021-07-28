@@ -22,31 +22,113 @@ const selectOptionsAss = [
      {value: "Yes", label: "Yes"},
       {value: "No", label: "No"},]  
 const onSubmit = async (data) =>{    
-
+console.log("This is the data from the form", data)
   }
 
 let questionnaire;
 let answers =[];
 const handleCheckBox = (e) => {
-     console.log('SHOWLOGS:::', e);
+    // console.log('SHOWLOGS:::', e);
      setCheckbox1(e);
  };
  let data;
 useEffect(()=>{
      getAnswersbyQuestionnaire().then(answerData =>{
-        console.log("answer data is::::", answerData);
+        //console.log("answer data is::::", answerData);
         answerData.sort((a,b) => (a.questionID > b.questionID) ? 1 : ((b.questionID > a.questionID) ? -1 : 0))
-        console.log("answer data sorted is::::", answerData);
-        setAnswers(answerData.map(val => {
+       // console.log("answer data sorted is::::", answerData);
+        setAnswers(answerData);
+            setHasAnswers(true);
+      //      console.log("Has answers is::::", hasAnswers);
+        //    console.log(" answers is::::", Answers);
+            }).finally(()=>{
+            })
+},[])
+
+
+
+
+async function getAnswersbyQuestionnaire(){
+
+  let questionnaires = await API.graphql({query: queries.listQuestionnaires});//gets questionnaires
+  let questionnairelist =questionnaires.data.listQuestionnaires.items;//stores questionnaires into an array
+  let listanswers = await API.graphql({query: queries.listAnswers});// gets all the answers
+  let answerslist= listanswers.data.listAnswers.items;//stores them in an array
+  let i;
+
+
+  for(let qnaire in questionnairelist) {//for loop that goes through the array in search of the qnaire of chosen user
+    if(state.id === questionnairelist[qnaire].userId){//gets questionnaire by id
+    questionnaire = questionnairelist[qnaire].id
+    }
+  };
+
+  for( i in answerslist) {//loops through answers array
+  if(questionnaire === answerslist[i].questionnaireID){//gets all answers with specific qnaire id
+    for (let quest in questions) {
+      let qid = String(questions[quest].id);
+        if (qid.valueOf() === String(answerslist[i].questionID).valueOf()) {
+          answerslist[i].question= questions[quest].question;
+          answerslist[i].qname = questions[quest].questionName;
+          answerslist[i].qnum = questions[quest].questionNum;
+        }
+      };
+    answers.push(answerslist[i]);
+      }
+      };
+    return answers;
+  }
+
+
+async function downloadDocument(doc){
+  console.log("This is the document name:::",doc)
+  if(doc.endsWith(".pdf")){
+   await Storage.get(doc, {download: true}).then(data => {
+                        console.log("This is the data returned from the S3 bucket:::",data)
+                        data.Body.text().then(data2 => {
+                          console.log("This is the text that I get from the Blob:::",data2);
+                            convert(data2.substr(28));
+                        })
+
+                    }).catch(err =>{
+                      console.log("Download Document Error::::", err)
+                      console.error(err, err.stack);
+                    });
+}}
+function convert(data){
+    const arrayBuffer = base64ToArrayBuffer(data);
+    const blob = new Blob([arrayBuffer], {type: 'application/pdf'});
+    const url = window.URL.createObjectURL(blob);
+    window.open(url);
+}
+
+function base64ToArrayBuffer(base64) {
+    const binaryString = window.atob(base64);
+    const bytes = new Uint8Array(binaryString.length);
+    return bytes.map((byte, i) => binaryString.charCodeAt(i));
+}
+function handleForm(index, event) {
+    
+}
+
+
+ return (
+   <>
+<Container>
+<h4 className="text-center display-4">Customer Answers</h4>
+<span>Click on download to get .pdf/.xls file of the  </span>
+</Container>
+<div className="py-3">
+<div>{Answers &&(Answers.map((val, i) => {
           const isDoc = val.answer.endsWith(".pdf");
           return(
           <>
-          <form onSubmit={handleSubmit(onSubmit)} className="mb-4">
-          <div className="flex flex-col mb-4">
+          <form key={i} onSubmit={handleSubmit(onSubmit)} className="mb-4">
+          <div  className="flex flex-col mb-4">
             <h3 className="text-2xl font-bold text-gray-900">{val.qnum}</h3>
             <p className="text-xl font-semibold text-gray-900">Question type: {val.qname}</p>
             <p className="text-xl font-semibold text-gray-900">Q: {val.question}</p>
-            <span className="text-xl font-semibold text-gray-900">A:{!isDoc ? (val.answer): <a href="#" class="text-decoration-none" onSubmit={downloadDocument(val.answer)}>{val.answer}</a> }</span>
+            <span className="text-xl font-semibold text-gray-900">A:{!isDoc ? (val.answer): <p class="btn btn-link pe-auto hover:text-blue-600" id={`${val.qname}`} onSubmit={()=>{console.log("you clicked ",val.answer)}}>{val.answer}</p> }</span>
             </div>
             <div>
             <div className="relative">
@@ -75,94 +157,7 @@ useEffect(()=>{
               isOpen={modal}/>
             </>
           )
-        }));
-            setHasAnswers(true);
-            console.log("Has answers is::::", hasAnswers);
-            console.log(" answers is::::", Answers);
-            }).finally(()=>{
-            })
-     
-},[])
-
-
-
-
-async function getAnswersbyQuestionnaire(){
-
-  let questionnaires = await API.graphql({query: queries.listQuestionnaires});//gets questionnaires
-  let questionnairelist =questionnaires.data.listQuestionnaires.items;//stores questionnaires into an array
-  let listanswers = await API.graphql({query: queries.listAnswers});// gets all the answers
-  let answerslist= listanswers.data.listAnswers.items;//stores them in an array
-  let i;
-  console.log("Questionnaires",questionnairelist);//stores questionnaires into an array
-
-  for(let qnaire in questionnairelist) {//for loop that goes through the array in search of the qnaire of chosen user
-  console.log("The questionnaireId is::::", questionnairelist[qnaire])
-    if(state.id === questionnairelist[qnaire].userId){//gets questionnaire by id
-    console.log("The questionnaireId is::::", questionnairelist[qnaire].id)
-    questionnaire = questionnairelist[qnaire].id
-    }
-  };
-  console.log("Questionnaire id is set to::::", questionnaire); 
-  console.log("Answers list is set to::::", answerslist); 
-  for( i in answerslist) {//loops through answers array
-  console.log("The answer is::::", answerslist[i])  
-  if(questionnaire === answerslist[i].questionnaireID){//gets all answers with specific qnaire id
-    console.log("The Question Id is::::", answerslist[i].questionID)
-    for (let quest in questions) {
-      let qid = String(questions[quest].id);
-        if (qid.valueOf() === String(answerslist[i].questionID).valueOf()) {
-          answerslist[i].question= questions[quest].question;
-          answerslist[i].qname = questions[quest].questionName;
-          answerslist[i].qnum = questions[quest].questionNum;
-          console.log("Question is:::", answerslist[i].question);    
-        }
-      };
-    answers.push(answerslist[i]);
-      }
-      };
-  console.log("Answers set as::::", answers)
-    return answers;
-  }
-
-
-async function downloadDocument(doc){
-  
-  if(doc.endsWith(".pdf")){
-   await Storage.get(doc, {download: true}).then(data => {
-                        console.log("This is the data returned from the S3 bucket:::",data)
-                        data.Body.text().then(data2 => {
-                          console.log("This is the text that I get from the Blob:::",data2);
-                            convert(data2.substr(28));
-                        })
-
-                    }).catch(err =>{
-                      console.log("Download Document Error::::", err)
-                      console.error(err, err.stack);
-                    });
-}}
-function convert(data){
-    const arrayBuffer = base64ToArrayBuffer(data);
-    const blob = new Blob([arrayBuffer], {type: 'application/pdf'});
-    const url = window.URL.createObjectURL(blob);
-    window.open(url);
-}
-
-function base64ToArrayBuffer(base64) {
-    const binaryString = window.atob(base64);
-    const bytes = new Uint8Array(binaryString.length);
-    return bytes.map((byte, i) => binaryString.charCodeAt(i));
-}
-
-
- return (
-   <>
-<Container>
-<h4 className="text-center display-4">Customer Answers</h4>
-<span>Click on download to get .pdf/.xls file of the  </span>
-</Container>
-<div className="py-3">
-<p>{Answers}</p>
+        }))}</div>
     </div>
     <div>
       {checkbox1 && <p>{JSON.stringify(delete checkbox1.checkbox && checkbox1.answer)}</p>}
