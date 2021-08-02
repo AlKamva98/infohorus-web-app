@@ -1,7 +1,8 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import Select  from 'react-select';
 import {Input} from "reactstrap";
 import {PopUp} from '../../Home/shared/utils/Modal.js'
+import {Formik, Form, FieldArray, Field} from 'formik'
 import { useForm, Controller } from "react-hook-form";
 import {Button, Container} from 'react-bootstrap'
 import * as queries from "../../graphql/queries"
@@ -11,19 +12,34 @@ import API from '@aws-amplify/api'
 
 
 function ExpertViewAssess (props){
+const initialFormState =[{assessAns:"",assessComment:""}];
 const { state } = props.location;
 const [checkbox1, setCheckbox1] = useState('');
 const [modal, setModal] = useState(false);
   const toggle = () => setModal(!modal);
 const [hasAnswers, setHasAnswers] = useState(false)
+const [assesForm, updateAssessForm] = useState(initialFormState)
+const [formState, updateFormState] = useState(initialFormState)
 const [Answers, setAnswers] = useState()
 const { register, handleSubmit,reset, formState: { errors }, control } = useForm();
+const memoizedHandleDoc = useCallback((doc)=>() => {
+      console.log('Click happened');
+      downloadDocument(doc);
+
+    },
+    [], // Tells React to memoize regardless of arguments.
+  );
+
 const selectOptionsAss = [
      {value: "Yes", label: "Yes"},
       {value: "No", label: "No"},]  
-const onSubmit = async (data) =>{    
+
+
+const onSubmit = async (data ) =>{    
 console.log("This is the data from the form", data)
   }
+
+
 
 let questionnaire;
 let answers =[];
@@ -34,13 +50,9 @@ const handleCheckBox = (e) => {
  let data;
 useEffect(()=>{
      getAnswersbyQuestionnaire().then(answerData =>{
-        //console.log("answer data is::::", answerData);
         answerData.sort((a,b) => (a.questionID > b.questionID) ? 1 : ((b.questionID > a.questionID) ? -1 : 0))
-       // console.log("answer data sorted is::::", answerData);
         setAnswers(answerData);
             setHasAnswers(true);
-      //      console.log("Has answers is::::", hasAnswers);
-        //    console.log(" answers is::::", Answers);
             }).finally(()=>{
             })
 },[])
@@ -107,9 +119,12 @@ function base64ToArrayBuffer(base64) {
     const bytes = new Uint8Array(binaryString.length);
     return bytes.map((byte, i) => binaryString.charCodeAt(i));
 }
-function handleForm(index, event) {
-    
-}
+
+function onChange(e){
+        e.persist()
+        console.log("changing:"+e.target.name);
+        updateFormState(()=>({...formState, [e.target.name]: e.target.value}))
+    }
 
 
  return (
@@ -118,51 +133,59 @@ function handleForm(index, event) {
 <h4 className="text-center display-4">Customer Answers</h4>
 <span>Click on download to get .pdf/.xls file of the  </span>
 </Container>
-<div className="py-3">
-<div>{Answers &&(Answers.map((val, i) => {
+<Formik
+ initialValues={{assessForm:[{assessAns:"",assessComment:"", qName:""}]}}
+ onSubmit={onSubmit}
+>
+{({ values, handleChange, handleBlur, handleSubmit})=>(
+  <Form onSubmit={handleSubmit} className="py-3">
+  <FieldArray name="assessForm">{
+    arrayHelpers =>(
+    <div>
+        {Answers &&(Answers.map((val, index) => {
           const isDoc = val.answer.endsWith(".pdf");
-          return(
-          <>
-          <form key={i} onSubmit={handleSubmit(onSubmit)} className="mb-4">
-          <div  className="flex flex-col mb-4">
+        
+        return(
+            <div key={index}>
+          <div className="flex flex-col mb-4">
             <h3 className="text-2xl font-bold text-gray-900">{val.qnum}</h3>
             <p className="text-xl font-semibold text-gray-900">Question type: {val.qname}</p>
             <p className="text-xl font-semibold text-gray-900">Q: {val.question}</p>
-            <span className="text-xl font-semibold text-gray-900">A:{!isDoc ? (val.answer): <p class="btn btn-link pe-auto hover:text-blue-600" id={`${val.qname}`} onSubmit={()=>{console.log("you clicked ",val.answer)}}>{val.answer}</p> }</span>
-            </div>
-            <div>
-            <div className="relative">
-            <Controller name="assAns"   control={control} render={({ field }) => (
-              <Select placeholder="Assessor's Answer" className="block w-60  mt-2 text-xl placeholder-gray-400  rounded-lg focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50" options={selectOptionsAss} {...field}>
-                </Select>
-            )}   {...register("assAns")}  rules={{ required: "Please Select your Answer"}} />
+            <span className="text-xl font-semibold text-gray-900">A:{!isDoc ? (val.answer): <p className="btn btn-link pe-auto hover:text-blue-600" id={`${val.qname}`} onClick={memoizedHandleDoc(val.answer)}>{val.answer}</p> }</span>
             </div>
             <div className="relative">
-          <Controller control={control} render={({ field }) => (
-          <Input type="textarea" rows="4" className=" w-full inline-block px-4 py-4 mt-2 text-xl placeholder-gray-400 bg-gray-200 rounded-lg focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50" 
-          placeholder="Assessor's Comments" 
-          {...field} />
-          )} name="taAssNotes" {...register("taAssNotes")} />
-			                     
+              <Field name={`assessForm.${index}.qName`} onChange={handleChange} placeholder="Enter Question type" className="block w-60  mt-2 text-xl placeholder-gray-400  rounded-lg focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50"  type="input" as={Input}> 
+            </Field>
+            </div>
+            <div className="relative">
+              <Field name={`assessForm.${index}.assessAns`} onChange={handleChange} placeholder="Assessor's Answer" className="block w-60  mt-2 text-xl placeholder-gray-400  rounded-lg focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50"  type="input" as={Input}> 
+            </Field>
+            </div>
+            <div className="relative">
+          <Field name={`assessForm.${index}.assessComment`} type="textarea" onChange={handleChange} rows="4" className="w-full inline-block px-4 py-4 mt-2 text-xl placeholder-gray-400 bg-gray-200 rounded-lg focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50" 
+            placeholder="Assessor's Comments" as={Input} /> 
           </div>
+          <pre>{JSON.stringify(values.assessForm[index],null,2)}</pre>
             </div>
-            <Button onSubmit={toggle} >submit</Button>
-            </form>
-            <PopUp
-              title="Assessment Report"
-              body="The question assessment has been recorded." 
-              btnTxtPositive="Okay"
-              bg="bg-contact"
-              toggle={toggle}
-              isOpen={modal}/>
-            </>
-          )
-        }))}</div>
+           
+           )
+          }))}
+          <Button type="submit" >Submit</Button>
     </div>
+    )
+
+}
+</FieldArray>
+  </Form>
+)
+}
+</Formik>
     <div>
       {checkbox1 && <p>{JSON.stringify(delete checkbox1.checkbox && checkbox1.answer)}</p>}
     </div>
-  <Button onClick={downloadDocument}>Download</Button>
-  </>)}
+  
+  </>)
+  
+  }
 
   export default ExpertViewAssess;

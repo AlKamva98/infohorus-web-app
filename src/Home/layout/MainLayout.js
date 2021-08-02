@@ -4,16 +4,16 @@ import {Auth} from 'aws-amplify';
 
 const MainLayout = () => {
   const [user, setUser] = useState();
-  let signedIn;
+  let [signedIn, setSignedIn] = useState();
  async function checkUser(){
         try{
             const userchk = await Auth.currentAuthenticatedUser();
-            console.log("The user is: "+user.Credentials.email)
+            console.log("The user is: "+userchk)
             if((userchk!== undefined)||(userchk!==null)){
             setUser(userchk);
-           signedIn = true;
+           setSignedIn(true);
            }else{
-             signedIn=false;
+             setSignedIn(false);
            }
         }catch(err){
         console.log("user Error:",err); 
@@ -28,6 +28,7 @@ const MainLayout = () => {
       <div className="wrapper d-flex flex-column min-vh-100 bg-light">
         <Header signedIn={signedIn} show={true} signOut= {async()=>{
       console.log("Signing out");
+      setSignedIn(false);
       await Auth.signOut();}} />
         <div className="w-screen">
           <Content />

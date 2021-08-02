@@ -220,12 +220,12 @@ async function getCreds(){
                     if (ans[anspq] !== undefined) {
 
                         console.log("Answer is: ", ans[anspq]);
-                        qids.map(function (qid) {
-                            let qname = String(qid.questionName)
+                        for (let qid in qids) {
+                            let qname = String(qids[qid].questionName)
                             if (qname.valueOf() === String(anspq).valueOf()) {
-                                questionID = qid.id;
+                                questionID = qids[qid].id;
                             }
-                        });
+                        };
 
 
                         var storedAns = await API.graphql(graphqlOperation(
@@ -341,14 +341,15 @@ async function getCreds(){
                 let userId
                 var qUser
 
-                us.data.listUsers.items.map(function (user) {
-                    console.log("The user is: ", user.email)
+                let users = us.data.listUsers.items;
+                 for(let user in users) {
+                    console.log("The user is: ", users[user].email)
                     console.log("The current user is: ", email)
                     if (user.email === email) {
                         userId = String(user.id);
                         qUser = user;
                     }
-                })
+                }
 
                 console.log("Current questionnaire ID", currentQNaireId)
                 // const QQA =await API.graphql(graphqlOperation(mutations.createQuestionnaireQuestionAnswer, {
@@ -440,7 +441,7 @@ async function getCreds(){
                             </Container> */}
                         <div ref={emailContainer}><Survey.Survey model={survey} css={myCss}/></div>
                         <hr className="bg-secondary"/>
-                        <span className="fw-bold fs-2 m-4">Need to consult a colleague on this answer?<p
+                        <span className="fw-semibold text-lg m-4">Need to consult a colleague on this answer?<p
                             className="btn-link d-none d-md-inline-block pointer m-1" onClick={toggle}>Send an internal message</p>directly to them for a quick response.</span>
                         <Modal isOpen={modal} toggle={toggle} className={className}>
                             <ModalHeader toggle={toggle}><h5 className="modal-title" id="exampleModalLabel">Send

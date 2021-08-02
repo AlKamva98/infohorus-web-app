@@ -48,6 +48,7 @@
     "core-js": "^3.10.1",
     "cruip-js-toolkit": "^1.0.3",
     "enzyme": "^3.11.0",
+    "formik": "^2.2.9",
     "mdbreact": "^5.1.0",
     "node-sass": "^5.0.0",
     "postcss": "^7.0.36",
@@ -66,7 +67,8 @@
     "redux": "4.0.5",
     "simplebar-react": "^2.3.5",
     "survey-react": "^1.8.57",
-    "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.4"
+    "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.4",
+    "yup": "^0.32.9"
   },
   "devDependencies": {
     "auto-changelog": "~2.2.1",

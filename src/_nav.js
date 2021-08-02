@@ -60,14 +60,14 @@ const _assesnav = [
     as: NavLink,
     anchor: 'Assess',
     to:'/dash/cust',
-    icon: <CIcon name="cil-calendar" customClasses="nav-icon" />,
+    icon: <CIcon name="cil-notes" customClasses="nav-icon" />,
   },
   {
     _component:'CNavItem',
     as:NavLink,
     anchor:'Report',
     to:'/dash/report',
-    icon: <CIcon name="cil-calendar" customClasses="nav-icon" />,
+    icon: <CIcon name="cil-chart-line" customClasses="nav-icon" />,
 
   }
 ]
