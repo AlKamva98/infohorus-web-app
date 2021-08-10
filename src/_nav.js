@@ -32,7 +32,7 @@ const _nav = [
         _component: 'CNavItem',
         as: NavLink,
         anchor: 'View Employees',
-        to: '/dash/base/accordion',
+        to: '/dash/employees',
       },
       {
         _component: 'CNavItem',
@@ -46,7 +46,7 @@ const _nav = [
     _component: 'CNavItem',
     as: NavLink,
     anchor: 'Calendar',
-    to: '/dash/dashboard',
+    to: '/dash/calendar',
     icon: <CIcon name="cil-calendar" customClasses="nav-icon" />,
     badge: {
       color: 'info',
@@ -72,4 +72,4 @@ const _assesnav = [
   }
 ]
 
-export default _assesnav
+export default _nav

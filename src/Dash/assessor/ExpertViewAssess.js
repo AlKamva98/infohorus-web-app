@@ -1,27 +1,23 @@
 import React, {useState, useEffect, useCallback} from 'react';
-import Select  from 'react-select';
+import {Link} from 'react-router-dom'
 import {Input} from "reactstrap";
-import {PopUp} from '../../Home/shared/utils/Modal.js'
+import { API, Auth, graphqlOperation, Storage } from 'aws-amplify';
 import {Formik, Form, FieldArray, Field} from 'formik'
-import { useForm, Controller } from "react-hook-form";
+import { DragDropContext } from 'react-beautiful-dnd';
 import {Button, Container} from 'react-bootstrap'
 import * as queries from "../../graphql/queries"
-import {Storage } from 'aws-amplify';
+import * as mutations from "../../graphql/mutations"
 import {questions} from '../../testData/Quests'
-import API from '@aws-amplify/api'
 
 
 function ExpertViewAssess (props){
 const initialFormState =[{assessAns:"",assessComment:""}];
 const { state } = props.location;
-const [checkbox1, setCheckbox1] = useState('');
-const [modal, setModal] = useState(false);
-  const toggle = () => setModal(!modal);
+const addReport = mutations.createAssessorReport;
+
 const [hasAnswers, setHasAnswers] = useState(false)
-const [assesForm, updateAssessForm] = useState(initialFormState)
 const [formState, updateFormState] = useState(initialFormState)
 const [Answers, setAnswers] = useState()
-const { register, handleSubmit,reset, formState: { errors }, control } = useForm();
 const memoizedHandleDoc = useCallback((doc)=>() => {
       console.log('Click happened');
       downloadDocument(doc);
@@ -39,14 +35,26 @@ const onSubmit = async (data ) =>{
 console.log("This is the data from the form", data)
   }
 
+async function createReport (data){
+try{
 
+  var storedReport = await API.graphql(graphqlOperation(
+    addReport, {
+      input: {
+      assrssorComment: data,
+      assessmentResult: data,
+      assessorID:data
+          }
+        }
+        ))
+      }catch(err){
+        console.log("Report upload error", err)
+      }
+}
 
 let questionnaire;
 let answers =[];
-const handleCheckBox = (e) => {
-    // console.log('SHOWLOGS:::', e);
-     setCheckbox1(e);
- };
+
  let data;
 useEffect(()=>{
      getAnswersbyQuestionnaire().then(answerData =>{
@@ -170,7 +178,7 @@ function onChange(e){
            
            )
           }))}
-          <Button type="submit" >Submit</Button>
+          <Link to={{pathname: "/dash/recommendations" ,assess: values,client: Answers}} ><Button type="submit" >Submit</Button></Link>
     </div>
     )
 
@@ -180,9 +188,7 @@ function onChange(e){
 )
 }
 </Formik>
-    <div>
-      {checkbox1 && <p>{JSON.stringify(delete checkbox1.checkbox && checkbox1.answer)}</p>}
-    </div>
+    
   
   </>)
   

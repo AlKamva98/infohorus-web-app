@@ -7,6 +7,7 @@ import About from './Home/views/about/About'
 //assessor
 import CustList from './Dash/assessor/ExpertViewCustList'
 import Assess from './Dash/assessor/ExpertViewAssess'
+import Recommendations from './Dash/assessor/Recommendations'
 //routes
 import Colors from './Dash/views/theme/colors/Colors'
 import QuestionsComp from './Dash/views/assessment/questcomp'
@@ -24,7 +25,8 @@ import Progress from './Dash/views/components/base/progress/Progress'
 import Spinners from './Dash/views/components/base/spinners/Spinners'
 import Tables from './Dash/views/components/base/tables/Tables'
 import Tooltips from './Dash/views/components/base/tooltips/Tooltips'
-
+import CalendarEvents from './Dash/views/assess/Calendar'
+import Employees from './Dash/views/assess/Employees'
 import Buttons from './Dash/views/components/buttons/buttons/Buttons'
 import ButtonGroups from './Dash/views/components/buttons/button-groups/ButtonGroups'
 import Dropdowns from './Dash/views/components/buttons/dropdowns/Dropdowns'
@@ -65,7 +67,10 @@ const routes = [
   { path: '/dash/theme/colors', name: 'Colors', component: Colors, exact: true },
   { path: '/dash/theme/typography', name: 'Typography', component: Typography, exact: true },
   { path: '/dash/cust', name: 'Customer List', component: CustList, exact: true },
+  { path: '/dash/calendar', name: 'Calendar', component: CalendarEvents, exact: true },
+  { path: '/dash/employees', name: 'Employees', component: Employees, exact: true },
   { path: '/dash/assess', name: 'Assess', component: Assess, exact: true },
+  { path: '/dash/recommendations', name: 'Recommendations', component: Recommendations, exact: true },
   { path: '/dash/base/accordion', name: 'Accordion', component: Accordion, exact: true },
   { path: '/dash/base/breadcrumbs', name: 'Breadcrumbs', component: Breadcrumbs, exact: true },
   { path: '/dash/base/cards', name: 'Cards', component: Cards, exact: true},

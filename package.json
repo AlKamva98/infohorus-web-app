@@ -55,6 +55,8 @@
     "prop-types": "^15.7.2",
     "react": "^17.0.2",
     "react-app-polyfill": "^2.0.0",
+    "react-awesome-calendar": "^1.0.14",
+    "react-beautiful-dnd": "^13.1.0",
     "react-bootstrap": "^1.6.1",
     "react-dom": "^17.0.2",
     "react-google-recaptcha": "^2.1.0",
