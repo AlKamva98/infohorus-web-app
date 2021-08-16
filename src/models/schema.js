@@ -1,5 +1,169 @@
 export const schema = {
     "models": {
+        "Tasks": {
+            "name": "Tasks",
+            "fields": {
+                "id": {
+                    "name": "id",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "taskName": {
+                    "name": "taskName",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "taskDesc": {
+                    "name": "taskDesc",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "assignedTo": {
+                    "name": "assignedTo",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "RecommendationTask": {
+                    "name": "RecommendationTask",
+                    "isArray": false,
+                    "type": {
+                        "model": "Recommendations"
+                    },
+                    "isRequired": false,
+                    "attributes": [],
+                    "association": {
+                        "connectionType": "BELONGS_TO",
+                        "targetName": "tasksRecommendationTaskId"
+                    }
+                },
+                "recommendationsID": {
+                    "name": "recommendationsID",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": false,
+                    "attributes": []
+                }
+            },
+            "syncable": true,
+            "pluralName": "Tasks",
+            "attributes": [
+                {
+                    "type": "model",
+                    "properties": {}
+                },
+                {
+                    "type": "key",
+                    "properties": {
+                        "name": "byRecommendations",
+                        "fields": [
+                            "recommendationsID"
+                        ]
+                    }
+                },
+                {
+                    "type": "auth",
+                    "properties": {
+                        "rules": [
+                            {
+                                "allow": "public",
+                                "operations": [
+                                    "create",
+                                    "update",
+                                    "delete",
+                                    "read"
+                                ]
+                            }
+                        ]
+                    }
+                }
+            ]
+        },
+        "Recommendations": {
+            "name": "Recommendations",
+            "fields": {
+                "id": {
+                    "name": "id",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "recName": {
+                    "name": "recName",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "recDesc": {
+                    "name": "recDesc",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "recStarts": {
+                    "name": "recStarts",
+                    "isArray": false,
+                    "type": "AWSDate",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "recEnds": {
+                    "name": "recEnds",
+                    "isArray": false,
+                    "type": "AWSDate",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "RecommendationTasks": {
+                    "name": "RecommendationTasks",
+                    "isArray": true,
+                    "type": {
+                        "model": "Tasks"
+                    },
+                    "isRequired": false,
+                    "attributes": [],
+                    "isArrayNullable": true,
+                    "association": {
+                        "connectionType": "HAS_MANY",
+                        "associatedWith": "recommendationsID"
+                    }
+                }
+            },
+            "syncable": true,
+            "pluralName": "Recommendations",
+            "attributes": [
+                {
+                    "type": "model",
+                    "properties": {}
+                },
+                {
+                    "type": "auth",
+                    "properties": {
+                        "rules": [
+                            {
+                                "allow": "public",
+                                "operations": [
+                                    "create",
+                                    "update",
+                                    "delete",
+                                    "read"
+                                ]
+                            }
+                        ]
+                    }
+                }
+            ]
+        },
         "AssessorReport": {
             "name": "AssessorReport",
             "fields": {
@@ -766,5 +930,5 @@ export const schema = {
     },
     "enums": {},
     "nonModels": {},
-    "version": "db4124c82885476488cc9498491bd088"
+    "version": "bbb1dee5de7072231806efb86819ceb9"
 };

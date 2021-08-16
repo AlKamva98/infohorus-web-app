@@ -1,6 +1,150 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const onCreateTasks = /* GraphQL */ `
+  subscription OnCreateTasks {
+    onCreateTasks {
+      id
+      taskName
+      taskDesc
+      assignedTo
+      recommendationsID
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      RecommendationTask {
+        id
+        recName
+        recDesc
+        recStarts
+        recEnds
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+    }
+  }
+`;
+export const onUpdateTasks = /* GraphQL */ `
+  subscription OnUpdateTasks {
+    onUpdateTasks {
+      id
+      taskName
+      taskDesc
+      assignedTo
+      recommendationsID
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      RecommendationTask {
+        id
+        recName
+        recDesc
+        recStarts
+        recEnds
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+    }
+  }
+`;
+export const onDeleteTasks = /* GraphQL */ `
+  subscription OnDeleteTasks {
+    onDeleteTasks {
+      id
+      taskName
+      taskDesc
+      assignedTo
+      recommendationsID
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      RecommendationTask {
+        id
+        recName
+        recDesc
+        recStarts
+        recEnds
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+    }
+  }
+`;
+export const onCreateRecommendations = /* GraphQL */ `
+  subscription OnCreateRecommendations {
+    onCreateRecommendations {
+      id
+      recName
+      recDesc
+      recStarts
+      recEnds
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      RecommendationTasks {
+        nextToken
+        startedAt
+      }
+    }
+  }
+`;
+export const onUpdateRecommendations = /* GraphQL */ `
+  subscription OnUpdateRecommendations {
+    onUpdateRecommendations {
+      id
+      recName
+      recDesc
+      recStarts
+      recEnds
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      RecommendationTasks {
+        nextToken
+        startedAt
+      }
+    }
+  }
+`;
+export const onDeleteRecommendations = /* GraphQL */ `
+  subscription OnDeleteRecommendations {
+    onDeleteRecommendations {
+      id
+      recName
+      recDesc
+      recStarts
+      recEnds
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      RecommendationTasks {
+        nextToken
+        startedAt
+      }
+    }
+  }
+`;
 export const onCreateAssessorReport = /* GraphQL */ `
   subscription OnCreateAssessorReport {
     onCreateAssessorReport {

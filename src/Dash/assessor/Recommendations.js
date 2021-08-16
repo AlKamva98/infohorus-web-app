@@ -1,7 +1,8 @@
 import React from 'react'
 import {RecPopUp} from './Modal.js'
-import {DragDropContext, Droppable } from 'react-beautiful-dnd'
 import {Button} from 'react-bootstrap'
+import {API} from 'aws-amplify-react'
+
 function Recommendations(props) {
   const [modal, setModal] = React.useState(false);
   const toggle = () => setModal(!modal);
@@ -12,8 +13,9 @@ console.log("This the assessor's data", assess)
 console.log("This the client's data", client)
 let newArr=[];
 
-function addRecommendations(data){
-recommendations.push(data)
+function addRec(id){
+ assForm = assess.assessForm[id];
+ toggle();
  
 }
 
@@ -38,8 +40,13 @@ for (const key in assess.assessForm) {
             <p className="text-xl font-semibold text-gray-900">Assesor Answer: {val.assessAns}</p>
             <p className="text-xl font-semibold text-gray-900">Assesor Comment: {val.assessComment}</p>
             </div>
-            <div className="relative mb-4"><Button onClick={toggle}>Add recommendation</Button></div>
+            <div className="relative mb-4"><Button onClick={addRec}>Add recommendation</Button></div>
             <p>{}</p>
+        
+    </>
+    )
+    })
+      }
  <RecPopUp
 title="Recommendations"
 body="Add a new Recommendation" 
@@ -51,18 +58,6 @@ bg=""
 toggle={toggle}
 isOpen={modal}
 />
-        <DragDropContext>
-        <Droppable>   
-        {(provided)=>{
-          
-        }
-      }
-      </Droppable>
-    </DragDropContext>
-    </>
-    )
-    })
-      }
   </div>
  )
 }

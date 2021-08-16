@@ -1,6 +1,168 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const createTasks = /* GraphQL */ `
+  mutation CreateTasks(
+    $input: CreateTasksInput!
+    $condition: ModelTasksConditionInput
+  ) {
+    createTasks(input: $input, condition: $condition) {
+      id
+      taskName
+      taskDesc
+      assignedTo
+      recommendationsID
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      RecommendationTask {
+        id
+        recName
+        recDesc
+        recStarts
+        recEnds
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+    }
+  }
+`;
+export const updateTasks = /* GraphQL */ `
+  mutation UpdateTasks(
+    $input: UpdateTasksInput!
+    $condition: ModelTasksConditionInput
+  ) {
+    updateTasks(input: $input, condition: $condition) {
+      id
+      taskName
+      taskDesc
+      assignedTo
+      recommendationsID
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      RecommendationTask {
+        id
+        recName
+        recDesc
+        recStarts
+        recEnds
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+    }
+  }
+`;
+export const deleteTasks = /* GraphQL */ `
+  mutation DeleteTasks(
+    $input: DeleteTasksInput!
+    $condition: ModelTasksConditionInput
+  ) {
+    deleteTasks(input: $input, condition: $condition) {
+      id
+      taskName
+      taskDesc
+      assignedTo
+      recommendationsID
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      RecommendationTask {
+        id
+        recName
+        recDesc
+        recStarts
+        recEnds
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+    }
+  }
+`;
+export const createRecommendations = /* GraphQL */ `
+  mutation CreateRecommendations(
+    $input: CreateRecommendationsInput!
+    $condition: ModelRecommendationsConditionInput
+  ) {
+    createRecommendations(input: $input, condition: $condition) {
+      id
+      recName
+      recDesc
+      recStarts
+      recEnds
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      RecommendationTasks {
+        nextToken
+        startedAt
+      }
+    }
+  }
+`;
+export const updateRecommendations = /* GraphQL */ `
+  mutation UpdateRecommendations(
+    $input: UpdateRecommendationsInput!
+    $condition: ModelRecommendationsConditionInput
+  ) {
+    updateRecommendations(input: $input, condition: $condition) {
+      id
+      recName
+      recDesc
+      recStarts
+      recEnds
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      RecommendationTasks {
+        nextToken
+        startedAt
+      }
+    }
+  }
+`;
+export const deleteRecommendations = /* GraphQL */ `
+  mutation DeleteRecommendations(
+    $input: DeleteRecommendationsInput!
+    $condition: ModelRecommendationsConditionInput
+  ) {
+    deleteRecommendations(input: $input, condition: $condition) {
+      id
+      recName
+      recDesc
+      recStarts
+      recEnds
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      RecommendationTasks {
+        nextToken
+        startedAt
+      }
+    }
+  }
+`;
 export const createAssessorReport = /* GraphQL */ `
   mutation CreateAssessorReport(
     $input: CreateAssessorReportInput!

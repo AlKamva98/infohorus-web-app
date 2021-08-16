@@ -17,6 +17,13 @@ const _nav = [
   {
     _component: 'CNavItem',
     as: NavLink,
+    anchor: 'Assessment',
+    to: '/dash/assessment',
+    icon: <CIcon name="cil-notes" customClasses="nav-icon" />,
+  },
+  {
+    _component: 'CNavItem',
+    as: NavLink,
     anchor: 'Recomendations',
     to: '/dash/theme/colors',
     icon: <CIcon name="cil-comment-square" customClasses="nav-icon" />,

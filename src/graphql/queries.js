@@ -1,6 +1,166 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const getTasks = /* GraphQL */ `
+  query GetTasks($id: ID!) {
+    getTasks(id: $id) {
+      id
+      taskName
+      taskDesc
+      assignedTo
+      recommendationsID
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      RecommendationTask {
+        id
+        recName
+        recDesc
+        recStarts
+        recEnds
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+    }
+  }
+`;
+export const listTaskss = /* GraphQL */ `
+  query ListTaskss(
+    $filter: ModelTasksFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listTaskss(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        taskName
+        taskDesc
+        assignedTo
+        recommendationsID
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
+export const syncTasks = /* GraphQL */ `
+  query SyncTasks(
+    $filter: ModelTasksFilterInput
+    $limit: Int
+    $nextToken: String
+    $lastSync: AWSTimestamp
+  ) {
+    syncTasks(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      lastSync: $lastSync
+    ) {
+      items {
+        id
+        taskName
+        taskDesc
+        assignedTo
+        recommendationsID
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
+export const getRecommendations = /* GraphQL */ `
+  query GetRecommendations($id: ID!) {
+    getRecommendations(id: $id) {
+      id
+      recName
+      recDesc
+      recStarts
+      recEnds
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      RecommendationTasks {
+        nextToken
+        startedAt
+      }
+    }
+  }
+`;
+export const listRecommendationss = /* GraphQL */ `
+  query ListRecommendationss(
+    $filter: ModelRecommendationsFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listRecommendationss(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        recName
+        recDesc
+        recStarts
+        recEnds
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
+export const syncRecommendations = /* GraphQL */ `
+  query SyncRecommendations(
+    $filter: ModelRecommendationsFilterInput
+    $limit: Int
+    $nextToken: String
+    $lastSync: AWSTimestamp
+  ) {
+    syncRecommendations(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      lastSync: $lastSync
+    ) {
+      items {
+        id
+        recName
+        recDesc
+        recStarts
+        recEnds
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
 export const getAssessorReport = /* GraphQL */ `
   query GetAssessorReport($id: ID!) {
     getAssessorReport(id: $id) {

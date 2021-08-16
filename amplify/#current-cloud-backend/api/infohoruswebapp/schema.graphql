@@ -1,3 +1,21 @@
+type Tasks @model @auth(rules: [{allow: public}]) @key(name: "byRecommendations", fields: ["recommendationsID"]) {
+  id: ID!
+  taskName: String
+  taskDesc: String
+  assignedTo: String
+  RecommendationTask: Recommendations @connection
+  recommendationsID: ID
+}
+
+type Recommendations @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  recName: String
+  recDesc: String
+  recStarts: AWSDate
+  recEnds: AWSDate
+  RecommendationTasks: [Tasks] @connection(keyName: "byRecommendations", fields: ["id"])
+}
+
 type AssessorReport @model @auth(rules: [{allow: public}]) @key(name: "byAssessor", fields: ["assessorID"]) {
   id: ID!
   assrssorComment: String

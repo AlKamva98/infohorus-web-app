@@ -31,8 +31,8 @@ function Register(props) {
   const [modalErrPop, setModalErrPop] = useState(false);
   const toggleErrPop = () => setModalErrPop(!modalErrPop);
   const [formState, updateFormState] = useState(initialFormState);
-  var errTitle;
-  var errMess;
+  const [errTitle, setErrTitle] = useState("");
+  const [errMess, setErrMess] = useState("");
     const [user, setUser] = useState(null);
     useEffect(()=>{
     checkUser();
@@ -76,8 +76,8 @@ function Register(props) {
     }
       catch(err){
         console.log("API err:", err )
-        errTitle = err.code;
-        errMess = err.message;
+        setErrTitle(err.code);
+        setErrMess(err.message);
         toggleErrPop();
       }
     };

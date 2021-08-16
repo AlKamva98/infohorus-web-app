@@ -1,3 +1,31 @@
+type Tasks @aws_iam @aws_api_key {
+  id: ID!
+  taskName: String
+  taskDesc: String
+  assignedTo: String
+  recommendationsID: ID
+  _version: Int!
+  _deleted: Boolean
+  _lastChangedAt: AWSTimestamp!
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  RecommendationTask: Recommendations @aws_iam @aws_api_key
+}
+
+type Recommendations @aws_iam @aws_api_key {
+  id: ID!
+  recName: String
+  recDesc: String
+  recStarts: AWSDate
+  recEnds: AWSDate
+  _version: Int!
+  _deleted: Boolean
+  _lastChangedAt: AWSTimestamp!
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  RecommendationTasks(filter: ModelTasksFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelTasksConnection @aws_iam @aws_api_key
+}
+
 type AssessorReport @aws_iam @aws_api_key {
   id: ID!
   assrssorComment: String
@@ -120,8 +148,8 @@ enum ModelSortDirection {
   DESC
 }
 
-type ModelAssessorReportConnection @aws_api_key @aws_iam {
-  items: [AssessorReport]
+type ModelTasksConnection @aws_api_key @aws_iam {
+  items: [Tasks]
   nextToken: String
   startedAt: AWSTimestamp
 }
@@ -199,14 +227,15 @@ input ModelSizeInput {
   between: [Int]
 }
 
-input ModelAssessorReportFilterInput {
+input ModelTasksFilterInput {
   id: ModelIDInput
-  assrssorComment: ModelStringInput
-  assessmentResult: ModelStringInput
-  assessorID: ModelIDInput
-  and: [ModelAssessorReportFilterInput]
-  or: [ModelAssessorReportFilterInput]
-  not: ModelAssessorReportFilterInput
+  taskName: ModelStringInput
+  taskDesc: ModelStringInput
+  assignedTo: ModelStringInput
+  recommendationsID: ModelIDInput
+  and: [ModelTasksFilterInput]
+  or: [ModelTasksFilterInput]
+  not: ModelTasksFilterInput
 }
 
 enum ModelAttributeTypes {
@@ -223,6 +252,12 @@ enum ModelAttributeTypes {
 }
 
 type Query {
+  getTasks(id: ID!): Tasks @aws_api_key @aws_iam
+  listTaskss(filter: ModelTasksFilterInput, limit: Int, nextToken: String): ModelTasksConnection @aws_api_key @aws_iam
+  syncTasks(filter: ModelTasksFilterInput, limit: Int, nextToken: String, lastSync: AWSTimestamp): ModelTasksConnection @aws_api_key @aws_iam
+  getRecommendations(id: ID!): Recommendations @aws_api_key @aws_iam
+  listRecommendationss(filter: ModelRecommendationsFilterInput, limit: Int, nextToken: String): ModelRecommendationsConnection @aws_api_key @aws_iam
+  syncRecommendations(filter: ModelRecommendationsFilterInput, limit: Int, nextToken: String, lastSync: AWSTimestamp): ModelRecommendationsConnection @aws_api_key @aws_iam
   getAssessorReport(id: ID!): AssessorReport @aws_api_key @aws_iam
   listAssessorReports(filter: ModelAssessorReportFilterInput, limit: Int, nextToken: String): ModelAssessorReportConnection @aws_api_key @aws_iam
   syncAssessorReports(filter: ModelAssessorReportFilterInput, limit: Int, nextToken: String, lastSync: AWSTimestamp): ModelAssessorReportConnection @aws_api_key @aws_iam
@@ -249,30 +284,38 @@ type Query {
   syncFiles(filter: ModelFileFilterInput, limit: Int, nextToken: String, lastSync: AWSTimestamp): ModelFileConnection @aws_api_key @aws_iam
 }
 
-input CreateAssessorReportInput {
+input CreateTasksInput {
   id: ID
-  assrssorComment: String
-  assessmentResult: String
-  assessorID: ID
+  taskName: String
+  taskDesc: String
+  assignedTo: String
+  recommendationsID: ID
   _version: Int
-  assessorReportAssessorId: ID
+  tasksRecommendationTaskId: ID
 }
 
-input UpdateAssessorReportInput {
+input UpdateTasksInput {
   id: ID!
-  assrssorComment: String
-  assessmentResult: String
-  assessorID: ID
+  taskName: String
+  taskDesc: String
+  assignedTo: String
+  recommendationsID: ID
   _version: Int
-  assessorReportAssessorId: ID
+  tasksRecommendationTaskId: ID
 }
 
-input DeleteAssessorReportInput {
+input DeleteTasksInput {
   id: ID!
   _version: Int
 }
 
 type Mutation {
+  createTasks(input: CreateTasksInput!, condition: ModelTasksConditionInput): Tasks @aws_api_key @aws_iam
+  updateTasks(input: UpdateTasksInput!, condition: ModelTasksConditionInput): Tasks @aws_api_key @aws_iam
+  deleteTasks(input: DeleteTasksInput!, condition: ModelTasksConditionInput): Tasks @aws_api_key @aws_iam
+  createRecommendations(input: CreateRecommendationsInput!, condition: ModelRecommendationsConditionInput): Recommendations @aws_api_key @aws_iam
+  updateRecommendations(input: UpdateRecommendationsInput!, condition: ModelRecommendationsConditionInput): Recommendations @aws_api_key @aws_iam
+  deleteRecommendations(input: DeleteRecommendationsInput!, condition: ModelRecommendationsConditionInput): Recommendations @aws_api_key @aws_iam
   createAssessorReport(input: CreateAssessorReportInput!, condition: ModelAssessorReportConditionInput): AssessorReport @aws_api_key @aws_iam
   updateAssessorReport(input: UpdateAssessorReportInput!, condition: ModelAssessorReportConditionInput): AssessorReport @aws_api_key @aws_iam
   deleteAssessorReport(input: DeleteAssessorReportInput!, condition: ModelAssessorReportConditionInput): AssessorReport @aws_api_key @aws_iam
@@ -299,16 +342,23 @@ type Mutation {
   deleteFile(input: DeleteFileInput!, condition: ModelFileConditionInput): File @aws_api_key @aws_iam
 }
 
-input ModelAssessorReportConditionInput {
-  assrssorComment: ModelStringInput
-  assessmentResult: ModelStringInput
-  assessorID: ModelIDInput
-  and: [ModelAssessorReportConditionInput]
-  or: [ModelAssessorReportConditionInput]
-  not: ModelAssessorReportConditionInput
+input ModelTasksConditionInput {
+  taskName: ModelStringInput
+  taskDesc: ModelStringInput
+  assignedTo: ModelStringInput
+  recommendationsID: ModelIDInput
+  and: [ModelTasksConditionInput]
+  or: [ModelTasksConditionInput]
+  not: ModelTasksConditionInput
 }
 
 type Subscription {
+  onCreateTasks: Tasks @aws_subscribe(mutations: ["createTasks"]) @aws_api_key @aws_iam
+  onUpdateTasks: Tasks @aws_subscribe(mutations: ["updateTasks"]) @aws_api_key @aws_iam
+  onDeleteTasks: Tasks @aws_subscribe(mutations: ["deleteTasks"]) @aws_api_key @aws_iam
+  onCreateRecommendations: Recommendations @aws_subscribe(mutations: ["createRecommendations"]) @aws_api_key @aws_iam
+  onUpdateRecommendations: Recommendations @aws_subscribe(mutations: ["updateRecommendations"]) @aws_api_key @aws_iam
+  onDeleteRecommendations: Recommendations @aws_subscribe(mutations: ["deleteRecommendations"]) @aws_api_key @aws_iam
   onCreateAssessorReport: AssessorReport @aws_subscribe(mutations: ["createAssessorReport"]) @aws_api_key @aws_iam
   onUpdateAssessorReport: AssessorReport @aws_subscribe(mutations: ["updateAssessorReport"]) @aws_api_key @aws_iam
   onDeleteAssessorReport: AssessorReport @aws_subscribe(mutations: ["deleteAssessorReport"]) @aws_api_key @aws_iam
@@ -333,6 +383,104 @@ type Subscription {
   onCreateFile: File @aws_subscribe(mutations: ["createFile"]) @aws_api_key @aws_iam
   onUpdateFile: File @aws_subscribe(mutations: ["updateFile"]) @aws_api_key @aws_iam
   onDeleteFile: File @aws_subscribe(mutations: ["deleteFile"]) @aws_api_key @aws_iam
+}
+
+type ModelRecommendationsConnection @aws_api_key @aws_iam {
+  items: [Recommendations]
+  nextToken: String
+  startedAt: AWSTimestamp
+}
+
+input ModelRecommendationsFilterInput {
+  id: ModelIDInput
+  recName: ModelStringInput
+  recDesc: ModelStringInput
+  recStarts: ModelStringInput
+  recEnds: ModelStringInput
+  and: [ModelRecommendationsFilterInput]
+  or: [ModelRecommendationsFilterInput]
+  not: ModelRecommendationsFilterInput
+}
+
+input CreateRecommendationsInput {
+  id: ID
+  recName: String
+  recDesc: String
+  recStarts: AWSDate
+  recEnds: AWSDate
+  _version: Int
+}
+
+input UpdateRecommendationsInput {
+  id: ID!
+  recName: String
+  recDesc: String
+  recStarts: AWSDate
+  recEnds: AWSDate
+  _version: Int
+}
+
+input DeleteRecommendationsInput {
+  id: ID!
+  _version: Int
+}
+
+input ModelRecommendationsConditionInput {
+  recName: ModelStringInput
+  recDesc: ModelStringInput
+  recStarts: ModelStringInput
+  recEnds: ModelStringInput
+  and: [ModelRecommendationsConditionInput]
+  or: [ModelRecommendationsConditionInput]
+  not: ModelRecommendationsConditionInput
+}
+
+type ModelAssessorReportConnection @aws_api_key @aws_iam {
+  items: [AssessorReport]
+  nextToken: String
+  startedAt: AWSTimestamp
+}
+
+input ModelAssessorReportFilterInput {
+  id: ModelIDInput
+  assrssorComment: ModelStringInput
+  assessmentResult: ModelStringInput
+  assessorID: ModelIDInput
+  and: [ModelAssessorReportFilterInput]
+  or: [ModelAssessorReportFilterInput]
+  not: ModelAssessorReportFilterInput
+}
+
+input CreateAssessorReportInput {
+  id: ID
+  assrssorComment: String
+  assessmentResult: String
+  assessorID: ID
+  _version: Int
+  assessorReportAssessorId: ID
+}
+
+input UpdateAssessorReportInput {
+  id: ID!
+  assrssorComment: String
+  assessmentResult: String
+  assessorID: ID
+  _version: Int
+  assessorReportAssessorId: ID
+}
+
+input DeleteAssessorReportInput {
+  id: ID!
+  _version: Int
+}
+
+input ModelAssessorReportConditionInput {
+  assrssorComment: ModelStringInput
+  assessmentResult: ModelStringInput
+  assessorID: ModelIDInput
+  and: [ModelAssessorReportConditionInput]
+  or: [ModelAssessorReportConditionInput]
+  not: ModelAssessorReportConditionInput
 }
 
 type ModelAssessorConnection @aws_api_key @aws_iam {

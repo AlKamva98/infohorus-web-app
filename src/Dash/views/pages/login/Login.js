@@ -16,7 +16,7 @@ import {
   CSpinner,
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
-import logo from '../../../../Home/assets/fav-logo.png'
+import {PopUp} from '../../../../Home/shared/utils/Modal'
 
 const Login = (props) => {
 
@@ -24,7 +24,8 @@ const Login = (props) => {
   const [modal, setModal] = useState(false);
   const toggle = () => setModal(!modal);
   const [user, setUser] = useState(null);
-  const initialFormState = {email:"", password:"",  formType:"signIn"};
+  const [msg, setMsg] = useState("")
+  const initialFormState = {email:"", password:"",  formType:false};
   const [formState, updateFormState] = useState(initialFormState);
   var signinFailMsg = "You have filled in an incorrect email or password. Please retry with the correct details. If you dont have an account, create a new account.";
   const {formType} = formState;
@@ -33,10 +34,11 @@ const Login = (props) => {
         try{
             const user = await Auth.currentAuthenticatedUser();
             console.log("The user is: "+user.Credentials.email)
+            if(user!== undefined){
             setUser(user);
             const a = await Auth.currentUserInfo();
-            console.log("User Info is:"+ a);     
-            updateFormState(()=>({...formState, formType: "signedIn"}));
+            console.log("User Info is:", a);     
+            updateFormState(()=>({...formState, formType: true}));}
         }catch(err){
          console.log("user Error:" +err);
          //signinFailMsg = err;
@@ -52,12 +54,12 @@ const Login = (props) => {
     try{
         const {email, password} = formState
         await Auth.signIn(email, password)   
-        updateFormState(()=>({...formState, formType: "signedIn"}))
+        updateFormState(()=>({...formState, formType: true}))
         console.log("Logged in", email)
         console.log("Logged in", password)
       
         }catch(err){
-            //signinFailMsg = err;
+            setMsg(err.message);
             toggle();
             console.log("Sign in Error: ",err);
        }
@@ -70,8 +72,9 @@ const Login = (props) => {
 
   return (
     <div className="bg-light min-vh-100 d-flex flex-row align-items-center">
-    {formType === "signIn" &&
-      (<CContainer>
+    {!formType  ?
+      (<div>
+      <CContainer>
         <CRow className="justify-content-center">
           <CCol md="8">
             <CCardGroup>
@@ -135,9 +138,18 @@ const Login = (props) => {
             </CCardGroup>
           </CCol>
         </CRow>
-      </CContainer>)}
-      {formType==="signedIn" &&
-      (<Redirect to="/dash" />)}
+      </CContainer> 
+      <PopUp
+      title="Login Error!" 
+      body={`Error: ${msg}`} 
+      isOpen ={modal}
+      toggle ={toggle}
+      btnTxtPositive="Retry"
+      />
+      </div>
+      ):(<Redirect to="/dash" />)
+    
+    }
     </div>
   )
 }
