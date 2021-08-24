@@ -10,6 +10,7 @@ import Assess from './Dash/assessor/ExpertViewAssess'
 import Recommendations from './Dash/assessor/Recommendations'
 //routes
 import Colors from './Dash/views/theme/colors/Colors'
+import Schedule from './Dash/views/theme/colors/Schedule'
 import QuestionsComp from './Dash/views/assessment/questcomp'
 import Typography from './Dash/views/theme/typography/Typography'
 import Accordion from './Dash/views/components/base/accordion/Accordion'
@@ -65,6 +66,7 @@ const routes = [
   { path: '/dash/assessment', name: 'Assessment', component: QuestionsComp, exact: true },
   { path: '/dash/dashboard', name: 'Dashboard', component: Dashboard, exact: true  },
   { path: '/dash/theme/colors', name: 'Colors', component: Colors, exact: true },
+  { path: '/dash/schedule', name: 'Schedule', component: Schedule, exact: true },
   { path: '/dash/theme/typography', name: 'Typography', component: Typography, exact: true },
   { path: '/dash/cust', name: 'Customer List', component: CustList, exact: true },
   { path: '/dash/calendar', name: 'Calendar', component: CalendarEvents, exact: true },

@@ -15,9 +15,10 @@ import SimpleBar from 'simplebar-react'
 import 'simplebar/dist/simplebar.min.css'
 
 // sidebar nav config
-import navigation from '../../_nav'
+import {_nav, _assesnav} from '../../_nav'
 
-const AppSidebar = () => {
+const AppSidebar = (props) => {
+  const {group} = props;
   const dispatch = useDispatch()
   const unfoldable = useSelector((state) => state.sidebarUnfoldable)
   const sidebarShow = useSelector((state) => state.sidebarShow)
@@ -39,7 +40,7 @@ const AppSidebar = () => {
       </CSidebarBrand>
       <CSidebarNav>
         <SimpleBar>
-          <CCreateNavItem items={navigation} />
+          <CCreateNavItem items={group!=="Assessors" ? _assesnav: _nav} />
         </SimpleBar>
       </CSidebarNav>
       <CSidebarToggler

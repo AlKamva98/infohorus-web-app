@@ -7,8 +7,10 @@ export const getTasks = /* GraphQL */ `
       id
       taskName
       taskDesc
-      assignedTo
+      taskStar
+      taskEnd
       recommendationsID
+      assignedTo
       _version
       _deleted
       _lastChangedAt
@@ -18,8 +20,7 @@ export const getTasks = /* GraphQL */ `
         id
         recName
         recDesc
-        recStarts
-        recEnds
+        recDuration
         _version
         _deleted
         _lastChangedAt
@@ -40,8 +41,10 @@ export const listTaskss = /* GraphQL */ `
         id
         taskName
         taskDesc
-        assignedTo
+        taskStar
+        taskEnd
         recommendationsID
+        assignedTo
         _version
         _deleted
         _lastChangedAt
@@ -70,8 +73,10 @@ export const syncTasks = /* GraphQL */ `
         id
         taskName
         taskDesc
-        assignedTo
+        taskStar
+        taskEnd
         recommendationsID
+        assignedTo
         _version
         _deleted
         _lastChangedAt
@@ -89,8 +94,7 @@ export const getRecommendations = /* GraphQL */ `
       id
       recName
       recDesc
-      recStarts
-      recEnds
+      recDuration
       _version
       _deleted
       _lastChangedAt
@@ -118,13 +122,8 @@ export const listRecommendationss = /* GraphQL */ `
         id
         recName
         recDesc
-        recStarts
-        recEnds
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
+        recDuration
+       
       }
       nextToken
       startedAt
@@ -148,8 +147,7 @@ export const syncRecommendations = /* GraphQL */ `
         id
         recName
         recDesc
-        recStarts
-        recEnds
+        recDuration
         _version
         _deleted
         _lastChangedAt

@@ -24,7 +24,7 @@ const _nav = [
   {
     _component: 'CNavItem',
     as: NavLink,
-    anchor: 'Recomendations',
+    anchor: 'Recommendations',
     to: '/dash/theme/colors',
     icon: <CIcon name="cil-comment-square" customClasses="nav-icon" />,
   },
@@ -79,4 +79,4 @@ const _assesnav = [
   }
 ]
 
-export default _nav
+export {_nav, _assesnav}

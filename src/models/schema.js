@@ -24,10 +24,10 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
-                "assignedTo": {
-                    "name": "assignedTo",
+                "taskStar": {
+                    "name": "taskStar",
                     "isArray": false,
-                    "type": "String",
+                    "type": "AWSDate",
                     "isRequired": false,
                     "attributes": []
                 },
@@ -44,10 +44,24 @@ export const schema = {
                         "targetName": "tasksRecommendationTaskId"
                     }
                 },
+                "taskEnd": {
+                    "name": "taskEnd",
+                    "isArray": false,
+                    "type": "AWSDate",
+                    "isRequired": false,
+                    "attributes": []
+                },
                 "recommendationsID": {
                     "name": "recommendationsID",
                     "isArray": false,
                     "type": "ID",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "assignedTo": {
+                    "name": "assignedTo",
+                    "isArray": false,
+                    "type": "String",
                     "isRequired": false,
                     "attributes": []
                 }
@@ -110,20 +124,6 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
-                "recStarts": {
-                    "name": "recStarts",
-                    "isArray": false,
-                    "type": "AWSDate",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "recEnds": {
-                    "name": "recEnds",
-                    "isArray": false,
-                    "type": "AWSDate",
-                    "isRequired": false,
-                    "attributes": []
-                },
                 "RecommendationTasks": {
                     "name": "RecommendationTasks",
                     "isArray": true,
@@ -137,6 +137,13 @@ export const schema = {
                         "connectionType": "HAS_MANY",
                         "associatedWith": "recommendationsID"
                     }
+                },
+                "recDuration": {
+                    "name": "recDuration",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
                 }
             },
             "syncable": true,
@@ -930,5 +937,5 @@ export const schema = {
     },
     "enums": {},
     "nonModels": {},
-    "version": "bbb1dee5de7072231806efb86819ceb9"
+    "version": "5b4a7110245207cbd4a2886cbe82e3b1"
 };

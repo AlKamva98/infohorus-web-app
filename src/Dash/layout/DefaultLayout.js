@@ -3,11 +3,11 @@ import {Redirect} from 'react-router-dom'
 import { AppContent, AppSidebar, AppFooter, AppHeader } from '../dashboard/index'
 
 const DefaultLayout = (props) => {
-  const {getUserStatus, signOut} = props;
+  const {getUserStatus, signOut, userGroup} = props;
       return (
     <div>
       {getUserStatus ?  <section>
-      <AppSidebar />
+      <AppSidebar group={userGroup} />
       <div className="wrapper d-flex flex-column min-vh-100 bg-light">
         <AppHeader />
         <div className="body flex-grow-1 px-3">

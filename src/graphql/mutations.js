@@ -10,8 +10,10 @@ export const createTasks = /* GraphQL */ `
       id
       taskName
       taskDesc
-      assignedTo
+      taskStar
+      taskEnd
       recommendationsID
+      assignedTo
       _version
       _deleted
       _lastChangedAt
@@ -21,8 +23,7 @@ export const createTasks = /* GraphQL */ `
         id
         recName
         recDesc
-        recStarts
-        recEnds
+        recDuration
         _version
         _deleted
         _lastChangedAt
@@ -41,8 +42,10 @@ export const updateTasks = /* GraphQL */ `
       id
       taskName
       taskDesc
-      assignedTo
+      taskStar
+      taskEnd
       recommendationsID
+      assignedTo
       _version
       _deleted
       _lastChangedAt
@@ -52,8 +55,7 @@ export const updateTasks = /* GraphQL */ `
         id
         recName
         recDesc
-        recStarts
-        recEnds
+        recDuration
         _version
         _deleted
         _lastChangedAt
@@ -72,8 +74,10 @@ export const deleteTasks = /* GraphQL */ `
       id
       taskName
       taskDesc
-      assignedTo
+      taskStar
+      taskEnd
       recommendationsID
+      assignedTo
       _version
       _deleted
       _lastChangedAt
@@ -83,8 +87,7 @@ export const deleteTasks = /* GraphQL */ `
         id
         recName
         recDesc
-        recStarts
-        recEnds
+        recDuration
         _version
         _deleted
         _lastChangedAt
@@ -103,8 +106,7 @@ export const createRecommendations = /* GraphQL */ `
       id
       recName
       recDesc
-      recStarts
-      recEnds
+      recDuration
       _version
       _deleted
       _lastChangedAt
@@ -126,8 +128,7 @@ export const updateRecommendations = /* GraphQL */ `
       id
       recName
       recDesc
-      recStarts
-      recEnds
+      recDuration
       _version
       _deleted
       _lastChangedAt
@@ -149,8 +150,7 @@ export const deleteRecommendations = /* GraphQL */ `
       id
       recName
       recDesc
-      recStarts
-      recEnds
+      recDuration
       _version
       _deleted
       _lastChangedAt

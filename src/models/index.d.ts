@@ -8,9 +8,11 @@ export declare class Tasks {
   readonly id: string;
   readonly taskName?: string;
   readonly taskDesc?: string;
-  readonly assignedTo?: string;
+  readonly taskStar?: string;
   readonly RecommendationTask?: Recommendations;
+  readonly taskEnd?: string;
   readonly recommendationsID?: string;
+  readonly assignedTo?: string;
   constructor(init: ModelInit<Tasks>);
   static copyOf(source: Tasks, mutator: (draft: MutableModel<Tasks>) => MutableModel<Tasks> | void): Tasks;
 }
@@ -19,9 +21,8 @@ export declare class Recommendations {
   readonly id: string;
   readonly recName?: string;
   readonly recDesc?: string;
-  readonly recStarts?: string;
-  readonly recEnds?: string;
   readonly RecommendationTasks?: (Tasks | null)[];
+  readonly recDuration?: string;
   constructor(init: ModelInit<Recommendations>);
   static copyOf(source: Recommendations, mutator: (draft: MutableModel<Recommendations>) => MutableModel<Recommendations> | void): Recommendations;
 }

@@ -8,7 +8,7 @@ import MainLayout from './Home/layout/MainLayout';
 
 
 const Layouts = () => {
-const [user, setUser] = useState();
+const [userGroup, setUserGroup] = useState();
   const[signedIn, setSignedIn] = useState(false);
 
   useEffect(()=>{
@@ -18,13 +18,12 @@ const [user, setUser] = useState();
 async function checkUser(){
         try{
             const userchk = await Auth.currentAuthenticatedUser();
-            console.log("The user is: "+userchk)
+            console.log("The user is: ",userchk.signInUserSession.accessToken.payload["cognito:groups"][0])
             if((userchk!== undefined)||(userchk!==null)){
-            setUser(userchk);
-           setSignedIn(true);
-           
+            setUserGroup(userchk.signInUserSession.accessToken.payload["cognito:groups"][0]);
+            setSignedIn(true);
            }else{
-             setSignedIn(false);
+            setSignedIn(false);
            }
         
         }catch(err){
@@ -44,8 +43,9 @@ async function checkUser(){
 
   return (
         <Switch>
-          <Route path="/dash" name="DashboardHome" render={(props) => <DefaultLayout getUserStatus={signedIn} signOut={signOut} {...props} />} />
-          <Route path="/main" name="Main" render={(props) => <MainLayout getUserStatus={signedIn} signOut={signOut} {...props} />} />
+          <Route path="/dash" name="DashboardHome" render={(props) => <DefaultLayout userGroup={userGroup} getUserStatus={signedIn} signOut={signOut} {...props} />} />
+          <Route path="/main" name="Main" render={(props) => <MainLayout userGroup={userGroup} getUserStatus={signedIn} signOut={signOut} {...props} />} />
+          
           <Redirect from="/" to="/main"/>
         </Switch>
     

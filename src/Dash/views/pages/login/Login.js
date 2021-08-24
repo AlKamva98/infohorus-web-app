@@ -18,17 +18,17 @@ import {
 import CIcon from '@coreui/icons-react'
 import {PopUp} from '../../../../Home/shared/utils/Modal'
 
-const Login = (props) => {
+  const Login = (props) => {
 
   const {className, signedIn}=props;
   const [modal, setModal] = useState(false);
   const toggle = () => setModal(!modal);
   const [user, setUser] = useState(null);
   const [msg, setMsg] = useState("")
-  const initialFormState = {email:"", password:"",  formType:false};
+  const initialFormState = {email:"", password:""};
   const [formState, updateFormState] = useState(initialFormState);
   var signinFailMsg = "You have filled in an incorrect email or password. Please retry with the correct details. If you dont have an account, create a new account.";
-  const {formType} = formState;
+  const [loggedIn, setLoggedIn] = useState(false);
 
  async function checkUser(){
         try{
@@ -38,26 +38,25 @@ const Login = (props) => {
             setUser(user);
             const a = await Auth.currentUserInfo();
             console.log("User Info is:", a);     
-            updateFormState(()=>({...formState, formType: true}));}
+            setLoggedIn(true)
+          }
         }catch(err){
-         console.log("user Error:" +err);
+         console.log("user Error:" ,err);
          //signinFailMsg = err;
         }
     }
 
  function onChange(e){
         e.persist()
-        console.log("changing:"+e.target.name);
+        console.log("changing:",e.target.name);
         updateFormState(()=>({...formState, [e.target.name]: e.target.value}))
     }
  async function handleSignIn(){
     try{
         const {email, password} = formState
         await Auth.signIn(email, password)   
-        updateFormState(()=>({...formState, formType: true}))
-        console.log("Logged in", email)
-        console.log("Logged in", password)
-      
+        setLoggedIn(true)
+        
         }catch(err){
             setMsg(err.message);
             toggle();
@@ -72,8 +71,8 @@ const Login = (props) => {
 
   return (
     <div className="bg-light min-vh-100 d-flex flex-row align-items-center">
-    {!formType  ?
-      (<div>
+    {loggedIn  ?
+      (<Redirect to="/dash/dashboard" />):(<div>
       <CContainer>
         <CRow className="justify-content-center">
           <CCol md="8">
@@ -143,11 +142,10 @@ const Login = (props) => {
       title="Login Error!" 
       body={`Error: ${msg}`} 
       isOpen ={modal}
-      toggle ={toggle}
       btnTxtPositive="Retry"
       />
       </div>
-      ):(<Redirect to="/dash" />)
+      )
     
     }
     </div>

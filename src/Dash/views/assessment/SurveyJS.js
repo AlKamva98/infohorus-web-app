@@ -54,7 +54,7 @@ export function SurveyJS(props) {
     useEffect(() => {
         survey.storeDataAsText = false;
         checkUser()
-        //window.localStorage.removeItem("questionaire_data")
+        window.localStorage.removeItem("questionaire_data")
     }, [])
 
     async function checkUser() {

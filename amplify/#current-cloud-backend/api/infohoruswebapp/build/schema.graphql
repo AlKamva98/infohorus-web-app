@@ -2,8 +2,10 @@ type Tasks @aws_iam @aws_api_key {
   id: ID!
   taskName: String
   taskDesc: String
-  assignedTo: String
+  taskStar: AWSDate
+  taskEnd: AWSDate
   recommendationsID: ID
+  assignedTo: String
   _version: Int!
   _deleted: Boolean
   _lastChangedAt: AWSTimestamp!
@@ -16,8 +18,7 @@ type Recommendations @aws_iam @aws_api_key {
   id: ID!
   recName: String
   recDesc: String
-  recStarts: AWSDate
-  recEnds: AWSDate
+  recDuration: String
   _version: Int!
   _deleted: Boolean
   _lastChangedAt: AWSTimestamp!
@@ -231,8 +232,10 @@ input ModelTasksFilterInput {
   id: ModelIDInput
   taskName: ModelStringInput
   taskDesc: ModelStringInput
-  assignedTo: ModelStringInput
+  taskStar: ModelStringInput
+  taskEnd: ModelStringInput
   recommendationsID: ModelIDInput
+  assignedTo: ModelStringInput
   and: [ModelTasksFilterInput]
   or: [ModelTasksFilterInput]
   not: ModelTasksFilterInput
@@ -288,8 +291,10 @@ input CreateTasksInput {
   id: ID
   taskName: String
   taskDesc: String
-  assignedTo: String
+  taskStar: AWSDate
+  taskEnd: AWSDate
   recommendationsID: ID
+  assignedTo: String
   _version: Int
   tasksRecommendationTaskId: ID
 }
@@ -298,8 +303,10 @@ input UpdateTasksInput {
   id: ID!
   taskName: String
   taskDesc: String
-  assignedTo: String
+  taskStar: AWSDate
+  taskEnd: AWSDate
   recommendationsID: ID
+  assignedTo: String
   _version: Int
   tasksRecommendationTaskId: ID
 }
@@ -345,8 +352,10 @@ type Mutation {
 input ModelTasksConditionInput {
   taskName: ModelStringInput
   taskDesc: ModelStringInput
-  assignedTo: ModelStringInput
+  taskStar: ModelStringInput
+  taskEnd: ModelStringInput
   recommendationsID: ModelIDInput
+  assignedTo: ModelStringInput
   and: [ModelTasksConditionInput]
   or: [ModelTasksConditionInput]
   not: ModelTasksConditionInput
@@ -395,8 +404,7 @@ input ModelRecommendationsFilterInput {
   id: ModelIDInput
   recName: ModelStringInput
   recDesc: ModelStringInput
-  recStarts: ModelStringInput
-  recEnds: ModelStringInput
+  recDuration: ModelStringInput
   and: [ModelRecommendationsFilterInput]
   or: [ModelRecommendationsFilterInput]
   not: ModelRecommendationsFilterInput
@@ -406,8 +414,7 @@ input CreateRecommendationsInput {
   id: ID
   recName: String
   recDesc: String
-  recStarts: AWSDate
-  recEnds: AWSDate
+  recDuration: String
   _version: Int
 }
 
@@ -415,8 +422,7 @@ input UpdateRecommendationsInput {
   id: ID!
   recName: String
   recDesc: String
-  recStarts: AWSDate
-  recEnds: AWSDate
+  recDuration: String
   _version: Int
 }
 
@@ -428,8 +434,7 @@ input DeleteRecommendationsInput {
 input ModelRecommendationsConditionInput {
   recName: ModelStringInput
   recDesc: ModelStringInput
-  recStarts: ModelStringInput
-  recEnds: ModelStringInput
+  recDuration: ModelStringInput
   and: [ModelRecommendationsConditionInput]
   or: [ModelRecommendationsConditionInput]
   not: ModelRecommendationsConditionInput

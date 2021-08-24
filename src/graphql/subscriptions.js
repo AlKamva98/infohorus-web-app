@@ -7,8 +7,10 @@ export const onCreateTasks = /* GraphQL */ `
       id
       taskName
       taskDesc
-      assignedTo
+      taskStar
+      taskEnd
       recommendationsID
+      assignedTo
       _version
       _deleted
       _lastChangedAt
@@ -18,8 +20,7 @@ export const onCreateTasks = /* GraphQL */ `
         id
         recName
         recDesc
-        recStarts
-        recEnds
+        recDuration
         _version
         _deleted
         _lastChangedAt
@@ -35,8 +36,10 @@ export const onUpdateTasks = /* GraphQL */ `
       id
       taskName
       taskDesc
-      assignedTo
+      taskStar
+      taskEnd
       recommendationsID
+      assignedTo
       _version
       _deleted
       _lastChangedAt
@@ -46,8 +49,7 @@ export const onUpdateTasks = /* GraphQL */ `
         id
         recName
         recDesc
-        recStarts
-        recEnds
+        recDuration
         _version
         _deleted
         _lastChangedAt
@@ -63,8 +65,10 @@ export const onDeleteTasks = /* GraphQL */ `
       id
       taskName
       taskDesc
-      assignedTo
+      taskStar
+      taskEnd
       recommendationsID
+      assignedTo
       _version
       _deleted
       _lastChangedAt
@@ -74,8 +78,7 @@ export const onDeleteTasks = /* GraphQL */ `
         id
         recName
         recDesc
-        recStarts
-        recEnds
+        recDuration
         _version
         _deleted
         _lastChangedAt
@@ -91,8 +94,7 @@ export const onCreateRecommendations = /* GraphQL */ `
       id
       recName
       recDesc
-      recStarts
-      recEnds
+      recDuration
       _version
       _deleted
       _lastChangedAt
@@ -111,8 +113,7 @@ export const onUpdateRecommendations = /* GraphQL */ `
       id
       recName
       recDesc
-      recStarts
-      recEnds
+      recDuration
       _version
       _deleted
       _lastChangedAt
@@ -131,8 +132,7 @@ export const onDeleteRecommendations = /* GraphQL */ `
       id
       recName
       recDesc
-      recStarts
-      recEnds
+      recDuration
       _version
       _deleted
       _lastChangedAt

@@ -10,8 +10,8 @@
     "config": {
       "SourceDir": "src",
       "DistributionDir": "build",
-      "BuildCommand": "npm.cmd run-script build",
-      "StartCommand": "craco start"
+      "BuildCommand": "",
+      "StartCommand": ""
     }
   }
 }

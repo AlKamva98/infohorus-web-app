@@ -15,7 +15,7 @@ const AppHeaderDropdown = () => {
   return (
     <CDropdown variant="nav-item">
       <CDropdownToggle placement="bottom-end" className="py-0" caret={false}>
-        <CAvatar src="avatars/8.jpg" size="md" />
+        <CIcon name="cil-user" size="lg" />
       </CDropdownToggle>
       <CDropdownMenu className="pt-0" placement="bottom-end">
         <CDropdownHeader className="bg-light fw-semibold py-2">Account</CDropdownHeader>
@@ -73,7 +73,7 @@ const AppHeaderDropdown = () => {
         <CDropdownDivider />
         <CDropdownItem href="#">
           <CIcon name="cil-lock-locked" className="me-2" />
-          Lock Account
+          Sign Out
         </CDropdownItem>
       </CDropdownMenu>
     </CDropdown>
