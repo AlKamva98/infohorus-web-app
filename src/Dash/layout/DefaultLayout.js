@@ -131,7 +131,7 @@ const DefaultLayout = (props) => {
     
       return (
     <div>
-      {getUserStatus ?  <section>
+      { <section>
       <AppSidebar group={userGroup} />
       <div className="wrapper d-flex flex-column min-vh-100 bg-light">
         <AppHeader saveChanges={saveChanges} approved={approved} />
@@ -141,7 +141,7 @@ const DefaultLayout = (props) => {
         </div>
         <AppFooter />
       </div>
-  </section>: <Redirect to="/login"/>}
+  </section>}
     </div>
   )
 }
