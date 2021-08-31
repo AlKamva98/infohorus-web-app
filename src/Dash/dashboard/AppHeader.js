@@ -17,7 +17,8 @@ import { AppBreadcrumb } from './index'
 
 import { AppHeaderDropdown } from './header/index'
 
-const AppHeader = () => {
+const AppHeader = (props) => {
+  const {saveChanges, approved}=props;
   const dispatch = useDispatch()
   const sidebarShow = useSelector((state) => state.sidebarShow)
 
@@ -69,7 +70,7 @@ const AppHeader = () => {
       </CContainer>
       <CHeaderDivider />
       <CContainer fluid>
-        <AppBreadcrumb />
+        <AppBreadcrumb saveChanges={saveChanges} approved={approved} />
       </CContainer>
     </CHeader>
   )

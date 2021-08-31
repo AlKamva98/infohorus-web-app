@@ -19,6 +19,8 @@ type Recommendations @aws_iam @aws_api_key {
   recName: String
   recDesc: String
   recDuration: String
+  recNum: String
+  isApproved: Boolean
   _version: Int!
   _deleted: Boolean
   _lastChangedAt: AWSTimestamp!
@@ -405,6 +407,8 @@ input ModelRecommendationsFilterInput {
   recName: ModelStringInput
   recDesc: ModelStringInput
   recDuration: ModelStringInput
+  recNum: ModelStringInput
+  isApproved: ModelBooleanInput
   and: [ModelRecommendationsFilterInput]
   or: [ModelRecommendationsFilterInput]
   not: ModelRecommendationsFilterInput
@@ -415,6 +419,8 @@ input CreateRecommendationsInput {
   recName: String
   recDesc: String
   recDuration: String
+  recNum: String
+  isApproved: Boolean
   _version: Int
 }
 
@@ -423,6 +429,8 @@ input UpdateRecommendationsInput {
   recName: String
   recDesc: String
   recDuration: String
+  recNum: String
+  isApproved: Boolean
   _version: Int
 }
 
@@ -435,6 +443,8 @@ input ModelRecommendationsConditionInput {
   recName: ModelStringInput
   recDesc: ModelStringInput
   recDuration: ModelStringInput
+  recNum: ModelStringInput
+  isApproved: ModelBooleanInput
   and: [ModelRecommendationsConditionInput]
   or: [ModelRecommendationsConditionInput]
   not: ModelRecommendationsConditionInput

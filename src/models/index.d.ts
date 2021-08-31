@@ -23,6 +23,8 @@ export declare class Recommendations {
   readonly recDesc?: string;
   readonly RecommendationTasks?: (Tasks | null)[];
   readonly recDuration?: string;
+  readonly recNum?: string;
+  readonly isApproved?: boolean;
   constructor(init: ModelInit<Recommendations>);
   static copyOf(source: Recommendations, mutator: (draft: MutableModel<Recommendations>) => MutableModel<Recommendations> | void): Recommendations;
 }

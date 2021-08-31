@@ -15,6 +15,8 @@ type Recommendations @model @auth(rules: [{allow: public}]) {
   recDesc: String
   RecommendationTasks: [Tasks] @connection(keyName: "byRecommendations", fields: ["id"])
   recDuration: String
+  recNum: String
+  isApproved: Boolean
 }
 
 type AssessorReport @model @auth(rules: [{allow: public}]) @key(name: "byAssessor", fields: ["assessorID"]) {

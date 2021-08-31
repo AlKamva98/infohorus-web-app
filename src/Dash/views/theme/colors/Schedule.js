@@ -6,44 +6,62 @@ import 'react-datepicker/dist/react-datepicker-cssmodules.css';
 import { ErrorMessage } from "@hookform/error-message";
 import {useForm, Controller } from "react-hook-form";
 import {PopUp} from '../../../../Home/shared/utils/Modal';
+import Select  from 'react-select';
+
 
 function Schedule(props) {
- const { state } = props.location;
+  const selectOptionsIMP = [
+      {value: "#fd3153", label: "High"},
+      {value: "#3694DF", label: "Meduim"},
+      {value: "#1ccb9e", label: "Low"}]
+  const { state, addTask } = props.location;
   const [date, setDate] = useState(new Date());
   const [sdate, sSetDate] = useState(new Date());
   const [duration, updateDuration]= useState() 
-const [modal, setModal] = useState(false);
-    const toggle = () => setModal(!modal);
+  const [modal, setModal] = useState(false);
+  const toggle = () => setModal(!modal);
   const handleCalendarClose = () => console.log("Calendar closed");
   const handleCalendarOpen = () => console.log("Calendar opened");
   const { register, handleSubmit, reset, formState: { errors }, control } = useForm();
-    const handleRegistration = async (data) =>{ 
-      toggle()
-      console.log("This is the form data:",data)
-      console.log("This is the start date:",sdate)
-      console.log("This is the end date:",date)
-
+  const handleRegistration = async (data) =>{ 
+    toggle()
+    console.log("This is the form data:",data);
+    console.log("This is the start date:",sdate);
+    console.log("This is the end date:",date);
+    var diff = date.getTime() - sdate.getTime();
+    var diffDays = diff/(1000 * 3600 * 24); 
+    var task = {
+     taskDesc: data.taskDesc,
+     taskStart: sdate,
+     taskEnd: date,
+     color: data.importance.value,
+     assignedTo: data.assignedTo,
+     email: data.email,
+     recId: state.id
     }
+    updateDuration(diffDays);
+    console.log("This is the duration", duration);
+    console.log("This is the task that has been scheduled", task);
+    addTask(task);
+  }
 
   return (
    <div>
 <div className="" >
  <div className="w-full bg-white">
-              <div className="relative flex flex-col items-center justify-center w-full h-full px-10 my-20 lg:px-16 lg:my-0">
-                <div className="flex flex-col items-start space-y-8 tracking-tight lg:max-w-3xl">
+  <div className="relative flex flex-col items-center justify-center w-full h-full px-10 my-20 lg:px-16 lg:my-0">
+  <div className="flex flex-col items-start space-y-8 tracking-tight lg:max-w-3xl">
   <h3 className="w-full mt-4 text-3xl font-bold">Schedule task</h3>
   <h3 className="w-full text-xl font-semibold">{`Recommendation: ${state.recDesc}`}</h3>
-    <h3 className="w-full text-xl ">{`Estimated Duration: ${state.recDuration}`}</h3>
+  <h3 className="w-full text-xl ">{`Estimated Duration: ${state.recDuration}`}</h3>
   <h5 className="w-full text-lg ">Complete the form below to schedule the tasks of the Recommendation </h5>
   <form className="w-full mt-10 pb-3 space-y-8" onSubmit={handleSubmit(handleRegistration)}>
-    <Controller  type="text" control={control} name="fname"   {...register("fname" )} render={({ field }) => (
+    <Controller  type="text" control={control} name="taskDesc"   {...register("taskDesc" )} render={({ field }) => (
           <Input className=" w-full inline-block px-4 py-4 mt-2 text-xl placeholder-gray-400 bg-gray-200 rounded-lg focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50" 
-          placeholder={`${state.tasks.taskDesc}`} 
+          placeholder={`Task Name`} 
           {...field} />
-        )} rules={{ required: "Please fill What the task is"}}  />
-    <ErrorMessage errors={errors} className="err mb-4" name="fname" as="p" />
- 
- 
+        )} rules={{ required: "Please fill what task will be done."}}  />
+    <ErrorMessage errors={errors} className="err mb-4" name="taskDesc" as="p" />
  <div className="flex flex-row">
     <div className="flex flex-col w-1/2"> 
     <label className=" text-xl font-semibold">Start date: </label>
@@ -55,7 +73,6 @@ const [modal, setModal] = useState(false);
   onCalendarOpen={handleCalendarOpen}
   className=" w-7/8 inline-block px-4 py-4 mt-2 mr-3 text-xl placeholder-gray-400 bg-gray-200 rounded-lg focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50" 
   />
-    <ErrorMessage errors={errors} className="err mb-4" name="startDate" as="p" />
   </div>
     <div className="flex flex-col w-1/2"> 
     <label className=" text-xl font-semibold">End date: </label>
@@ -77,6 +94,12 @@ const [modal, setModal] = useState(false);
         )} rules={{ required: "Please fill in who you assigned this task to"}}  />
     <ErrorMessage errors={errors} className="err mb-4" name="assignedTo" as="p" />
     
+    <Controller name="importance"   control={control} render={({ field }) => (
+              <Select placeholder="Importance" className="block w-full px-4 py-4 mt-2 text-xl placeholder-gray-400 bg-gray-200 rounded-lg focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50" options={selectOptionsIMP} defaultValue="Importance" {...field}>
+                </Select>
+            )}   {...register("importance")}  rules={{ required: "Please Select the importance of the task"}} />
+  <ErrorMessage errors={errors} className="err mb-4" name="importance" as="p" />
+
     <Controller  type="text" control={control} name="email"   {...register("email" )} render={({ field }) => (<Input className=" w-full inline-block px-4 py-4 mt-2 text-xl placeholder-gray-400 bg-gray-200 rounded-lg focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50" 
           placeholder="Email" 
           {...field} />

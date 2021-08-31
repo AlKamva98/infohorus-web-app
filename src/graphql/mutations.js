@@ -46,22 +46,7 @@ export const updateTasks = /* GraphQL */ `
       taskEnd
       recommendationsID
       assignedTo
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
-      RecommendationTask {
-        id
-        recName
-        recDesc
-        recDuration
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-      }
+      
     }
   }
 `;
@@ -78,22 +63,7 @@ export const deleteTasks = /* GraphQL */ `
       taskEnd
       recommendationsID
       assignedTo
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
-      RecommendationTask {
-        id
-        recName
-        recDesc
-        recDuration
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-      }
+    
     }
   }
 `;
@@ -129,15 +99,9 @@ export const updateRecommendations = /* GraphQL */ `
       recName
       recDesc
       recDuration
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
-      RecommendationTasks {
-        nextToken
-        startedAt
-      }
+      recNum
+      isApproved
+     
     }
   }
 `;

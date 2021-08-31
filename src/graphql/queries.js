@@ -123,7 +123,8 @@ export const listRecommendationss = /* GraphQL */ `
         recName
         recDesc
         recDuration
-       
+        isApproved
+        
       }
       nextToken
       startedAt

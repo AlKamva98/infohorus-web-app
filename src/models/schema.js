@@ -144,6 +144,20 @@ export const schema = {
                     "type": "String",
                     "isRequired": false,
                     "attributes": []
+                },
+                "recNum": {
+                    "name": "recNum",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "isApproved": {
+                    "name": "isApproved",
+                    "isArray": false,
+                    "type": "Boolean",
+                    "isRequired": false,
+                    "attributes": []
                 }
             },
             "syncable": true,
@@ -937,5 +951,5 @@ export const schema = {
     },
     "enums": {},
     "nonModels": {},
-    "version": "5b4a7110245207cbd4a2886cbe82e3b1"
+    "version": "ebfcbb8ea9e647092cc78b287aae5835"
 };

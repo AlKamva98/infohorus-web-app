@@ -43,7 +43,7 @@ async function checkUser(){
 
   return (
         <Switch>
-          <Route path="/dash" name="DashboardHome" render={(props) => <DefaultLayout userGroup={userGroup} getUserStatus={signedIn} signOut={signOut} {...props} />} />
+          <Route path="/dash" name="DashboardHome" render={(props) => <DefaultLayout checkUser={checkUser} userGroup={userGroup} getUserStatus={signedIn} signOut={signOut} {...props} />} />
           <Route path="/main" name="Main" render={(props) => <MainLayout userGroup={userGroup} getUserStatus={signedIn} signOut={signOut} {...props} />} />
           
           <Redirect from="/" to="/main"/>

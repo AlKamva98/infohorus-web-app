@@ -55,7 +55,7 @@ import {PopUp} from '../../../../Home/shared/utils/Modal'
     try{
         const {email, password} = formState
         await Auth.signIn(email, password)   
-        setLoggedIn(true)
+        
         
         }catch(err){
             setMsg(err.message);
@@ -105,7 +105,9 @@ import {PopUp} from '../../../../Home/shared/utils/Modal'
                     </CInputGroup>
                     <CRow>
                       <CCol xs="6">
-                        <CButton color="primary" onClick={handleSignIn} >
+                        <CButton color="primary" onClick={()=>{handleSignIn().then(()=>{
+                          setLoggedIn(true)
+                        })}} >
                           Login
                         </CButton>
                       </CCol>
