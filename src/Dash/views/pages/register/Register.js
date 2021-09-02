@@ -2,7 +2,7 @@ import React,{useState, useEffect} from 'react';
 import {Container, Row, Image, Col,Card,Form} from 'react-bootstrap';
 import {Label, Input, FormGroup,Button} from 'reactstrap';
 import Select  from 'react-select';
-import {Redirect, Link} from 'react-router-dom';
+import { Link} from 'react-router-dom';
 import {selectOptionsCountry, selectEmpOptions, selectOptionsIndustry} from '../../../../Home/testData/selectOptions.js'
 import { useForm, Controller } from "react-hook-form";
 import { Amplify, API, Auth, Storage,graphqlOperation } from 'aws-amplify';

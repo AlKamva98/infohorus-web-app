@@ -1,9 +1,8 @@
 import React, {useState, useEffect, useCallback} from 'react';
 import {Link} from 'react-router-dom'
 import {Input} from "reactstrap";
-import { API, Auth, graphqlOperation, Storage } from 'aws-amplify';
+import { API, Storage } from 'aws-amplify';
 import {Formik, Form, FieldArray, Field} from 'formik'
-import { DragDropContext } from 'react-beautiful-dnd';
 import {Button, Container} from 'react-bootstrap'
 import * as queries from "../../graphql/queries"
 import * as mutations from "../../graphql/mutations"
@@ -13,9 +12,7 @@ import {questions} from '../../testData/Quests'
 function ExpertViewAssess (props){
 const initialFormState =[{assessAns:"",assessComment:""}];
 const { state } = props.location;
-const addReport = mutations.createAssessorReport;
-
-const [hasAnswers, setHasAnswers] = useState(false)
+// const addReport = mutations.createAssessorReport;
 const [formState, updateFormState] = useState(initialFormState)
 const [Answers, setAnswers] = useState()
 const memoizedHandleDoc = useCallback((doc)=>() => {
@@ -26,41 +23,39 @@ const memoizedHandleDoc = useCallback((doc)=>() => {
     [], // Tells React to memoize regardless of arguments.
   );
 
-const selectOptionsAss = [
-     {value: "Yes", label: "Yes"},
-      {value: "No", label: "No"},]  
-
-
-const onSubmit = async (data ) =>{    
-console.log("This is the data from the form", data)
+  
+  
+  const onSubmit = async (data ) =>{    
+    console.log("This is the data from the form", data)
   }
-
-async function createReport (data){
-try{
-
-  var storedReport = await API.graphql(graphqlOperation(
-    addReport, {
-      input: {
-      assrssorComment: data,
-      assessmentResult: data,
-      assessorID:data
-          }
-        }
-        ))
-      }catch(err){
-        console.log("Report upload error", err)
-      }
-}
+  
+//   const selectOptionsAss = [
+//     {value: "Yes", label: "Yes"},
+//     {value: "No", label: "No"},]  
+//   async function createReport (data){
+//     try{
+      
+//     await API.graphql(graphqlOperation(
+//     addReport, {
+//       input: {
+//       assrssorComment: data,
+//       assessmentResult: data,
+//       assessorID:data
+//           }
+//         }
+//         ))
+//       }catch(err){
+//         console.log("Report upload error", err)
+//       }
+// }
 
 let questionnaire;
 let answers =[];
 
- let data;
-useEffect(()=>{
+ useEffect(()=>{
      getAnswersbyQuestionnaire().then(answerData =>{
         answerData.sort((a,b) => (a.questionID > b.questionID) ? 1 : ((b.questionID > a.questionID) ? -1 : 0))
         setAnswers(answerData);
-            setHasAnswers(true);
             }).finally(()=>{
             })
 },[])

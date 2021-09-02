@@ -1,6 +1,6 @@
-import React,{useEffect, useState} from 'react'
+import React from 'react'
 import { Content, Footer, Header } from '../shared/index'
-import {Auth} from 'aws-amplify';
+
 
 const MainLayout = (props) => {
   const {getUserStatus, signOut} = props;

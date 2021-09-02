@@ -40,7 +40,7 @@ const AppSidebar = (props) => {
       </CSidebarBrand>
       <CSidebarNav>
         <SimpleBar>
-          <CCreateNavItem items={group!=="Assessors" ? _assesnav: _nav} />
+          <CCreateNavItem items={group==="Assessors" ? _assesnav: _nav} />
         </SimpleBar>
       </CSidebarNav>
       <CSidebarToggler
