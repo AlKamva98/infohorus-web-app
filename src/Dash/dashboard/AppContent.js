@@ -6,7 +6,7 @@ import { CContainer } from '@coreui/react'
 import {routes} from '../../routes'
 
 const AppContent = (props) => {
-    const {approve, approved, recommendations, errModal, errToggle, revToggle, revModal, msg, viewTasks, tasks, rec,toggle,modal, setRec, addTask, hasData }= props;
+    const {approve, approved, recommendations, errModal, errToggle, revToggle, revModal, msg, tasks, rec,toggle,modal, setRec, addTask, hasData }= props;
     console.log("This is recommendations on app content page",recommendations)
   return (
     <CContainer lg className="w-full">
@@ -22,7 +22,7 @@ const AppContent = (props) => {
                   render={(props) => (
                     <>
                       <route.component approve={approve} approved={approved} RecomendationsList={recommendations} 
-          errModal={errModal} hasData={hasData} errToggle={errToggle} revModal={revModal} revToggle={revToggle} viewTasks={viewTasks} msg={msg} tasks={tasks} rec={rec} toggle={toggle} modal={modal} setRec={setRec} addTask={addTask} {...props} />
+          errModal={errModal} hasData={hasData} errToggle={errToggle} revModal={revModal} revToggle={revToggle} msg={msg} tasks={tasks} rec={rec} toggle={toggle} modal={modal} setRec={setRec} addTask={addTask} {...props} />
                     </>
                   )}
                 />

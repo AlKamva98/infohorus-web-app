@@ -31,14 +31,14 @@ const _nav = [
   {
     _component: 'CNavGroup',
     as: NavLink,
-    anchor: 'Employees',
+    anchor: 'Projects',
     to: '/dash/to',
     icon: <CIcon name="cil-user" customClasses="nav-icon" />,
     items: [
       {
         _component: 'CNavItem',
         as: NavLink,
-        anchor: 'View Employees',
+        anchor: 'The Team',
         to: '/dash/employees',
       },
       {

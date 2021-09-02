@@ -1,16 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import {Link} from 'react-router-dom';
 import {PopUp} from '../../../../Home/shared/utils/Modal';
 import ReviewModal from '../../../../Home/shared/utils/ReviewModal';
 import { CRow, CCard, CCardHeader, CCardBody } from '@coreui/react';
-import {DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { Button } from 'react-bootstrap';
 
 const Colors = (props) => {
     const {approve, approved, RecomendationsList, errModal, errToggle, revToggle, revModal,viewTasks, tasks, rec,toggle,modal, setRec, hasData, addTask }= props;
     const [msg, setMsg] =useState("");
     let RecTask;
-    console.log("This is recommendations on app content page",RecomendationsList)
+    console.log("This is tasks on app content page",tasks)
 
 function review(i){
       try{ 
@@ -77,13 +76,13 @@ function review(i){
           <div >
             <dt className="sr-only">Users</dt>
             <dd className="flex justify-end sm:justify-start lg:justify-end xl:justify-start -space-x-2">
-            <Button onClick={()=> viewTasks(index)} className="btn col-12 mx-auto mt-3 mb-2 text-white">View tasks</Button> 
+            <Link  className="text-center  group-hover:text-blue-200 font-medium">View tasks</Link> 
             </dd>
           </div>
           <div className="col-start-2 row-start-1 row-end-3">
             <dt className="sr-only">Users</dt>
             <dd className="flex justify-center sm:justify-start lg:justify-center xl:justify-start -space-x-2">
-            <Link to={{pathname: "/dash/schedule"  ,state: values, addTask: addTask}}className="text-center  group-hover:text-blue-200 font-medium">Schedule</Link>
+            <Link className="btn bg-indigo-700 hover:bg-indigo-500 col-12 mx-auto mt-3 mb-2 text-white" to={{pathname: "/dash/schedule"  ,state: values, addTask: addTask}} >Schedule</Link>
     
             </dd>
           </div>
@@ -128,30 +127,9 @@ return(<>
             </dd>
           </div>
           <div className="col-start-2 row-start-1 row-end-3">
-            <dt className="sr-only">Tasks</dt>
-            {tasks && (tasks.map((task, i)=>{
-              if(task.recId===values.id){
-                RecTask = task
-              }
-              console.log("These are the tasks in this recommendation", RecTask)
-              return(
-                <dd className="flex justify-end group-hover:text-blue-200 sm:justify-start font-medium lg:justify-end xl:justify-start -space-x-2">
-                {`Task ${index+1}: ${RecTask.taskDesc}- Assigned to:${RecTask.assignedTo}`}
-                </dd>
-                )
-            }))}
-          </div>
-          
-          <div >
-            <dt className="sr-only">Users</dt>
-            <dd className="flex justify-end sm:justify-start lg:justify-end xl:justify-start -space-x-2">
-            <Button onClick={toggle} className="btn col-12 mx-auto mt-3 mb-2 text-white">View tasks</Button> 
-            </dd>
-          </div>
-          <div className="col-start-2 row-start-1 row-end-3">
             <dt className="sr-only">Users</dt>
             <dd className="flex justify-center sm:justify-start lg:justify-center xl:justify-start -space-x-2">
-            <Link onClick={()=>review(index)} className="text-center group-hover:text-blue-200 font-medium">Review</Link>
+            <Button onClick={()=>review(index)} className="btn col-12 mx-auto mt-3 mb-2 text-white">Review</Button>
     
             </dd>
           </div>
@@ -175,20 +153,7 @@ bg=""
 toggle={errToggle}
 isOpen={errModal}
 />
-      <PopUp
-title="Tasks"
-head={`Recomendation: ${rec}\n`}
-body={`Tasks\n\n`}
-tasks= {
-`${tasks.taskNum}\n`+
-`${tasks.taskDesc}\n`+
-`Assigned to: ${tasks.assignedTo}\n`
-}
-btnTxtPositive="Okay"
-bg=""
-toggle={toggle}
-isOpen={modal}
-/>
+  
       <ReviewModal
 title="Review Recommendation"
 head={`Recomendation:`}

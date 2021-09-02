@@ -7,9 +7,10 @@ import * as mutations from '../../graphql/mutations'
 
 
 const DefaultLayout = (props) => {
-  const {getUserStatus,checkUser, signOut, userGroup} = props;
+  const {signedIn, signOut, userGroup} = props;
   let approvedRecs =[];
   let upRec = [];
+  let ts=[];
   let RecomendationsList = listRecs();
   const [approved, updateApproved]=useState([]);
   const [modal, setModal] = useState(false);
@@ -23,19 +24,14 @@ const DefaultLayout = (props) => {
     const [msg, setMsg] =useState("");
     const [hasData, setHasData] = useState(false);
     const [recommendations, updateRecs] =useState(RecomendationsList);
-    //const [recData, setRecData] = useState();
     
-    useEffect(() => {
-     
-    checkUser();
-      getApproved();
+    useEffect(() => { 
       if(!hasData){
       listRecs().then(data =>{
         updateRecs(data);
         console.log("This is supposed to be changed ", recommendations)
       })
     }
-      
     },[])
     
          async function listRecs() { //gets the recommendations from the backend     
@@ -47,6 +43,7 @@ const DefaultLayout = (props) => {
             }).finally(()=>{
               console.log("Data has been recieved")
               setHasData(true);
+              getApproved()
             })
           return data;
   }
@@ -74,8 +71,6 @@ const DefaultLayout = (props) => {
         }
 }catch(err){
 
-      setMsg(err.message);
-      errToggle();
       console.log("View task error: ", err);
     }
       }
@@ -87,61 +82,79 @@ const DefaultLayout = (props) => {
         for(let i in recommendations){
           if(rec.id === recommendations[i].id){
             recommendations.splice(i, 1, rec)
-         let data }
+         }
         }
         getApproved()
 
         console.log("This Recommendation has been approved!!")
        }
-       function viewTasks(i){
-      try{
-     let task = recommendations[i].tasks;
-     console.log("View task : ", task);
-     setTasks(task);
-     setRec(recommendations[i].recDesc);
-     toggle();
-    }catch(err){
+       
+  //      function viewTasks(i){
+  //     try{
+  //       let task = "no task found"
+  //       if(tasks){
+  //    let recId = recommendations[i].id;
+  //    for(let n in tasks){
+  //    if(tasks[n].recId ===recId){
+  //    task = tasks[n];
+  //   }}
+  // }
+  // console.log("View task : ", task);
+  // setTasks(task);
+  // setRec(recommendations[i].recDesc);
+  // toggle();
+  //   }catch(err){
 
-      setMsg(err.message);
-      errToggle();
-      console.log("View task error: ", err);
-    }
-    }
+  //     setMsg(err.message);
+  //     errToggle();
+  //     console.log("View task error: ", err);
+  //   }
+  //   }
 
     async function saveChanges(rec){
       try{
         console.log("This is the Save changes function", rec)
-        if(rec){
+        
+       if(rec){
           for (let i in rec)
           {
-            var upRec = await API.graphql({ query: mutations.updateRecommendations, variables: {input: rec[i]}});
+          await API.graphql({ query: mutations.updateRecommendations, variables: {input: rec[i]}});
           }
-      }}
+      }
+      if (tasks){
+        for (let i in tasks){
+          await API.graphql({query: mutations.updateTasks, variables: {input: tasks[i]}})
+        }
+      }
+     
+    }
       catch(err){
         console.log("There's an error in the Save changes function", err)
       }
     }
 
+    
     function addTask(task){
       console.log("List of tasks before pushing new", tasks);
       console.log("This is the task that I'm adding:", task)
-      tasks.push(task)
+      tasks.push(task);
+      setTasks(tasks)
       console.log("List of tasks after pushing new", tasks);
     }
     
       return (
     <div>
-      { <section>
+      {signedIn ? <section>
       <AppSidebar group={userGroup} />
       <div className="wrapper d-flex flex-column min-vh-100 bg-light">
-        <AppHeader saveChanges={saveChanges} approved={approved} />
+        <AppHeader tasks={tasks} recommendations={recommendations} signOut={signOut} saveChanges={saveChanges} approved={approved} />
         <div className="body flex-grow-1 px-3">
           <AppContent approve={approve} approved={approved} recommendations={recommendations} 
-          errModal={errModal} hasData={hasData} errToggle={errToggle} revModal={revModal} revToggle={revToggle} viewTasks={viewTasks}  msg={msg} tasks={tasks} rec={rec} toggle={toggle} modal={modal} setRec={setRec} addTask={addTask} />
+          errModal={errModal} hasData={hasData} errToggle={errToggle} revModal={revModal} revToggle={revToggle}  msg={msg} tasks={tasks} rec={rec} toggle={toggle} modal={modal} setRec={setRec} addTask={addTask} />
         </div>
         <AppFooter />
       </div>
-  </section>}
+  </section>: <Redirect to="/login" />}
     </div>
   )
 }

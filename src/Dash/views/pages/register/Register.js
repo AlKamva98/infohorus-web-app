@@ -105,17 +105,10 @@ function Register(props) {
  <div>
 {formType==="signUp" && ( <Container className="container-fluid">
     <Row>
-        <Col className="text-secondary order-md-1 mt-5 text-center">
-            <h4 
-            className="text-dark display-4">Register today</h4>
-            <p>All seed for cattle good which. Stars us saying grass morning spirit seed one fourth very said you sixth spirit. Created days.</p>
-            <img className="img-fluid text-center"  src="./images/featurette.png" width="500" height="400" alt="vector"/>
-            <p>Brought first let lesser appear that give two called forth fill. Firmament. Saying deep, abundantly blessed so. Itself said seed evening and air seed beast of fruitful, open.</p>
-        </Col>
+       
         
-        
-        <Col id="subDiv2" className="order-md-2">
-            <Card className="mb-4 mt-4 bg-light shadow" >
+        <Col id="subDiv2" className="mx-auto w-1/2">
+            <Card className="mx-auto mb-4 mt-4 bg-light w-1/2 shadow" >
                 <Card.Body>
         <div className="m-auto">
         <Image className="d-block mx-auto mb-4 img-fluid" src="./images/fav-logo.png" alt="Our logo" width="85" height="85"/>

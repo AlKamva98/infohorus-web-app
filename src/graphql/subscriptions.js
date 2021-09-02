@@ -21,6 +21,8 @@ export const onCreateTasks = /* GraphQL */ `
         recName
         recDesc
         recDuration
+        recNum
+        isApproved
         _version
         _deleted
         _lastChangedAt
@@ -50,6 +52,8 @@ export const onUpdateTasks = /* GraphQL */ `
         recName
         recDesc
         recDuration
+        recNum
+        isApproved
         _version
         _deleted
         _lastChangedAt
@@ -79,6 +83,8 @@ export const onDeleteTasks = /* GraphQL */ `
         recName
         recDesc
         recDuration
+        recNum
+        isApproved
         _version
         _deleted
         _lastChangedAt
@@ -95,6 +101,8 @@ export const onCreateRecommendations = /* GraphQL */ `
       recName
       recDesc
       recDuration
+      recNum
+      isApproved
       _version
       _deleted
       _lastChangedAt
@@ -114,6 +122,8 @@ export const onUpdateRecommendations = /* GraphQL */ `
       recName
       recDesc
       recDuration
+      recNum
+      isApproved
       _version
       _deleted
       _lastChangedAt
@@ -133,6 +143,8 @@ export const onDeleteRecommendations = /* GraphQL */ `
       recName
       recDesc
       recDuration
+      recNum
+      isApproved
       _version
       _deleted
       _lastChangedAt

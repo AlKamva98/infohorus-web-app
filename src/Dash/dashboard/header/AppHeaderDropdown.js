@@ -11,7 +11,8 @@ import {
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
 
-const AppHeaderDropdown = () => {
+const AppHeaderDropdown = (props) => {
+  const {signOut, tasks,recommendations} = props;
   return (
     <CDropdown variant="nav-item">
       <CDropdownToggle placement="bottom-end" className="py-0" caret={false}>
@@ -37,7 +38,7 @@ const AppHeaderDropdown = () => {
           <CIcon name="cil-task" className="me-2" />
           Tasks
           <CBadge color="danger" className="ms-2">
-            42
+            {tasks && tasks.length}
           </CBadge>
         </CDropdownItem>
         <CDropdownItem href="#">
@@ -65,13 +66,13 @@ const AppHeaderDropdown = () => {
         </CDropdownItem>
         <CDropdownItem href="#">
           <CIcon name="cil-file" className="me-2" />
-          Projects
+          Recommendations
           <CBadge color="primary" className="ms-2">
-            42
+            {recommendations && recommendations.length}
           </CBadge>
         </CDropdownItem>
         <CDropdownDivider />
-        <CDropdownItem href="#">
+        <CDropdownItem onClick={signOut}>
           <CIcon name="cil-lock-locked" className="me-2" />
           Sign Out
         </CDropdownItem>

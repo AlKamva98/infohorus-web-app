@@ -22,11 +22,11 @@ const events = [{
 
 function CalendarEvents(props) {
     const {tasks} = props;
-    console.log("these are the tasks", tasks[0]);
     var rectks = [];
     
     useEffect(()=>{
     if(tasks){
+    console.log("these are the tasks", tasks[0]);
     for(let i in tasks){
     let item ={
     id: i,

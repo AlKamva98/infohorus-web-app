@@ -20,7 +20,7 @@ import {PopUp} from '../../../../Home/shared/utils/Modal'
 
   const Login = (props) => {
 
-  const {className, signedIn}=props;
+const {signedIn,setSignedIn, userGroup} = props;
   const [modal, setModal] = useState(false);
   const toggle = () => setModal(!modal);
   const [user, setUser] = useState(null);
@@ -28,23 +28,8 @@ import {PopUp} from '../../../../Home/shared/utils/Modal'
   const initialFormState = {email:"", password:""};
   const [formState, updateFormState] = useState(initialFormState);
   var signinFailMsg = "You have filled in an incorrect email or password. Please retry with the correct details. If you dont have an account, create a new account.";
-  const [loggedIn, setLoggedIn] = useState(false);
 
- async function checkUser(){
-        try{
-            const user = await Auth.currentAuthenticatedUser();
-            console.log("The user is: "+user.Credentials.email)
-            if(user!== undefined){
-            setUser(user);
-            const a = await Auth.currentUserInfo();
-            console.log("User Info is:", a);     
-            setLoggedIn(true)
-          }
-        }catch(err){
-         console.log("user Error:" ,err);
-         //signinFailMsg = err;
-        }
-    }
+
 
  function onChange(e){
         e.persist()
@@ -54,9 +39,9 @@ import {PopUp} from '../../../../Home/shared/utils/Modal'
  async function handleSignIn(){
     try{
         const {email, password} = formState
-        await Auth.signIn(email, password)   
-        
-        
+        await Auth.signIn(email, password)
+        console.log("User is signed in", signedIn)   
+        setSignedIn(true)
         }catch(err){
             setMsg(err.message);
             toggle();
@@ -65,13 +50,11 @@ import {PopUp} from '../../../../Home/shared/utils/Modal'
 }
 
     
-    useEffect(()=>{
-    checkUser();
-    },[])
+    
 
   return (
     <div className="bg-light min-vh-100 d-flex flex-row align-items-center">
-    {loggedIn  ?
+    {signedIn  ?
       (<Redirect to="/dash/dashboard" />):(<div>
       <CContainer>
         <CRow className="justify-content-center">
@@ -105,9 +88,7 @@ import {PopUp} from '../../../../Home/shared/utils/Modal'
                     </CInputGroup>
                     <CRow>
                       <CCol xs="6">
-                        <CButton color="primary" onClick={()=>{handleSignIn().then(()=>{
-                          setLoggedIn(true)
-                        })}} >
+                        <CButton color="primary" onClick={()=>{handleSignIn()}} >
                           Login
                         </CButton>
                       </CCol>

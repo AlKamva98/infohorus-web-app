@@ -18,7 +18,7 @@ import { AppBreadcrumb } from './index'
 import { AppHeaderDropdown } from './header/index'
 
 const AppHeader = (props) => {
-  const {saveChanges, approved}=props;
+  const {saveChanges, recommendations, tasks,signOut, approved}=props;
   const dispatch = useDispatch()
   const sidebarShow = useSelector((state) => state.sidebarShow)
 
@@ -65,7 +65,7 @@ const AppHeader = (props) => {
           </CNavItem>
         </CHeaderNav>
         <CHeaderNav className="ms-3">
-          <AppHeaderDropdown />
+          <AppHeaderDropdown tasks={tasks} recommendations={recommendations} signOut={signOut} />
         </CHeaderNav>
       </CContainer>
       <CHeaderDivider />

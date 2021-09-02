@@ -96,14 +96,7 @@ export const getRecommendations = /* GraphQL */ `
       recDesc
       recDuration
       _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
-      RecommendationTasks {
-        nextToken
-        startedAt
-      }
+      
     }
   }
 `;
@@ -124,7 +117,7 @@ export const listRecommendationss = /* GraphQL */ `
         recDesc
         recDuration
         isApproved
-        
+        _version
       }
       nextToken
       startedAt
