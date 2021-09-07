@@ -26,7 +26,7 @@ Amplify.configure(awsConfig)
     const handleRegistration = async (data) =>{ 
       try{
       getCreds().then((uCred)=>{
-        sendEmail("Demo",data, uCred);
+        sendEmail("Demo",data, uCred, "hello@bahatitech.co.za");
         toggle();
         reset({email:"", fname:"", country:"",organisation:"", jobtitle:"",phone:"",marketing:""});
       })

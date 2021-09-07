@@ -1,5 +1,5 @@
 
-export function sendEmail(screen,data, uCred) {
+export function sendEmail(screen,data, uCred, toEmail) {
      const AWS = require("aws-sdk");
         const cred = new AWS.Credentials({
             accessKeyId: uCred.data.getCred.acc,
@@ -55,7 +55,7 @@ export function sendEmail(screen,data, uCred) {
         var params = {
             Destination: {
                 ToAddresses: [
-                    "stefano@bahatitech.co.za",
+                    toEmail,
                     /* more items */
                 ]
             },

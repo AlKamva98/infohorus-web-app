@@ -1,3 +1,4 @@
+import { DocsCallout, Example } from 'src/Dash/reusable'
 import React, { useRef, useState } from 'react'
 import {
   CCard,
@@ -12,30 +13,17 @@ import {
   CToastHeader,
   CToaster,
 } from '@coreui/react'
-import { DocsCallout, Example } from 'src/Dash/reusable'
 
 const ExampleToast = () => {
   const [toast, addToast] = useState(0)
   const toaster = useRef()
   const exampleToast = (
-    <CToast title="CoreUI for React.js">
-      <CToastHeader close>
-        <svg
-          className="rounded me-2"
-          width="20"
-          height="20"
-          xmlns="http://www.w3.org/2000/svg"
-          preserveAspectRatio="xMidYMid slice"
-          focusable="false"
-          role="img"
-        >
-          <rect width="100%" height="100%" fill="#007aff"></rect>
-        </svg>
-        <strong className="me-auto">CoreUI for React.js</strong>
-        <small>7 min ago</small>
-      </CToastHeader>
-      <CToastBody>Hello, world! This is a toast message.</CToastBody>
-    </CToast>
+<CToast autohide={false} color="primary" className="text-white align-items-center">
+  <div className="d-flex">
+    <CToastBody>Hello, world! This is a toast message.</CToastBody>
+    <CToastClose className="me-2 m-auto" white />
+  </div>
+</CToast>
   )
   return (
     <>

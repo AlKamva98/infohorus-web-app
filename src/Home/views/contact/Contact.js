@@ -24,7 +24,7 @@ function Contact(){
   const onSubmit = async (data) =>{    
     try{
       getCreds().then((uCred)=>{
-        sendEmail("Contact",data, uCred);
+        sendEmail("Contact",data, uCred, "hello@bahatitech.co.za");
         toggle();
         reset({fname:"", email:"", phone:"", taMessage:""  });
       })

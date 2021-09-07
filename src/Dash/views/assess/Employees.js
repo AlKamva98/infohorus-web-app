@@ -37,7 +37,7 @@ function Employees(props) {
           console.log("Data::::", data)
         getCreds().then((uCred)=>{
           console.log("Sending Email", uCred)
-          sendEmail("New Team member",data, uCred);
+          sendEmail("New Team member",data, uCred, "infohorus@bahatitech.co.za");
           
         }).finally(async()=>{
           console.log("Sending to the API")
