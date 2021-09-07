@@ -2,8 +2,8 @@
 export function sendEmail(screen,data, uCred) {
      const AWS = require("aws-sdk");
         const cred = new AWS.Credentials({
-            accessKeyId: uCred.data.getUser.first_name,
-            secretAccessKey: uCred.data.getUser.last_name,
+            accessKeyId: uCred.data.getCred.acc,
+            secretAccessKey: uCred.data.getCred.sec,
             sessionToken: null
         });
 
@@ -37,6 +37,18 @@ export function sendEmail(screen,data, uCred) {
                             `<p></p><br/>\n` +
                             `<p>Kind Regards,</p>\n`
                     }
+        }else if(screen === "New Team member"){
+        html = {
+                        Charset: "UTF-8",
+                        Data: `<h3>Hi please create an AWS SES account for ${data.fname}!</h3><br/>\n` +
+                            `<p> Here are his details:</p>` +
+                            `<p>First Name: ${data.fname}</p>` +
+                            `<p>Last Name: ${data.lname}</p>` +
+                            `<p>Email: ${data.email}</p>` +
+                            `<p>Job Title: ${data.jobtitle}</p>` +
+                            `<p></p><br/>\n` +
+                            `<p>Kind Regards,</p>\n`
+                    }
         }
 
         // Create sendEmail params
@@ -53,7 +65,7 @@ export function sendEmail(screen,data, uCred) {
                 },
                 Subject: {
                     Charset: 'UTF-8',
-                    Data: 'Demo Request'
+                    Data: screen
                 }
             },
             Source: "hello@bahatitech.co.za", /* required */
@@ -72,5 +84,6 @@ export function sendEmail(screen,data, uCred) {
             function (err) {
                 console.error(err, err.stack);
             });
+            console.log("Email has been sent!!")
 
     }

@@ -4,6 +4,14 @@ import { ModelInit, MutableModel, PersistentModelConstructor } from "@aws-amplif
 
 
 
+export declare class Cred {
+  readonly id: string;
+  readonly acc?: string;
+  readonly sec?: string;
+  constructor(init: ModelInit<Cred>);
+  static copyOf(source: Cred, mutator: (draft: MutableModel<Cred>) => MutableModel<Cred> | void): Cred;
+}
+
 export declare class Tasks {
   readonly id: string;
   readonly taskName?: string;

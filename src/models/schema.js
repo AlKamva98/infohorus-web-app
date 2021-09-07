@@ -1,5 +1,55 @@
 export const schema = {
     "models": {
+        "Cred": {
+            "name": "Cred",
+            "fields": {
+                "id": {
+                    "name": "id",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "acc": {
+                    "name": "acc",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "sec": {
+                    "name": "sec",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                }
+            },
+            "syncable": true,
+            "pluralName": "Creds",
+            "attributes": [
+                {
+                    "type": "model",
+                    "properties": {}
+                },
+                {
+                    "type": "auth",
+                    "properties": {
+                        "rules": [
+                            {
+                                "allow": "public",
+                                "operations": [
+                                    "create",
+                                    "update",
+                                    "delete",
+                                    "read"
+                                ]
+                            }
+                        ]
+                    }
+                }
+            ]
+        },
         "Tasks": {
             "name": "Tasks",
             "fields": {
@@ -951,5 +1001,5 @@ export const schema = {
     },
     "enums": {},
     "nonModels": {},
-    "version": "ebfcbb8ea9e647092cc78b287aae5835"
+    "version": "0c7a468ad6c6a2b043fd92622e2920f8"
 };

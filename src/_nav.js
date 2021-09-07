@@ -39,13 +39,13 @@ const _nav = [
         _component: 'CNavItem',
         as: NavLink,
         anchor: 'The Team',
-        to: '/dash/employees',
+        to: '/dash/team',
       },
       {
         _component: 'CNavItem',
         as: NavLink,
         anchor: 'Send email',
-        to: '/dash/base/breadcrumbs',
+        to: '/500',
       },
     ]
   },

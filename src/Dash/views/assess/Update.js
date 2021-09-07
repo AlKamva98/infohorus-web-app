@@ -1,70 +1,41 @@
-import React,{useState, useEffect} from 'react';
-import {Container, Row, Image, Col,Card,Form} from 'react-bootstrap';
+import React,{useState} from 'react';
+import {Container, Row, Col,Card,Form} from 'react-bootstrap';
 import {Label, Input, FormGroup,Button} from 'reactstrap';
-import Select  from 'react-select';
 import { Link} from 'react-router-dom';
 import { useForm, Controller } from "react-hook-form";
-import {sendEmail} from '../../../Home/shared/functions/AwsFuncs'
-import {  API, Auth, graphqlOperation } from 'aws-amplify';
+import {  API, graphqlOperation } from 'aws-amplify';
 import * as mutations from '../../../graphql/mutations'
-import * as queries from '../../../graphql/queries'
-import { PopUp } from '../../../Home/shared/utils/Modal';
 
-function Employees(props) {
-      const {
-    buttonLabel,
-    className
-  } = props;
-
-  var newusermut = mutations.createUser;
-  const initialFormState = {
-        fname:"", lname:"",email:"", jobtitle:"", company:"",employees:"",industry:"",  formType:"signUp"};  
-  const signupFailMsg = "Passwords are different!! Pasword and Confirm Password must be the same";
-  const [modalPass, setModalPass] = useState(false);
-  const togglePass = () => setModalPass(!modalPass);
-  const [modalErrPop, setModalErrPop] = useState(false);
-  const toggleErrPop = () => setModalErrPop(!modalErrPop);
-  const [formState, updateFormState] = useState(initialFormState);
-  const [errTitle, setErrTitle] = useState("");
-  const [errMess, setErrMess] = useState("");
+  function Update(props) {
+    const {userData} = props.location;
+    var updatedUser ={...userData};
+    const initialFormState = {
+    fname:"", lname:"",email:"", jobtitle:"", company:"",employees:"",industry:"", authCode:"",chkAgreement:"", formType:"signUp"};  
+    const [formState, updateFormState] = useState(initialFormState);
     
-
     const { register, handleSubmit, errors, control } = useForm();
     const handleError = (errors) => { console.log("Form Errors: "+ errors)};
     const handleRegistration = async (data) =>{ 
       
       try{
-          console.log("Data::::", data)
-        getCreds().then((uCred)=>{
-          console.log("Sending Email", uCred)
-          sendEmail("New Team member",data, uCred);
-          
-        }).finally(async()=>{
-          console.log("Sending to the API")
-          await API.graphql(graphqlOperation(
-            newusermut,{
-              input:{
-                
-                email: data.email,
-                  first_name: data.fname,
-                  last_name: data.lname,
-                  job_title: data.jobtitle,
-                  
-                }
-                
-              }))
-              console.log("This is the users data:"+JSON.stringify(data))
-              console.log("Data sent to the API")
-          
-            
-          })
-          }
+         console.log("UserData",userData)
+         updatedUser.first_name= data.fname;
+         updatedUser.last_name= data.lname;
+         updatedUser.job_title= data.jobtitle;
+         updatedUser.email = data.email;
+         updatedUser = omit(updatedUser,"_lastChangedAt");
+         updatedUser = omit(updatedUser,"createdAt");
+         updatedUser = omit(updatedUser,"updatedAt");
+         updatedUser = omit(updatedUser,"checked");
+
+         console.log("user", updatedUser)
+          await API.graphql({ query: mutations.updateUser, variables: {input: omit(updatedUser, "_deleted")}});
+        console.log("This is the users data:"+JSON.stringify(data))
+        console.log("Data sent to the API")
+      }
       catch(err){
         console.log("API err:", err )
-        setErrTitle(err.code);
-        setErrMess(err.message);
-        toggleErrPop();
-      }
+        }
     };
     let {formType}= formState;
     function onChange(e){
@@ -72,14 +43,13 @@ function Employees(props) {
         console.log("changing:"+e.target.name);
         updateFormState(()=>({...formState, [e.target.name]: e.target.value}))
       }
-      
-     async function getCreds(){
-      let cred  = await API.graphql(graphqlOperation(queries.getCred, { id: 'ak100' }));
-      console.log("These are the creds", cred)
-      return cred;
-    }
-   
-
+      function omit(obj, ...props) {
+  const result = { ...obj };
+  props.forEach(function(prop) {
+    delete result[prop];
+  });
+  return result;
+}
  return (
  <div>
 {formType==="signUp" && ( <Container className="container-fluid">
@@ -89,7 +59,7 @@ function Employees(props) {
         <Col id="subDiv2" className="mx-auto w-1/2">
             <Card className="mx-auto mb-4 mt-4 bg-light w-1/2 shadow" >
                 <Card.Body>
-        <h2 className="mb-3 fw-normal text-center text-2xl fw-bold">Adding new team member</h2>
+        <h2 className="mb-3 fw-normal text-center text-2xl fw-bold">Updating team member</h2>
         <h4 className="mb-3 fw-normal text-center">Please Fill in the team member's details </h4>
 
       <Form className="row g-3 m-4 p-4" onSubmit={handleSubmit(handleRegistration, handleError)}> 
@@ -131,4 +101,4 @@ function Employees(props) {
  )
 }
   
-export default Employees;
+export default Update;

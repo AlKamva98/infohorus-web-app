@@ -23,7 +23,7 @@
         "Name": "infohorusauthPostConfirmation-main",
         "LambdaExecutionRole": "infohorusauthPostConfirmation-main"
       },
-      "lastPushTimeStamp": "2021-09-01T10:33:13.746Z",
+      "lastPushTimeStamp": "2021-09-06T04:53:52.044Z",
       "providerMetadata": {
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-infohoruswebapp-main-91614-deployment/amplify-cfn-templates/function/infohorusauthPostConfirmation-cloudformation-template.json",
         "logicalId": "functioninfohorusauthPostConfirmation"
@@ -54,7 +54,7 @@
         "EndUsersGroupRole": "arn:aws:iam::957365067607:role/eu-west-1_MBviHjkjL-EndUsersGroupRole",
         "AssessorsGroupRole": "arn:aws:iam::957365067607:role/eu-west-1_MBviHjkjL-AssessorsGroupRole"
       },
-      "lastPushTimeStamp": "2021-09-01T10:33:13.764Z",
+      "lastPushTimeStamp": "2021-09-06T04:53:52.050Z",
       "providerMetadata": {
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-infohoruswebapp-main-91614-deployment/amplify-cfn-templates/auth/template.json",
         "logicalId": "authuserPoolGroups"
@@ -83,7 +83,7 @@
         "IdentityPoolName": "infohoruswebapp_identitypool__main",
         "UserPoolName": "infohoruswebapp_userpool"
       },
-      "lastPushTimeStamp": "2021-09-01T10:33:13.775Z",
+      "lastPushTimeStamp": "2021-09-06T04:53:52.052Z",
       "providerMetadata": {
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-infohoruswebapp-main-91614-deployment/amplify-cfn-templates/auth/infohorusauth-cloudformation-template.yml",
         "logicalId": "authinfohorusauth"
@@ -119,12 +119,12 @@
         "GraphQLAPIEndpointOutput": "https://zkcd6virrbegvnvbp3umuz22hm.appsync-api.eu-west-1.amazonaws.com/graphql",
         "GraphQLAPIKeyOutput": "da2-dqlxsxk3fresbmew3x5juey7ie"
       },
-      "lastPushTimeStamp": "2021-09-01T10:33:23.149Z",
+      "lastPushTimeStamp": "2021-09-06T04:53:52.062Z",
       "providerMetadata": {
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-infohoruswebapp-main-91614-deployment/amplify-cfn-templates/api/cloudformation-template.json",
         "logicalId": "apiinfohoruswebapp"
       },
-      "lastPushDirHash": "78SnDvoO/VjgAL3jOxPq0gB2Mgo="
+      "lastPushDirHash": "ZXVMLbfM1VOqqG/8AUB3cd3Lf20="
     }
   },
   "storage": {
@@ -158,7 +158,7 @@
         "BucketName": "userdocumentsbucket91614-main",
         "Region": "eu-west-1"
       },
-      "lastPushTimeStamp": "2021-09-01T10:33:13.812Z",
+      "lastPushTimeStamp": "2021-09-06T04:53:52.057Z",
       "providerMetadata": {
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-infohoruswebapp-main-91614-deployment/amplify-cfn-templates/storage/s3-cloudformation-template.json",
         "logicalId": "storageuserDocuments"

@@ -63,14 +63,15 @@ function review(i){
             <dt className="sr-only">Tasks</dt>
             {tasks && (tasks.map((task, i)=>{
               if(task.recId===values.id){
-                RecTask = task
-              }
-              console.log("These are the tasks in this recommendation", RecTask)
-              return(
-                <dd className="flex justify-end group-hover:text-blue-200 sm:justify-start font-medium lg:justify-end xl:justify-start -space-x-2">
-                {`Task ${index+1}: ${RecTask.taskDesc}- Assigned to:${RecTask.assignedTo}`}
+                RecTask = task;
+                i++;
+                console.log("These are the tasks in this recommendation", RecTask)
+                return(
+                  <dd className="flex justify-end group-hover:text-blue-200 sm:justify-start font-medium lg:justify-end xl:justify-start -space-x-2">
+                {`Task ${i}: ${RecTask.taskDesc}- Assigned to:${RecTask.assignedTo}`}
                 </dd>
                 )
+              }
             }))}
           </div>
           <div >

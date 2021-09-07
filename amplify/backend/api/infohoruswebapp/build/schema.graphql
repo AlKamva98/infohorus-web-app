@@ -1,3 +1,14 @@
+type Cred @aws_iam @aws_api_key {
+  id: ID!
+  acc: String
+  sec: String
+  _version: Int!
+  _deleted: Boolean
+  _lastChangedAt: AWSTimestamp!
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}
+
 type Tasks @aws_iam @aws_api_key {
   id: ID!
   taskName: String
@@ -151,8 +162,8 @@ enum ModelSortDirection {
   DESC
 }
 
-type ModelTasksConnection @aws_api_key @aws_iam {
-  items: [Tasks]
+type ModelCredConnection @aws_api_key @aws_iam {
+  items: [Cred]
   nextToken: String
   startedAt: AWSTimestamp
 }
@@ -230,17 +241,13 @@ input ModelSizeInput {
   between: [Int]
 }
 
-input ModelTasksFilterInput {
+input ModelCredFilterInput {
   id: ModelIDInput
-  taskName: ModelStringInput
-  taskDesc: ModelStringInput
-  taskStar: ModelStringInput
-  taskEnd: ModelStringInput
-  recommendationsID: ModelIDInput
-  assignedTo: ModelStringInput
-  and: [ModelTasksFilterInput]
-  or: [ModelTasksFilterInput]
-  not: ModelTasksFilterInput
+  acc: ModelStringInput
+  sec: ModelStringInput
+  and: [ModelCredFilterInput]
+  or: [ModelCredFilterInput]
+  not: ModelCredFilterInput
 }
 
 enum ModelAttributeTypes {
@@ -257,6 +264,9 @@ enum ModelAttributeTypes {
 }
 
 type Query {
+  getCred(id: ID!): Cred @aws_api_key @aws_iam
+  listCreds(filter: ModelCredFilterInput, limit: Int, nextToken: String): ModelCredConnection @aws_api_key @aws_iam
+  syncCreds(filter: ModelCredFilterInput, limit: Int, nextToken: String, lastSync: AWSTimestamp): ModelCredConnection @aws_api_key @aws_iam
   getTasks(id: ID!): Tasks @aws_api_key @aws_iam
   listTaskss(filter: ModelTasksFilterInput, limit: Int, nextToken: String): ModelTasksConnection @aws_api_key @aws_iam
   syncTasks(filter: ModelTasksFilterInput, limit: Int, nextToken: String, lastSync: AWSTimestamp): ModelTasksConnection @aws_api_key @aws_iam
@@ -289,36 +299,29 @@ type Query {
   syncFiles(filter: ModelFileFilterInput, limit: Int, nextToken: String, lastSync: AWSTimestamp): ModelFileConnection @aws_api_key @aws_iam
 }
 
-input CreateTasksInput {
+input CreateCredInput {
   id: ID
-  taskName: String
-  taskDesc: String
-  taskStar: AWSDate
-  taskEnd: AWSDate
-  recommendationsID: ID
-  assignedTo: String
+  acc: String
+  sec: String
   _version: Int
-  tasksRecommendationTaskId: ID
 }
 
-input UpdateTasksInput {
+input UpdateCredInput {
   id: ID!
-  taskName: String
-  taskDesc: String
-  taskStar: AWSDate
-  taskEnd: AWSDate
-  recommendationsID: ID
-  assignedTo: String
+  acc: String
+  sec: String
   _version: Int
-  tasksRecommendationTaskId: ID
 }
 
-input DeleteTasksInput {
+input DeleteCredInput {
   id: ID!
   _version: Int
 }
 
 type Mutation {
+  createCred(input: CreateCredInput!, condition: ModelCredConditionInput): Cred @aws_api_key @aws_iam
+  updateCred(input: UpdateCredInput!, condition: ModelCredConditionInput): Cred @aws_api_key @aws_iam
+  deleteCred(input: DeleteCredInput!, condition: ModelCredConditionInput): Cred @aws_api_key @aws_iam
   createTasks(input: CreateTasksInput!, condition: ModelTasksConditionInput): Tasks @aws_api_key @aws_iam
   updateTasks(input: UpdateTasksInput!, condition: ModelTasksConditionInput): Tasks @aws_api_key @aws_iam
   deleteTasks(input: DeleteTasksInput!, condition: ModelTasksConditionInput): Tasks @aws_api_key @aws_iam
@@ -351,19 +354,18 @@ type Mutation {
   deleteFile(input: DeleteFileInput!, condition: ModelFileConditionInput): File @aws_api_key @aws_iam
 }
 
-input ModelTasksConditionInput {
-  taskName: ModelStringInput
-  taskDesc: ModelStringInput
-  taskStar: ModelStringInput
-  taskEnd: ModelStringInput
-  recommendationsID: ModelIDInput
-  assignedTo: ModelStringInput
-  and: [ModelTasksConditionInput]
-  or: [ModelTasksConditionInput]
-  not: ModelTasksConditionInput
+input ModelCredConditionInput {
+  acc: ModelStringInput
+  sec: ModelStringInput
+  and: [ModelCredConditionInput]
+  or: [ModelCredConditionInput]
+  not: ModelCredConditionInput
 }
 
 type Subscription {
+  onCreateCred: Cred @aws_subscribe(mutations: ["createCred"]) @aws_api_key @aws_iam
+  onUpdateCred: Cred @aws_subscribe(mutations: ["updateCred"]) @aws_api_key @aws_iam
+  onDeleteCred: Cred @aws_subscribe(mutations: ["deleteCred"]) @aws_api_key @aws_iam
   onCreateTasks: Tasks @aws_subscribe(mutations: ["createTasks"]) @aws_api_key @aws_iam
   onUpdateTasks: Tasks @aws_subscribe(mutations: ["updateTasks"]) @aws_api_key @aws_iam
   onDeleteTasks: Tasks @aws_subscribe(mutations: ["deleteTasks"]) @aws_api_key @aws_iam
@@ -394,6 +396,66 @@ type Subscription {
   onCreateFile: File @aws_subscribe(mutations: ["createFile"]) @aws_api_key @aws_iam
   onUpdateFile: File @aws_subscribe(mutations: ["updateFile"]) @aws_api_key @aws_iam
   onDeleteFile: File @aws_subscribe(mutations: ["deleteFile"]) @aws_api_key @aws_iam
+}
+
+type ModelTasksConnection @aws_api_key @aws_iam {
+  items: [Tasks]
+  nextToken: String
+  startedAt: AWSTimestamp
+}
+
+input ModelTasksFilterInput {
+  id: ModelIDInput
+  taskName: ModelStringInput
+  taskDesc: ModelStringInput
+  taskStar: ModelStringInput
+  taskEnd: ModelStringInput
+  recommendationsID: ModelIDInput
+  assignedTo: ModelStringInput
+  and: [ModelTasksFilterInput]
+  or: [ModelTasksFilterInput]
+  not: ModelTasksFilterInput
+}
+
+input CreateTasksInput {
+  id: ID
+  taskName: String
+  taskDesc: String
+  taskStar: AWSDate
+  taskEnd: AWSDate
+  recommendationsID: ID
+  assignedTo: String
+  _version: Int
+  tasksRecommendationTaskId: ID
+}
+
+input UpdateTasksInput {
+  id: ID!
+  taskName: String
+  taskDesc: String
+  taskStar: AWSDate
+  taskEnd: AWSDate
+  recommendationsID: ID
+  assignedTo: String
+  _version: Int
+  tasksRecommendationTaskId: ID
+}
+
+input DeleteTasksInput {
+  id: ID!
+  _version: Int
+}
+
+input ModelTasksConditionInput {
+  taskName: ModelStringInput
+  taskDesc: ModelStringInput
+  taskStar: ModelStringInput
+  taskEnd: ModelStringInput
+  recommendationsID: ModelIDInput
+  assignedTo: ModelStringInput
+  and: [ModelTasksConditionInput]
+  or: [ModelTasksConditionInput]
+  not: ModelTasksConditionInput
 }
 
 type ModelRecommendationsConnection @aws_api_key @aws_iam {

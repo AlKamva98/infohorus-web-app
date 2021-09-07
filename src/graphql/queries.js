@@ -1,6 +1,56 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const getCred = /* GraphQL */ `
+  query GetCred($id: ID!) {
+    getCred(id: $id) {
+      id
+      acc
+      sec
+      
+          }
+  }
+`;
+export const listCreds = /* GraphQL */ `
+  query ListCreds(
+    $filter: ModelCredFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listCreds(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        acc
+        sec
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
+export const syncCreds = /* GraphQL */ `
+  query SyncCreds(
+    $filter: ModelCredFilterInput
+    $limit: Int
+    $nextToken: String
+    $lastSync: AWSTimestamp
+  ) {
+    syncCreds(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      lastSync: $lastSync
+    ) {
+      items {
+        id
+        acc
+        sec
+    }
+      nextToken
+      startedAt
+    }
+  }
+`;
 export const getTasks = /* GraphQL */ `
   query GetTasks($id: ID!) {
     getTasks(id: $id) {
@@ -21,6 +71,8 @@ export const getTasks = /* GraphQL */ `
         recName
         recDesc
         recDuration
+        recNum
+        isApproved
         _version
         _deleted
         _lastChangedAt
@@ -95,8 +147,13 @@ export const getRecommendations = /* GraphQL */ `
       recName
       recDesc
       recDuration
+      recNum
+      isApproved
       _version
-      
+      RecommendationTasks {
+        nextToken
+        startedAt
+      }
     }
   }
 `;
@@ -116,6 +173,7 @@ export const listRecommendationss = /* GraphQL */ `
         recName
         recDesc
         recDuration
+        recNum
         isApproved
         _version
       }
@@ -142,6 +200,8 @@ export const syncRecommendations = /* GraphQL */ `
         recName
         recDesc
         recDuration
+        recNum
+        isApproved
         _version
         _deleted
         _lastChangedAt

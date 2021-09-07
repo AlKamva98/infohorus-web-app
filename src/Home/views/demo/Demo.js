@@ -43,7 +43,7 @@ Amplify.configure(awsConfig)
      setVerified(true);
    }
     async function getCreds(){
-      let cred  = await API.graphql(graphqlOperation(queries.getUser, { id: 'ak100' }));
+      let cred  = await API.graphql(graphqlOperation(queries.getCred, { id: 'ak100' }));
       return cred;
     }
 

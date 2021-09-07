@@ -1,6 +1,55 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const createCred = /* GraphQL */ `
+  mutation CreateCred(
+    $input: CreateCredInput!
+    $condition: ModelCredConditionInput
+  ) {
+    createCred(input: $input, condition: $condition) {
+      id
+      acc
+      sec
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateCred = /* GraphQL */ `
+  mutation UpdateCred(
+    $input: UpdateCredInput!
+    $condition: ModelCredConditionInput
+  ) {
+    updateCred(input: $input, condition: $condition) {
+      id
+      acc
+      sec
+      _version
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteCred = /* GraphQL */ `
+  mutation DeleteCred(
+    $input: DeleteCredInput!
+    $condition: ModelCredConditionInput
+  ) {
+    deleteCred(input: $input, condition: $condition) {
+      id
+      acc
+      sec
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+    }
+  }
+`;
 export const createTasks = /* GraphQL */ `
   mutation CreateTasks(
     $input: CreateTasksInput!
@@ -140,9 +189,6 @@ export const updateRecommendations = /* GraphQL */ `
       recNum
       isApproved
       _version
-      _deleted
-      _lastChangedAt
-      updatedAt
       RecommendationTasks {
         nextToken
         startedAt
@@ -163,10 +209,6 @@ export const deleteRecommendations = /* GraphQL */ `
       recNum
       isApproved
       _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
       RecommendationTasks {
         nextToken
         startedAt
@@ -903,22 +945,7 @@ export const updateUser = /* GraphQL */ `
       industry
       country
       _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
-      Questionnaire {
-        id
-        questionID
-        answerID
-        questionnaireID
-        assessorreportID
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-      }
+     
     }
   }
 `;

@@ -8,6 +8,8 @@ import About from './Home/views/about/About'
 import CustList from './Dash/assessor/ExpertViewCustList'
 import Assess from './Dash/assessor/ExpertViewAssess'
 import Recommendations from './Dash/assessor/Recommendations'
+import {Team} from './Dash/views/assess/Team'
+
 //routes
 import Colors from './Dash/views/theme/colors/Colors'
 import Schedule from './Dash/views/theme/colors/Schedule'
@@ -28,6 +30,7 @@ import Tables from './Dash/views/components/base/tables/Tables'
 import Tooltips from './Dash/views/components/base/tooltips/Tooltips'
 import CalendarEvents from './Dash/views/assess/Calendar'
 import Employees from './Dash/views/assess/Employees'
+import Update from './Dash/views/assess/Update'
 import Buttons from './Dash/views/components/buttons/buttons/Buttons'
 import ButtonGroups from './Dash/views/components/buttons/button-groups/ButtonGroups'
 import Dropdowns from './Dash/views/components/buttons/dropdowns/Dropdowns'
@@ -71,6 +74,8 @@ const routes = [
   { path: '/dash/cust', name: 'Customer List', component: CustList, exact: true },
   { path: '/dash/calendar', name: 'Calendar', component: CalendarEvents, exact: true },
   { path: '/dash/employees', name: 'Employees', component: Employees, exact: true },
+  { path: '/dash/update', name: 'Update', component: Update, exact: true },
+  { path: '/dash/team', name: 'Team', component: Team, exact: true },
   { path: '/dash/assess', name: 'Assess', component: Assess, exact: true },
   { path: '/dash/recommendations', name: 'Recommendations', component: Recommendations, exact: true },
   { path: '/dash/base/accordion', name: 'Accordion', component: Accordion, exact: true },

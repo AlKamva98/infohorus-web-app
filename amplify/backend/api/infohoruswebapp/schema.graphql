@@ -1,3 +1,9 @@
+type Cred @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  acc: String
+  sec: String
+}
+
 type Tasks @model @auth(rules: [{allow: public}]) @key(name: "byRecommendations", fields: ["recommendationsID"]) {
   id: ID!
   taskName: String
