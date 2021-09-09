@@ -29,31 +29,29 @@ const DefaultLayout = (props) => {
       if(!hasData){
       listRecs().then(data =>{
         updateRecs(data);
-        console.log("This is supposed to be changed ", recommendations)
+       
       })
     }
     },[])
     
          async function listRecs() { //gets the recommendations from the backend     
              var data = await API.graphql({query: queries.listRecommendationss}).then(promise => {
-              console.log(promise.data.listRecommendationss.items);
+              
               return promise.data.listRecommendationss.items;
             }).catch(e => {
                 console.error(e);
             }).finally(()=>{
-              console.log("Data has been recieved")
               setHasData(true);
               getApproved()
             })
           return data;
   }
     function getApproved(){//scans through the a recommendations array, gets approved recs, and moves those recs to a new array
-      console.log("Aprroved data recieved")
+      
          try{
           if(hasData){
 
             approvedRecs = recommendations.filter(checkRec);//filters 
-            console.log("these are the approved recommendations", approvedRecs);
             upRec = recommendations;
             if(approvedRecs!==undefined||approvedRecs!==null){//checks if approvedRecs is not null
               for(let i in recommendations){//loops through the array 
@@ -66,8 +64,6 @@ const DefaultLayout = (props) => {
               }
           updateApproved(approved);//
           updateRecs(upRec)
-          console.log("these are the approved recommendations", approved);
-          console.log("these are the Pending recommendations", recommendations);
         }
 }catch(err){
 

@@ -54,8 +54,10 @@ let answers =[];
 
  useEffect(()=>{
      getAnswersbyQuestionnaire().then(answerData =>{
+       console.log("mapping the answers.", answerData)
         answerData.sort((a,b) => (a.questionID > b.questionID) ? 1 : ((b.questionID > a.questionID) ? -1 : 0))
         setAnswers(answerData);
+        console.log("These are the answers that have been read from the back end",Answers)
             }).finally(()=>{
             })
 },[])
@@ -64,19 +66,23 @@ let answers =[];
 
 
 async function getAnswersbyQuestionnaire(){
-
+try{
+  console.log("The system is retrieving the questionaire answers!");
   let questionnaires = await API.graphql({query: queries.listQuestionnaires});//gets questionnaires
   let questionnairelist =questionnaires.data.listQuestionnaires.items;//stores questionnaires into an array
   let listanswers = await API.graphql({query: queries.listAnswers});// gets all the answers
   let answerslist= listanswers.data.listAnswers.items;//stores them in an array
   let i;
-
+  console.log("The system has received the anwers from the back end", answerslist)
 
   for(let qnaire in questionnairelist) {//for loop that goes through the array in search of the qnaire of chosen user
+    console.log("Questionnaire ID::::", questionnairelist[qnaire] )
     if(state.id === questionnairelist[qnaire].userId){//gets questionnaire by id
     questionnaire = questionnairelist[qnaire].id
+    console.log("Questionnaire ID::::", questionnaire)
     }
   };
+  console.log("The system has received the anwers from the back end", answerslist)
 
   for( i in answerslist) {//loops through answers array
   if(questionnaire === answerslist[i].questionnaireID){//gets all answers with specific qnaire id
@@ -88,10 +94,15 @@ async function getAnswersbyQuestionnaire(){
           answerslist[i].qnum = questions[quest].questionNum;
         }
       };
+      console.log("The answer array list has been updated to the following:", answerslist)
+
     answers.push(answerslist[i]);
       }
       };
     return answers;
+}catch(err){
+  console.log("error",err)
+}
   }
 
 

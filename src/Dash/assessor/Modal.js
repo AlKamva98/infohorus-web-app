@@ -1,4 +1,5 @@
 import React from 'react'
+import Select  from 'react-select';
 import {Button, Modal, ModalBody,ModalFooter,ModalHeader} from 'reactstrap';
 import {Input} from 'reactstrap';
 import {Formik, Form, FieldArray, Field} from 'formik'
@@ -7,6 +8,10 @@ export function RecPopUp (props) {
   const onSubmit=()=>{
 
   }
+  const selectOptionsIMP = [
+      {value: "#fd3153", label: "High"},
+      {value: "#3694DF", label: "Meduim"},
+      {value: "#1ccb9e", label: "Low"}]
   const {popupType, title, body, isOpen, toggle ,btnTxtPositive, btnTxtNegative, bg, btnNegOnClick,className} = props;
   return(
   <div>
@@ -23,10 +28,20 @@ export function RecPopUp (props) {
           <Field name="RecName" onChange={handleChange} placeholder="Recommendation" className="block w-60  mt-2 text-xl placeholder-gray-400  rounded-lg focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50"  type="input" as={Input}> 
           </Field>
           </div>
-          <div className="relative">
-          <Field name="recSeverity" type="input" onChange={handleChange} className="block w-60  mt-2 text-xl placeholder-gray-400  rounded-lg focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50" 
-          placeholder="Severity" as={Input} /> 
-          </div>
+          <select
+        name="recImp"
+        className="block w-60  mt-2 text-xl placeholder-gray-400  rounded-lg focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50" 
+        value={values.recImp}
+        onChange={handleChange}
+        onBlur={handleBlur}
+        style={{ display: 'block' }}
+      >
+        <option value="" label="Select a the importance" />
+        <option value="High" label="High" />
+        <option value="Medium" label="Medium" />
+        <option value="Low" label="Low" />
+      </select>
+      
   <FieldArray name="tasks">
 
     {arrayHelpers =>(
@@ -48,11 +63,8 @@ export function RecPopUp (props) {
             </Field>
               <Field name={`task.${index}.taskDuration`} onChange={handleChange} placeholder="Enter Duration" className="block w-60  mt-2 text-xl placeholxder-gray-400  rounded-lg focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50"  type="input" as={Input}> 
             </Field>
-            <pre>{JSON.stringify(values.tasks[index],null,2)}</pre>
             </div>
-           
             </div>
-           
            )
           })}
          

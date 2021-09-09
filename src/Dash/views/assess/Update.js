@@ -87,7 +87,7 @@ import * as mutations from '../../../graphql/mutations'
                </FormGroup>
             
             <FormGroup className="checkbox mb-3">
-            <Button type="submit" className="w-100 my-3 text-lg text-white fw-semibold py-3 bg-blue-700  hover:bg-blue-500 focus:bg-blue-600 focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50"  >Add user</Button>
+            <Button type="submit" className="w-100 my-3 text-lg text-white fw-semibold py-3 bg-blue-700  hover:bg-blue-500 focus:bg-blue-600 focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50"  >Update Team member</Button>
             </FormGroup>
         </Form>
         </Card.Body>

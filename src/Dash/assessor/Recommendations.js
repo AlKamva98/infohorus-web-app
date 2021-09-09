@@ -2,6 +2,7 @@ import React from 'react'
 import {RecPopUp} from './Modal.js'
 import {Button} from 'react-bootstrap'
 import {API} from 'aws-amplify-react'
+import * as mutations from '../../graphql/mutations'
 
 function Recommendations(props) {
   const [modal, setModal] = React.useState(false);
@@ -12,12 +13,14 @@ function Recommendations(props) {
 console.log("This the assessor's data", assess)
 console.log("This the client's data", client)
 let newArr=[];
-
-// function addRec(id){
-//  assForm = assess.assessForm[id];
-//  toggle();
+async function addRecommendations(){
+  
+}
+function addRec(id){
+ let assForm = assess.assessForm[id];
+ toggle();
  
-//}
+}
 
 for (const key in assess.assessForm) {
   for(let i in client){
@@ -40,14 +43,14 @@ for (const key in assess.assessForm) {
             <p className="text-xl font-semibold text-gray-900">Assesor Answer: {val.assessAns}</p>
             <p className="text-xl font-semibold text-gray-900">Assesor Comment: {val.assessComment}</p>
             </div>
-            <div className="relative mb-4"><Button >Add recommendation</Button></div>
+            <div className="relative mb-4"><Button onClick={addRec} >Add recommendation</Button></div>
             <p>{}</p>
         
     </>
     )
     })
       }
- {/* <RecPopUp
+ <RecPopUp
 title="Recommendations"
 body="Add a new Recommendation" 
 btnTxtPositive="Cancel"
@@ -57,7 +60,7 @@ popupType="two-btns"
 bg=""
 toggle={toggle}
 isOpen={modal}
-/> */}
+/>
   </div>
  )
 }
