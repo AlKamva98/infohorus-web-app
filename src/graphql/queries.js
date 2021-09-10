@@ -147,8 +147,8 @@ export const getRecommendations = /* GraphQL */ `
       recName
       recDesc
       recDuration
-      recNum
       isApproved
+      userID
       _version
       RecommendationTasks {
         nextToken
@@ -173,8 +173,8 @@ export const listRecommendationss = /* GraphQL */ `
         recName
         recDesc
         recDuration
-        recNum
         isApproved
+        userID
         _version
       }
       nextToken

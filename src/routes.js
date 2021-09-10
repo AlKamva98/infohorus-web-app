@@ -8,6 +8,7 @@ import About from './Home/views/about/About'
 import CustList from './Dash/assessor/ExpertViewCustList'
 import Assess from './Dash/assessor/ExpertViewAssess'
 import Recommendations from './Dash/assessor/Recommendations'
+import Assign from './Dash/assessor/Assign'
 import {Team} from './Dash/views/assess/Team'
 
 //routes
@@ -72,6 +73,7 @@ const routes = [
   { path: '/dash/schedule', name: 'Schedule', component: Schedule, exact: true },
   { path: '/dash/theme/typography', name: 'Typography', component: Typography, exact: true },
   { path: '/dash/cust', name: 'Customer List', component: CustList, exact: true },
+  { path: '/dash/assignRec', name:'Assign Recommendations', component: Assign, exact: true},
   { path: '/dash/calendar', name: 'Calendar', component: CalendarEvents, exact: true },
   { path: '/dash/employees', name: 'Employees', component: Employees, exact: true },
   { path: '/dash/update', name: 'Update', component: Update, exact: true },

@@ -32,12 +32,14 @@ type Recommendations @aws_iam @aws_api_key {
   recDuration: String
   recNum: String
   isApproved: Boolean
+  userID: ID
   _version: Int!
   _deleted: Boolean
   _lastChangedAt: AWSTimestamp!
   createdAt: AWSDateTime!
   updatedAt: AWSDateTime!
   RecommendationTasks(filter: ModelTasksFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelTasksConnection @aws_iam @aws_api_key
+  User: User @aws_iam @aws_api_key
 }
 
 type AssessorReport @aws_iam @aws_api_key {
@@ -144,6 +146,7 @@ type User @aws_iam @aws_api_key {
   _lastChangedAt: AWSTimestamp!
   createdAt: AWSDateTime!
   updatedAt: AWSDateTime!
+  Recommendations(filter: ModelRecommendationsFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelRecommendationsConnection @aws_iam @aws_api_key
   Questionnaire: QuestionnaireQuestionAnswer @aws_iam @aws_api_key
 }
 
@@ -471,6 +474,7 @@ input ModelRecommendationsFilterInput {
   recDuration: ModelStringInput
   recNum: ModelStringInput
   isApproved: ModelBooleanInput
+  userID: ModelIDInput
   and: [ModelRecommendationsFilterInput]
   or: [ModelRecommendationsFilterInput]
   not: ModelRecommendationsFilterInput
@@ -483,7 +487,9 @@ input CreateRecommendationsInput {
   recDuration: String
   recNum: String
   isApproved: Boolean
+  userID: ID
   _version: Int
+  recommendationsUserId: ID
 }
 
 input UpdateRecommendationsInput {
@@ -493,7 +499,9 @@ input UpdateRecommendationsInput {
   recDuration: String
   recNum: String
   isApproved: Boolean
+  userID: ID
   _version: Int
+  recommendationsUserId: ID
 }
 
 input DeleteRecommendationsInput {
@@ -507,6 +515,7 @@ input ModelRecommendationsConditionInput {
   recDuration: ModelStringInput
   recNum: ModelStringInput
   isApproved: ModelBooleanInput
+  userID: ModelIDInput
   and: [ModelRecommendationsConditionInput]
   or: [ModelRecommendationsConditionInput]
   not: ModelRecommendationsConditionInput

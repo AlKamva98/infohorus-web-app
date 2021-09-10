@@ -1,21 +1,17 @@
 import React from 'react'
-import {RecPopUp} from './Modal.js'
 import {Button} from 'react-bootstrap'
-import {API} from 'aws-amplify-react'
-import * as mutations from '../../graphql/mutations'
+import {Link} from 'react-router-dom'
 
 function Recommendations(props) {
   const [modal, setModal] = React.useState(false);
   const toggle = () => setModal(!modal);
   const { assess, client } = props.location;
-  const recommendations = [];
+  const tasks = [];
   
 console.log("This the assessor's data", assess)
 console.log("This the client's data", client)
 let newArr=[];
-async function addRecommendations(){
-  
-}
+
 function addRec(id){
  let assForm = assess.assessForm[id];
  toggle();
@@ -34,33 +30,23 @@ for (const key in assess.assessForm) {
  return (
   <div>
     <h4 className="text-xl fw-bold">This is the Recommendations screen</h4>
-    {assess.assessForm.map((val, index)=>{
+    {assess && assess.assessForm.map((val, index)=>{
       return(<>
             <div key={index} className="flex flex-col mb-4">
             <p className="text-xl font-semibold text-gray-900">Question number: {val.client.qname}</p>
             <p className="text-xl font-semibold text-gray-900">Question: {val.client.question}</p>
             <span className="text-xl font-semibold text-gray-900">Client Answer: {val.client.answer}</span>
             <p className="text-xl font-semibold text-gray-900">Assesor Answer: {val.assessAns}</p>
-            <p className="text-xl font-semibold text-gray-900">Assesor Comment: {val.assessComment}</p>
+            <p className="text-xl font-semibold text-gray- 900">Assesor Comment: {val.assessComment}</p>
             </div>
-            <div className="relative mb-4"><Button onClick={addRec} >Add recommendation</Button></div>
+            <div className="relative mb-4"><Link to={{pathname: "/dash/assignRec" ,tasks: tasks}}> <Button className="btn"  >Add recommendation</Button></Link></div>
             <p>{}</p>
         
     </>
     )
     })
       }
- <RecPopUp
-title="Recommendations"
-body="Add a new Recommendation" 
-btnTxtPositive="Cancel"
-btnTxtNegative="Add"
-btnNegOnClick={addRecommendations}
-popupType="two-btns"
-bg=""
-toggle={toggle}
-isOpen={modal}
-/>
+ 
   </div>
  )
 }

@@ -28,6 +28,8 @@ export const updateCred = /* GraphQL */ `
       acc
       sec
       _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
     }
@@ -75,6 +77,7 @@ export const createTasks = /* GraphQL */ `
         recDuration
         recNum
         isApproved
+        userID
         _version
         _deleted
         _lastChangedAt
@@ -109,6 +112,7 @@ export const updateTasks = /* GraphQL */ `
         recDuration
         recNum
         isApproved
+        userID
         _version
         _deleted
         _lastChangedAt
@@ -143,6 +147,7 @@ export const deleteTasks = /* GraphQL */ `
         recDuration
         recNum
         isApproved
+        userID
         _version
         _deleted
         _lastChangedAt
@@ -164,6 +169,7 @@ export const createRecommendations = /* GraphQL */ `
       recDuration
       recNum
       isApproved
+      userID
       _version
       _deleted
       _lastChangedAt
@@ -173,6 +179,7 @@ export const createRecommendations = /* GraphQL */ `
         nextToken
         startedAt
       }
+      
     }
   }
 `;
@@ -188,11 +195,14 @@ export const updateRecommendations = /* GraphQL */ `
       recDuration
       recNum
       isApproved
+      userID
       _version
+      
       RecommendationTasks {
         nextToken
         startedAt
       }
+     
     }
   }
 `;
@@ -208,10 +218,31 @@ export const deleteRecommendations = /* GraphQL */ `
       recDuration
       recNum
       isApproved
+      userID
       _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
       RecommendationTasks {
         nextToken
         startedAt
+      }
+      User {
+        id
+        first_name
+        last_name
+        email
+        job_title
+        company
+        employees
+        industry
+        country
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
       }
     }
   }
@@ -914,6 +945,10 @@ export const createUser = /* GraphQL */ `
       _lastChangedAt
       createdAt
       updatedAt
+      Recommendations {
+        nextToken
+        startedAt
+      }
       Questionnaire {
         id
         questionID
@@ -945,7 +980,26 @@ export const updateUser = /* GraphQL */ `
       industry
       country
       _version
-     
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      Recommendations {
+        nextToken
+        startedAt
+      }
+      Questionnaire {
+        id
+        questionID
+        answerID
+        questionnaireID
+        assessorreportID
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
     }
   }
 `;
@@ -969,6 +1023,10 @@ export const deleteUser = /* GraphQL */ `
       _lastChangedAt
       createdAt
       updatedAt
+      Recommendations {
+        nextToken
+        startedAt
+      }
       Questionnaire {
         id
         questionID
