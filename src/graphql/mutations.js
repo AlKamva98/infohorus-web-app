@@ -940,6 +940,7 @@ export const createUser = /* GraphQL */ `
       employees
       industry
       country
+      userType
       _version
       _deleted
       _lastChangedAt
@@ -979,6 +980,7 @@ export const updateUser = /* GraphQL */ `
       employees
       industry
       country
+      userType
       _version
       _deleted
       _lastChangedAt
@@ -1018,6 +1020,7 @@ export const deleteUser = /* GraphQL */ `
       employees
       industry
       country
+      userType
       _version
       _deleted
       _lastChangedAt

@@ -11,16 +11,25 @@ function ExpertViewCustList(){
  const [datatable, setDatatable] = useState('');
  const [hasData, setHasData] = useState(false);
  const showLogs2 = (e) => {
-     console.log('SHOWLOGS:::', e);
      setCheckbox1(e);
  };
- 
+ var completed;
+
     useEffect(() => {
          listUsers().then(listOfUsers => {
-           console.log(listOfUsers)  
+          let users = [];
+          
+          for(let i in  listOfUsers.data.listUsers.items){
+            if( listOfUsers.data.listUsers.items[i].userType === "Assessee"){
+              completed =  listOfUsers.data.listUsers.items[i];
+              console.log("This is the approved ",  listOfUsers.data.listUsers.items[i])
+              users.push( listOfUsers.data.listUsers.items[i])
+              
+            }
+           }
           let data = {
                  columns: COLUMNS,
-                 rows: listOfUsers.data.listUsers.items
+                 rows: users
              }
              setDatatable(data);
          }).finally(()=>{
@@ -31,7 +40,6 @@ function ExpertViewCustList(){
   async function listUsers() {
       try {
            var userslist = await API.graphql({query: queries.listUsers});
-          console.log(userslist.data.listUsers.items);
           return userslist;
       } catch (err) {
           console.log("Error:>> ", err);

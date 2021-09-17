@@ -27,22 +27,11 @@ type Recommendations @model @auth(rules: [{allow: public}]) @key(name: "byUser",
   User: User @connection
 }
 
-type AssessorReport @model @auth(rules: [{allow: public}]) @key(name: "byAssessor", fields: ["assessorID"]) {
+type AssessorReport @model @auth(rules: [{allow: public}]) {
   id: ID!
   assrssorComment: String
   assessmentResult: String
-  Assessor: Assessor @connection
-  assessorID: ID
   QuestionnaireQuestionAnswers: [QuestionnaireQuestionAnswer] @connection(keyName: "byAssessorReport", fields: ["id"])
-}
-
-type Assessor @model @auth(rules: [{allow: public}]) {
-  id: ID!
-  first_name: String
-  last_name: String
-  email: String
-  numAssessed: String
-  AssessorReports: [AssessorReport] @connection(keyName: "byAssessor", fields: ["id"])
 }
 
 type QuestionnaireQuestionAnswer @model @auth(rules: [{allow: public}]) @key(name: "byQuestion", fields: ["questionID"]) @key(name: "byAssessorReport", fields: ["assessorreportID"]) {
@@ -98,6 +87,7 @@ type User @model @auth(rules: [{allow: public}]) {
   country: String
   Questionnaire: QuestionnaireQuestionAnswer @connection
   Recommendations: [Recommendations] @connection(keyName: "byUser", fields: ["id"])
+  userType: String
 }
 
 type File @model @auth(rules: [{allow: public}]) {

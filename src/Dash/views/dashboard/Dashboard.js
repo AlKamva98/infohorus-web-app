@@ -74,7 +74,7 @@ const Dashboard = () => {
         </CCard>
       </CCol>
 
-      <CCard className="mb-4">
+      {/* <CCard className="mb-4">
         <CCardBody>
           <CRow>
             <CCol sm="5">
@@ -623,7 +623,7 @@ const Dashboard = () => {
             </CCardBody>
           </CCard>
         </CCol>
-      </CRow>
+      </CRow> */}
     </>
   )
 }

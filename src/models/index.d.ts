@@ -51,6 +51,7 @@ export declare class User {
   readonly country?: string;
   readonly Questionnaire?: QuestionnaireQuestionAnswer;
   readonly Recommendations?: (Recommendations | null)[];
+  readonly userType?: string;
   constructor(init: ModelInit<User>);
   static copyOf(source: User, mutator: (draft: MutableModel<User>) => MutableModel<User> | void): User;
 }
@@ -108,22 +109,9 @@ export declare class AssessorReport {
   readonly id: string;
   readonly assrssorComment?: string;
   readonly assessmentResult?: string;
-  readonly Assessor?: Assessor;
-  readonly assessorID?: string;
   readonly QuestionnaireQuestionAnswers?: (QuestionnaireQuestionAnswer | null)[];
   constructor(init: ModelInit<AssessorReport>);
   static copyOf(source: AssessorReport, mutator: (draft: MutableModel<AssessorReport>) => MutableModel<AssessorReport> | void): AssessorReport;
-}
-
-export declare class Assessor {
-  readonly id: string;
-  readonly first_name?: string;
-  readonly last_name?: string;
-  readonly email?: string;
-  readonly numAssessed?: string;
-  readonly AssessorReports?: (AssessorReport | null)[];
-  constructor(init: ModelInit<Assessor>);
-  static copyOf(source: Assessor, mutator: (draft: MutableModel<Assessor>) => MutableModel<Assessor> | void): Assessor;
 }
 
 export declare class File {

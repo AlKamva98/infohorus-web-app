@@ -1,7 +1,7 @@
 import React, {useState, useEffect, useCallback} from 'react';
-import {Link} from 'react-router-dom'
+import {Redirect} from 'react-router-dom'
 import {Input} from "reactstrap";
-import { API, Storage } from 'aws-amplify';
+import { API, Storage,graphqlOperation } from 'aws-amplify';
 import {Formik, Form, FieldArray, Field} from 'formik'
 import {Button, Container} from 'react-bootstrap'
 import * as queries from "../../graphql/queries"
@@ -15,8 +15,8 @@ const { state } = props.location;
 // const addReport = mutations.createAssessorReport;
 const [formState, updateFormState] = useState(initialFormState)
 const [Answers, setAnswers] = useState()
+const [reportCreated, updateReportCreated] = useState(false);
 const memoizedHandleDoc = useCallback((doc)=>() => {
-      console.log('Click happened');
       downloadDocument(doc);
 
     },
@@ -27,37 +27,38 @@ const memoizedHandleDoc = useCallback((doc)=>() => {
   
   const onSubmit = async (data ) =>{    
     console.log("This is the data from the form", data)
+    createReport(data).then(()=>{
+      updateReportCreated(true)
+    })
   }
   
 //   const selectOptionsAss = [
 //     {value: "Yes", label: "Yes"},
 //     {value: "No", label: "No"},]  
-//   async function createReport (data){
-//     try{
+  async function createReport (data){
+    try{
       
-//     await API.graphql(graphqlOperation(
-//     addReport, {
-//       input: {
-//       assrssorComment: data,
-//       assessmentResult: data,
-//       assessorID:data
-//           }
-//         }
-//         ))
-//       }catch(err){
-//         console.log("Report upload error", err)
-//       }
-// }
+    await API.graphql(graphqlOperation(
+    mutations.createAssessorReport, {
+      input: {
+      assrssorComment: data,
+      assessmentResult: data,
+      assessorID:data
+          }
+        }
+        ))
+      }catch(err){
+        console.log("Report upload error", err)
+      }
+}
 
 let questionnaire;
 let answers =[];
 
  useEffect(()=>{
      getAnswersbyQuestionnaire().then(answerData =>{
-       console.log("mapping the answers.", answerData)
         answerData.sort((a,b) => (a.questionID > b.questionID) ? 1 : ((b.questionID > a.questionID) ? -1 : 0))
         setAnswers(answerData);
-        console.log("These are the answers that have been read from the back end",Answers)
             }).finally(()=>{
             })
 },[])
@@ -73,7 +74,6 @@ try{
   let listanswers = await API.graphql({query: queries.listAnswers});// gets all the answers
   let answerslist= listanswers.data.listAnswers.items;//stores them in an array
   let i;
-  console.log("The system has received the anwers from the back end", answerslist)
 
   for(let qnaire in questionnairelist) {//for loop that goes through the array in search of the qnaire of chosen user
     console.log("Questionnaire ID::::", questionnairelist[qnaire] )
@@ -82,7 +82,6 @@ try{
     console.log("Questionnaire ID::::", questionnaire)
     }
   };
-  console.log("The system has received the anwers from the back end", answerslist)
 
   for( i in answerslist) {//loops through answers array
   if(questionnaire === answerslist[i].questionnaireID){//gets all answers with specific qnaire id
@@ -99,6 +98,7 @@ try{
     answers.push(answerslist[i]);
       }
       };
+      console.log(answers)
     return answers;
 }catch(err){
   console.log("error",err)
@@ -107,13 +107,10 @@ try{
 
 
 async function downloadDocument(doc){
-  console.log("This is the document name:::",doc)
   if(doc.endsWith(".pdf")){
    await Storage.get(doc, {download: true}).then(data => {
-                        console.log("This is the data returned from the S3 bucket:::",data)
                         data.Body.text().then(data2 => {
-                          console.log("This is the text that I get from the Blob:::",data2);
-                            convert(data2.substr(28));
+                          convert(data2.substr(28));
                         })
 
                     }).catch(err =>{
@@ -147,7 +144,7 @@ function onChange(e){
 <h4 className="text-center display-4">Customer Answers</h4>
 <span>Click on download to get .pdf/.xls file of the  </span>
 </Container>
-<Formik
+{<Formik
  initialValues={{assessForm:[{assessAns:"",assessComment:"", qName:""}]}}
  onSubmit={onSubmit}
 >
@@ -184,7 +181,7 @@ function onChange(e){
            
            )
           }))}
-          <Link to={{pathname: "/dash/recommendations" ,assess: values,client: Answers}} ><Button type="submit" >Submit</Button></Link>
+          <Button type="submit" >Submit</Button>
     </div>
     )
 
@@ -193,8 +190,8 @@ function onChange(e){
   </Form>
 )
 }
-</Formik>
-    
+</Formik>}
+    {reportCreated && <Redirect to={{pathname: "/dash/recommendations" ,client: Answers, usserId: state.id}} ></Redirect>}
   
   </>)
   

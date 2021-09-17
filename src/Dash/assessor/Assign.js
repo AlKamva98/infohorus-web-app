@@ -6,9 +6,12 @@ import Select  from 'react-select';
 import {TaskPopUp} from './Modal';
 import { API } from 'aws-amplify';
 import * as mutations from '../../graphql/mutations'
+import { Redirect } from 'react-router';
 
   function Assign(props) {
-    const {tasks} = props.location
+    const {tasks, userId,assess} = props.location
+    let rec;
+    const [back, setBack] = useState(false)
     const selectImp = [
       {value: "High", label: "High"},
       {value: "Medium", label: "Medium"},
@@ -16,20 +19,12 @@ import * as mutations from '../../graphql/mutations'
       const [modal, setModal] = useState(false);
     const toggle = () => setModal(!modal);
     const { register, handleSubmit, errors, control } = useForm();
-    const handleError = (errors) => { console.log("Form Errors: "+ errors)};
+    const handleError = (errors) => { console.log("Form Errors: ", errors)};
     const handleRegistration = async (data) =>{ 
-      try{
-      console.log("This is the data from the form", data)
-      await API.graphql({query: mutations.createRecommendations, variables:{input:{
-      recName:data.recName,
-      recDesc:data.recDesc,
-      recDuration:data.recDuration,
-      isApproved: false,
-        } } })
-      }
-      catch(err){
-        console.log("API err:", err )
-        }
+     saveData(data).then(rec=>{
+      console.log("This is the recommendations",rec)
+      setBack(true)
+     })
     };
     
       function omit(obj, ...props) {
@@ -39,6 +34,25 @@ import * as mutations from '../../graphql/mutations'
   });
   return result;
 }
+
+async function saveData(data){
+   try{
+      console.log("This is the data from the form", data)
+     rec = await API.graphql({query: mutations.createRecommendations, variables:{input:{
+      recName:data.recName,
+      recDesc:data.recDesc,
+      recDuration:data.recDuration,
+      isApproved: false,
+      userID: userId,
+        } } });
+        return rec;
+      }
+      catch(err){
+        console.log("API err:", err )
+        }
+
+}
+
  return (
  <div>
  <Container className="container-fluid">
@@ -75,8 +89,15 @@ import * as mutations from '../../graphql/mutations'
               {...field} />)}  name="recDesc"  {...register("recDesc" )} rules={{required:"Recommendation description is required"}} />
                </FormGroup>
             
-              {tasks && tasks.map((val, index) =>
-              <p>{JSON.stringify(val  )}</p>)
+              {tasks && tasks.map((val, index) =>{
+              index++;
+              return(
+              <div> 
+              <h4>{`Task ${index}`}</h4>
+              <p>{`Task Name ${val.taskName}`}</p>
+              <p>{`Task Duration ${val.taskDuration}`}</p>
+              </div>
+              )})
               }
             <FormGroup className=" col-md-3">
             <Button onClick={toggle} className="w-100 my-3 text-lg text-white fw-semibold py-3 bg-blue-700  hover:bg-blue-500 focus:bg-blue-600 focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50">Add Task</Button>
@@ -89,6 +110,7 @@ import * as mutations from '../../graphql/mutations'
             </Card>
     </Col>
     </Row>
+    {back && <Redirect to={{pathname: "/dash/recommendations" ,rec: rec, assess: assess}}/>}
     </Container>
      <TaskPopUp
 title="Tasks"

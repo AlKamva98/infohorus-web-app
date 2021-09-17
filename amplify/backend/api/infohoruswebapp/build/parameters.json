@@ -10,5 +10,5 @@
         ]
     },
     "S3DeploymentBucket": "amplify-infohoruswebapp-main-91614-deployment",
-    "S3DeploymentRootKey": "amplify-appsync-files/6fe1d1b65c50125c6da26733906bacc413d70892"
+    "S3DeploymentRootKey": "amplify-appsync-files/43e57c2ea119006dd760fa93d0e88991298211e1"
 }

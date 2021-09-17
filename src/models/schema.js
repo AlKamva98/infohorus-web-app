@@ -356,6 +356,13 @@ export const schema = {
                         "connectionType": "HAS_MANY",
                         "associatedWith": "userID"
                     }
+                },
+                "userType": {
+                    "name": "userType",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
                 }
             },
             "syncable": true,
@@ -851,26 +858,6 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
-                "Assessor": {
-                    "name": "Assessor",
-                    "isArray": false,
-                    "type": {
-                        "model": "Assessor"
-                    },
-                    "isRequired": false,
-                    "attributes": [],
-                    "association": {
-                        "connectionType": "BELONGS_TO",
-                        "targetName": "assessorReportAssessorId"
-                    }
-                },
-                "assessorID": {
-                    "name": "assessorID",
-                    "isArray": false,
-                    "type": "ID",
-                    "isRequired": false,
-                    "attributes": []
-                },
                 "QuestionnaireQuestionAnswers": {
                     "name": "QuestionnaireQuestionAnswers",
                     "isArray": true,
@@ -888,93 +875,6 @@ export const schema = {
             },
             "syncable": true,
             "pluralName": "AssessorReports",
-            "attributes": [
-                {
-                    "type": "model",
-                    "properties": {}
-                },
-                {
-                    "type": "key",
-                    "properties": {
-                        "name": "byAssessor",
-                        "fields": [
-                            "assessorID"
-                        ]
-                    }
-                },
-                {
-                    "type": "auth",
-                    "properties": {
-                        "rules": [
-                            {
-                                "allow": "public",
-                                "operations": [
-                                    "create",
-                                    "update",
-                                    "delete",
-                                    "read"
-                                ]
-                            }
-                        ]
-                    }
-                }
-            ]
-        },
-        "Assessor": {
-            "name": "Assessor",
-            "fields": {
-                "id": {
-                    "name": "id",
-                    "isArray": false,
-                    "type": "ID",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "first_name": {
-                    "name": "first_name",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "last_name": {
-                    "name": "last_name",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "email": {
-                    "name": "email",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "numAssessed": {
-                    "name": "numAssessed",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "AssessorReports": {
-                    "name": "AssessorReports",
-                    "isArray": true,
-                    "type": {
-                        "model": "AssessorReport"
-                    },
-                    "isRequired": false,
-                    "attributes": [],
-                    "isArrayNullable": true,
-                    "association": {
-                        "connectionType": "HAS_MANY",
-                        "associatedWith": "assessorID"
-                    }
-                }
-            },
-            "syncable": true,
-            "pluralName": "Assessors",
             "attributes": [
                 {
                     "type": "model",
@@ -1044,5 +944,5 @@ export const schema = {
     },
     "enums": {},
     "nonModels": {},
-    "version": "046258f7cd53228be06d751f39a359e6"
+    "version": "ebc5b6f8387333ec8212f3b2d528494b"
 };

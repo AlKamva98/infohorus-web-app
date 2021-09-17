@@ -16,13 +16,22 @@ export const Team = () => {
      console.log('SHOWLOGS:::', e);
      setCheckbox1(e);
  };
- 
+  var completed;
     useEffect(() => {
          listUsers().then(listOfUsers => {
-           console.log(listOfUsers)  
+             let users = [];
+          
+          for(let i in  listOfUsers.data.listUsers.items){
+            if( listOfUsers.data.listUsers.items[i].userType === "Team member"){
+              completed =  listOfUsers.data.listUsers.items[i];
+              console.log("This is the approved ",  listOfUsers.data.listUsers.items[i])
+              users.push(completed)
+              
+            }
+           }
           let data = {
                  columns: COLUMNS,
-                 rows: listOfUsers.data.listUsers.items
+                 rows: users
              }
              setDatatable(data);
          }).finally(()=>{

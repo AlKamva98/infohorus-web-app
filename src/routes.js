@@ -8,6 +8,7 @@ import About from './Home/views/about/About'
 import CustList from './Dash/assessor/ExpertViewCustList'
 import Assess from './Dash/assessor/ExpertViewAssess'
 import Recommendations from './Dash/assessor/Recommendations'
+import Report from './Dash/assessor/Report'
 import Assign from './Dash/assessor/Assign'
 import {Team} from './Dash/views/assess/Team'
 
@@ -80,6 +81,7 @@ const routes = [
   { path: '/dash/team', name: 'Team', component: Team, exact: true },
   { path: '/dash/assess', name: 'Assess', component: Assess, exact: true },
   { path: '/dash/recommendations', name: 'Recommendations', component: Recommendations, exact: true },
+  { path: '/dash/report', name: 'Report', component: Report, exact: true },
   { path: '/dash/base/accordion', name: 'Accordion', component: Accordion, exact: true },
   { path: '/dash/base/breadcrumbs', name: 'Breadcrumbs', component: Breadcrumbs, exact: true },
   { path: '/dash/base/cards', name: 'Cards', component: Cards, exact: true},

@@ -65,6 +65,7 @@ function Register(props) {
                 employees: data.employees.value,
                 industry: data.industry.value,
                 country: data.country.value,
+                userType: "Assessee"
               }
   
           }))

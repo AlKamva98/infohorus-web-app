@@ -755,6 +755,7 @@ export const getUser = /* GraphQL */ `
       employees
       industry
       country
+      userType
       _version
       _deleted
       _lastChangedAt
@@ -792,6 +793,7 @@ export const listUsers = /* GraphQL */ `
         employees
         industry
         country
+        userType
         _version
         _deleted
         _lastChangedAt

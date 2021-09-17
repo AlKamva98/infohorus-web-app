@@ -5,11 +5,12 @@ import {Link} from 'react-router-dom'
 function Recommendations(props) {
   const [modal, setModal] = React.useState(false);
   const toggle = () => setModal(!modal);
-  const { assess, client } = props.location;
+  const { assess, client, userId } = props.location;
   const tasks = [];
   
 console.log("This the assessor's data", assess)
 console.log("This the client's data", client)
+console.log("This the client's id", userId)
 let newArr=[];
 
 function addRec(id){
@@ -39,14 +40,13 @@ for (const key in assess.assessForm) {
             <p className="text-xl font-semibold text-gray-900">Assesor Answer: {val.assessAns}</p>
             <p className="text-xl font-semibold text-gray- 900">Assesor Comment: {val.assessComment}</p>
             </div>
-            <div className="relative mb-4"><Link to={{pathname: "/dash/assignRec" ,tasks: tasks}}> <Button className="btn"  >Add recommendation</Button></Link></div>
-            <p>{}</p>
         
     </>
     )
-    })
-      }
- 
+  })
+}
+<div className="relative mb-4"><Link to={{pathname: "/dash/assignRec" ,tasks: tasks, userId: userId, assess: assess}}> <Button className="btn"  >Add recommendation</Button></Link></div>
+ <div className="relative mb-4"><Link to="/dash/theme/colors"><Button className="btn"  >View user recommendations</Button></Link></div>
   </div>
  )
 }

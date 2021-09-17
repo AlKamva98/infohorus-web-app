@@ -49,6 +49,7 @@ function Employees(props) {
                   first_name: data.fname,
                   last_name: data.lname,
                   job_title: data.jobtitle,
+                  userType: "Team member",
                   
                 }
                 

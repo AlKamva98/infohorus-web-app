@@ -4,7 +4,7 @@ import { schema } from './schema';
 
 
 
-const { Cred, Tasks, Recommendations, User, QuestionnaireQuestionAnswer, Answer, Question, Questionnaire, AssessorReport, Assessor, File } = initSchema(schema);
+const { Cred, Tasks, Recommendations, User, QuestionnaireQuestionAnswer, Answer, Question, Questionnaire, AssessorReport, File } = initSchema(schema);
 
 export {
   Cred,
@@ -16,6 +16,5 @@ export {
   Question,
   Questionnaire,
   AssessorReport,
-  Assessor,
   File
 };

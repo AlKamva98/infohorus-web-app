@@ -46,28 +46,12 @@ type AssessorReport @aws_iam @aws_api_key {
   id: ID!
   assrssorComment: String
   assessmentResult: String
-  assessorID: ID
   _version: Int!
   _deleted: Boolean
   _lastChangedAt: AWSTimestamp!
   createdAt: AWSDateTime!
   updatedAt: AWSDateTime!
-  Assessor: Assessor @aws_iam @aws_api_key
   QuestionnaireQuestionAnswers(filter: ModelQuestionnaireQuestionAnswerFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelQuestionnaireQuestionAnswerConnection @aws_iam @aws_api_key
-}
-
-type Assessor @aws_iam @aws_api_key {
-  id: ID!
-  first_name: String
-  last_name: String
-  email: String
-  numAssessed: String
-  _version: Int!
-  _deleted: Boolean
-  _lastChangedAt: AWSTimestamp!
-  createdAt: AWSDateTime!
-  updatedAt: AWSDateTime!
-  AssessorReports(filter: ModelAssessorReportFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelAssessorReportConnection @aws_iam @aws_api_key
 }
 
 type QuestionnaireQuestionAnswer @aws_iam @aws_api_key {
@@ -141,6 +125,7 @@ type User @aws_iam @aws_api_key {
   employees: String
   industry: String
   country: String
+  userType: String
   _version: Int!
   _deleted: Boolean
   _lastChangedAt: AWSTimestamp!
@@ -279,9 +264,6 @@ type Query {
   getAssessorReport(id: ID!): AssessorReport @aws_api_key @aws_iam
   listAssessorReports(filter: ModelAssessorReportFilterInput, limit: Int, nextToken: String): ModelAssessorReportConnection @aws_api_key @aws_iam
   syncAssessorReports(filter: ModelAssessorReportFilterInput, limit: Int, nextToken: String, lastSync: AWSTimestamp): ModelAssessorReportConnection @aws_api_key @aws_iam
-  getAssessor(id: ID!): Assessor @aws_api_key @aws_iam
-  listAssessors(filter: ModelAssessorFilterInput, limit: Int, nextToken: String): ModelAssessorConnection @aws_api_key @aws_iam
-  syncAssessors(filter: ModelAssessorFilterInput, limit: Int, nextToken: String, lastSync: AWSTimestamp): ModelAssessorConnection @aws_api_key @aws_iam
   getQuestionnaireQuestionAnswer(id: ID!): QuestionnaireQuestionAnswer @aws_api_key @aws_iam
   listQuestionnaireQuestionAnswers(filter: ModelQuestionnaireQuestionAnswerFilterInput, limit: Int, nextToken: String): ModelQuestionnaireQuestionAnswerConnection @aws_api_key @aws_iam
   syncQuestionnaireQuestionAnswers(filter: ModelQuestionnaireQuestionAnswerFilterInput, limit: Int, nextToken: String, lastSync: AWSTimestamp): ModelQuestionnaireQuestionAnswerConnection @aws_api_key @aws_iam
@@ -334,9 +316,6 @@ type Mutation {
   createAssessorReport(input: CreateAssessorReportInput!, condition: ModelAssessorReportConditionInput): AssessorReport @aws_api_key @aws_iam
   updateAssessorReport(input: UpdateAssessorReportInput!, condition: ModelAssessorReportConditionInput): AssessorReport @aws_api_key @aws_iam
   deleteAssessorReport(input: DeleteAssessorReportInput!, condition: ModelAssessorReportConditionInput): AssessorReport @aws_api_key @aws_iam
-  createAssessor(input: CreateAssessorInput!, condition: ModelAssessorConditionInput): Assessor @aws_api_key @aws_iam
-  updateAssessor(input: UpdateAssessorInput!, condition: ModelAssessorConditionInput): Assessor @aws_api_key @aws_iam
-  deleteAssessor(input: DeleteAssessorInput!, condition: ModelAssessorConditionInput): Assessor @aws_api_key @aws_iam
   createQuestionnaireQuestionAnswer(input: CreateQuestionnaireQuestionAnswerInput!, condition: ModelQuestionnaireQuestionAnswerConditionInput): QuestionnaireQuestionAnswer @aws_api_key @aws_iam
   updateQuestionnaireQuestionAnswer(input: UpdateQuestionnaireQuestionAnswerInput!, condition: ModelQuestionnaireQuestionAnswerConditionInput): QuestionnaireQuestionAnswer @aws_api_key @aws_iam
   deleteQuestionnaireQuestionAnswer(input: DeleteQuestionnaireQuestionAnswerInput!, condition: ModelQuestionnaireQuestionAnswerConditionInput): QuestionnaireQuestionAnswer @aws_api_key @aws_iam
@@ -378,9 +357,6 @@ type Subscription {
   onCreateAssessorReport: AssessorReport @aws_subscribe(mutations: ["createAssessorReport"]) @aws_api_key @aws_iam
   onUpdateAssessorReport: AssessorReport @aws_subscribe(mutations: ["updateAssessorReport"]) @aws_api_key @aws_iam
   onDeleteAssessorReport: AssessorReport @aws_subscribe(mutations: ["deleteAssessorReport"]) @aws_api_key @aws_iam
-  onCreateAssessor: Assessor @aws_subscribe(mutations: ["createAssessor"]) @aws_api_key @aws_iam
-  onUpdateAssessor: Assessor @aws_subscribe(mutations: ["updateAssessor"]) @aws_api_key @aws_iam
-  onDeleteAssessor: Assessor @aws_subscribe(mutations: ["deleteAssessor"]) @aws_api_key @aws_iam
   onCreateQuestionnaireQuestionAnswer: QuestionnaireQuestionAnswer @aws_subscribe(mutations: ["createQuestionnaireQuestionAnswer"]) @aws_api_key @aws_iam
   onUpdateQuestionnaireQuestionAnswer: QuestionnaireQuestionAnswer @aws_subscribe(mutations: ["updateQuestionnaireQuestionAnswer"]) @aws_api_key @aws_iam
   onDeleteQuestionnaireQuestionAnswer: QuestionnaireQuestionAnswer @aws_subscribe(mutations: ["deleteQuestionnaireQuestionAnswer"]) @aws_api_key @aws_iam
@@ -531,7 +507,6 @@ input ModelAssessorReportFilterInput {
   id: ModelIDInput
   assrssorComment: ModelStringInput
   assessmentResult: ModelStringInput
-  assessorID: ModelIDInput
   and: [ModelAssessorReportFilterInput]
   or: [ModelAssessorReportFilterInput]
   not: ModelAssessorReportFilterInput
@@ -541,18 +516,14 @@ input CreateAssessorReportInput {
   id: ID
   assrssorComment: String
   assessmentResult: String
-  assessorID: ID
   _version: Int
-  assessorReportAssessorId: ID
 }
 
 input UpdateAssessorReportInput {
   id: ID!
   assrssorComment: String
   assessmentResult: String
-  assessorID: ID
   _version: Int
-  assessorReportAssessorId: ID
 }
 
 input DeleteAssessorReportInput {
@@ -563,60 +534,9 @@ input DeleteAssessorReportInput {
 input ModelAssessorReportConditionInput {
   assrssorComment: ModelStringInput
   assessmentResult: ModelStringInput
-  assessorID: ModelIDInput
   and: [ModelAssessorReportConditionInput]
   or: [ModelAssessorReportConditionInput]
   not: ModelAssessorReportConditionInput
-}
-
-type ModelAssessorConnection @aws_api_key @aws_iam {
-  items: [Assessor]
-  nextToken: String
-  startedAt: AWSTimestamp
-}
-
-input ModelAssessorFilterInput {
-  id: ModelIDInput
-  first_name: ModelStringInput
-  last_name: ModelStringInput
-  email: ModelStringInput
-  numAssessed: ModelStringInput
-  and: [ModelAssessorFilterInput]
-  or: [ModelAssessorFilterInput]
-  not: ModelAssessorFilterInput
-}
-
-input CreateAssessorInput {
-  id: ID
-  first_name: String
-  last_name: String
-  email: String
-  numAssessed: String
-  _version: Int
-}
-
-input UpdateAssessorInput {
-  id: ID!
-  first_name: String
-  last_name: String
-  email: String
-  numAssessed: String
-  _version: Int
-}
-
-input DeleteAssessorInput {
-  id: ID!
-  _version: Int
-}
-
-input ModelAssessorConditionInput {
-  first_name: ModelStringInput
-  last_name: ModelStringInput
-  email: ModelStringInput
-  numAssessed: ModelStringInput
-  and: [ModelAssessorConditionInput]
-  or: [ModelAssessorConditionInput]
-  not: ModelAssessorConditionInput
 }
 
 type ModelQuestionnaireQuestionAnswerConnection @aws_api_key @aws_iam {
@@ -839,6 +759,7 @@ input ModelUserFilterInput {
   employees: ModelStringInput
   industry: ModelStringInput
   country: ModelStringInput
+  userType: ModelStringInput
   and: [ModelUserFilterInput]
   or: [ModelUserFilterInput]
   not: ModelUserFilterInput
@@ -854,6 +775,7 @@ input CreateUserInput {
   employees: String
   industry: String
   country: String
+  userType: String
   _version: Int
   userQuestionnaireId: ID
 }
@@ -868,6 +790,7 @@ input UpdateUserInput {
   employees: String
   industry: String
   country: String
+  userType: String
   _version: Int
   userQuestionnaireId: ID
 }
@@ -886,6 +809,7 @@ input ModelUserConditionInput {
   employees: ModelStringInput
   industry: ModelStringInput
   country: ModelStringInput
+  userType: ModelStringInput
   and: [ModelUserConditionInput]
   or: [ModelUserConditionInput]
   not: ModelUserConditionInput

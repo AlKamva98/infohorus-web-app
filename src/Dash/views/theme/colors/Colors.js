@@ -6,7 +6,7 @@ import { CRow, CCard, CCardHeader, CCardBody } from '@coreui/react';
 import { Button } from 'react-bootstrap';
 
 const Colors = (props) => {
-    const {approve, approved, RecomendationsList, errModal, errToggle, revToggle, revModal,viewTasks, tasks, rec,toggle,modal, setRec, hasData, addTask }= props;
+    const {approve, approved, RecomendationsList, errModal, errToggle, revToggle, revModal,viewTasks, tasks, rec,toggle, userId,modal, setRec, hasData, addTask }= props;
     const [msg, setMsg] =useState("");
     let RecTask;
     console.log("This is tasks on app content page",tasks)
