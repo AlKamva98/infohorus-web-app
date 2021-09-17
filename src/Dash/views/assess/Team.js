@@ -58,6 +58,14 @@ export const Team = () => {
           console.log("Error:>> ", err);
       }
   }
+  async function deleteUser(checkbox) {
+      try {
+       await API.graphql({query: mutations.deleteUser ,variables:{input: checkbox.id}});
+        
+      } catch (err) {
+          console.log("Error:>> ", err);
+      }
+  }
 
   return (<>
     {hasData  && (<><Container>
