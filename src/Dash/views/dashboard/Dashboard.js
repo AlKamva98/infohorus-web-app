@@ -26,13 +26,14 @@ import WidgetsDropdown from '../components/widgets/WidgetsDropdown.js'
 import WidgetsBrand from '../components/widgets/WidgetsBrand.js'
 
 const Dashboard = () => {
+  let hasReport = false;
   const random = (min, max) => {
     return Math.floor(Math.random() * (max - min + 1) + min)
   }
 
   return (
     <>
-      <WidgetsDropdown />
+      {hasReport && <WidgetsDropdown />}
       
       <CCol xs={12}>
         <CCard className="mb-4">
