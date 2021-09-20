@@ -24,7 +24,7 @@ function Contact(){
   const onSubmit = async (data) =>{    
     try{
       getCreds().then((uCred)=>{
-        sendEmail("Contact",data, uCred, "hello@bahatitech.co.za");
+        sendEmail("Contact",data, uCred, "infohorus@bahatitech.co.za");
         toggle();
         reset({fname:"", email:"", phone:"", taMessage:""  });
       })
@@ -38,7 +38,7 @@ function Contact(){
     
 
     async function getCreds(){
-      let cred  = await API.graphql(graphqlOperation(queries.getUser, { id: 'ak100' }));
+      let cred  = await API.graphql(graphqlOperation(queries.getCred, { id: 'ak100' }));
       return cred;
     }
     

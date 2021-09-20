@@ -82,7 +82,7 @@ export function SurveyJS(props) {
         return newDoc;
     }
 async function getCreds(){
-      let cred  = await API.graphql(graphqlOperation(queries.getUser, { id: 'ak100' }));
+      let cred  = await API.graphql(graphqlOperation(queries.getCred, { id: 'ak100' }));
       return cred;
     }
     function sendEmail(uCred) {
