@@ -22,7 +22,7 @@ Amplify.configure(awsConfig)
     const [modal, setModal] = useState(false);
     const toggle = () => setModal(!modal);
     const [verified, setVerified] = useState(false);
-    const { register, handleSubmit, reset, formState: { errors }, control } = useForm();
+    const { register, handleSubmit, getValues, reset, formState: { errors }, control } = useForm();
     const handleRegistration = async (data) =>{ 
       try{
       getCreds().then((uCred)=>{
@@ -100,13 +100,17 @@ Amplify.configure(awsConfig)
         )} rules={{ required: "Please fill in your job title"}}  />
     <ErrorMessage errors={errors} className="err mb-4" name="jobtitle" as="p" />
     
-    <Controller  type="text" control={control} name="email"   {...register("email" )} render={({ field }) => (<Input className=" w-full inline-block px-4 py-4 mt-2 text-xl placeholder-gray-400 bg-gray-200 rounded-lg focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50" 
+    <Controller  type="email" control={control} name="email"   {...register("email" )} render={({ field }) => (<Input className=" w-full inline-block px-4 py-4 mt-2 text-xl placeholder-gray-400 bg-gray-200 rounded-lg focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50" 
           placeholder="Email" 
           {...field} />
-        )} rules={{ required: "Please fill in your email address"}}  />
+        )} rules={{ required: "Please fill in your email address",validate: () => {
+          if(getValues("email").includes("@gmail")){
+              return "Please enter your company email, not your gmail.";
+            }
+            }}}  />
     <ErrorMessage errors={errors} className="err mb-4" name="email" as="p" />
     
-    <Controller  type="text" control={control} name="phone"   {...register("phone" )} render={({ field }) => (<Input className=" w-full inline-block px-4 py-4 mt-2 text-xl placeholder-gray-400 bg-gray-200 rounded-lg focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50" 
+    <Controller  type="number" control={control} name="phone"   {...register("phone" )} render={({ field }) => (<Input className=" w-full inline-block px-4 py-4 mt-2 text-xl placeholder-gray-400 bg-gray-200 rounded-lg focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50" 
           placeholder="Phone number" 
           {...field} />
         )} rules={{ required: "Please fill in your phone number"}}  />
