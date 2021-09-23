@@ -24,17 +24,37 @@ const DefaultLayout = (props) => {
     const [msg, setMsg] =useState("");
     const [hasData, setHasData] = useState(false);
     const [recommendations, updateRecs] =useState(RecomendationsList);
-    
+    const [data, setData] = useState([])
+    var d ;
+
     useEffect(() => { 
       if(!hasData){
       listRecs().then(data =>{
-        updateRecs(data);
-       
+      updateRecs(data);
+      listArticles().then(promise=>{
+        console.log(promise)
+        setData(promise);
+      })
       })
     }
     },[])
     
-         async function listRecs() { //gets the recommendations from the backend     
+         async function listArticles() { //gets the recommendations from the backend     
+      var url ='https://newsapi.org/v2/everything?' +
+          'q=Cyber security&' +
+          'sortBy=popularity&' +
+          'apiKey=9abab85cc12644679ad3ac5b6226206d';
+          var req = new Request(url);
+    var res = fetch(req)
+    .then(response => response.json())
+    .then(data =>{ 
+      console.log(data.articles)
+      d = data.articles;
+      return d;
+    });
+    return res;
+           }
+             async function listRecs() { //gets the recommendations from the backend     
              var data = await API.graphql({query: queries.listRecommendationss}).then(promise => {
               
               return promise.data.listRecommendationss.items;
@@ -146,7 +166,7 @@ const DefaultLayout = (props) => {
         <AppHeader tasks={tasks} recommendations={recommendations} signOut={signOut} saveChanges={saveChanges} approved={approved} />
         <div className="body flex-grow-1 px-3">
           <AppContent approve={approve} approved={approved} recommendations={recommendations} 
-          errModal={errModal} hasData={hasData} errToggle={errToggle} revModal={revModal} revToggle={revToggle}  msg={msg} tasks={tasks} rec={rec} toggle={toggle} modal={modal} setRec={setRec} addTask={addTask} />
+          errModal={errModal} hasData={hasData} errToggle={errToggle} revModal={revModal} revToggle={revToggle}  msg={msg} tasks={tasks} rec={rec} toggle={toggle} news={data} modal={modal} setRec={setRec} addTask={addTask} />
         </div>
         <AppFooter />
       </div>

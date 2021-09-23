@@ -1,4 +1,4 @@
-import React, { lazy } from 'react'
+import React from 'react'
 import img from '../../assets/img.jpg'
 import {
   CAvatar,
@@ -25,12 +25,13 @@ import CIcon from '@coreui/icons-react'
 import WidgetsDropdown from '../components/widgets/WidgetsDropdown.js'
 import WidgetsBrand from '../components/widgets/WidgetsBrand.js'
 
-const Dashboard = () => {
+const Dashboard = (props) => {
+  const {news} = props;
   let hasReport = false;
   const random = (min, max) => {
     return Math.floor(Math.random() * (max - min + 1) + min)
   }
-
+  
   return (
     <>
       {hasReport && <WidgetsDropdown />}
@@ -38,39 +39,28 @@ const Dashboard = () => {
       <CCol xs={12}>
         <CCard className="mb-4">
           <CCardHeader>
-            <strong>Latest Reports</strong>
+            <strong>Latest News Reports</strong>
           </CCardHeader>
           <CCardBody>
+            {news.map((article, index)=>{
+      return(<>
             <div className="flex m-3 py-4 px-4 shadow-md rounded-lg bg-gray-200">
-              <img className="w-40 h-40 mr-4" src={img}/>
+              <img className="w-40 h-40 mr-4" src={article.urlToImage}/>
               <div>
-            <h5 className="text-lg font-semibold">Heading</h5>    
+            <h5 className="text-lg font-semibold">{article.title}</h5>    
             <p className="text-medium-emphasis small">
-              React Alert is prepared for any length of text, as well as an optional close button.
-              For a styling, use one of the <strong>required</strong> contextual <code>color</code>{' '}
-              props (e.g., <code>primary</code>). For inline dismissal, use the{' '}
-              <a href="https://coreui.io/react/docs/4.0/components/alert#dismissing">
-                dismissing prop
+              {article.content}
+              <a href={article.url} target="_blank">
+                read more
               </a>
               .
             </p>
+            <p className="text-medium-emphasis small font-semibold">Written by {article.author}</p>
+            <p className="text-medium-emphasis small font-semibold">Source: {article.source.name}</p>
+            <p className="text-medium-emphasis small font-semibold">published: {article.publishedAt}</p>            
             </div>
             </div>
-            <div className="flex m-3 py-4 px-4 shadow-md rounded-lg bg-gray-200">
-              <img className="w-40 h-40 mr-4" src={img}/>
-              <div>
-            <h5 className="text-lg font-semibold">Heading</h5>    
-            <p className="text-medium-emphasis small">
-              React Alert is prepared for any length of text, as well as an optional close button.
-              For a styling, use one of the <strong>required</strong> contextual <code>color</code>{' '}
-              props (e.g., <code>primary</code>). For inline dismissal, use the{' '}
-              <a href="https://coreui.io/react/docs/4.0/components/alert#dismissing">
-                dismissing prop
-              </a>
-              .
-            </p>
-            </div>
-            </div>
+           </>)})}
             </CCardBody>
         </CCard>
       </CCol>

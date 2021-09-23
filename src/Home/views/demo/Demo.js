@@ -3,6 +3,8 @@ import {Input} from 'reactstrap';
 import { ErrorMessage } from "@hookform/error-message";
 import {useForm, Controller } from "react-hook-form";
 import {selectOptionsCountry} from '../../testData/selectOptions'
+import PhoneInput from 'react-phone-number-input'
+import 'react-phone-number-input/style.css'
 import React,{useState} from 'react';
 import ReCAPTCHA from "react-google-recaptcha"; 
 import {PopUp} from '../../shared/utils/Modal'
@@ -110,7 +112,7 @@ Amplify.configure(awsConfig)
             }}}  />
     <ErrorMessage errors={errors} className="err mb-4" name="email" as="p" />
     
-    <Controller  type="number" control={control} name="phone"   {...register("phone" )} render={({ field }) => (<Input className=" w-full inline-block px-4 py-4 mt-2 text-xl placeholder-gray-400 bg-gray-200 rounded-lg focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50" 
+    <Controller  type="text" control={control} name="phone"   {...register("phone" )} render={({ field }) => (<PhoneInput className=" w-full inline-block px-4 py-4 mt-2 text-xl placeholder-gray-400 bg-gray-200 rounded-lg focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50" 
           placeholder="Phone number" 
           {...field} />
         )} rules={{ required: "Please fill in your phone number"}}  />

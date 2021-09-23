@@ -1,5 +1,7 @@
 import React,{useState} from 'react';
 import {Input} from "reactstrap";
+import PhoneInput from 'react-phone-number-input'
+import 'react-phone-number-input/style.css'
 import {PopUp} from '../../shared/utils/Modal.js'
 import { ErrorMessage } from "@hookform/error-message";
 import ReCAPTCHA from "react-google-recaptcha"; 
@@ -85,7 +87,7 @@ function Contact(){
                   <div className="relative">
                     <label className="font-semibold text-xl text-gray-900">Phone</label>
                     <Controller  type="text" control={control} name="phone" render={({ field }) => (
-          <Input className=" w-full inline-block px-4 py-4 mt-2 text-xl placeholder-gray-400 bg-gray-200 rounded-lg focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50" 
+          <PhoneInput className=" w-full inline-block px-4 py-4 mt-2 text-xl placeholder-gray-400 bg-gray-200 rounded-lg focus:outline-none focus:bg-whhite focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50" 
           placeholder="Enter your Phone number" 
           {...field} />
         )} {...register("phone")} rules={{required:"Phone Number is required"}} />
