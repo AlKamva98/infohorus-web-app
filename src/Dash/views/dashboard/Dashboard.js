@@ -42,7 +42,7 @@ const Dashboard = (props) => {
             <strong>Latest News Reports</strong>
           </CCardHeader>
           <CCardBody>
-            {news.map((article, index)=>{
+            {news ? (news.map((article, index)=>{
       return(<>
             <div className="flex m-3 py-4 px-4 shadow-md rounded-lg bg-gray-200">
               <img className="w-40 h-40 mr-4" src={article.urlToImage}/>
@@ -60,7 +60,7 @@ const Dashboard = (props) => {
             <p className="text-medium-emphasis small font-semibold">published: {article.publishedAt}</p>            
             </div>
             </div>
-           </>)})}
+           </>)})): <p>Articles Unavailable</p>}
             </CCardBody>
         </CCard>
       </CCol>
