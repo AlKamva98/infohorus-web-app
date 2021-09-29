@@ -45,19 +45,18 @@ const Dashboard = (props) => {
             {news ? (news.map((article, index)=>{
       return(<>
             <div className="flex m-3 py-4 px-4 shadow-md rounded-lg bg-gray-200">
-              <img className="w-40 h-40 mr-4" src={article.urlToImage}/>
+              {/* <img className="w-40 h-40 mr-4" src={article.provider[0].image.thumbnail.contentUrl}/> */}
               <div>
-            <h5 className="text-lg font-semibold">{article.title}</h5>    
+            <h5 className="text-lg font-semibold">{article.name}</h5>    
             <p className="text-medium-emphasis small">
-              {article.content}
+              {article.description}
               <a href={article.url} target="_blank">
                 read more
               </a>
               .
             </p>
-            <p className="text-medium-emphasis small font-semibold">Written by {article.author}</p>
-            <p className="text-medium-emphasis small font-semibold">Source: {article.source.name}</p>
-            <p className="text-medium-emphasis small font-semibold">published: {article.publishedAt}</p>            
+            <p className="text-medium-emphasis small font-semibold">Source: {article.provider[0].name}</p>
+            <p className="text-medium-emphasis small font-semibold">published: {article.datePublished}</p>            
             </div>
             </div>
            </>)})): <p>Articles Unavailable</p>}
