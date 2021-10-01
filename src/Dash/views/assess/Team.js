@@ -22,7 +22,7 @@ export const Team = () => {
              let users = [];
           
           for(let i in  listOfUsers.data.listUsers.items){
-            if( listOfUsers.data.listUsers.items[i].userType === "Team member"){
+            if( (listOfUsers.data.listUsers.items[i].userType === "Team member")&& !(listOfUsers.data.listUsers.items[i]._deleted)){
               completed =  listOfUsers.data.listUsers.items[i];
               console.log("This is the approved ",  listOfUsers.data.listUsers.items[i])
               users.push(completed)
@@ -39,15 +39,7 @@ export const Team = () => {
           });
 
         },[])
-        async function deleteUser(data){
-          try{
-            if(data){
-            d = {id: data.id}
-          await API.graphql({query: mutations.deleteUser, variables: {input: d}});}
-          }catch(err){
-            console.log("Delete error", err )
-          }
-       }
+       
 
   async function listUsers() {
       try {
@@ -59,24 +51,24 @@ export const Team = () => {
       }
   }
   async function deleteUser(checkbox) {
+    if(checkbox){
       try {
-       await API.graphql({query: mutations.deleteUser ,variables:{input: checkbox.id}});
+        const userDetails = {
+        id: checkbox.id,
+        _version: checkbox._version
+        };
+        console.log(`This the id of the item I want to delete`, userDetails);
+       await API.graphql({query: mutations.deleteUser ,variables:{input: userDetails}});
         
       } catch (err) {
           console.log("Error:>> ", err);
-      }
+      }}
   }
 
   return (<>
     {hasData  && (<><Container>
  <h4 className="text-center display-4">Meet The team</h4>
  <span>Click on the customer to assign tasks</span>
- <div>
-    <Link to="/dash/employees"><Button className= "mb-5 bg-green-500 hover:bg-green-300 focus:bg-green-400 active:bg-green-400"  type="submit">Add new +</Button></Link>
-
-  <Button onClick={deleteUser(checkbox1)} className= "ml-5 mb-5 bg-red-600 hover:bg-red-400 focus:bg-red-500 active:bg-red-500"  type="submit">Remove -</Button>
-  <Link to= {{pathname: "/dash/update" ,userData: checkbox1}}><Button className= "ml-5 mb-5 bg-yellow-500 hover:bg-yellow-300 focus:bg-yellow-400 active:bg-yellow-400"  type="submit">Update</Button></Link>
- </div>
  </Container>
     <div className="py-3">
       <MDBDataTableV5
@@ -90,7 +82,13 @@ export const Team = () => {
           showLogs2(e);}}
           />
     </div>
+ <div>
+    <Link to="/dash/employees"><Button className= "mb-5 bg-green-500 hover:bg-green-300 focus:bg-green-400 active:bg-green-400"  type="submit">Add new +</Button></Link>
+
+  <Button onClick={deleteUser(checkbox1)} className= "ml-5 mb-5 bg-red-600 hover:bg-red-400 focus:bg-red-500 active:bg-red-500"  type="submit">Remove -</Button>
+  <Link to= {{pathname: "/dash/update" ,userData: checkbox1}}><Button className= "ml-5 mb-5 bg-yellow-500 hover:bg-yellow-300 focus:bg-yellow-400 active:bg-yellow-400"  type="submit">Update</Button></Link>
     <Link to= {{pathname: "/dash/schedule" ,state: checkbox1}}><Button className= "ml-5 mb-5"  type="submit">Assign</Button></Link>
+ </div>
    <div>
       {checkbox1 && <p>{JSON.stringify(delete checkbox1.checkbox && checkbox1.first_name)}</p>}
     </div>
