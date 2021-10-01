@@ -106,8 +106,8 @@ Amplify.configure(awsConfig)
           placeholder="Email" 
           {...field} />
         )} rules={{ required: "Please fill in your email address",validate: () => {
-          if(getValues("email").includes("@gmail")){
-              return "Please enter your company email, not your gmail.";
+          if(getValues("email").includes("@gmail")|| getValues("email").includes("@yahoo")){
+              return "Please enter your company email, not your personal email.";
             }
             }}}  />
     <ErrorMessage errors={errors} className="err mb-4" name="email" as="p" />

@@ -39,42 +39,30 @@ const DefaultLayout = (props) => {
     }
     },[])
     
-         async function listArticles() { //gets the recommendations from the backend     
-      
-    //       var url ='https://newsapi.org/v2/everything?' +
-    //       'q=Cyber security&' +
-    //       'sortBy=popularity&' +
-    //       'apiKey=9abab85cc12644679ad3ac5b6226206d';
-          var url = "https://bing-news-search1.p.rapidapi.com/news/search?q=ransomware%20attacks&freshness=Day&textFormat=Raw&safeSearch=Off"
-  var headers={
-	"method": "GET",
-	"headers": {
-		"x-bingapis-sdk": "true",
-		"x-rapidapi-host": "bing-news-search1.p.rapidapi.com",
-		"x-rapidapi-key": "e9f592d88cmshdf92743d72abbf8p11fd0ajsn2ac0044023b0"
-	}
-}
-          var req = new Request(url, headers);
-    // var res = fetch(req)
-    // .then(response => response.json())
-    // .then(data =>{ 
-    //   console.log(data.articles)
-    //   d = data.articles;
-    //   return d;
-  // });
-    
-var res =  fetch(req)
-.then(response => { 
-   return  response.json();
-})
-console.log(res)
-var s = res.then(data=>{
-  console.log(data.value)
-  return data.value;
-})
-console.log(s)
-    return s;
-           }
+      async function listArticles() { //gets the recommendations from the backend     
+        var url = "https://bing-news-search1.p.rapidapi.com/news/search?q=ransomware%20attacks&freshness=Day&textFormat=Raw&safeSearch=Off"
+        var headers={
+          "method": "GET",
+          "headers": {
+            "x-bingapis-sdk": "true",
+            "x-rapidapi-host": "bing-news-search1.p.rapidapi.com",
+            "x-rapidapi-key": "e9f592d88cmshdf92743d72abbf8p11fd0ajsn2ac0044023b0"
+          }
+        }
+        var req = new Request(url, headers);  
+        var res =  fetch(req)
+        .then(response => { 
+          return  response.json();
+        })
+        console.log(res)
+        var s = res.then(data=>{
+          console.log(data.value)
+          return data.value;
+        })
+        console.log(s)
+            return s;
+          }
+
              async function listRecs() { //gets the recommendations from the backend     
              var data = await API.graphql({query: queries.listRecommendationss}).then(promise => {
               

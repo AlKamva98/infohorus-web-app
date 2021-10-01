@@ -4,6 +4,7 @@ import {Label, Input, FormGroup,Button} from 'reactstrap';
 import Select  from 'react-select';
 import { Link} from 'react-router-dom';
 import {selectOptionsCountry, selectEmpOptions, selectOptionsIndustry} from '../../../../Home/testData/selectOptions.js'
+import { ErrorMessage } from "@hookform/error-message";
 import { useForm, Controller } from "react-hook-form";
 import { Amplify, API, Auth, Storage,graphqlOperation } from 'aws-amplify';
 import * as mutations from '../../../../graphql/mutations'
@@ -38,7 +39,7 @@ function Register(props) {
     checkUser();
     },[])
 
-    const { register, handleSubmit, errors, control } = useForm();
+    const { register, handleSubmit, getValues,formState: { errors }, control } = useForm();
     const handleError = (errors) => { console.log("Form Errors: "+ errors)};
     const handleRegistration = async (data) =>{ 
       
@@ -125,7 +126,7 @@ function Register(props) {
         <FormGroup className="col-md-6">
             <Label for="lname" className="visually-hidden" >Last name</Label>
             <Input type="text" {...register("lname" )} className="form-control" onChange={onChange} name="lname" placeholder="Last Name" rules={{ required: "Please fill in your Last Name"}} autofocus/> 
-</FormGroup>
+        </FormGroup>
             
             <FormGroup className="col-12">
              <Label for="jobtitle" className="visually-hidden">Job Title</Label>
@@ -137,7 +138,12 @@ function Register(props) {
                    <Label for="email" className="visually-hidden">Email address</Label>
                    <Input  type="text" name="email"  {...register("email" )}   className=" form-control focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50" 
                placeholder="Email Address"
-             rules={{ required: "Please fill in your Email Address"}}  />
+             rules={{ required: "Please fill in your Email Address", validate: () => {
+          if(getValues("email").includes("@gmail")|| getValues("email").includes("@yahoo")){
+              return "Please enter your company email, not your personal email.";
+            }
+            }}}  />
+            <ErrorMessage errors={errors} className="err mb-4" name="email" as="p" />
                </FormGroup>
         
              <FormGroup className="col-12">
@@ -145,6 +151,7 @@ function Register(props) {
                  <Controller   control={control} name="password"    {...register("password")} render={({ field }) => (
                    <Input className=" form-control focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50" placeholder="Password" type="password" {...field} />
              )} rules={{ required: "Please Enter a password with atleast 8 characters. The password should also have atleast one capital letter, one special character and one number."}}  />
+             <ErrorMessage errors={errors} className="err mb-4" name="password" as="p" />
              </FormGroup>
         
              <FormGroup className="col-12">

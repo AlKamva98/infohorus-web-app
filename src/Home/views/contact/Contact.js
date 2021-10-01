@@ -77,11 +77,11 @@ function Contact(){
           <Input className=" w-full inline-block px-4 py-4 mt-2 text-xl placeholder-gray-400 bg-gray-200 rounded-lg focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50" 
           placeholder="Enter your email" 
           {...field} />
-        )} {...register("email")} rules={{required:"Email is required", validate: ()=>{
-          if(getValues("email").includes("@gmail")){
-              return "Please enter your company email, not your gmail.";
+        )} {...register("email")} rules={{required:"Email is required", validate: () => {
+          if(getValues("email").includes("@gmail")|| getValues("email").includes("@yahoo")){
+              return "Please enter your company email, not your personal email.";
             }
-        }}} />
+            }}} />
                   <ErrorMessage errors={errors} className="err mb-4" name="email" as="p" />                   
                   </div>
                   <div className="relative">
