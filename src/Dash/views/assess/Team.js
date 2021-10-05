@@ -1,4 +1,4 @@
-import React, { useState, useEffect} from 'react';
+import React, { useState, useEffect, useRef} from 'react';
 import {Button, Container} from 'react-bootstrap'
 import { MDBDataTableV5 } from 'mdbreact';
 import {Link} from 'react-router-dom'
@@ -6,16 +6,33 @@ import {COLUMNS} from "../../assessor/columns";
 import * as queries from '../../../graphql/queries'
 import * as mutations from '../../../graphql/mutations'
 import API from '@aws-amplify/api';
+import {
+  CToast,
+  CToastBody,
+  CToastClose,
+  CToaster,
+} from '@coreui/react'
+
 
 export const Team = () => {
   let d;
   const [checkbox1, setCheckbox1] = useState('');
+  const rtoaster = useRef()
  const [datatable, setDatatable] = useState('');
  const [hasData, setHasData] = useState(false);
+ const [toast, addToast] = useState(0)
  const showLogs2 = (e) => {
      console.log('SHOWLOGS:::', e);
      setCheckbox1(e);
  };
+ const removeToast = (
+  <CToast autohide={false} color="danger" className="text-white align-items-center">
+  <div className="d-flex">
+    <CToastBody>Team member removed</CToastBody>
+    <CToastClose className="me-2 m-auto" white />
+  </div>
+  </CToast>
+  )
   var completed;
     useEffect(() => {
          listUsers().then(listOfUsers => {
@@ -59,7 +76,7 @@ export const Team = () => {
         };
         console.log(`This the id of the item I want to delete`, userDetails);
        await API.graphql({query: mutations.deleteUser ,variables:{input: userDetails}});
-        
+       addToast(removeToast); 
       } catch (err) {
           console.log("Error:>> ", err);
       }}
@@ -93,6 +110,7 @@ export const Team = () => {
       {checkbox1 && <p>{JSON.stringify(delete checkbox1.checkbox && checkbox1.first_name)}</p>}
     </div>
     </>)}
+    <CToaster ref={rtoaster} push={toast} placement="top-end" />
     </>)
 
 }

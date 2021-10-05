@@ -1,14 +1,19 @@
-import React,{useState, useEffect} from 'react';
-import {Container, Row, Image, Col,Card,Form} from 'react-bootstrap';
+import React,{useState, useRef} from 'react';
+import {Container, Row, Col,Card,Form} from 'react-bootstrap';
 import {Label, Input, FormGroup,Button} from 'reactstrap';
-import Select  from 'react-select';
 import { Link} from 'react-router-dom';
 import { useForm, Controller } from "react-hook-form";
 import {sendEmail} from '../../../Home/shared/functions/AwsFuncs'
-import {  API, Auth, graphqlOperation } from 'aws-amplify';
+import {  API, graphqlOperation } from 'aws-amplify';
 import * as mutations from '../../../graphql/mutations'
 import * as queries from '../../../graphql/queries'
-import { PopUp } from '../../../Home/shared/utils/Modal';
+import {
+  CToast,
+  CToastBody,
+  CToastClose,
+  CToaster,
+} from '@coreui/react'
+
 
 function Employees(props) {
       const {
@@ -27,8 +32,16 @@ function Employees(props) {
   const [formState, updateFormState] = useState(initialFormState);
   const [errTitle, setErrTitle] = useState("");
   const [errMess, setErrMess] = useState("");
-    
-
+  const [toast, addToast] = useState(0)
+  const atoaster = useRef()
+ const newUsToast = (
+  <CToast autohide={false} color="success" className="text-white align-items-center">
+  <div className="d-flex">
+    <CToastBody>New team member added</CToastBody>
+    <CToastClose className="me-2 m-auto" white />
+  </div>
+  </CToast>
+  )
     const { register, handleSubmit, errors, control } = useForm();
     const handleError = (errors) => { console.log("Form Errors: "+ errors)};
     const handleRegistration = async (data) =>{ 
@@ -59,6 +72,9 @@ function Employees(props) {
           
             
           })
+
+          addToast(newUsToast)
+
           }
       catch(err){
         console.log("API err:", err )
@@ -127,7 +143,7 @@ function Employees(props) {
     </Row>
     </Container> )}
 
-
+<CToaster ref={atoaster} push={toast} placement="top-end" />
 </div>
  )
 }

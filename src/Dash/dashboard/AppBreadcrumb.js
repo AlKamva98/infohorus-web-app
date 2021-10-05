@@ -53,22 +53,26 @@ const getBreadcrumbs = (location) => {
     <CBreadcrumb className="d-none d-md-flex me-auto">
       <CBreadcrumbItem href="/">Home</CBreadcrumbItem>
       {breadcrumbs.map((breadcrumb, index) => {
+        console.log(breadcrumb.name)
         return (
-          <CBreadcrumbItem
+     <>   
+       <CBreadcrumbItem
             {...(breadcrumb.active ? { active: true } : { href: breadcrumb.pathname })}
             key={index}>
             {breadcrumb.name}
           </CBreadcrumbItem>
-        )
-      })}
-    </CBreadcrumb>
-    <div className="relative z-10 inline-flex  items-center space-x-3 md:ml-5 lg:justify-end">
+    {breadcrumb.name ==="Colors" && 
+    (<div className="relative z-10 inline-flex  items-center space-x-3 md:ml-5 lg:justify-end">
     <button onClick={()=>{
       saveChanges(approved);
       addToast(exampleToast);
     } } className="ml-8 inline-flex bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Save changes</button>
 <CToaster ref={toaster} push={toast} placement="top-end" />
-    </div>
+    </div>)}
+       </>   
+        )
+      })}
+    </CBreadcrumb>
     </div>
   )
 }
