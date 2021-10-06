@@ -83,7 +83,7 @@ function review(i){
           <div className="col-start-2 row-start-1 row-end-3">
             <dt className="sr-only">Users</dt>
             <dd className="flex justify-center sm:justify-start lg:justify-center xl:justify-start -space-x-2">
-            <Link className="btn bg-indigo-700 hover:bg-indigo-500 col-12 mx-auto mt-3 mb-2 text-white" to={{pathname: "/dash/schedule"  ,state: values, addTask: addTask}} >Schedule</Link>
+            <Link className="btn bg-indigo-700 hover:bg-indigo-500 col-12 mx-auto mt-3 mb-2 text-white" to={{pathname: "/dash/schedule"  ,state: values, addTask: addTask}} >Schedule Task</Link>
     
             </dd>
           </div>
@@ -160,7 +160,10 @@ title="Review Recommendation"
 head={`Recomendation:`}
 body={` ${rec.recDesc}\n`}
 btnTxtPositive="Accept"
-approve={()=>approve(rec)}
+approve={()=>{
+  approve(rec);
+  revToggle()
+} }
 bg=""
 toggle={revToggle}
 isOpen={revModal}

@@ -112,7 +112,7 @@ function Schedule(props) {
   
   </div>
   <div className="relative">
-  <button type="submit" className="inline-block w-full px-5 py-4 text-lg font-medium text-center text-white transition duration-200 bg-blue-600 rounded-lg hover:bg-blue-700 ease">Schedule</button>
+  <button type="submit" className="inline-block w-full px-5 py-4 text-lg font-medium text-center text-white transition duration-200 bg-blue-600 rounded-lg hover:bg-blue-700 ease">Schedule Task</button>
   </div>
   </form> 
 </div>
