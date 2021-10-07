@@ -14,6 +14,7 @@ import Page500 from './Dash/views/pages/page500/Page500';
 function App()  {
    const[signedIn, setSignedIn] = useState(false);
    const [userGroup, setUserGroup] = useState();
+   const [user, setUser] = useState();
   useEffect(()=>{
     checkUser();
     },[])
@@ -21,8 +22,9 @@ function App()  {
 async function checkUser(){
         try{
             const userchk = await Auth.currentAuthenticatedUser();
-            console.log("The user is: ",userchk.signInUserSession.accessToken.payload["cognito:groups"][0])
+            console.log("The user is: ",userchk.attributes.email)
             if((userchk!== undefined)||(userchk!==null)){
+            setUser(userchk.attributes.email)
             setUserGroup(userchk.signInUserSession.accessToken.payload["cognito:groups"][0]);
             setSignedIn(true);
            }

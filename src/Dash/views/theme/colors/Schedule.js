@@ -14,7 +14,7 @@ function Schedule(props) {
       {value: "#fd3153", label: "High"},
       {value: "#3694DF", label: "Meduim"},
       {value: "#1ccb9e", label: "Low"}]
-  const { state, addTask } = props.location;
+  const { state, addTask, team } = props.location;
   const [date, setDate] = useState(new Date());
   const [sdate, sSetDate] = useState(new Date());
   const [duration, updateDuration]= useState() 
@@ -44,7 +44,24 @@ function Schedule(props) {
     console.log("This is the task that has been scheduled", task);
     addTask(task);
   }
-
+const teamList = ()=>{
+    var t;
+    var e;
+    var mmb = [];
+  console.log("These are the team members", team)
+    if(team){ 
+    for(t in team){
+      var f = team[t].first_name + team[t].last_name;
+      e={value: f, label: f}
+      mmb.push(e)
+    }
+  }
+    console.log(mmb)
+    return mmb;
+  }
+  var a =teamList();
+  console.log(a)
+  console.log(team)
   return (
    <div>
 <div className="" >
@@ -87,11 +104,11 @@ function Schedule(props) {
   
   </div>
   </div>
-    
-    <Controller  type="text" control={control} name="assignedTo"   {...register("assignedTo" )} render={({ field }) => (<Input className=" w-full inline-block px-4 py-4 mt-2 text-xl placeholder-gray-400 bg-gray-200 rounded-lg focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50" 
-          placeholder="Assign To" 
-          {...field} />
-        )} rules={{ required: "Please fill in who you assigned this task to"}}  />
+  
+      <Controller name="assignedTo"   control={control} render={({ field }) => (
+              <Select placeholder="Assigned To" className="block w-full px-4 py-4 mt-2 text-xl placeholder-gray-400 bg-gray-200 rounded-lg focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50" options={a} defaultValue="Assigned To" {...field}>
+                </Select>
+            )}   {...register("assignedTo")}  rules={{ required: "Please Select the importance of the task"}} />
     <ErrorMessage errors={errors} className="err mb-4" name="assignedTo" as="p" />
     
     <Controller name="importance"   control={control} render={({ field }) => (
@@ -100,11 +117,11 @@ function Schedule(props) {
             )}   {...register("importance")}  rules={{ required: "Please Select the importance of the task"}} />
   <ErrorMessage errors={errors} className="err mb-4" name="importance" as="p" />
 
-    <Controller  type="text" control={control} name="email"   {...register("email" )} render={({ field }) => (<Input className=" w-full inline-block px-4 py-4 mt-2 text-xl placeholder-gray-400 bg-gray-200 rounded-lg focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50" 
+    {/* <Controller  type="text" control={control} name="email"   {...register("email" )} render={({ field }) => (<Input className=" w-full inline-block px-4 py-4 mt-2 text-xl placeholder-gray-400 bg-gray-200 rounded-lg focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50" 
           placeholder="Email" 
           {...field} />
-        )} rules={{ required: "Please fill in hi/her email address"}}  />
-    <ErrorMessage errors={errors} className="err mb-4" name="email" as="p" />
+        )} rules={{ required: "Please fill in his/her email address"}}  />
+    <ErrorMessage errors={errors} className="err mb-4" name="email" as="p" /> */}
     
     
  

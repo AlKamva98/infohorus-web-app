@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef} from 'react';
 import {Button, Container} from 'react-bootstrap'
 import { MDBDataTableV5 } from 'mdbreact';
 import {Link} from 'react-router-dom'
-import {COLUMNS} from "../../assessor/columns";
 import * as queries from '../../../graphql/queries'
 import * as mutations from '../../../graphql/mutations'
 import API from '@aws-amplify/api';
@@ -14,13 +13,12 @@ import {
 } from '@coreui/react'
 
 
-export const Team = () => {
-  let d;
+export const Team = (props) => {
+  const {hasTData, datatable} = props;
   const [checkbox1, setCheckbox1] = useState('');
   const rtoaster = useRef()
- const [datatable, setDatatable] = useState('');
- const [hasData, setHasData] = useState(false);
  const [toast, addToast] = useState(0)
+ var team;
  const showLogs2 = (e) => {
      console.log('SHOWLOGS:::', e);
      setCheckbox1(e);
@@ -33,40 +31,7 @@ export const Team = () => {
   </div>
   </CToast>
   )
-  var completed;
-    useEffect(() => {
-         listUsers().then(listOfUsers => {
-             let users = [];
-          
-          for(let i in  listOfUsers.data.listUsers.items){
-            if( (listOfUsers.data.listUsers.items[i].userType === "Team member")&& !(listOfUsers.data.listUsers.items[i]._deleted)){
-              completed =  listOfUsers.data.listUsers.items[i];
-              console.log("This is the approved ",  listOfUsers.data.listUsers.items[i])
-              users.push(completed)
-              
-            }
-           }
-          let data = {
-                 columns: COLUMNS,
-                 rows: users
-             }
-             setDatatable(data);
-         }).finally(()=>{
-           setHasData(true);
-          });
 
-        },[])
-       
-
-  async function listUsers() {
-      try {
-        var userslist = await API.graphql({query: queries.listUsers});
-        console.log(userslist.data.listUsers.items);
-        return userslist;
-      } catch (err) {
-          console.log("Error:>> ", err);
-      }
-  }
   async function deleteUser(checkbox) {
     if(checkbox){
       try {
@@ -83,7 +48,7 @@ export const Team = () => {
   }
 
   return (<>
-    {hasData  && (<><Container>
+    {hasTData  && (<><Container>
  <h4 className="text-center display-4">Meet The team</h4>
  <span>Click on the customer to assign tasks</span>
  </Container>

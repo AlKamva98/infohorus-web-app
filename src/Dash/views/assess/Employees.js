@@ -16,14 +16,10 @@ import {
 
 
 function Employees(props) {
-      const {
-    buttonLabel,
-    className
-  } = props;
 
+  
   var newusermut = mutations.createUser;
-  const initialFormState = {
-        fname:"", lname:"",email:"", jobtitle:"", company:"",employees:"",industry:"",  formType:"signUp"};  
+  const initialFormState = {fname:"", lname:"",email:"", jobtitle:"", company:"",employees:"",industry:"",  formType:"signUp"};  
   const signupFailMsg = "Passwords are different!! Pasword and Confirm Password must be the same";
   const [modalPass, setModalPass] = useState(false);
   const togglePass = () => setModalPass(!modalPass);
@@ -45,7 +41,6 @@ function Employees(props) {
     const { register, handleSubmit, errors, control } = useForm();
     const handleError = (errors) => { console.log("Form Errors: "+ errors)};
     const handleRegistration = async (data) =>{ 
-      
       try{
           console.log("Data::::", data)
         getCreds().then((uCred)=>{
@@ -69,12 +64,8 @@ function Employees(props) {
               }))
               console.log("This is the users data:"+JSON.stringify(data))
               console.log("Data sent to the API")
-          
-            
           })
-
           addToast(newUsToast)
-
           }
       catch(err){
         console.log("API err:", err )
@@ -96,7 +87,6 @@ function Employees(props) {
       return cred;
     }
    
-
  return (
  <div>
 {formType==="signUp" && ( <Container className="container-fluid">

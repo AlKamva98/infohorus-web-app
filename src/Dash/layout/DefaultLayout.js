@@ -1,6 +1,7 @@
 import React,{useEffect, useState} from 'react'
 import {Redirect} from 'react-router-dom'
 import { AppContent, AppSidebar, AppFooter, AppHeader } from '../dashboard/index'
+import {COLUMNS} from "../assessor/columns";
 import {API} from 'aws-amplify'
 import * as queries from '../../graphql/queries';
 import * as mutations from '../../graphql/mutations'
@@ -11,6 +12,7 @@ const DefaultLayout = (props) => {
   let approvedRecs =[];
   let upRec = [];
   let ts=[];
+  var completed;
   let RecomendationsList = listRecs();
   const [approved, updateApproved]=useState([]);
   const [modal, setModal] = useState(false);
@@ -19,15 +21,37 @@ const DefaultLayout = (props) => {
     const errToggle = () => setErrModal(!errModal);
     const [errModal, setErrModal] = useState(false);
     const [tasks, setTasks] =useState([]);
+    const [team, setTeam]= useState([])
     const [revModal, setRevModal] = useState(false);
     const revToggle = () => setRevModal(!revModal);
     const [msg, setMsg] =useState("");
     const [hasData, setHasData] = useState(false);
+    const [hasTData, setHasTData] = useState(false);
+    const [datatable, setDatatable] = useState('');
     const [recommendations, updateRecs] =useState(RecomendationsList);
     const [data, setData] = useState([])
     var d ;
 
     useEffect(() => { 
+      listUsers().then(listOfUsers => {
+             let users = [];
+          
+          for(let i in  listOfUsers.data.listUsers.items){
+            if( (listOfUsers.data.listUsers.items[i].userType === "Team member")&& !(listOfUsers.data.listUsers.items[i]._deleted)){
+              completed =  listOfUsers.data.listUsers.items[i];
+              console.log("This is the approved ",  listOfUsers.data.listUsers.items[i])
+              users.push(completed)
+            }
+          }
+          console.log(users)
+          let data = {
+                 columns: COLUMNS,
+                 rows: users
+             }
+             setDatatable(data);
+         }).finally(()=>{
+           setHasTData(true);
+          });
       if(!hasData){
       listRecs().then(data =>{
       updateRecs(data);
@@ -36,6 +60,7 @@ const DefaultLayout = (props) => {
         setData(promise);
       })
       })
+      
     }
     },[])
     
@@ -136,6 +161,16 @@ const DefaultLayout = (props) => {
   //   }
   //   }
 
+    async function listUsers() {
+      try {
+        var userslist = await API.graphql({query: queries.listUsers});
+        console.log(userslist.data.listUsers.items);
+        return userslist;
+      } catch (err) {
+          console.log("Error:>> ", err);
+      }
+  }
+
     async function saveChanges(rec){
       try{
         console.log("This is the Save changes function", rec)
@@ -175,7 +210,7 @@ const DefaultLayout = (props) => {
         <AppHeader tasks={tasks} recommendations={recommendations} signOut={signOut} saveChanges={saveChanges} approved={approved} />
         <div className="body flex-grow-1 px-3">
           <AppContent approve={approve} approved={approved} recommendations={recommendations} 
-          errModal={errModal} hasData={hasData} errToggle={errToggle} revModal={revModal} revToggle={revToggle}  msg={msg} tasks={tasks} rec={rec} toggle={toggle} news={data} modal={modal} setRec={setRec} addTask={addTask} />
+          errModal={errModal} datatable={datatable} hasTData={hasTData} hasData={hasData} errToggle={errToggle} revModal={revModal} revToggle={revToggle}  msg={msg}  tasks={tasks} rec={rec} toggle={toggle} news={data} modal={modal} setRec={setRec} addTask={addTask} />
         </div>
         <AppFooter />
       </div>

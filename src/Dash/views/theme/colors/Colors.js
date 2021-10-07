@@ -6,7 +6,7 @@ import { CRow, CCard, CCardHeader, CCardBody } from '@coreui/react';
 import { Button } from 'react-bootstrap';
 
 const Colors = (props) => {
-    const {approve, approved, RecomendationsList, errModal, errToggle, revToggle, revModal,viewTasks, tasks, rec,toggle, userId,modal, setRec, hasData, addTask }= props;
+    const {approve, approved, RecomendationsList, errModal, errToggle, revToggle, revModal,viewTasks, tasks, rec,toggle, userId,modal, setRec,datatable, hasData, addTask }= props;
     const [msg, setMsg] =useState("");
     let RecTask;
     console.log("This is tasks on app content page",tasks)
@@ -83,7 +83,7 @@ function review(i){
           <div className="col-start-2 row-start-1 row-end-3">
             <dt className="sr-only">Users</dt>
             <dd className="flex justify-center sm:justify-start lg:justify-center xl:justify-start -space-x-2">
-            <Link className="btn bg-indigo-700 hover:bg-indigo-500 col-12 mx-auto mt-3 mb-2 text-white" to={{pathname: "/dash/schedule"  ,state: values, addTask: addTask}} >Schedule Task</Link>
+            <Link className="btn bg-indigo-700 hover:bg-indigo-500 col-12 mx-auto mt-3 mb-2 text-white" to={{pathname: "/dash/schedule"  ,state: values, addTask: addTask, team: datatable.rows}} >Schedule Task</Link>
     
             </dd>
           </div>

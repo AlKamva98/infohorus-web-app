@@ -23,7 +23,6 @@ import {PopUp} from '../../../../Home/shared/utils/Modal'
 const {signedIn,setSignedIn, userGroup} = props;
   const [modal, setModal] = useState(false);
   const toggle = () => setModal(!modal);
-  const [user, setUser] = useState(null);
   const [msg, setMsg] = useState("")
   const initialFormState = {email:"", password:""};
   const [formState, updateFormState] = useState(initialFormState);
