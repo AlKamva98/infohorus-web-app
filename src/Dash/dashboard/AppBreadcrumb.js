@@ -16,7 +16,7 @@ const ExampleToast = () => {
 }
 const AppBreadcrumb = (props) => {
   const currentLocation = useLocation().pathname
-  const {saveChanges, approved} = props;
+  const {saveChanges, approved, tasks} = props;
   const getRouteName = (pathname, routes) => {
     const currentRoute = routes.find((route) => route.path === pathname)
   return currentRoute.name
@@ -64,7 +64,7 @@ const getBreadcrumbs = (location) => {
     {breadcrumb.name ==="Colors" && 
     (<div className="relative z-10 inline-flex  items-center space-x-3 md:ml-5 lg:justify-end">
     <button onClick={()=>{
-      saveChanges(approved);
+      saveChanges(approved, tasks);
       addToast(exampleToast);
     } } className="ml-8 inline-flex bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Save changes</button>
 <CToaster ref={toaster} push={toast} placement="top-end" />

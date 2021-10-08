@@ -70,7 +70,7 @@ const AppHeader = (props) => {
       </CContainer>
       <CHeaderDivider />
       <CContainer fluid>
-        <AppBreadcrumb saveChanges={saveChanges} approved={approved} />
+        <AppBreadcrumb saveChanges={saveChanges} tasks={tasks} approved={approved} />
       </CContainer>
     </CHeader>
   )

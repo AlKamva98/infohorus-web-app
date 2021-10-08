@@ -4,8 +4,11 @@ import {Label, Input, FormGroup,Button} from 'reactstrap';
 import Select  from 'react-select';
 import { Link} from 'react-router-dom';
 import {selectOptionsCountry, selectEmpOptions, selectOptionsIndustry} from '../../../../Home/testData/selectOptions.js'
+import PhoneInput from 'react-phone-number-input'
+import 'react-phone-number-input/style.css'
 import { ErrorMessage } from "@hookform/error-message";
 import { useForm, Controller } from "react-hook-form";
+import ReactTooltip from 'react-tooltip'
 import { Amplify, API, Auth, Storage,graphqlOperation } from 'aws-amplify';
 import * as mutations from '../../../../graphql/mutations'
 import { PopUp } from '../../../../Home/shared/utils/Modal';
@@ -145,15 +148,23 @@ function Register(props) {
             }}}  />
             <ErrorMessage errors={errors} className="err mb-4" name="email" as="p" />
                </FormGroup>
-        
+        <FormGroup className="col-md-12">
+        <Controller  type="text" control={control} name="phone"   {...register("phone" )} render={({ field }) => (<PhoneInput className="form-control focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50" 
+          placeholder="Phone number" 
+          {...field} />
+        )} rules={{ required: "Please fill in your phone number"}}  />
+    <ErrorMessage errors={errors} className="err mb-4" name="phone" as="p" />
+    </FormGroup>
              <FormGroup className="col-12">
                  <Label for="password" className="visually-hidden">Password</Label>
                  <Controller   control={control} name="password"    {...register("password")} render={({ field }) => (
-                   <Input className=" form-control focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50" placeholder="Password" type="password" {...field} />
+                   <Input className=" form-control focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50" data-tip data-for="passPolicyTip" placeholder="Password" type="password" {...field} />
              )} rules={{ required: "Please Enter a password with atleast 8 characters. The password should also have atleast one capital letter, one special character and one number."}}  />
              <ErrorMessage errors={errors} className="err mb-4" name="password" as="p" />
+         <ReactTooltip id="passPolicyTip" place="top" effect="solid">
+        Enter a password with at least 8 characters. The password should also have at least one capital letter, one special character(!@#) and one number
+      </ReactTooltip>
              </FormGroup>
-        
              <FormGroup className="col-12">
                  <Label for="confPassword" className="visually-hidden">Confirm Password</Label>
                  <Controller   control={control} name="confPassword"  {...register("confPassword")} render={({ field }) => (

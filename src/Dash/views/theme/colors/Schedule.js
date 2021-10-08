@@ -36,7 +36,6 @@ function Schedule(props) {
      taskEnd: date,
      color: data.importance.value,
      assignedTo: data.assignedTo,
-     email: data.email,
      recId: state.id
     }
     updateDuration(diffDays);
@@ -51,7 +50,7 @@ const teamList = ()=>{
   console.log("These are the team members", team)
     if(team){ 
     for(t in team){
-      var f = team[t].first_name + team[t].last_name;
+      var f = team[t].email;
       e={value: f, label: f}
       mmb.push(e)
     }

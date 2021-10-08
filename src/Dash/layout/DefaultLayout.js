@@ -13,15 +13,15 @@ const DefaultLayout = (props) => {
   let upRec = [];
   let ts=[];
   var completed;
-  let RecomendationsList = listRecs();
+  let RecomendationsList = listProps("Rec");
+  let TasksList = listProps("Task");
   const [approved, updateApproved]=useState([]);
   const [modal, setModal] = useState(false);
     const toggle = () => setModal(!modal);
     const [rec, setRec] =useState("");
     const errToggle = () => setErrModal(!errModal);
     const [errModal, setErrModal] = useState(false);
-    const [tasks, setTasks] =useState([]);
-    const [team, setTeam]= useState([])
+    const [tasks, setTasks] =useState(TasksList);
     const [revModal, setRevModal] = useState(false);
     const revToggle = () => setRevModal(!revModal);
     const [msg, setMsg] =useState("");
@@ -53,8 +53,11 @@ const DefaultLayout = (props) => {
            setHasTData(true);
           });
       if(!hasData){
-      listRecs().then(data =>{
+      listProps("Rec").then(data =>{
       updateRecs(data);
+      listProps("Task").then(response=>{
+        setTasks(response)
+      })
       listArticles().then(promise=>{
         console.log(promise)
         setData(promise);
@@ -88,8 +91,11 @@ const DefaultLayout = (props) => {
             return s;
           }
 
-             async function listRecs() { //gets the recommendations from the backend     
-             var data = await API.graphql({query: queries.listRecommendationss}).then(promise => {
+             async function listProps(prop) { //gets the recommendations from the backend     
+             var data;
+             switch(prop){
+               case "Rec":
+                 data = await API.graphql({query: queries.listRecommendationss}).then(promise => {
               
               return promise.data.listRecommendationss.items;
             }).catch(e => {
@@ -98,8 +104,19 @@ const DefaultLayout = (props) => {
               setHasData(true);
               getApproved()
             })
+            break;
+            case "Task": 
+            data = await API.graphql({query: queries.listTaskss}).then(promise => {
+              
+              return promise.data.listTaskss.items;
+            }).catch(e => {
+                console.error(e);
+            })
+             }
           return data;
   }
+
+  
     function getApproved(){//scans through the a recommendations array, gets approved recs, and moves those recs to a new array
       
          try{
@@ -171,7 +188,7 @@ const DefaultLayout = (props) => {
       }
   }
 
-    async function saveChanges(rec){
+    async function saveChanges(rec, tasks){
       try{
         console.log("This is the Save changes function", rec)
         
