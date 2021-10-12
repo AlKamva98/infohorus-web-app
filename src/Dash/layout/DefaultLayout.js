@@ -39,11 +39,9 @@ const DefaultLayout = (props) => {
           for(let i in  listOfUsers.data.listUsers.items){
             if( (listOfUsers.data.listUsers.items[i].userType === "Team member")&& !(listOfUsers.data.listUsers.items[i]._deleted)){
               completed =  listOfUsers.data.listUsers.items[i];
-              console.log("This is the approved ",  listOfUsers.data.listUsers.items[i])
               users.push(completed)
             }
           }
-          console.log(users)
           let data = {
                  columns: COLUMNS,
                  rows: users
@@ -57,9 +55,9 @@ const DefaultLayout = (props) => {
       updateRecs(data);
       listProps("Task").then(response=>{
         setTasks(response)
+        console.log("This is the tasks",response)
       })
       listArticles().then(promise=>{
-        console.log(promise)
         setData(promise);
       })
       })
@@ -82,12 +80,9 @@ const DefaultLayout = (props) => {
         .then(response => { 
           return  response.json();
         })
-        console.log(res)
         var s = res.then(data=>{
-          console.log(data.value)
           return data.value;
         })
-        console.log(s)
             return s;
           }
 
@@ -138,8 +133,7 @@ const DefaultLayout = (props) => {
         }
 }catch(err){
 
-      console.log("View task error: ", err);
-    }
+     }
       }
        function checkRec(recommendation){
          return recommendation.isApproved === true;
@@ -153,7 +147,6 @@ const DefaultLayout = (props) => {
         }
         getApproved()
 
-        console.log("This Recommendation has been approved!!")
        }
        
   //      function viewTasks(i){
@@ -181,7 +174,6 @@ const DefaultLayout = (props) => {
     async function listUsers() {
       try {
         var userslist = await API.graphql({query: queries.listUsers});
-        console.log(userslist.data.listUsers.items);
         return userslist;
       } catch (err) {
           console.log("Error:>> ", err);
@@ -190,8 +182,7 @@ const DefaultLayout = (props) => {
 
     async function saveChanges(rec, tasks){
       try{
-        console.log("This is the Save changes function", rec)
-        
+      
        if(rec){
           for (let i in rec)
           {

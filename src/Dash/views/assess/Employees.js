@@ -42,13 +42,10 @@ function Employees(props) {
     const handleError = (errors) => { console.log("Form Errors: "+ errors)};
     const handleRegistration = async (data) =>{ 
       try{
-          console.log("Data::::", data)
         getCreds().then((uCred)=>{
-          console.log("Sending Email", uCred)
           sendEmail("New Team member",data, uCred, "infohorus@bahatitech.co.za");
           
         }).finally(async()=>{
-          console.log("Sending to the API")
           await API.graphql(graphqlOperation(
             newusermut,{
               input:{
@@ -62,8 +59,6 @@ function Employees(props) {
                 }
                 
               }))
-              console.log("This is the users data:"+JSON.stringify(data))
-              console.log("Data sent to the API")
           })
           addToast(newUsToast)
           }
@@ -77,13 +72,11 @@ function Employees(props) {
     let {formType}= formState;
     function onChange(e){
         e.persist()
-        console.log("changing:"+e.target.name);
         updateFormState(()=>({...formState, [e.target.name]: e.target.value}))
       }
       
      async function getCreds(){
       let cred  = await API.graphql(graphqlOperation(queries.getCred, { id: 'ak100' }));
-      console.log("These are the creds", cred)
       return cred;
     }
    

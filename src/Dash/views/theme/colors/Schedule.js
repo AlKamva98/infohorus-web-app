@@ -25,9 +25,6 @@ function Schedule(props) {
   const { register, handleSubmit, reset, formState: { errors }, control } = useForm();
   const handleRegistration = async (data) =>{ 
     toggle()
-    console.log("This is the form data:",data);
-    console.log("This is the start date:",sdate);
-    console.log("This is the end date:",date);
     var diff = date.getTime() - sdate.getTime();
     var diffDays = diff/(1000 * 3600 * 24); 
     var task = {
@@ -39,7 +36,6 @@ function Schedule(props) {
      recId: state.id
     }
     updateDuration(diffDays);
-    console.log("This is the duration", duration);
     console.log("This is the task that has been scheduled", task);
     addTask(task);
   }
@@ -47,7 +43,7 @@ const teamList = ()=>{
     var t;
     var e;
     var mmb = [];
-  console.log("These are the team members", team)
+    console.log("These are the team members", team)
     if(team){ 
     for(t in team){
       var f = team[t].email;

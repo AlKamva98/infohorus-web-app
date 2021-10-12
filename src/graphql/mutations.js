@@ -61,7 +61,7 @@ export const createTasks = /* GraphQL */ `
       id
       taskName
       taskDesc
-      taskStar
+      taskStart
       taskEnd
       recommendationsID
       assignedTo

@@ -53,7 +53,6 @@ const getBreadcrumbs = (location) => {
     <CBreadcrumb className="d-none d-md-flex me-auto">
       <CBreadcrumbItem href="/">Home</CBreadcrumbItem>
       {breadcrumbs.map((breadcrumb, index) => {
-        console.log(breadcrumb.name)
         return (
      <>   
        <CBreadcrumbItem

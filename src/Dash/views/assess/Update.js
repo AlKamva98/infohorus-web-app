@@ -18,7 +18,6 @@ import * as mutations from '../../../graphql/mutations'
     const handleRegistration = async (data) =>{ 
       
       try{
-         console.log("UserData",userData)
          updatedUser.first_name= data.fname;
          updatedUser.last_name= data.lname;
          updatedUser.job_title= data.jobtitle;
@@ -28,10 +27,7 @@ import * as mutations from '../../../graphql/mutations'
          updatedUser = omit(updatedUser,"updatedAt");
          updatedUser = omit(updatedUser,"checked");
 
-         console.log("user", updatedUser)
-          await API.graphql({ query: mutations.updateUser, variables: {input: omit(updatedUser, "_deleted")}});
-        console.log("This is the users data:"+JSON.stringify(data))
-        console.log("Data sent to the API")
+         await API.graphql({ query: mutations.updateUser, variables: {input: omit(updatedUser, "_deleted")}});
       }
       catch(err){
         console.log("API err:", err )
@@ -40,7 +36,6 @@ import * as mutations from '../../../graphql/mutations'
     let {formType}= formState;
     function onChange(e){
         e.persist()
-        console.log("changing:"+e.target.name);
         updateFormState(()=>({...formState, [e.target.name]: e.target.value}))
       }
       function omit(obj, ...props) {
