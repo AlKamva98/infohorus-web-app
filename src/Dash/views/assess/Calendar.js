@@ -1,6 +1,6 @@
 import React,{useEffect} from 'react'
 import Calendar from 'react-awesome-calendar'
-const events = [{
+const even = [{
     id: 1,
     color: '#fd3153',
     from: '2021-10-07T18:00:00+00:00',
@@ -21,21 +21,8 @@ const events = [{
 }];
 
 function CalendarEvents(props) {
-    var rectks = [];
-    
-    useEffect(()=>{
-    // if(tasks){
-    // for(let i in tasks){
-    // let item ={
-    // id: i,
-    // color: tasks[i].color,
-    // from: tasks[i].taskStart.toString().replace(" GMT+0200 (South Africa Standard Time)",""),
-    // to: tasks[i].taskEnd.toString().replace(" GMT+0200 (South Africa Standard Time)",""),
-    // title: tasks[i].taskDesc};
-    // rectks.push(item)
-    // }}
-},[])
-
+    const {events} = props;
+    console.log("These are events", events)
     return (
   <div>
    <Calendar 

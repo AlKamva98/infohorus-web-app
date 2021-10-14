@@ -65,6 +65,7 @@ function Register(props) {
                 first_name: data.fname,
                 last_name: data.lname,
                 job_title: data.jobtitle,
+                // phone: data.phone,
                 company: data.company,
                 employees: data.employees.value,
                 industry: data.industry.value,
@@ -229,25 +230,7 @@ function Register(props) {
                body={errMess} 
                toggle={toggleErrPop} 
                className={className}/>
-               {/* 
-        <FormGroup className="col-md-6">
-            <Label for="fname" className="visually-hidden" >First name</Label>
-            <Controller  type="text" control={control} name="fname"  {...register("fname" )} render={({ field }) => (
-              <Input className=" form-control focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50" 
-              placeholder="First Name" 
-              {...field} />
-              )} rules={{ required: "Please fill in your First Name"}}  />
-        </FormGroup>
-        <FormGroup className="col-md-6">
-            <Label for="lname" className="visually-hidden">Last name</Label>
-            <Controller  type="text" control={control} name="lname"  {...register("lname" )} render={({ field }) => (
-          <Input className=" form-control focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50" 
-          placeholder="Last Name" 
-          {...field} />
-        )} rules={{ required: "Please fill in your Last Name"}}  />
-        <ErrorMessage errors={errors} className="err mb-4" name="lname" as="p" />
-        </FormGroup>
-      */}
+
         </Form>
         </Card.Body>
             </Card>

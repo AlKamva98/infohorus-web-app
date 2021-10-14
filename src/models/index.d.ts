@@ -16,11 +16,12 @@ export declare class Tasks {
   readonly id: string;
   readonly taskName?: string;
   readonly taskDesc?: string;
-  readonly taskStar?: string;
+  readonly taskStart?: string;
   readonly RecommendationTask?: Recommendations;
   readonly taskEnd?: string;
   readonly recommendationsID?: string;
   readonly assignedTo?: string;
+  readonly color?: string;
   constructor(init: ModelInit<Tasks>);
   static copyOf(source: Tasks, mutator: (draft: MutableModel<Tasks>) => MutableModel<Tasks> | void): Tasks;
 }

@@ -65,6 +65,7 @@ export const createTasks = /* GraphQL */ `
       taskEnd
       recommendationsID
       assignedTo
+      color
       _version
       _deleted
       _lastChangedAt

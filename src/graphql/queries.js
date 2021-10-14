@@ -57,10 +57,11 @@ export const getTasks = /* GraphQL */ `
       id
       taskName
       taskDesc
-      taskStar
+      taskStart
       taskEnd
       recommendationsID
       assignedTo
+      color
       _version
       _deleted
       _lastChangedAt
@@ -90,13 +91,14 @@ export const listTaskss = /* GraphQL */ `
   ) {
     listTaskss(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
-        id
+          id
         taskName
         taskDesc
-        taskStar
+        taskStart
         taskEnd
         recommendationsID
         assignedTo
+        color
         _version
         _deleted
         _lastChangedAt
@@ -122,13 +124,14 @@ export const syncTasks = /* GraphQL */ `
       lastSync: $lastSync
     ) {
       items {
-        id
+          id
         taskName
         taskDesc
-        taskStar
+        taskStart
         taskEnd
         recommendationsID
         assignedTo
+        color
         _version
         _deleted
         _lastChangedAt

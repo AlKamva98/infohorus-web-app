@@ -74,10 +74,10 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
-                "taskStar": {
-                    "name": "taskStar",
+                "taskStart": {
+                    "name": "taskStart",
                     "isArray": false,
-                    "type": "AWSDate",
+                    "type": "AWSDateTime",
                     "isRequired": false,
                     "attributes": []
                 },
@@ -97,7 +97,7 @@ export const schema = {
                 "taskEnd": {
                     "name": "taskEnd",
                     "isArray": false,
-                    "type": "AWSDate",
+                    "type": "AWSDateTime",
                     "isRequired": false,
                     "attributes": []
                 },
@@ -110,6 +110,13 @@ export const schema = {
                 },
                 "assignedTo": {
                     "name": "assignedTo",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "color": {
+                    "name": "color",
                     "isArray": false,
                     "type": "String",
                     "isRequired": false,
@@ -944,5 +951,5 @@ export const schema = {
     },
     "enums": {},
     "nonModels": {},
-    "version": "ebc5b6f8387333ec8212f3b2d528494b"
+    "version": "abcb2a676f50e11f9356d20e077e53f5"
 };

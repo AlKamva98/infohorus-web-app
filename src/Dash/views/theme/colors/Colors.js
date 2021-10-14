@@ -6,9 +6,9 @@ import { CRow, CCard, CCardHeader, CCardBody } from '@coreui/react';
 import { Button } from 'react-bootstrap';
 
 const Colors = (props) => {
-    const {approve, approved, RecomendationsList, errModal, errToggle, revToggle, revModal, rec,toggle, userId,modal, setRec,datatable, hasData }= props;
+    const {approve, approved, RecomendationsList, errModal, errToggle, revToggle, revModal, rec,toggle, userId,modal, setRec,viewTasks, addTask, tasks,datatable, hasData }= props;
     const [msg, setMsg] =useState("");
-    
+    var RecTask;
 
 function review(i){
       try{ 
@@ -35,6 +35,7 @@ function review(i){
           
                 <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 gap-4" >
     {approved && approved.map((values, index)=>{
+      console.log("More tasks", tasks)
       return(<>
       <li >
       <a  className="hover:bg-blue-500 hover:border-transparent hover:shadow-lg group block rounded-lg p-4 border border-gray-200">   
@@ -64,10 +65,25 @@ function review(i){
             <Link  className="text-center  group-hover:text-blue-200 font-medium">View tasks</Link> 
             </dd>
           </div>
+                    <div className="col-start-2 row-start-1 row-end-3">
+            <dt className="sr-only">Tasks</dt>
+            {tasks && (tasks.map((task, i)=>{
+              if(task.recommendationsID===values.id){
+                RecTask = task;
+                i++;
+                console.log("These are the tasks in this recommendation", RecTask)
+                return(
+                  <dd className="flex justify-end group-hover:text-blue-200 sm:justify-start font-medium lg:justify-end xl:justify-start -space-x-2">
+                {`Task ${i}: ${RecTask.taskDesc}- Assigned to:${RecTask.assignedTo}`}
+                </dd>
+                )
+              }
+            }))}
+          </div>
           <div className="col-start-2 row-start-1 row-end-3">
             <dt className="sr-only">Users</dt>
             <dd className="flex justify-center sm:justify-start lg:justify-center xl:justify-start -space-x-2">
-            <Link className="btn bg-indigo-700 hover:bg-indigo-500 col-12 mx-auto mt-3 mb-2 text-white" to={{pathname: "/dash/schedule"  ,state: values, team: datatable.rows}} >Schedule Task</Link>
+            <Link className="btn bg-indigo-700 hover:bg-indigo-500 col-12 mx-auto mt-3 mb-2 text-white" to={{pathname: "/dash/schedule"  ,state: values,addTask: addTask, team: datatable.rows}} >Schedule Task</Link>
     
             </dd>
           </div>

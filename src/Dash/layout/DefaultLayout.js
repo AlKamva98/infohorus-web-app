@@ -14,7 +14,7 @@ const DefaultLayout = (props) => {
   let ts=[];
   var completed;
   let RecomendationsList = listProps("Rec");
-  let TasksList = listProps("Task");
+  let TasksList = listProps("Task") ;
   const [approved, updateApproved]=useState([]);
   const [modal, setModal] = useState(false);
     const toggle = () => setModal(!modal);
@@ -31,11 +31,11 @@ const DefaultLayout = (props) => {
     const [recommendations, updateRecs] =useState(RecomendationsList);
     const [data, setData] = useState([])
     var d ;
-
+    var [evt, setEvt] = useState([]);
+    var rectks= [];
     useEffect(() => { 
       listUsers().then(listOfUsers => {
-             let users = [];
-          
+          let users = [];
           for(let i in  listOfUsers.data.listUsers.items){
             if( (listOfUsers.data.listUsers.items[i].userType === "Team member")&& !(listOfUsers.data.listUsers.items[i]._deleted)){
               completed =  listOfUsers.data.listUsers.items[i];
@@ -46,16 +46,31 @@ const DefaultLayout = (props) => {
                  columns: COLUMNS,
                  rows: users
              }
+        
              setDatatable(data);
          }).finally(()=>{
            setHasTData(true);
           });
+
       if(!hasData){
       listProps("Rec").then(data =>{
       updateRecs(data);
       listProps("Task").then(response=>{
+        if(response){
         setTasks(response)
         console.log("This is the tasks",response)
+      for(let i in response){
+    let item ={
+    id: i,
+    color: response[i].color,
+    from: response[i].taskStart.toString().replace(" GMT+0200 (South Africa Standard Time)",""),
+    to: response[i].taskEnd.toString().replace(" GMT+0200 (South Africa Standard Time)",""),
+    title: response[i].taskDesc};
+    rectks.push(item)
+    setEvt(rectks)
+    }
+    console.log("These are the events", evt)
+      }
       })
       listArticles().then(promise=>{
         setData(promise);
@@ -63,6 +78,7 @@ const DefaultLayout = (props) => {
       })
       
     }
+    
     },[])
     
       async function listArticles() { //gets the recommendations from the backend     
@@ -102,7 +118,7 @@ const DefaultLayout = (props) => {
             break;
             case "Task": 
             data = await API.graphql({query: queries.listTaskss}).then(promise => {
-              
+              console.log("This is the task read from the backend", promise.data.listTaskss.items)
               return promise.data.listTaskss.items;
             }).catch(e => {
                 console.error(e);
@@ -201,12 +217,22 @@ const DefaultLayout = (props) => {
       }
     }
 
-    
+    async function uploadTask (task){
+      var res;
+      if (task){   
+       res= await API.graphql({query: mutations.createTasks, variables: {input: task}})
+      }
+      return res;
+    }
     function addTask(task){
       console.log("List of tasks before pushing new", tasks);
       console.log("This is the task that I'm adding:", task)
-      tasks.push(task);
-      setTasks(tasks)
+      uploadTask(task).then(response=>{
+      console.log("This is the task ", response)
+        tasks.push(response.data.createTasks);
+      setTasks(tasks)}).catch((err)=>{
+        console.log("Task upload error::::>",err)
+      })
       console.log("List of tasks after pushing new", tasks);
     }
     
@@ -218,7 +244,7 @@ const DefaultLayout = (props) => {
         <AppHeader tasks={tasks} recommendations={recommendations} signOut={signOut} saveChanges={saveChanges} approved={approved} />
         <div className="body flex-grow-1 px-3">
           <AppContent approve={approve} approved={approved} recommendations={recommendations} 
-          errModal={errModal} datatable={datatable} hasTData={hasTData} hasData={hasData} errToggle={errToggle} revModal={revModal} revToggle={revToggle}  msg={msg}  tasks={tasks} rec={rec} toggle={toggle} news={data} modal={modal} setRec={setRec} addTask={addTask} />
+          errModal={errModal} datatable={datatable} hasTData={hasTData} hasData={hasData} errToggle={errToggle} revModal={revModal} revToggle={revToggle}  msg={msg}  tasks={tasks} rec={rec} toggle={toggle} news={data} modal={modal} events={evt} tasks={tasks} setRec={setRec} addTask={addTask} />
         </div>
         <AppFooter />
       </div>

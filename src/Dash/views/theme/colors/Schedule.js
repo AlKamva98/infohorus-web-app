@@ -26,14 +26,17 @@ function Schedule(props) {
   const handleRegistration = async (data) =>{ 
     toggle()
     var diff = date.getTime() - sdate.getTime();
-    var diffDays = diff/(1000 * 3600 * 24); 
+    var diffDays = diff/(1000 * 3600 * 24);
+    var tsStart = new Date(sdate.getFullYear()+"/"+ sdate.getMonth()+"/"+ sdate.getDate()); 
+    var tsEnd = new Date(date.getFullYear()+"/"+ date.getMonth()+"/"+ date.getDate()); 
+    console.log("task start date",tsStart);
     var task = {
      taskDesc: data.taskDesc,
-     taskStart: sdate,
-     taskEnd: date,
+     taskStart: tsStart,
+     taskEnd: tsEnd,
      color: data.importance.value,
-     assignedTo: data.assignedTo,
-     recId: state.id
+     assignedTo: data.assignedTo.value,
+     recommendationsID: state.id
     }
     updateDuration(diffDays);
     console.log("This is the task that has been scheduled", task);
@@ -43,7 +46,6 @@ const teamList = ()=>{
     var t;
     var e;
     var mmb = [];
-    console.log("These are the team members", team)
     if(team){ 
     for(t in team){
       var f = team[t].email;
@@ -51,12 +53,9 @@ const teamList = ()=>{
       mmb.push(e)
     }
   }
-    console.log(mmb)
     return mmb;
   }
   var a =teamList();
-  console.log(a)
-  console.log(team)
   return (
    <div>
 <div className="" >
