@@ -33,6 +33,7 @@ function Register(props) {
   const [modalPass, setModalPass] = useState(false);
   const togglePass = () => setModalPass(!modalPass);
   const [modalErrPop, setModalErrPop] = useState(false);
+  const [enabled, setEnabled] = useState(false);
   const toggleErrPop = () => setModalErrPop(!modalErrPop);
   const [formState, updateFormState] = useState(initialFormState);
   const [errTitle, setErrTitle] = useState("");
@@ -92,6 +93,10 @@ function Register(props) {
         e.persist()
         console.log("changing:"+e.target.name);
         updateFormState(()=>({...formState, [e.target.name]: e.target.value}))
+        if(e.target.name==="chkAgreement" ){
+          setEnabled(e.target.checked)
+          console.log("Checkbox aggreement has been checked, button enabled is:", enabled)
+        }
       }
       
       async function checkUser(){
@@ -140,7 +145,7 @@ function Register(props) {
             </FormGroup>
                <FormGroup className="col-md-12">
                    <Label for="email" className="visually-hidden">Email address</Label>
-                   <Input  type="text" name="email"  {...register("email" )}   className=" form-control focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50" 
+                   <Input  type="text" onChange={onChange} name="email"  {...register("email" )}   className=" form-control focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50" 
                placeholder="Email Address"
              rules={{ required: "Please fill in your Email Address", validate: () => {
           if(getValues("email").includes("@gmail")|| getValues("email").includes("@yahoo")){
@@ -150,7 +155,7 @@ function Register(props) {
             <ErrorMessage errors={errors} className="err mb-4" name="email" as="p" />
                </FormGroup>
         <FormGroup className="col-md-12">
-        <Controller  type="text" control={control} name="phone"   {...register("phone" )} render={({ field }) => (<PhoneInput className="form-control focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50" 
+        <Controller  type="text" control={control} name="phone"   {...register("phone" )} render={({ field }) => (<PhoneInput className="form-control focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50" onChange={onChange}
           placeholder="Phone number" 
           {...field} />
         )} rules={{ required: "Please fill in your phone number"}}  />
@@ -159,7 +164,7 @@ function Register(props) {
              <FormGroup className="col-12">
                  <Label for="password" className="visually-hidden">Password</Label>
                  <Controller   control={control} name="password"    {...register("password")} render={({ field }) => (
-                   <Input className=" form-control focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50" data-tip data-for="passPolicyTip" placeholder="Password" type="password" {...field} />
+                   <Input onChange={onChange} className=" form-control focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50" data-tip data-for="passPolicyTip" placeholder="Password" type="password" {...field} />
              )} rules={{ required: "Please Enter a password with atleast 8 characters. The password should also have atleast one capital letter, one special character and one number."}}  />
              <ErrorMessage errors={errors} className="err mb-4" name="password" as="p" />
          <ReactTooltip id="passPolicyTip" place="top" effect="solid">
@@ -181,7 +186,7 @@ function Register(props) {
              
              <FormGroup className="col-12">
              <Label for="company" className="visually-hidden">Company</Label>
-             <Controller  type="text" control={control} name="company"  {...register("company")} render={({ field }) => (
+             <Controller  type="text" onChange={onChange} control={control} name="company"  {...register("company")} render={({ field }) => (
               <Input className=" form-control focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50" 
               placeholder="Company" 
               {...field} />
@@ -191,15 +196,15 @@ function Register(props) {
               <FormGroup className="col-12">
                       <Label for="employees" className="visually-hidden">Number of employees</Label>  
          <Controller name="employees"  control={control} render={({ field }) => (
-                  <Select placeholder="Employees" className=" focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50" options={selectEmpOptions} defaultValue="Country" {...field}>
+                  <Select placeholder="Employees" className=" focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50" onChange={onChange} options={selectEmpOptions} defaultValue="Country" {...field}>
                     </Select>
               )}   {...register("employees")}  rules={{ required: "Please Select your employees"}} />                  
               </FormGroup>
-              
+               
               <FormGroup className="col-12">
                   <Label for="industry" className="visually-hidden">Industry</Label>
                    <Controller name="industry"    control={control} render={({ field }) => (
-                  <Select placeholder="Industry" className=" focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50" options={selectOptionsIndustry} defaultValue="Country" {...field}>
+                  <Select placeholder="Industry" className=" focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50" onChange={onChange} options={selectOptionsIndustry} defaultValue="Country" {...field}>
                     </Select>
                 )}   {...register("industry")}  rules={{ required: "Please Select your industry"}} />
               </FormGroup>
@@ -210,9 +215,9 @@ function Register(props) {
                     </Select>
                 )}   {...register("country")}  rules={{ required: "Please Select your country"}} />
               </FormGroup>
-                <FormGroup className="checkbox mb-3">
+                <FormGroup className="checkbox mb-2">
                 <span>
-                    <input type="checkbox" name="chkAgreement"  value="i-agree"/>I agree to the <p className="btn-link d-none d-md-inline-block pointer">Master Subscription Agreement.</p>
+                    <input type="checkbox" onChange={onChange} name="chkAgreement"  value={enabled}/><p className="ml-2" data-tip data-for="agreeTip">I agree to the <p className="btn-link d-none d-md-inline-block pointer"  >Master Subscription Agreement.</p></p>
                 </span>
                  </FormGroup>
             <div className="checkbox mb-3 ">
@@ -221,8 +226,11 @@ function Register(props) {
             
             <FormGroup className="checkbox mb-3">
             <span>
-                <input type="checkbox" value="newsletter"/>   Yes, I would like to receive marketing communications regarding Bahati Tech products, services, and events. I can unsubscribe at a later time.</span>
-            <Button type="submit" className="w-100 my-3 text-lg text-white fw-semibold py-3 bg-blue-700  hover:bg-blue-500 focus:bg-blue-600 focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50"  >REGISTER</Button>
+                <input type="checkbox" onChange={onChange} name="newsletter" value="newsletter"/>   Yes, I would like to receive marketing communications regarding Bahati Tech products, services, and events. I can unsubscribe at a later time.</span>
+            <Button type="submit" disabled={!enabled} className="w-100 my-3 text-lg text-white fw-semibold py-3 bg-blue-700  hover:bg-blue-500 focus:bg-blue-600 focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50"  >REGISTER</Button>
+             <ReactTooltip id="agreeTip" place="top" effect="solid">
+              Click on the Master Subscription Agreement checkbox to register.
+      </ReactTooltip>
             </FormGroup>
             <PopUp isOpen={modalErrPop} 
                btnTxtPositive="Retry" 

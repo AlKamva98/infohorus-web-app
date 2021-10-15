@@ -63,8 +63,8 @@ const DefaultLayout = (props) => {
     let item ={
     id: i,
     color: response[i].color,
-    from: response[i].taskStart.toString().replace(" GMT+0200 (South Africa Standard Time)",""),
-    to: response[i].taskEnd.toString().replace(" GMT+0200 (South Africa Standard Time)",""),
+    from: response[i].taskStart.toString().replace("Z",""),
+    to: response[i].taskEnd.toString().replace("Z",""),
     title: response[i].taskDesc};
     rectks.push(item)
     setEvt(rectks)

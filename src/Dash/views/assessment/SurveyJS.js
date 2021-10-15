@@ -1,6 +1,7 @@
 import React, {useEffect, useState, useRef} from 'react';
 import{Modal, ModalBody, ModalHeader,ModalFooter, Button, Form, FormGroup} from 'reactstrap'
-import{Container, Col} from 'react-bootstrap'
+import {useForm, Controller } from "react-hook-form";
+import Select  from 'react-select';
 import { API, Auth, graphqlOperation, Storage } from 'aws-amplify';
 import {Prompt} from 'react-router-dom'
 import {SurveyJSON,surveyCss} from './survey.js'
@@ -15,7 +16,9 @@ import { questionIDs } from './questionId.js';
 
 export function SurveyJS(props) {
     const {
-        className
+        className,
+        teamList,
+        approved
     } = props;
     /**===========================================================================================
      *                                Global Variables
@@ -28,6 +31,7 @@ export function SurveyJS(props) {
     var addQuestionnaire = mutations.createQuestionnaire;
     const [questionnaireState, setQuestionnaireState] = useState(false)
     const [modal, setModal] = useState(false);
+    const { register, handleSubmit, reset, formState: { errors }, control } = useForm();
     const toggle = () => {
         setModal(!modal);
     }
@@ -56,6 +60,8 @@ export function SurveyJS(props) {
         survey.storeDataAsText = false;
         checkUser()
         //window.localStorage.removeItem("questionaire_data")
+        console.log("Team List", teamList)
+        console.log("approved", approved)
     }, [])
 
     async function checkUser() {
@@ -179,17 +185,17 @@ async function getCreds(){
             var qname;
             if (data.followupQ11a !== undefined) {
                 console.log("Follow up 11 a", data.followupQ11a[0])
-                doc = data.followupQ11a[0]
-                qname = 0
+                doc = data.followupQ11a[0];
+                qname = 0;
             } else if (data.followupQ8a !== undefined) {
-                console.log("Follow up 8a", data.followupQ8a[0])
-                doc = data.followupQ8a[0]
-                qname = 1
-                console.log("answers recieved")
+                console.log("Follow up 8a", data.followupQ8a[0]);
+                doc = data.followupQ8a[0];
+                qname = 1;
+                console.log("answers recieved");
             } else if (data.followupQ8c !== undefined) {
-                console.log("Follow up 8c", data.followupQ8c[0])
-                doc = data.followupQ8c[0]
-                qname = 2
+                console.log("Follow up 8c", data.followupQ8c[0]);
+                doc = data.followupQ8c[0];
+                qname = 2;
             } else if (data.followupQ14c !== undefined) {
                 console.log("Follow up 14c", data.followupQ14c[0])
                 doc = data.followupQ14c[0]
@@ -257,7 +263,7 @@ async function getCreds(){
                                     questionID: questionID,
                                 }
                             }
-                        ))
+                        ));
                         said = String(storedAns.data.createAnswer.id);
                         await API.graphql(graphqlOperation(
                             mutations.createQuestionnaireQuestionAnswer, {
@@ -484,10 +490,14 @@ async function getCreds(){
                                         <input type="text" className="form-control" id="recipient-name"
                                                value={recipientName} onChange={setName}/>
                                     </FormGroup>
-                                    <FormGroup>
-                                        <label id="recipient-email" className="col-form-label">Recipient Email:</label>
-                                        <input type="text" className="form-control" id="recipient-email"
-                                               value={recipientEmail} onChange={setEmail}/>
+                        <FormGroup>
+                        <label id="recipient-email" className="col-form-label">Recipient Email:</label>
+                    <Controller name="recipientEmail"   control={control} render={({ field }) => (
+              <Select placeholder="Recipient Email" className="form-control" options={teamList} onChange={setEmail} defaultValue="Recipient Email" {...field}>
+                </Select>
+            )}   {...register("recipientEmail")}  rules={{ required: "Please Select the recipient's email"}} />
+    
+                                              
                                     </FormGroup>
                                 </Form>
                             </ModalBody>

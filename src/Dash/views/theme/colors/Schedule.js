@@ -42,20 +42,7 @@ function Schedule(props) {
     console.log("This is the task that has been scheduled", task);
     addTask(task);
   }
-const teamList = ()=>{
-    var t;
-    var e;
-    var mmb = [];
-    if(team){ 
-    for(t in team){
-      var f = team[t].email;
-      e={value: f, label: f}
-      mmb.push(e)
-    }
-  }
-    return mmb;
-  }
-  var a =teamList();
+
   return (
    <div>
 <div className="" >
@@ -100,7 +87,7 @@ const teamList = ()=>{
   </div>
   
       <Controller name="assignedTo"   control={control} render={({ field }) => (
-              <Select placeholder="Assigned To" className="block w-full px-4 py-4 mt-2 text-xl placeholder-gray-400 bg-gray-200 rounded-lg focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50" options={a} defaultValue="Assigned To" {...field}>
+              <Select placeholder="Assigned To" className="block w-full px-4 py-4 mt-2 text-xl placeholder-gray-400 bg-gray-200 rounded-lg focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50" options={team} defaultValue="Assigned To" {...field}>
                 </Select>
             )}   {...register("assignedTo")}  rules={{ required: "Please Select the importance of the task"}} />
     <ErrorMessage errors={errors} className="err mb-4" name="assignedTo" as="p" />
