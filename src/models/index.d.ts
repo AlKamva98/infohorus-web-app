@@ -53,6 +53,7 @@ export declare class User {
   readonly Questionnaire?: QuestionnaireQuestionAnswer;
   readonly Recommendations?: (Recommendations | null)[];
   readonly userType?: string;
+  readonly phone?: string;
   constructor(init: ModelInit<User>);
   static copyOf(source: User, mutator: (draft: MutableModel<User>) => MutableModel<User> | void): User;
 }

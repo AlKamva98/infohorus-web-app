@@ -370,6 +370,13 @@ export const schema = {
                     "type": "String",
                     "isRequired": false,
                     "attributes": []
+                },
+                "phone": {
+                    "name": "phone",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
                 }
             },
             "syncable": true,
@@ -951,5 +958,5 @@ export const schema = {
     },
     "enums": {},
     "nonModels": {},
-    "version": "abcb2a676f50e11f9356d20e077e53f5"
+    "version": "4fc5bc6a9abfe7ddb34c6af0f50fea5c"
 };
