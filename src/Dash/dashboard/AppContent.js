@@ -23,7 +23,7 @@ const AppContent = (props) => {
     return mmb;
   }
   var a =teamList();
-  console.log("Team list content page",a)
+  console.log("Team list content pag0e000",a)
   return (
     <CContainer lg className="w-full">
         <Switch>
