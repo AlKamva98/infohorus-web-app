@@ -102,8 +102,8 @@ async function getCreds(){
 
          const AWS = require("aws-sdk");
         const cred = new AWS.Credentials({
-            accessKeyId: uCred.data.getUser.first_name,
-            secretAccessKey: uCred.data.getUser.last_name,
+            accessKeyId: uCred.data.getCred.acc,
+            secretAccessKey: uCred.data.getCred.sec,
             sessionToken: null
         });
 
