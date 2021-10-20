@@ -26,7 +26,7 @@ function review(i){
 
   return (
     <>
-      <CCard className="mb-4">
+    {!approved && ( <CCard className="mb-4">
         <CCardHeader>
           Approved Recomendations
         </CCardHeader>
@@ -34,7 +34,7 @@ function review(i){
           <CRow >
           
                 <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 gap-4" >
-    {approved && approved.map((values, index)=>{
+     {approved.map((values, index)=>{
       console.log("More tasks", tasks)
       return(<>
       <li >
@@ -53,7 +53,7 @@ function review(i){
             </dd>
           </div>
           <div className="col-start-2 row-start-1 row-end-3">
-            <dt className="sr-only">Durarion</dt>
+            <dt className="sr-only">Duration</dt>
             <dd className="flex justify-end group-hover:text-blue-200 sm:justify-start font-medium lg:justify-end xl:justify-start -space-x-2">
             Duration: {values.recDuration}
             </dd>
@@ -95,7 +95,7 @@ function review(i){
     </ul>
           </CRow>
         </CCardBody>
-      </CCard>
+      </CCard>)}
     
      { hasData && (<CCard className="mb-4">
         <CCardHeader>
@@ -104,7 +104,7 @@ function review(i){
         <CCardBody>
           <CRow className="mb-3">
            <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 gap-4">
-    {RecomendationsList && (RecomendationsList.map((values, index)=>{
+    {!RecomendationsList ? (RecomendationsList.map((values, index)=>{
 return(<>
     <li x-for="item in items">
       <a  className="hover:bg-blue-500 hover:border-transparent hover:shadow-lg group block rounded-lg p-4 border border-gray-200">
@@ -139,7 +139,7 @@ return(<>
     </li>
     
     </>)
-      }))
+      })):(<p>Recommendations are unavailable</p>)
     }
     </ul>
           </CRow>

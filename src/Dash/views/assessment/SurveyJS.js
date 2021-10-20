@@ -10,7 +10,7 @@ import * as mutations from '../../../graphql/mutations'
 import * as queries from '../../../graphql/queries'
 import * as Survey from 'survey-react';
 import { PopUp } from '../../../Home/shared/utils/Modal';
-
+import ReactTooltip from 'react-tooltip'
 import { questionIDs } from './questionId.js';
 
 
@@ -487,23 +487,25 @@ async function getCreds(){
                                 <Form>
                                     <FormGroup>
                                         <label id="recipient-name" className="col-form-label">Recipient Name:</label>
-                                        <input type="text" className="form-control" id="recipient-name"
+                                        <input type="text" data-tip data-for="teamTip" className="form-control" id="recipient-name"
                                                value={recipientName} onChange={setName}/>
                                     </FormGroup>
                         <FormGroup>
                         <label id="recipient-email" className="col-form-label">Recipient Email:</label>
-                    <Controller name="recipientEmail"   control={control} render={({ field }) => (
-              <Select placeholder="Recipient Email" className="form-control" options={teamList} onChange={setEmail} defaultValue="Recipient Email" {...field}>
+                    <Controller name="recipientEmail"  control={control} render={({ field }) => (
+              <Select placeholder="Recipient Email"  className="form-control" options={teamList} onChange={setEmail} defaultValue="Recipient Email" {...field}>
                 </Select>
             )}   {...register("recipientEmail")}  rules={{ required: "Please Select the recipient's email"}} />
     
-                                              
+             <ReactTooltip id="teamTip" place="top" effect="solid">
+              Can't find who you're looking for? Check if the user is added to your list of team members in the teams page.
+            </ReactTooltip>
                                     </FormGroup>
                                 </Form>
                             </ModalBody>
                             <ModalFooter>
-                                <Button className="btn btn-outline-secondary" onClick={toggle}>Close</Button>
-                                <Button className="btn btn-success" disabled={isDisabled} onClick={async ()=>{getCreds().then(uCred=>{sendEmail(uCred);})}}>Send
+                                <Button className="btn bg-grey-600 hover:bg-grey-400 text-white" onClick={toggle}>Close</Button>
+                                <Button className="btn bg-green-500 hover:bg-green-300 text-white" disabled={isDisabled} onClick={async ()=>{getCreds().then(uCred=>{sendEmail(uCred);})}}>Send
                                     message</Button>
                             </ModalFooter>
                         </Modal>
