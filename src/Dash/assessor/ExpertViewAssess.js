@@ -15,6 +15,7 @@ const { state } = props.location;
 // const addReport = mutations.createAssessorReport;
 const [formState, updateFormState] = useState(initialFormState)
 const [Answers, setAnswers] = useState()
+const [assessForm, setAssessForm] = useState()
 const [reportCreated, updateReportCreated] = useState(false);
 const memoizedHandleDoc = useCallback((doc)=>() => {
       downloadDocument(doc);
@@ -27,6 +28,8 @@ const memoizedHandleDoc = useCallback((doc)=>() => {
   
   const onSubmit = async (data ) =>{    
     console.log("This is the data from the form", data)
+    setAssessForm(data)
+    saveAssessorData(data)
     createReport(data).then(()=>{
       updateReportCreated(true)
     })
@@ -64,6 +67,13 @@ let answers =[];
 },[])
 
 
+  var storageName = "assessor_data"
+
+    function saveAssessorData(result) {
+        var data = result;
+        console.log("Saved data is", data);
+        window.localStorage.setItem(storageName, JSON.stringify(data))
+    }
 
 
 async function getAnswersbyQuestionnaire(){
@@ -146,7 +156,7 @@ function onChange(e){
 </Container>
 {<Formik
  initialValues={{assessForm:[{assessAns:"",assessComment:"", qName:""}]}}
- onSubmit={onSubmit}
+ onSubmit={onSubmit}  
 >
 {({ values, handleChange, handleBlur, handleSubmit})=>(
   <Form onSubmit={handleSubmit} className="py-3">
@@ -155,7 +165,7 @@ function onChange(e){
     <div>
         {Answers &&(Answers.map((val, index) => {
           const isDoc = val.answer.endsWith(".pdf");
-        
+          
         return(
             <div key={index}>
           <div className="flex flex-col mb-4">
@@ -191,7 +201,7 @@ function onChange(e){
 )
 }
 </Formik>}
-    {reportCreated && <Redirect to={{pathname: "/dash/recommendations" ,client: Answers, usserId: state.id}} ></Redirect>}
+    {reportCreated && <Redirect to={{pathname: "/dash/recommendations" , assess: assessForm, client: Answers, userId: state.id}} ></Redirect>}
   
   </>)
   

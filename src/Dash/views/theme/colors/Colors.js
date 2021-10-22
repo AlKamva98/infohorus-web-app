@@ -26,7 +26,7 @@ function review(i){
 
   return (
     <>
-    {!approved && ( <CCard className="mb-4">
+    {approved && ( <CCard className="mb-4">
         <CCardHeader>
           Approved Recomendations
         </CCardHeader>
@@ -104,7 +104,7 @@ function review(i){
         <CCardBody>
           <CRow className="mb-3">
            <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 gap-4">
-    {!RecomendationsList ? (RecomendationsList.map((values, index)=>{
+    {RecomendationsList ? (RecomendationsList.map((values, index)=>{
 return(<>
     <li x-for="item in items">
       <a  className="hover:bg-blue-500 hover:border-transparent hover:shadow-lg group block rounded-lg p-4 border border-gray-200">

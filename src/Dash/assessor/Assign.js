@@ -18,7 +18,7 @@ import { Redirect } from 'react-router';
       {value: "Low", label: "Low"}]
       const [modal, setModal] = useState(false);
     const toggle = () => setModal(!modal);
-    const { register, handleSubmit, errors, control } = useForm();
+    const { register, handleSubmit, control } = useForm();
     const handleError = (errors) => { console.log("Form Errors: ", errors)};
     const handleRegistration = async (data) =>{ 
      saveData(data).then(rec=>{
@@ -27,13 +27,13 @@ import { Redirect } from 'react-router';
      })
     };
     
-      function omit(obj, ...props) {
-  const result = { ...obj };
-  props.forEach(function(prop) {
-    delete result[prop];
-  });
-  return result;
-}
+//       function omit(obj, ...props) {
+//   const result = { ...obj };
+//   props.forEach(function(prop) {
+//     delete result[prop];
+//   });
+//   return result;
+// }
 
 async function saveData(data){
    try{

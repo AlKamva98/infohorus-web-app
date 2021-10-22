@@ -12,7 +12,7 @@ import Page500 from './Dash/views/pages/page500/Page500';
 
 
 function App()  {
-   const[signedIn, setSignedIn] = useState(false);
+   const [signedIn, setSignedIn] = useState(false);
    const [userGroup, setUserGroup] = useState();
    const [user, setUser] = useState();
   useEffect(()=>{
@@ -28,7 +28,7 @@ async function checkUser(){
             setUserGroup(userchk.signInUserSession.accessToken.payload["cognito:groups"][0]);
             setSignedIn(true);
            }
-        
+        console.log("The user is::",user)
         }catch(err){
         console.log("user Error:",err); 
         }
