@@ -377,6 +377,20 @@ export const schema = {
                     "type": "String",
                     "isRequired": false,
                     "attributes": []
+                },
+                "AssessorReports": {
+                    "name": "AssessorReports",
+                    "isArray": true,
+                    "type": {
+                        "model": "AssessorReport"
+                    },
+                    "isRequired": false,
+                    "attributes": [],
+                    "isArrayNullable": true,
+                    "association": {
+                        "connectionType": "HAS_MANY",
+                        "associatedWith": "ID"
+                    }
                 }
             },
             "syncable": true,
@@ -885,6 +899,33 @@ export const schema = {
                         "connectionType": "HAS_MANY",
                         "associatedWith": "assessorreportID"
                     }
+                },
+                "User": {
+                    "name": "User",
+                    "isArray": false,
+                    "type": {
+                        "model": "User"
+                    },
+                    "isRequired": false,
+                    "attributes": [],
+                    "association": {
+                        "connectionType": "BELONGS_TO",
+                        "targetName": "assessorReportUserId"
+                    }
+                },
+                "ID": {
+                    "name": "ID",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "isCompleted": {
+                    "name": "isCompleted",
+                    "isArray": false,
+                    "type": "Boolean",
+                    "isRequired": false,
+                    "attributes": []
                 }
             },
             "syncable": true,
@@ -893,6 +934,15 @@ export const schema = {
                 {
                     "type": "model",
                     "properties": {}
+                },
+                {
+                    "type": "key",
+                    "properties": {
+                        "name": "byUser",
+                        "fields": [
+                            "ID"
+                        ]
+                    }
                 },
                 {
                     "type": "auth",
@@ -958,5 +1008,5 @@ export const schema = {
     },
     "enums": {},
     "nonModels": {},
-    "version": "4fc5bc6a9abfe7ddb34c6af0f50fea5c"
+    "version": "e98084f4226677aab1f7cb7265e47ba7"
 };

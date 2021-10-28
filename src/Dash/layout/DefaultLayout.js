@@ -8,80 +8,107 @@ import * as mutations from '../../graphql/mutations'
 
 
 const DefaultLayout = (props) => {
-  const {signedIn, signOut, userGroup} = props;
+  const {signedIn, signOut, userGroup, user} = props;
   let approvedRecs =[];
   let upRec = [];
   let ts=[];
   var completed;
   let RecomendationsList = listProps("Rec");
   let TasksList = listProps("Task") ;
+  const [dashState, updateDashState]=useState({
+     approved:[],
+     modal: false,
+     errModal:false,
+     revModal:false,
+     rec:"This is rec",
+     tasks:TasksList,
+
+
+  });
   const [approved, updateApproved]=useState([]);
   const [modal, setModal] = useState(false);
-    const toggle = () => setModal(!modal);
+    const toggle = () => updateDashState({modal:!dashState.modal});
     const [rec, setRec] =useState("");
-    const errToggle = () => setErrModal(!errModal);
+    const errToggle = () => updateDashState({errModal:!dashState.errModal});
     const [errModal, setErrModal] = useState(false);
     const [tasks, setTasks] =useState(TasksList);
     const [revModal, setRevModal] = useState(false);
-    const revToggle = () => setRevModal(!revModal);
+    const revToggle = () => updateDashState({revModal:!dashState.revModal});
     const [msg, setMsg] =useState("");
     const [hasData, setHasData] = useState(false);
     const [hasTData, setHasTData] = useState(false);
     const [datatable, setDatatable] = useState('');
+    const [continueAss, setContinueAss] = useState(false);
+    const [assRep, setAssRep] = useState({});
     const [recommendations, updateRecs] =useState(RecomendationsList);
     const [data, setData] = useState([])
     var d ;
+    let userObj;
     var [evt, setEvt] = useState([]);
     var rectks= [];
     useEffect(() => { 
-      listUsers().then(listOfUsers => {
+      getUser().then(User => {
           let users = [];
-          for(let i in  listOfUsers.data.listUsers.items){
-            if( (listOfUsers.data.listUsers.items[i].userType === "Team member")&& !(listOfUsers.data.listUsers.items[i]._deleted)){
-              completed =  listOfUsers.data.listUsers.items[i];
-              users.push(completed)
-            }
-          }
-          let data = {
-                 columns: COLUMNS,
-                 rows: users
-             }
-        
-             setDatatable(data);
+          userObj= User;
+          if((userObj.userType === "Assessor")){
+                checkAssessComplete(userObj.id);
+              }
+            listTeam().then(teamlist =>{
+                  completed =  teamlist;
+                  users.push(completed)
+              })
+          
+          let data = {columns: COLUMNS,rows: users}
+          setDatatable(data);
          }).finally(()=>{
            setHasTData(true);
+           if(!hasData){
+           listProps("Rec", userObj.id).then(data =>{
+              updateRecs(data);
+              listProps("Task",userObj.id).then(response=>{
+                if(response){
+                  setTasks(response)
+                  console.log("This is the tasks",response)
+                  for(let i in response){
+                        let item ={
+                        id: i,
+                        color: response[i].color,
+                        from: response[i].taskStart.toString().replace("Z",""),
+                        to: response[i].taskEnd.toString().replace("Z",""),
+                        title: response[i].taskDesc};
+                        rectks.push(item)
+                        setEvt(rectks)
+                        }
+                    }})
+           listArticles().then(promise=>{setData(promise);})
+           })
+           
+         }
           });
 
-      if(!hasData){
-      listProps("Rec").then(data =>{
-      updateRecs(data);
-      listProps("Task").then(response=>{
-        if(response){
-        setTasks(response)
-        console.log("This is the tasks",response)
-      for(let i in response){
-    let item ={
-    id: i,
-    color: response[i].color,
-    from: response[i].taskStart.toString().replace("Z",""),
-    to: response[i].taskEnd.toString().replace("Z",""),
-    title: response[i].taskDesc};
-    rectks.push(item)
-    setEvt(rectks)
-    }
-    console.log("These are the events", evt)
-      }
-      })
-      listArticles().then(promise=>{
-        setData(promise);
-      })
-      })
-      
-    }
     
     },[])
     
-      async function listArticles() { //gets the recommendations from the backend     
+    
+    async function checkAssessComplete(id){
+      var reps;
+      var complete = false;
+      const assRep = await API.graphql({query: queries.assRep, variables:{filter: {ID: {contains: id}}}}).then(promise => {
+              console.log(promise.data.listAssessorReports.items)
+              reps = promise.data.listAssessorReports.items;
+            }).finally(()=>{
+              for(let i in reps){
+                if(reps[i].isComplete){
+                    setContinueAss(true)
+                    setAssRep(reps[i])
+                    break;
+                }
+              }
+             return complete; 
+            })
+    }
+
+      async function listArticles() { //gets the articles from the bing news api     
         var url = "https://bing-news-search1.p.rapidapi.com/news/search?q=ransomware%20attacks&freshness=Day&textFormat=Raw&safeSearch=Off"
         var headers={
           "method": "GET",
@@ -102,12 +129,12 @@ const DefaultLayout = (props) => {
             return s;
           }
 
-             async function listProps(prop) { //gets the recommendations from the backend     
+             async function listProps(prop, userId) { //gets the recommendations from the backend     
              var data;
              switch(prop){
                case "Rec":
-                 data = await API.graphql({query: queries.listRecommendationss}).then(promise => {
-              
+                 data = await API.graphql({query: queries.listRecommendationss, variables: {filter: {userID: {contains: userId}}}}).then(promise => {
+                  console.log("Recommendations",promise.data.listRecommendationss.items)
               return promise.data.listRecommendationss.items;
             }).catch(e => {
                 console.error(e);
@@ -129,10 +156,8 @@ const DefaultLayout = (props) => {
 
   
     function getApproved(){//scans through the a recommendations array, gets approved recs, and moves those recs to a new array
-      
          try{
           if(hasData){
-
             approvedRecs = recommendations.filter(checkRec);//filters 
             upRec = recommendations;
             if(approvedRecs!==undefined||approvedRecs!==null){//checks if approvedRecs is not null
@@ -187,10 +212,20 @@ const DefaultLayout = (props) => {
   //   }
   //   }
 
-    async function listUsers() {
+    async function getUser() {
       try {
-        var userslist = await API.graphql({query: queries.listUsers});
-        return userslist;
+        var userslist = await API.graphql({query: queries.listUsers, variables:{filter: {email: {contains: user}}}});
+        console.log("This is the user",userslist)
+        return userslist.data.listUsers.items[0];
+      } catch (err) {
+          console.log("Error:>> ", err);
+      }
+  }
+    async function listTeam() {
+      try {
+        var teamlist = await API.graphql({query: queries.listUsers, variables:{filter: {userType: {contains:"Team Members" }}}});
+        console.log("This is the user",teamlist.data.listUsers.items)
+        return teamlist.data.listUsers.items;
       } catch (err) {
           console.log("Error:>> ", err);
       }
@@ -225,15 +260,11 @@ const DefaultLayout = (props) => {
       return res;
     }
     function addTask(task){
-      console.log("List of tasks before pushing new", tasks);
-      console.log("This is the task that I'm adding:", task)
       uploadTask(task).then(response=>{
-      console.log("This is the task ", response)
         tasks.push(response.data.createTasks);
       setTasks(tasks)}).catch((err)=>{
         console.log("Task upload error::::>",err)
       })
-      console.log("List of tasks after pushing new", tasks);
     }
     
       return (
@@ -244,7 +275,7 @@ const DefaultLayout = (props) => {
         <AppHeader tasks={tasks} recommendations={recommendations} signOut={signOut} saveChanges={saveChanges} approved={approved} />
         <div className="body flex-grow-1 px-3">
           <AppContent approve={approve} approved={approved} recommendations={recommendations} 
-          errModal={errModal} datatable={datatable} hasTData={hasTData} hasData={hasData} errToggle={errToggle} revModal={revModal} revToggle={revToggle}  msg={msg}  tasks={tasks} rec={rec} toggle={toggle} news={data} modal={modal} events={evt} tasks={tasks} setRec={setRec} addTask={addTask} />
+          errModal={errModal} datatable={datatable} hasTData={hasTData} hasData={hasData} errToggle={errToggle} revModal={revModal} revToggle={revToggle}  msg={msg}  tasks={tasks} rec={rec} toggle={toggle} news={data} modal={modal} continueAss={continueAss} assRep={assRep} events={evt} userId={userObj.id} setRec={setRec} addTask={addTask} />
         </div>
         <AppFooter />
       </div>

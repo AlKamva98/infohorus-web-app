@@ -66,7 +66,7 @@ function Register(props) {
                 first_name: data.fname,
                 last_name: data.lname,
                 job_title: data.jobtitle,
-                // phone: data.phone,
+                phone: data.phone,
                 company: data.company,
                 employees: data.employees.value,
                 industry: data.industry.value,

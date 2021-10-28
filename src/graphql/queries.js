@@ -160,6 +160,24 @@ export const getRecommendations = /* GraphQL */ `
     }
   }
 `;
+export const listRecommendationsbyUser = /* GraphQL */ `
+  query byUser(
+    $userID: String
+  ) {
+    byUser(userID: $userID) {
+      items {
+        id
+        recName
+        recDesc
+        recDuration
+        isApproved
+        userID
+        _version
+      }
+      nextToken
+    }
+  }
+`;
 export const listRecommendationss = /* GraphQL */ `
   query ListRecommendationss(
     $filter: ModelRecommendationsFilterInput
@@ -244,6 +262,25 @@ export const getAssessorReport = /* GraphQL */ `
         nextToken
         startedAt
       }
+    }
+  }
+`;
+export const assRep = /* GraphQL */ `
+  query ListAssessorReports(
+    $filter: ModelAssessorReportFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listAssessorReports(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        assrssorComment
+        assessmentResult
+        assessorID
+        _version
+      }
+      nextToken
+      startedAt
     }
   }
 `;
@@ -779,6 +816,26 @@ export const getUser = /* GraphQL */ `
     }
   }
 `;
+
+export const listUsersEmail = /* GraphQL */ `
+  query ListUsers(
+    $filter: ModelUserFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listUsers(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        email
+        userType
+        _version
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
+
 export const listUsers = /* GraphQL */ `
   query ListUsers(
     $filter: ModelUserFilterInput

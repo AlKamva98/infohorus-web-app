@@ -20,7 +20,7 @@ import {PopUp} from '../../../../Home/shared/utils/Modal'
 
   const Login = (props) => {
 
-const {signedIn,setSignedIn, userGroup} = props;
+const {signedIn, checkUser} = props;
   const [modal, setModal] = useState(false);
   const toggle = () => setModal(!modal);
   const [msg, setMsg] = useState("")
@@ -39,8 +39,8 @@ const {signedIn,setSignedIn, userGroup} = props;
     try{
         const {email, password} = formState
         await Auth.signIn(email, password)
-        console.log("User is signed in", signedIn)   
-        setSignedIn(true)
+        console.log("User is signed in", signedIn)
+        checkUser()
         }catch(err){
             setMsg(err.message);
             toggle();

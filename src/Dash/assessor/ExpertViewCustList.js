@@ -6,7 +6,8 @@ import {COLUMNS} from "./columns.js";
 import * as queries from '../../graphql/queries'
 import API from '@aws-amplify/api';
 
-function ExpertViewCustList(){
+function ExpertViewCustList(props){
+  const {userId} = props;
  const [checkbox1, setCheckbox1] = useState('');
  const [datatable, setDatatable] = useState('');
  const [hasData, setHasData] = useState(false);
@@ -20,6 +21,7 @@ function ExpertViewCustList(){
           let users = [];
           
           for(let i in  listOfUsers.data.listUsers.items){
+
             if( listOfUsers.data.listUsers.items[i].userType === "Assessee"){
               completed =  listOfUsers.data.listUsers.items[i];
               console.log("This is the approved ",  listOfUsers.data.listUsers.items[i])

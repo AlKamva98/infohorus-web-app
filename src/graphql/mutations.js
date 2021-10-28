@@ -257,24 +257,14 @@ export const createAssessorReport = /* GraphQL */ `
       id
       assrssorComment
       assessmentResult
-      assessorID
+      ID
+      isCompleted
       _version
       _deleted
       _lastChangedAt
       createdAt
       updatedAt
-      Assessor {
-        id
-        first_name
-        last_name
-        email
-        numAssessed
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-      }
+      
       QuestionnaireQuestionAnswers {
         nextToken
         startedAt
@@ -291,24 +281,14 @@ export const updateAssessorReport = /* GraphQL */ `
       id
       assrssorComment
       assessmentResult
-      assessorID
+      ID
+      isCompleted
       _version
       _deleted
       _lastChangedAt
       createdAt
       updatedAt
-      Assessor {
-        id
-        first_name
-        last_name
-        email
-        numAssessed
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-      }
+      
       QuestionnaireQuestionAnswers {
         nextToken
         startedAt

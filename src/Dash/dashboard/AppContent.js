@@ -6,7 +6,7 @@ import { CContainer } from '@coreui/react'
 import {routes} from '../../routes'
 
 const AppContent = (props) => {
-    const {approve, approved, recommendations, errModal, errToggle, revToggle, revModal, msg, rec,toggle,modal, setRec, hasData,datatable,addTask, tasks ,hasTData, news, events }= props;
+    const {approve, approved, recommendations, errModal, errToggle, revToggle, revModal, msg, rec,toggle,modal, setRec, hasData,datatable,addTask, tasks ,hasTData, news,assRep, continueAss, events, userId }= props;
     console.log("This is recommendations on app content page",recommendations)
     console.log("This is events on app content page",events)
     const teamList = ()=>{
@@ -38,7 +38,7 @@ const AppContent = (props) => {
                   render={(props) => (
                     <>
                       <route.component approve={approve} approved={approved} RecomendationsList={recommendations} 
-          errModal={errModal} datatable={datatable} hasTData={hasTData} hasData={hasData} errToggle={errToggle} revModal={revModal} revToggle={revToggle} msg={msg} rec={rec} news={news} toggle={toggle} modal={modal} setRec={setRec} teamList={a} addTask={addTask} tasks={tasks} events={events} {...props} />
+          errModal={errModal} datatable={datatable} hasTData={hasTData} hasData={hasData} errToggle={errToggle} revModal={revModal} revToggle={revToggle} msg={msg} rec={rec} news={news} toggle={toggle} modal={modal} setRec={setRec} userId={userId} teamList={a} addTask={addTask} tasks={tasks} events={events} {...props} />
                     </>
                   )}
                 />

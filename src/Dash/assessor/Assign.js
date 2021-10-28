@@ -11,14 +11,17 @@ import { Redirect } from 'react-router';
   function Assign(props) {
     const {tasks, userId,assess} = props.location
     let rec;
+    
     const [back, setBack] = useState(false)
+    const [modal, setModal] = useState(false);
+    const toggle = () => setModal(!modal);
+    const { register, handleSubmit, control } = useForm();
+    
     const selectImp = [
       {value: "High", label: "High"},
       {value: "Medium", label: "Medium"},
       {value: "Low", label: "Low"}]
-      const [modal, setModal] = useState(false);
-    const toggle = () => setModal(!modal);
-    const { register, handleSubmit, control } = useForm();
+    
     const handleError = (errors) => { console.log("Form Errors: ", errors)};
     const handleRegistration = async (data) =>{ 
      saveData(data).then(rec=>{

@@ -11,10 +11,11 @@ import {questions} from '../../testData/Quests'
 
 function ExpertViewAssess (props){
 const initialFormState =[{assessAns:"",assessComment:""}];
-const { state } = props.location;
-// const addReport = mutations.createAssessorReport;
+const { state, userId } = props.location;
+let rep ;
 const [formState, updateFormState] = useState(initialFormState)
 const [Answers, setAnswers] = useState()
+const [formValues, setFormValues]= useState(null)
 const [assessForm, setAssessForm] = useState()
 const [reportCreated, updateReportCreated] = useState(false);
 const memoizedHandleDoc = useCallback((doc)=>() => {
@@ -30,29 +31,38 @@ const memoizedHandleDoc = useCallback((doc)=>() => {
     console.log("This is the data from the form", data)
     setAssessForm(data)
     saveAssessorData(data)
-    createReport(data).then(()=>{
-      updateReportCreated(true)
-    })
+    
   }
   
 //   const selectOptionsAss = [
 //     {value: "Yes", label: "Yes"},
 //     {value: "No", label: "No"},]  
-  async function createReport (data){
-    try{
+  async function createReport (){
+    try{ 
       
-    await API.graphql(graphqlOperation(
+    let report = await API.graphql(graphqlOperation(
     mutations.createAssessorReport, {
       input: {
-      assrssorComment: data,
-      assessmentResult: data,
-      assessorID:data
+      ID:userId,
+      isComplete: false
           }
         }
-        ))
+        ));
+        return report;
       }catch(err){
         console.log("Report upload error", err)
       }
+}
+async function updateReport(data, done){
+    await API.graphql(graphqlOperation(mutations.updateAssessorReport,{
+    input:{
+      id: rep.id,
+      assrssorComment: data,
+      assessmentResult:data,
+      isCompleted: done,
+      _version: rep._version
+    }
+  }))
 }
 
 let questionnaire;
@@ -63,14 +73,17 @@ let answers =[];
         answerData.sort((a,b) => (a.questionID > b.questionID) ? 1 : ((b.questionID > a.questionID) ? -1 : 0))
         setAnswers(answerData);
             }).finally(()=>{
+           rep= createReport().then(()=>{
+              updateReportCreated(true)
+              })
             })
 },[])
 
 
-  var storageName = "assessor_data"
+  let storageName = "assessor_data"
 
     function saveAssessorData(result) {
-        var data = result;
+        let data = result;
         console.log("Saved data is", data);
         window.localStorage.setItem(storageName, JSON.stringify(data))
     }
@@ -146,8 +159,8 @@ function onChange(e){
         console.log("changing:"+e.target.name);
         updateFormState(()=>({...formState, [e.target.name]: e.target.value}))
     }
-
-
+const initialValues= {assessForm:[{assessAns:"",assessComment:"", qName:""}]}
+const savedValues= window.localStorage.getItem(storageName);
  return (
    <>
 <Container>
@@ -155,17 +168,18 @@ function onChange(e){
 <span>Click on download to get .pdf/.xls file of the  </span>
 </Container>
 {<Formik
- initialValues={{assessForm:[{assessAns:"",assessComment:"", qName:""}]}}
+ initialValues={formValues||initialValues}
  onSubmit={onSubmit}  
+ enableReinitialize
 >
-{({ values, handleChange, handleBlur, handleSubmit})=>(
+{({ values, handleBlur, handleChange, handleSubmit})=>(
   <Form onSubmit={handleSubmit} className="py-3">
+    <button type="button" onClick={()=>{ setFormValues(savedValues) }}>Load saved data</button>
   <FieldArray name="assessForm">{
     arrayHelpers =>(
     <div>
         {Answers &&(Answers.map((val, index) => {
           const isDoc = val.answer.endsWith(".pdf");
-          
         return(
             <div key={index}>
           <div className="flex flex-col mb-4">
