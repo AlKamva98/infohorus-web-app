@@ -79,8 +79,12 @@ const DefaultLayout = (props) => {
                         rectks.push(item)
                         setEvt(rectks)
                         }
-                    }})
+                    }}).catch((err)=>{
+                      console.log("This is the error:::",err)
+                    })
            listArticles().then(promise=>{setData(promise);})
+           }).catch((err)=>{
+             console.log("This is the error:",err)
            })
            
          }
@@ -275,7 +279,7 @@ const DefaultLayout = (props) => {
         <AppHeader tasks={tasks} recommendations={recommendations} signOut={signOut} saveChanges={saveChanges} approved={approved} />
         <div className="body flex-grow-1 px-3">
           <AppContent approve={approve} approved={approved} recommendations={recommendations} 
-          errModal={errModal} datatable={datatable} hasTData={hasTData} hasData={hasData} errToggle={errToggle} revModal={revModal} revToggle={revToggle}  msg={msg}  tasks={tasks} rec={rec} toggle={toggle} news={data} modal={modal} continueAss={continueAss} assRep={assRep} events={evt} userId={userObj.id} setRec={setRec} addTask={addTask} />
+          errModal={errModal} datatable={datatable} hasTData={hasTData} hasData={hasData} errToggle={errToggle} revModal={revModal} revToggle={revToggle}  msg={msg}  tasks={tasks} rec={rec} toggle={toggle} news={data} modal={modal} continueAss={continueAss} assRep={assRep} events={evt} userId={userObj} setRec={setRec} addTask={addTask} />
         </div>
         <AppFooter />
       </div>
