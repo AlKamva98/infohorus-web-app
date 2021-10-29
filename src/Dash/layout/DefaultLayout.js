@@ -57,7 +57,7 @@ const DefaultLayout = (props) => {
             listTeam().then(teamlist =>{
                   completed =  teamlist;
                   users.push(completed)
-                  console.log("this is the team", users)
+                  console.log("this is the team", teamlist)
               })
           
               let data = {columns: COLUMNS,rows: users}
@@ -225,7 +225,7 @@ const DefaultLayout = (props) => {
   }
     async function listTeam() {
       try {
-        var teamlist = await API.graphql({query: queries.listUsers, variables:{filter: {userType: {contains:"Team Members" }}}});
+        var teamlist = await API.graphql({query: queries.listUsers, variables:{filter: {userType: {contains:"Team members" }}}});
         console.log("This is the user",teamlist.data.listUsers.items)
         return teamlist.data.listUsers.items;
       } catch (err) {
