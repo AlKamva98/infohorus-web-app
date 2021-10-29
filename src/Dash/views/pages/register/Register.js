@@ -27,18 +27,25 @@ function Register(props) {
   } = props;
 
   var newusermut = mutations.createUser;
+  let signupFailMsg;
   const initialFormState = {
         fname:"", lname:"",email:"", password:"", confPassword:"", jobtitle:"", company:"",employees:"",industry:"", authCode:"",chkAgreement:"", formType:"signUp"};  
-  const signupFailMsg = "Passwords are different!! Pasword and Confirm Password must be the same";
   const [modalPass, setModalPass] = useState(false);
-  const togglePass = () => setModalPass(!modalPass);
   const [modalErrPop, setModalErrPop] = useState(false);
   const [enabled, setEnabled] = useState(false);
   const toggleErrPop = () => setModalErrPop(!modalErrPop);
   const [formState, updateFormState] = useState(initialFormState);
   const [errTitle, setErrTitle] = useState("");
   const [errMess, setErrMess] = useState("");
-    const [user, setUser] = useState(null);
+  const [user, setUser] = useState(null);
+  const togglePass = (valid) =>{
+    signupFailMsg = "Invalid email!! Please enter your company email, not a free email(gmail, yahoo, hotmail, etc)";
+    if(valid===true){
+    signupFailMsg = "Passwords are different!! Pasword and Confirm Password must be the same";
+  }
+  setErrMess(signupFailMsg)
+    setModalPass(!modalPass)
+  };
     useEffect(()=>{
     checkUser();
     },[])
@@ -52,7 +59,8 @@ function Register(props) {
         let username = data.email;
         let email = data.email;
         let password = data.password;
-        if(password === data.confPassword){
+        let emailValid = checkEmail(email);
+        if(password === data.confPassword && emailValid===true){
           await Auth.signUp({username, password,attributes: {email}})
           console.log("SignUp complete")
           updateFormState(()=>({...formState, formType: "verifyMail"}))
@@ -78,7 +86,7 @@ function Register(props) {
         console.log("This is the users data:"+JSON.stringify(data))
         console.log("Data sent to the API")
       }else{
-        togglePass();
+        togglePass(emailValid);
       }    
     }
       catch(err){
@@ -88,6 +96,25 @@ function Register(props) {
         toggleErrPop();
       }
     };
+    async function checkEmail(email){
+const axios = require('axios');
+let valid = false;
+await axios.get(`https://emailvalidation.abstractapi.com/v1/?api_key=463d1f07dbb54cf08221d8310c1dbdd0&email=${email}`)
+    .then(response => {
+        console.log(response.data);
+        console.log("This is a free email:", response.data.is_free_email.value);
+        if(response.data.is_free_email.value===false){
+          valid = true;
+        }
+    })
+    .catch(error => {
+        console.log(error);
+    });
+    console.log("The email is valid:", valid)
+  return valid;
+  }
+    
+    
     let {formType}= formState;
     function onChange(e){
         e.persist()
@@ -180,7 +207,7 @@ function Register(props) {
                <PopUp isOpen={modalPass} 
                btnTxtPositive="Retry" 
                title="Sign up Failed" 
-               body={signupFailMsg} 
+               body={errMess} 
                toggle={togglePass} 
                className={className}/>
              

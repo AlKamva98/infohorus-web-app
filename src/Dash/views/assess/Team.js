@@ -33,8 +33,7 @@ export const Team = (props) => {
   )
 
   async function deleteUser(checkbox) {
-    if(checkbox){
-      try {
+        try {
         const userDetails = {
         id: checkbox.id,
         _version: checkbox._version
@@ -44,7 +43,7 @@ export const Team = (props) => {
        addToast(removeToast); 
       } catch (err) {
           console.log("Error:>> ", err);
-      }}
+      }
   }
 
   return (<>
