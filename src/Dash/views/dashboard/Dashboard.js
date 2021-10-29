@@ -22,13 +22,13 @@ const Dashboard = (props) => {
           </CCardHeader>
           <CCardBody>
             {news ? (news.map((article, index)=>{
-               var imgUrl =article.provider[0].image.thumbnail.contentUrl;
+              //  var imgUrl =article.provider[0].image.thumbnail.contentUrl;
                console.log(article, index)
       return(<>
             <div className="flex m-3 py-4 px-4 shadow-md rounded-lg bg-gray-200">
-              {imgUrl &&
+              {/* {imgUrl &&
               <img className="w-40 h-40 mr-4" src={imgUrl}/>
-              }
+              } */}
               <div>
             <h5 className="text-lg font-semibold">{article.name}</h5>    
             <p className="text-medium-emphasis small">

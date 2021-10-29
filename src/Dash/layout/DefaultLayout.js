@@ -50,44 +50,42 @@ const DefaultLayout = (props) => {
       getUser().then(User => {
           let users = [];
           userObj= User;
-          if((userObj.userType === "Assessor")){
+          console.log("This ",userObj)
+          if((userObj !== undefined) && (userObj.userType === "Assessor")){
                 checkAssessComplete(userObj.id);
               }
             listTeam().then(teamlist =>{
                   completed =  teamlist;
                   users.push(completed)
+                  console.log("this is the team", users)
               })
           
-          let data = {columns: COLUMNS,rows: users}
-          setDatatable(data);
+              let data = {columns: COLUMNS,rows: users}
+              setDatatable(data);
+              if(!hasData && userObj!==undefined){
+              listProps("Rec", userObj.id).then(data =>{
+                 updateRecs(data);
+                 listProps("Task",userObj.id).then(response=>{
+                   if(response){
+                     setTasks(response)
+                     console.log("This is the tasks",response)
+                     for(let i in response){
+                           let item ={
+                           id: i,
+                           color: response[i].color,
+                           from: response[i].taskStart.toString().replace("Z",""),
+                           to: response[i].taskEnd.toString().replace("Z",""),
+                           title: response[i].taskDesc};
+                           rectks.push(item)
+                           setEvt(rectks)
+                           }
+                       }})
+              listArticles().then(promise=>{setData(promise);})
+              })
+              
+            }
          }).finally(()=>{
            setHasTData(true);
-           if(!hasData){
-           listProps("Rec", userObj.id).then(data =>{
-              updateRecs(data);
-              listProps("Task",userObj.id).then(response=>{
-                if(response){
-                  setTasks(response)
-                  console.log("This is the tasks",response)
-                  for(let i in response){
-                        let item ={
-                        id: i,
-                        color: response[i].color,
-                        from: response[i].taskStart.toString().replace("Z",""),
-                        to: response[i].taskEnd.toString().replace("Z",""),
-                        title: response[i].taskDesc};
-                        rectks.push(item)
-                        setEvt(rectks)
-                        }
-                    }}).catch((err)=>{
-                      console.log("This is the error:::",err)
-                    })
-           listArticles().then(promise=>{setData(promise);})
-           }).catch((err)=>{
-             console.log("This is the error:",err)
-           })
-           
-         }
           });
 
     
@@ -279,7 +277,7 @@ const DefaultLayout = (props) => {
         <AppHeader tasks={tasks} recommendations={recommendations} signOut={signOut} saveChanges={saveChanges} approved={approved} />
         <div className="body flex-grow-1 px-3">
           <AppContent approve={approve} approved={approved} recommendations={recommendations} 
-          errModal={errModal} datatable={datatable} hasTData={hasTData} hasData={hasData} errToggle={errToggle} revModal={revModal} revToggle={revToggle}  msg={msg}  tasks={tasks} rec={rec} toggle={toggle} news={data} modal={modal} continueAss={continueAss} assRep={assRep} events={evt} userId={userObj} setRec={setRec} addTask={addTask} />
+          errModal={errModal} datatable={datatable} hasTData={hasTData} hasData={hasData} errToggle={errToggle} revModal={revModal} revToggle={revToggle}  msg={msg}  tasks={tasks} rec={rec} toggle={toggle} news={data} modal={modal} events={evt} userId={userObj} continuesAss={continueAss} assRep={assRep} setRec={setRec} addTask={addTask} />
         </div>
         <AppFooter />
       </div>
