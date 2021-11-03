@@ -1,0 +1,157 @@
+[
+  {
+ "id":"001",
+ "questionNum" :"Question 1",
+ "mainquest": "Does your organisation have someone in charge of cybersecurity?",
+  "questa": "What is this person's name, title, and contact information?",
+  "questb": "Does this individual have the authority to shutdown all systems during a cyber attack?",
+  "questc": "If not, who has this authority?"
+
+},
+  {
+ "id":"002",
+ "questionNum" :"Question 2",
+ "mainquest": "Does your organisation have a  communication plan for a cyberattack?",
+  "questa": "Does it outline how employees should report suspicious activity?",
+  "questb": "Does it outline how information and updates regarding an attack will be shared internally and externally?",
+  "questc": "Has the communication plan been tested for effectiveness?",
+  "questd": "If so, can we see a copy of the results?"
+
+}
+,
+  {
+ "id":"003",
+ "questionNum" :"Question 3",
+ "mainquest": "Has your organisation been in touch with cyber security experts/advisors from outside your organizations regarding your planned response to a cyber attack?",
+  "questa": "Have you already called on cyber security experts/advisors from outside your organizations in response to a cyber attack of any kind?",
+  "questb": "Please describe the attack and how cyber security experts/advisors from outside your organizations offered assistance"
+
+},
+  {
+ "id":"004",
+ "questionNum" :"Question 4",
+ "mainquest": "Has your organisation reached out to the government to discuss your cybersecurity plan and capabilities?",
+  "questa": "If so, who is/was your contact in the government and what assistance did they provide?",
+  "questb": "Does your organisation have a private cybersecurity consultant on call?",
+  "questc": "Who is that?",
+  "questd": "What assistance have they already provided?"
+
+},
+  {
+ "id":"005",
+ "questionNum" :"Question 5",
+ "mainquest": "Are there other local, regional, and national organizations your agency collaborates with to enhance your ability to avoid or deal with a cyberattack?",
+  "questa": "What organizations?",
+  "questb": "What sort of relationship does your agency have with each of these partners?"
+},
+  {
+ "id":"006",
+ "questionNum" :"Question 6",
+ "mainquest": "Does your organisation have a specific annual budget line item for cybersecurity?",
+  "questa": "If so, what is the budget?",
+  "questb": "What has been spent on cybersecurity improvements each of the past three years?",
+  "questc": "Is there a budget set aside for next fiscal year?"
+
+},
+  {
+ "id":"007",
+ "questionNum" :"Question 7",
+ "mainquest": "Does your organisation require cybersecurity awareness and best practices training for all new employees?",
+  "questa": "Are continued refresher courses required for all employees on a regular basis?",
+  "questb": "Are these provided online or in person? If online, who is the provider?",
+  "questc": "What are the most important best practices that are taught?",
+  "questd": "Who teaches them?",
+  "queste": "Who determines whether these practices are being followed successfully?"
+},
+  {
+ "id":"008",
+ "questionNum" :"Question 8",
+ "mainquest": "Does your organisation have a detailed plan for dealing with the financial burdens a cyberattack might create?",
+  "questa": "Can we see the plan?",
+  "questb": "Does your organisation have cybersecurity insurance?",
+  "questc": "If so, can we see the policy?",
+  "questd": "How did you decide to buy insurance?",
+  "queste": "Can we know what amount is paid per year for the insurance?",
+  "questf": "Who provides this insurance?",
+  "questg": "Has your organisation received payments from this insurance?",
+  "questh": "If so, please describe each instance and the amount received.",
+  "questi": "If no insurance, why did you decided to not buy it?"
+
+},
+  {
+ "id":"009",
+ "questionNum" :"Question 9",
+ "mainquest": "Does your organisation install all operating software updates and patches in a timely manner?",
+  "questa": "Whose responsibility is this?",
+  "questb": "How often is software updates? What is the process for installing updates?"
+},
+  {
+ "id":"010",
+ "questionNum" :"Question 10",
+ "mainquest": "Has your organisation identified which systems are critical to the agency's operations?",
+  "questa": "Has your organisation assessed the short and long-term consequences of losing control of these assets?",
+  "questb": "Has your organisation made an effort to calculate the cost of  losing control of these critical assets for a few hours or a few days?"
+},
+  {
+ "id":"011",
+ "questionNum" :"Question 11",
+ "mainquest": "Has your organisation inventoried of its physical devices, systems, software platforms, and applications?",
+  "questa": "If yes, can we see the inventory list?",
+  "questb": "If not, what are the challenges to doing so?"
+
+},
+  {
+ "id":"012",
+ "questionNum" :"Question 12",
+ "mainquest": "Are all organisations data systems securely backed up?",
+  "questa": "If so, where and how are they backed up?",
+  "questb": "Who has access to the back ups (and how)?",
+  "questc": "Which of the organisation's data are not backed up/cannot be backed up and why?"
+
+},
+  {
+ "id":"013",
+ "questionNum" :"Question 13",
+ "mainquest": "Is access to critical systems carefully managed with only those who require access given access?",
+  "questa": "Who determines who has access?",
+  "questb": "What are the criteria for determining who is given access?"
+},
+  {
+ "id":"014",
+ "questionNum" :"Question 14",
+ "mainquest": "Are there services and assets that depend on external entities (i.e. outsourcing, vendors, etc.) that pose cyberattack risks?",
+  "questa": "If so, what are the related risks?",
+  "questb": "Do you have an agreement to clarify who bears the responsibility if an attack happens through the external channels?",
+  "questc": "Can we see the agreements?"
+
+},
+  {
+ "id":"015",
+ "questionNum" :"Question 15",
+ "mainquest": "Is there a comprehensive system shut  down plan in place in case of a ransomware attack?",
+  "questa": "Do all employees know what  to do if there is such an attack?",
+  "questb": "Can we see the plan?",
+  "questc": "Have you tested the plan to assess its effectiveness?"
+
+},
+  {
+ "id":"016",
+ "questionNum" :"Question 16",
+ "mainquest": "Has your organisation conducted a cost-benefit analysis to determine whether the organisation should pay any ransom and negotiate with attacks to recover data?",
+  "questa": "If yes, does your organisation have pre-approved negotiation procedures and ransom limits?",
+  "questb": "Can we see the cost/benefit analysis?",
+  "questc": "Who is in charge of such a negotiation?",
+  "questd": "Has this happened yet at your agency?"
+
+},
+  {
+ "id":"017",
+ "questionNum" :"Question 17",
+ "mainquest": "Does your agency have an incident review process?",
+  "questa": "Can we see the incident review plan?"
+
+}
+
+]
+
+  

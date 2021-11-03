@@ -1,0 +1,45 @@
+*{
+ font-family: 'Noto Sans JP',
+ sans-serif;
+}
+  
+.progress{
+ color: white;
+ text-align: center;
+}
+.accordion{
+ padding-bottom: 15px;
+}
+
+.btndiv{
+padding-bottom: 15px;
+padding-top: 00.5rem;
+}
+.btn{
+display: flexbox;
+max-width:960px;
+right: 0;
+
+}
+#btnSubmit{
+align-self: flex-end;
+}
+
+.buttn{
+ display: block;
+}
+.radio{
+
+ display: block;
+}
+.rd{
+ position: relative !important;
+ padding-left: 20px;
+margin: 3px 3px 0px 5px !important;
+}
+.label {
+font-weight: bold;
+text-align: left;
+font-size: 20px;
+margin-bottom: 0.5rem;
+}
