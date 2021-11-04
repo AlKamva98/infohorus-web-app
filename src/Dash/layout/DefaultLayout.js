@@ -8,7 +8,7 @@ import * as mutations from '../../graphql/mutations'
 
 
 const DefaultLayout = (props) => {
-  const {signedIn, signOut, userGroup, user} = props;
+  const {signedIn, signOut, userGroup, user,userObj} = props;
   let approvedRecs =[];
   let upRec = [];
   let ts=[];
@@ -43,24 +43,21 @@ const DefaultLayout = (props) => {
     const [recommendations, updateRecs] =useState(RecomendationsList);
     const [data, setData] = useState([])
     var d ;
-    let userObj;
     var [evt, setEvt] = useState([]);
     var rectks= [];
+    var users =[];
     useEffect(() => { 
-      getUser().then(User => {
-          userObj= User;
-          console.log("This ",userObj)
-          if((userObj !== undefined) && (userObj.userType === "Assessor")){
-                checkAssessComplete(userObj.id);
-              }
+      
             listTeam().then(teamlist =>{
-                  completed =  teamlist;
-                  users.push(completed)
-                  console.log("this is the team", teamlist)
-              })
+              console.log("this is the team", teamlist)
+              completed =  teamlist;
+              users.push(completed)
+              console.log("this is the user team", users)
+            }).finally(()=>{
+               setHasTData(true);
+              });
           
               let data = {columns: COLUMNS,rows: users}
-              console.log("This is the list of team members", data)
               setDatatable(data);
               if(!hasData && userObj!==undefined){
               listProps("Rec", userObj.id).then(data =>{
@@ -84,9 +81,6 @@ const DefaultLayout = (props) => {
               })
               
             }
-         }).finally(()=>{
-           setHasTData(true);
-          });
 
     
     },[])
@@ -214,15 +208,7 @@ const DefaultLayout = (props) => {
   //   }
   //   }
 
-    async function getUser() {
-      try {
-        var userslist = await API.graphql({query: queries.listUsers, variables:{filter: {email: {contains: user}}}});
-        console.log("This is the user",userslist)
-        return userslist.data.listUsers.items[0];
-      } catch (err) {
-          console.log("Error:>> ", err);
-      }
-  }
+    
     async function listTeam() {
       try {
         var teamlist = await API.graphql({query: queries.listUsers, variables:{filter: {userType: {contains:"members" }}}});
