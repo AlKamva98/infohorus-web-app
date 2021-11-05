@@ -8,7 +8,7 @@ import * as mutations from '../../graphql/mutations'
 
 
 const DefaultLayout = (props) => {
-  const {signedIn, signOut, userGroup, user,userObj} = props;
+  const {signedIn, signOut, userGroup, user} = props;
   let approvedRecs =[];
   let upRec = [];
   let ts=[];
@@ -27,13 +27,13 @@ const DefaultLayout = (props) => {
   });
   const [approved, updateApproved]=useState([]);
   const [modal, setModal] = useState(false);
-    const toggle = () => setModal(!modal);
+    const toggle = () => updateDashState({modal:!dashState.modal});
     const [rec, setRec] =useState("");
+    const errToggle = () => updateDashState({errModal:!dashState.errModal});
     const [errModal, setErrModal] = useState(false);
-    const errToggle = () => setErrModal(!errModal);
     const [tasks, setTasks] =useState(TasksList);
     const [revModal, setRevModal] = useState(false);
-    const revToggle = () => setRevModal(!revModal);
+    const revToggle = () => updateDashState({revModal:!dashState.revModal});
     const [msg, setMsg] =useState("");
     const [hasData, setHasData] = useState(false);
     const [hasTData, setHasTData] = useState(false);
@@ -43,19 +43,22 @@ const DefaultLayout = (props) => {
     const [recommendations, updateRecs] =useState(RecomendationsList);
     const [data, setData] = useState([])
     var d ;
+    let userObj;
     var [evt, setEvt] = useState([]);
     var rectks= [];
-    var users =[];
     useEffect(() => { 
-      
+      getUser().then(User => {
+          let users = [];
+          userObj= User;
+          console.log("This ",userObj)
+          if((userObj !== undefined) && (userObj.userType === "Assessor")){
+                checkAssessComplete(userObj.id);
+              }
             listTeam().then(teamlist =>{
-              console.log("this is the team", teamlist)
-              completed =  teamlist;
-              users.push(completed)
-              console.log("this is the user team", users)
-            }).finally(()=>{
-               setHasTData(true);
-              });
+                  completed =  teamlist;
+                  users.push(completed)
+                  console.log("this is the team", teamlist)
+              })
           
               let data = {columns: COLUMNS,rows: users}
               setDatatable(data);
@@ -81,6 +84,9 @@ const DefaultLayout = (props) => {
               })
               
             }
+         }).finally(()=>{
+           setHasTData(true);
+          });
 
     
     },[])
@@ -208,10 +214,18 @@ const DefaultLayout = (props) => {
   //   }
   //   }
 
-    
+    async function getUser() {
+      try {
+        var userslist = await API.graphql({query: queries.listUsers, variables:{filter: {email: {contains: user}}}});
+        console.log("This is the user",userslist)
+        return userslist.data.listUsers.items[0];
+      } catch (err) {
+          console.log("Error:>> ", err);
+      }
+  }
     async function listTeam() {
       try {
-        var teamlist = await API.graphql({query: queries.listUsers, variables:{filter: {userType: {contains:"members" }}}});
+        var teamlist = await API.graphql({query: queries.listUsers, variables:{filter: {userType: {contains:"Team members" }}}});
         console.log("This is the user",teamlist.data.listUsers.items)
         return teamlist.data.listUsers.items;
       } catch (err) {

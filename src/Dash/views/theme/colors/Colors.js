@@ -14,9 +14,7 @@ function review(i){
       try{ 
   
      setRec(RecomendationsList[i]);
-     console.log("This is revModal before toggle::",revModal );
      revToggle();
-     console.log("This is revModal after toggle::",revModal );
     }catch(err){
 
       setMsg(err.message);
