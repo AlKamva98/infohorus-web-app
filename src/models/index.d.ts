@@ -4,40 +4,17 @@ import { ModelInit, MutableModel, PersistentModelConstructor } from "@aws-amplif
 
 
 
-export declare class Cred {
+export declare class Team {
   readonly id: string;
-  readonly acc?: string;
-  readonly sec?: string;
-  constructor(init: ModelInit<Cred>);
-  static copyOf(source: Cred, mutator: (draft: MutableModel<Cred>) => MutableModel<Cred> | void): Cred;
-}
-
-export declare class Tasks {
-  readonly id: string;
-  readonly taskName?: string;
-  readonly taskDesc?: string;
-  readonly taskStart?: string;
-  readonly RecommendationTask?: Recommendations;
-  readonly taskEnd?: string;
-  readonly recommendationsID?: string;
-  readonly assignedTo?: string;
-  readonly color?: string;
-  constructor(init: ModelInit<Tasks>);
-  static copyOf(source: Tasks, mutator: (draft: MutableModel<Tasks>) => MutableModel<Tasks> | void): Tasks;
-}
-
-export declare class Recommendations {
-  readonly id: string;
-  readonly recName?: string;
-  readonly recDesc?: string;
-  readonly RecommendationTasks?: (Tasks | null)[];
-  readonly recDuration?: string;
-  readonly recNum?: string;
-  readonly isApproved?: boolean;
+  readonly first_name?: string;
+  readonly last_name?: string;
+  readonly email?: string;
+  readonly job_title?: string;
+  readonly user_type?: string;
+  readonly Teams?: (User | null)[];
   readonly userID?: string;
-  readonly User?: User;
-  constructor(init: ModelInit<Recommendations>);
-  static copyOf(source: Recommendations, mutator: (draft: MutableModel<Recommendations>) => MutableModel<Recommendations> | void): Recommendations;
+  constructor(init: ModelInit<Team>);
+  static copyOf(source: Team, mutator: (draft: MutableModel<Team>) => MutableModel<Team> | void): Team;
 }
 
 export declare class User {
@@ -55,6 +32,8 @@ export declare class User {
   readonly userType?: string;
   readonly phone?: string;
   readonly AssessorReports?: (AssessorReport | null)[];
+  readonly teamID?: string;
+  readonly Teams?: (Team | null)[];
   constructor(init: ModelInit<User>);
   static copyOf(source: User, mutator: (draft: MutableModel<User>) => MutableModel<User> | void): User;
 }
@@ -108,6 +87,34 @@ export declare class Questionnaire {
   static copyOf(source: Questionnaire, mutator: (draft: MutableModel<Questionnaire>) => MutableModel<Questionnaire> | void): Questionnaire;
 }
 
+export declare class Recommendations {
+  readonly id: string;
+  readonly recName?: string;
+  readonly recDesc?: string;
+  readonly RecommendationTasks?: (Tasks | null)[];
+  readonly recDuration?: string;
+  readonly recNum?: string;
+  readonly isApproved?: boolean;
+  readonly userID?: string;
+  readonly User?: User;
+  constructor(init: ModelInit<Recommendations>);
+  static copyOf(source: Recommendations, mutator: (draft: MutableModel<Recommendations>) => MutableModel<Recommendations> | void): Recommendations;
+}
+
+export declare class Tasks {
+  readonly id: string;
+  readonly taskName?: string;
+  readonly taskDesc?: string;
+  readonly taskStart?: string;
+  readonly RecommendationTask?: Recommendations;
+  readonly taskEnd?: string;
+  readonly recommendationsID?: string;
+  readonly assignedTo?: string;
+  readonly color?: string;
+  constructor(init: ModelInit<Tasks>);
+  static copyOf(source: Tasks, mutator: (draft: MutableModel<Tasks>) => MutableModel<Tasks> | void): Tasks;
+}
+
 export declare class AssessorReport {
   readonly id: string;
   readonly assrssorComment?: string;
@@ -118,6 +125,14 @@ export declare class AssessorReport {
   readonly isCompleted?: boolean;
   constructor(init: ModelInit<AssessorReport>);
   static copyOf(source: AssessorReport, mutator: (draft: MutableModel<AssessorReport>) => MutableModel<AssessorReport> | void): AssessorReport;
+}
+
+export declare class Cred {
+  readonly id: string;
+  readonly acc?: string;
+  readonly sec?: string;
+  constructor(init: ModelInit<Cred>);
+  static copyOf(source: Cred, mutator: (draft: MutableModel<Cred>) => MutableModel<Cred> | void): Cred;
 }
 
 export declare class File {

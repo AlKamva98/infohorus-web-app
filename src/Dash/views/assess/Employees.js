@@ -18,7 +18,7 @@ import {
 function Employees(props) {
 
   
-  var newusermut = mutations.createUser;
+  var newusermut = mutations.createTeam;
   const initialFormState = {fname:"", lname:"",email:"", jobtitle:"", company:"",employees:"",industry:"",  formType:"signUp"};  
   const signupFailMsg = "Passwords are different!! Pasword and Confirm Password must be the same";
   const [modalPass, setModalPass] = useState(false);
@@ -54,7 +54,7 @@ function Employees(props) {
                   first_name: data.fname,
                   last_name: data.lname,
                   job_title: data.jobtitle,
-                  userType: "Team member",
+                  user_Type: "Team member",
                   
                 }
                 

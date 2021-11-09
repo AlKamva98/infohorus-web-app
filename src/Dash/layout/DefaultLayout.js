@@ -27,13 +27,13 @@ const DefaultLayout = (props) => {
   });
   const [approved, updateApproved]=useState([]);
   const [modal, setModal] = useState(false);
-    const toggle = () => updateDashState({modal:!dashState.modal});
+    const toggle = () => setModal(!modal);
     const [rec, setRec] =useState("");
-    const errToggle = () => updateDashState({errModal:!dashState.errModal});
     const [errModal, setErrModal] = useState(false);
+    const errToggle = () => setErrModal(!errModal);
     const [tasks, setTasks] =useState(TasksList);
     const [revModal, setRevModal] = useState(false);
-    const revToggle = () => updateDashState({revModal:!dashState.revModal});
+    const revToggle = () => setRevModal(!revModal);
     const [msg, setMsg] =useState("");
     const [hasData, setHasData] = useState(false);
     const [hasTData, setHasTData] = useState(false);
@@ -56,35 +56,39 @@ const DefaultLayout = (props) => {
               }
             listTeam().then(teamlist =>{
                   completed =  teamlist;
-                  users.push(completed)
+                  for(let i in completed){
+                  users.push(completed[i])
+                }
                   console.log("this is the team", teamlist)
+                  console.log("this is the team", users)
               })
           
               let data = {columns: COLUMNS,rows: users}
               setDatatable(data);
               if(!hasData && userObj!==undefined){
-              listProps("Rec", userObj.id).then(data =>{
-                 updateRecs(data);
-                 listProps("Task",userObj.id).then(response=>{
-                   if(response){
-                     setTasks(response)
-                     console.log("This is the tasks",response)
-                     for(let i in response){
-                           let item ={
-                           id: i,
-                           color: response[i].color,
-                           from: response[i].taskStart.toString().replace("Z",""),
-                           to: response[i].taskEnd.toString().replace("Z",""),
-                           title: response[i].taskDesc};
-                           rectks.push(item)
-                           setEvt(rectks)
-                           }
+                listProps("Rec", userObj.id).then(data =>{
+                  updateRecs(data);
+                  listProps("Task",userObj.id).then(response=>{
+                    if(response){
+                      setTasks(response)
+                      console.log("This is the tasks",response)
+                      for(let i in response){
+                        let item ={
+                          id: i,
+                          color: response[i].color,
+                          from: response[i].taskStart.toString().replace("Z",""),
+                          to: response[i].taskEnd.toString().replace("Z",""),
+                          title: response[i].taskDesc};
+                          rectks.push(item)
+                          setEvt(rectks)
+                        }
                        }})
-              listArticles().then(promise=>{setData(promise);})
-              })
-              
-            }
-         }).finally(()=>{
+                       listArticles().then(promise=>{setData(promise);})
+                      })
+                      
+                    }
+                    console.log("this is the team table",datatable)
+                  }).finally(()=>{
            setHasTData(true);
           });
 
@@ -225,9 +229,9 @@ const DefaultLayout = (props) => {
   }
     async function listTeam() {
       try {
-        var teamlist = await API.graphql({query: queries.listUsers, variables:{filter: {userType: {contains:"Team members" }}}});
-        console.log("This is the user",teamlist.data.listUsers.items)
-        return teamlist.data.listUsers.items;
+        var teamlist = await API.graphql({query: queries.listTeams});
+        console.log("This is the user",teamlist.data.listTeams.items)
+        return teamlist.data.listTeams.items;
       } catch (err) {
           console.log("Error:>> ", err);
       }

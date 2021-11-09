@@ -12,6 +12,33 @@ import {
   CToaster,
 } from '@coreui/react'
 
+var dat= [{
+createdAt: "2021-10-22T11:03:36.960Z",
+email: "hello@bahatitech.co.za",
+first_name: "hello",
+id: "0a0c367c-06f7-4bfc-beaf-a8bda5492a48",
+job_title: "junior dev",
+last_name: null,
+updatedAt: "2021-10-22T11:03:36.960Z",
+userID: null,
+user_type: null,
+_deleted: null,
+_lastChangedAt: 1634900680348,
+_version: 2
+},{
+createdAt: "2021-10-22T11:03:36.960Z",
+email: "hello@bahatitech.co.za",
+first_name: "hello",
+id: "0a0c367c-06f7-4bfc-beaf-a8bda5492a48",
+job_title: "junior dev",
+last_name: null,
+updatedAt: "2021-10-22T11:03:36.960Z",
+userID: null,
+user_type: null,
+_deleted: null,
+_lastChangedAt: 1634900680348,
+_version: 2
+}];
 
 export const Team = (props) => {
   const {hasTData, datatable} = props;
@@ -22,7 +49,8 @@ export const Team = (props) => {
  const showLogs2 = (e) => {
      console.log('SHOWLOGS:::', e);
      setCheckbox1(e);
- };
+    };
+    console.log('SHOWLOGS:::', datatable);
  const removeToast = (
   <CToast autohide={false} color="danger" className="text-white align-items-center">
   <div className="d-flex">
@@ -32,19 +60,19 @@ export const Team = (props) => {
   </CToast>
   )
 
-  async function deleteUser(checkbox) {
-        try {
-        const userDetails = {
-        id: checkbox.id,
-        _version: checkbox._version
-        };
-        console.log(`This the id of the item I want to delete`, userDetails);
-       await API.graphql({query: mutations.deleteUser ,variables:{input: userDetails}});
-       addToast(removeToast); 
-      } catch (err) {
-          console.log("Error:>> ", err);
-      }
-  }
+  // async function deleteUser(checkbox) {
+  //       try {
+  //       const userDetails = {
+  //       id: checkbox.id,
+  //       _version: checkbox._version
+  //       };
+  //       console.log(`This the id of the item I want to delete`, userDetails);
+  //      await API.graphql({query: mutations.deleteUser ,variables:{input: userDetails}});
+  //      addToast(removeToast); 
+  //     } catch (err) {
+  //         console.log("Error:>> ", err);
+  //     }
+  // }
 
   return (<>
     {hasTData  && (<><Container>
@@ -66,7 +94,20 @@ export const Team = (props) => {
  <div>
     <Link to="/dash/employees"><Button className= "mb-5 bg-green-500 hover:bg-green-300 focus:bg-green-400 active:bg-green-400"  type="submit">Add new +</Button></Link>
 
-  <Button onClick={deleteUser(checkbox1)} className= "ml-5 mb-5 bg-red-600 hover:bg-red-400 focus:bg-red-500 active:bg-red-500"  type="submit">Remove -</Button>
+  <Button onClick={  async ()=> {
+        try {
+        const userDetails = {
+        id: checkbox1.id,
+        _version: checkbox1._version
+        };
+        console.log(`This the id of the item I want to delete`, userDetails);
+       await API.graphql({query: mutations.deleteUser ,variables:{input: userDetails}});
+       addToast(removeToast); 
+      } catch (err) {
+          console.log("Error:>> ", err);
+      }
+  }
+} className= "ml-5 mb-5 bg-red-600 hover:bg-red-400 focus:bg-red-500 active:bg-red-500"  type="submit">Remove -</Button>
   <Link to= {{pathname: "/dash/update" ,userData: checkbox1}}><Button className= "ml-5 mb-5 bg-yellow-500 hover:bg-yellow-300 focus:bg-yellow-400 active:bg-yellow-400"  type="submit">Update</Button></Link>
     <Link to= {{pathname: "/dash/schedule" ,state: checkbox1}}><Button className= "ml-5 mb-5"  type="submit">Assign</Button></Link>
  </div>

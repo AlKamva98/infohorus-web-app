@@ -1,6 +1,72 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const onCreateTeam = /* GraphQL */ `
+  subscription OnCreateTeam {
+    onCreateTeam {
+      id
+      first_name
+      last_name
+      email
+      job_title
+      user_type
+      userID
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      Teams {
+        nextToken
+        startedAt
+      }
+    }
+  }
+`;
+export const onUpdateTeam = /* GraphQL */ `
+  subscription OnUpdateTeam {
+    onUpdateTeam {
+      id
+      first_name
+      last_name
+      email
+      job_title
+      user_type
+      userID
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      Teams {
+        nextToken
+        startedAt
+      }
+    }
+  }
+`;
+export const onDeleteTeam = /* GraphQL */ `
+  subscription OnDeleteTeam {
+    onDeleteTeam {
+      id
+      first_name
+      last_name
+      email
+      job_title
+      user_type
+      userID
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      Teams {
+        nextToken
+        startedAt
+      }
+    }
+  }
+`;
 export const onCreateCred = /* GraphQL */ `
   subscription OnCreateCred {
     onCreateCred {
@@ -49,10 +115,11 @@ export const onCreateTasks = /* GraphQL */ `
       id
       taskName
       taskDesc
-      taskStar
+      taskStart
       taskEnd
       recommendationsID
       assignedTo
+      color
       _version
       _deleted
       _lastChangedAt
@@ -81,10 +148,11 @@ export const onUpdateTasks = /* GraphQL */ `
       id
       taskName
       taskDesc
-      taskStar
+      taskStart
       taskEnd
       recommendationsID
       assignedTo
+      color
       _version
       _deleted
       _lastChangedAt
@@ -113,10 +181,11 @@ export const onDeleteTasks = /* GraphQL */ `
       id
       taskName
       taskDesc
-      taskStar
+      taskStart
       taskEnd
       recommendationsID
       assignedTo
+      color
       _version
       _deleted
       _lastChangedAt
@@ -168,6 +237,9 @@ export const onCreateRecommendations = /* GraphQL */ `
         employees
         industry
         country
+        userType
+        phone
+        teamID
         _version
         _deleted
         _lastChangedAt
@@ -206,6 +278,9 @@ export const onUpdateRecommendations = /* GraphQL */ `
         employees
         industry
         country
+        userType
+        phone
+        teamID
         _version
         _deleted
         _lastChangedAt
@@ -244,6 +319,9 @@ export const onDeleteRecommendations = /* GraphQL */ `
         employees
         industry
         country
+        userType
+        phone
+        teamID
         _version
         _deleted
         _lastChangedAt
@@ -259,27 +337,35 @@ export const onCreateAssessorReport = /* GraphQL */ `
       id
       assrssorComment
       assessmentResult
-      assessorID
+      ID
+      isCompleted
       _version
       _deleted
       _lastChangedAt
       createdAt
       updatedAt
-      Assessor {
+      QuestionnaireQuestionAnswers {
+        nextToken
+        startedAt
+      }
+      User {
         id
         first_name
         last_name
         email
-        numAssessed
+        job_title
+        company
+        employees
+        industry
+        country
+        userType
+        phone
+        teamID
         _version
         _deleted
         _lastChangedAt
         createdAt
         updatedAt
-      }
-      QuestionnaireQuestionAnswers {
-        nextToken
-        startedAt
       }
     }
   }
@@ -290,27 +376,35 @@ export const onUpdateAssessorReport = /* GraphQL */ `
       id
       assrssorComment
       assessmentResult
-      assessorID
+      ID
+      isCompleted
       _version
       _deleted
       _lastChangedAt
       createdAt
       updatedAt
-      Assessor {
+      QuestionnaireQuestionAnswers {
+        nextToken
+        startedAt
+      }
+      User {
         id
         first_name
         last_name
         email
-        numAssessed
+        job_title
+        company
+        employees
+        industry
+        country
+        userType
+        phone
+        teamID
         _version
         _deleted
         _lastChangedAt
         createdAt
         updatedAt
-      }
-      QuestionnaireQuestionAnswers {
-        nextToken
-        startedAt
       }
     }
   }
@@ -321,87 +415,35 @@ export const onDeleteAssessorReport = /* GraphQL */ `
       id
       assrssorComment
       assessmentResult
-      assessorID
+      ID
+      isCompleted
       _version
       _deleted
       _lastChangedAt
       createdAt
       updatedAt
-      Assessor {
+      QuestionnaireQuestionAnswers {
+        nextToken
+        startedAt
+      }
+      User {
         id
         first_name
         last_name
         email
-        numAssessed
+        job_title
+        company
+        employees
+        industry
+        country
+        userType
+        phone
+        teamID
         _version
         _deleted
         _lastChangedAt
         createdAt
         updatedAt
-      }
-      QuestionnaireQuestionAnswers {
-        nextToken
-        startedAt
-      }
-    }
-  }
-`;
-export const onCreateAssessor = /* GraphQL */ `
-  subscription OnCreateAssessor {
-    onCreateAssessor {
-      id
-      first_name
-      last_name
-      email
-      numAssessed
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
-      AssessorReports {
-        nextToken
-        startedAt
-      }
-    }
-  }
-`;
-export const onUpdateAssessor = /* GraphQL */ `
-  subscription OnUpdateAssessor {
-    onUpdateAssessor {
-      id
-      first_name
-      last_name
-      email
-      numAssessed
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
-      AssessorReports {
-        nextToken
-        startedAt
-      }
-    }
-  }
-`;
-export const onDeleteAssessor = /* GraphQL */ `
-  subscription OnDeleteAssessor {
-    onDeleteAssessor {
-      id
-      first_name
-      last_name
-      email
-      numAssessed
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
-      AssessorReports {
-        nextToken
-        startedAt
       }
     }
   }
@@ -774,6 +816,9 @@ export const onCreateQuestionnaire = /* GraphQL */ `
         employees
         industry
         country
+        userType
+        phone
+        teamID
         _version
         _deleted
         _lastChangedAt
@@ -821,6 +866,9 @@ export const onUpdateQuestionnaire = /* GraphQL */ `
         employees
         industry
         country
+        userType
+        phone
+        teamID
         _version
         _deleted
         _lastChangedAt
@@ -868,6 +916,9 @@ export const onDeleteQuestionnaire = /* GraphQL */ `
         employees
         industry
         country
+        userType
+        phone
+        teamID
         _version
         _deleted
         _lastChangedAt
@@ -889,12 +940,23 @@ export const onCreateUser = /* GraphQL */ `
       employees
       industry
       country
+      userType
+      phone
+      teamID
       _version
       _deleted
       _lastChangedAt
       createdAt
       updatedAt
+      Teams {
+        nextToken
+        startedAt
+      }
       Recommendations {
+        nextToken
+        startedAt
+      }
+      AssessorReports {
         nextToken
         startedAt
       }
@@ -925,12 +987,23 @@ export const onUpdateUser = /* GraphQL */ `
       employees
       industry
       country
+      userType
+      phone
+      teamID
       _version
       _deleted
       _lastChangedAt
       createdAt
       updatedAt
+      Teams {
+        nextToken
+        startedAt
+      }
       Recommendations {
+        nextToken
+        startedAt
+      }
+      AssessorReports {
         nextToken
         startedAt
       }
@@ -961,12 +1034,23 @@ export const onDeleteUser = /* GraphQL */ `
       employees
       industry
       country
+      userType
+      phone
+      teamID
       _version
       _deleted
       _lastChangedAt
       createdAt
       updatedAt
+      Teams {
+        nextToken
+        startedAt
+      }
       Recommendations {
+        nextToken
+        startedAt
+      }
+      AssessorReports {
         nextToken
         startedAt
       }

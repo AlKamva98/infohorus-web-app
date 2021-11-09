@@ -1,7 +1,7 @@
 export const schema = {
     "models": {
-        "Cred": {
-            "name": "Cred",
+        "Team": {
+            "name": "Team",
             "fields": {
                 "id": {
                     "name": "id",
@@ -10,211 +10,54 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
-                "acc": {
-                    "name": "acc",
+                "first_name": {
+                    "name": "first_name",
                     "isArray": false,
                     "type": "String",
                     "isRequired": false,
                     "attributes": []
                 },
-                "sec": {
-                    "name": "sec",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": false,
-                    "attributes": []
-                }
-            },
-            "syncable": true,
-            "pluralName": "Creds",
-            "attributes": [
-                {
-                    "type": "model",
-                    "properties": {}
-                },
-                {
-                    "type": "auth",
-                    "properties": {
-                        "rules": [
-                            {
-                                "allow": "public",
-                                "operations": [
-                                    "create",
-                                    "update",
-                                    "delete",
-                                    "read"
-                                ]
-                            }
-                        ]
-                    }
-                }
-            ]
-        },
-        "Tasks": {
-            "name": "Tasks",
-            "fields": {
-                "id": {
-                    "name": "id",
-                    "isArray": false,
-                    "type": "ID",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "taskName": {
-                    "name": "taskName",
+                "last_name": {
+                    "name": "last_name",
                     "isArray": false,
                     "type": "String",
                     "isRequired": false,
                     "attributes": []
                 },
-                "taskDesc": {
-                    "name": "taskDesc",
+                "email": {
+                    "name": "email",
                     "isArray": false,
                     "type": "String",
                     "isRequired": false,
                     "attributes": []
                 },
-                "taskStart": {
-                    "name": "taskStart",
-                    "isArray": false,
-                    "type": "AWSDateTime",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "RecommendationTask": {
-                    "name": "RecommendationTask",
-                    "isArray": false,
-                    "type": {
-                        "model": "Recommendations"
-                    },
-                    "isRequired": false,
-                    "attributes": [],
-                    "association": {
-                        "connectionType": "BELONGS_TO",
-                        "targetName": "tasksRecommendationTaskId"
-                    }
-                },
-                "taskEnd": {
-                    "name": "taskEnd",
-                    "isArray": false,
-                    "type": "AWSDateTime",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "recommendationsID": {
-                    "name": "recommendationsID",
-                    "isArray": false,
-                    "type": "ID",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "assignedTo": {
-                    "name": "assignedTo",
+                "job_title": {
+                    "name": "job_title",
                     "isArray": false,
                     "type": "String",
                     "isRequired": false,
                     "attributes": []
                 },
-                "color": {
-                    "name": "color",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": false,
-                    "attributes": []
-                }
-            },
-            "syncable": true,
-            "pluralName": "Tasks",
-            "attributes": [
-                {
-                    "type": "model",
-                    "properties": {}
-                },
-                {
-                    "type": "key",
-                    "properties": {
-                        "name": "byRecommendations",
-                        "fields": [
-                            "recommendationsID"
-                        ]
-                    }
-                },
-                {
-                    "type": "auth",
-                    "properties": {
-                        "rules": [
-                            {
-                                "allow": "public",
-                                "operations": [
-                                    "create",
-                                    "update",
-                                    "delete",
-                                    "read"
-                                ]
-                            }
-                        ]
-                    }
-                }
-            ]
-        },
-        "Recommendations": {
-            "name": "Recommendations",
-            "fields": {
-                "id": {
-                    "name": "id",
-                    "isArray": false,
-                    "type": "ID",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "recName": {
-                    "name": "recName",
+                "user_type": {
+                    "name": "user_type",
                     "isArray": false,
                     "type": "String",
                     "isRequired": false,
                     "attributes": []
                 },
-                "recDesc": {
-                    "name": "recDesc",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "RecommendationTasks": {
-                    "name": "RecommendationTasks",
+                "Teams": {
+                    "name": "Teams",
                     "isArray": true,
                     "type": {
-                        "model": "Tasks"
+                        "model": "User"
                     },
                     "isRequired": false,
                     "attributes": [],
                     "isArrayNullable": true,
                     "association": {
                         "connectionType": "HAS_MANY",
-                        "associatedWith": "recommendationsID"
+                        "associatedWith": "teamID"
                     }
-                },
-                "recDuration": {
-                    "name": "recDuration",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "recNum": {
-                    "name": "recNum",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "isApproved": {
-                    "name": "isApproved",
-                    "isArray": false,
-                    "type": "Boolean",
-                    "isRequired": false,
-                    "attributes": []
                 },
                 "userID": {
                     "name": "userID",
@@ -222,23 +65,10 @@ export const schema = {
                     "type": "ID",
                     "isRequired": false,
                     "attributes": []
-                },
-                "User": {
-                    "name": "User",
-                    "isArray": false,
-                    "type": {
-                        "model": "User"
-                    },
-                    "isRequired": false,
-                    "attributes": [],
-                    "association": {
-                        "connectionType": "BELONGS_TO",
-                        "targetName": "recommendationsUserId"
-                    }
                 }
             },
             "syncable": true,
-            "pluralName": "Recommendations",
+            "pluralName": "Teams",
             "attributes": [
                 {
                     "type": "model",
@@ -391,6 +221,27 @@ export const schema = {
                         "connectionType": "HAS_MANY",
                         "associatedWith": "ID"
                     }
+                },
+                "teamID": {
+                    "name": "teamID",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "Teams": {
+                    "name": "Teams",
+                    "isArray": true,
+                    "type": {
+                        "model": "Team"
+                    },
+                    "isRequired": false,
+                    "attributes": [],
+                    "isArrayNullable": true,
+                    "association": {
+                        "connectionType": "HAS_MANY",
+                        "associatedWith": "userID"
+                    }
                 }
             },
             "syncable": true,
@@ -399,6 +250,15 @@ export const schema = {
                 {
                     "type": "model",
                     "properties": {}
+                },
+                {
+                    "type": "key",
+                    "properties": {
+                        "name": "byTeam",
+                        "fields": [
+                            "teamID"
+                        ]
+                    }
                 },
                 {
                     "type": "auth",
@@ -862,6 +722,227 @@ export const schema = {
                 }
             ]
         },
+        "Recommendations": {
+            "name": "Recommendations",
+            "fields": {
+                "id": {
+                    "name": "id",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "recName": {
+                    "name": "recName",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "recDesc": {
+                    "name": "recDesc",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "RecommendationTasks": {
+                    "name": "RecommendationTasks",
+                    "isArray": true,
+                    "type": {
+                        "model": "Tasks"
+                    },
+                    "isRequired": false,
+                    "attributes": [],
+                    "isArrayNullable": true,
+                    "association": {
+                        "connectionType": "HAS_MANY",
+                        "associatedWith": "recommendationsID"
+                    }
+                },
+                "recDuration": {
+                    "name": "recDuration",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "recNum": {
+                    "name": "recNum",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "isApproved": {
+                    "name": "isApproved",
+                    "isArray": false,
+                    "type": "Boolean",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "userID": {
+                    "name": "userID",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "User": {
+                    "name": "User",
+                    "isArray": false,
+                    "type": {
+                        "model": "User"
+                    },
+                    "isRequired": false,
+                    "attributes": [],
+                    "association": {
+                        "connectionType": "BELONGS_TO",
+                        "targetName": "recommendationsUserId"
+                    }
+                }
+            },
+            "syncable": true,
+            "pluralName": "Recommendations",
+            "attributes": [
+                {
+                    "type": "model",
+                    "properties": {}
+                },
+                {
+                    "type": "key",
+                    "properties": {
+                        "name": "byUser",
+                        "fields": [
+                            "userID"
+                        ]
+                    }
+                },
+                {
+                    "type": "auth",
+                    "properties": {
+                        "rules": [
+                            {
+                                "allow": "public",
+                                "operations": [
+                                    "create",
+                                    "update",
+                                    "delete",
+                                    "read"
+                                ]
+                            }
+                        ]
+                    }
+                }
+            ]
+        },
+        "Tasks": {
+            "name": "Tasks",
+            "fields": {
+                "id": {
+                    "name": "id",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "taskName": {
+                    "name": "taskName",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "taskDesc": {
+                    "name": "taskDesc",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "taskStart": {
+                    "name": "taskStart",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "RecommendationTask": {
+                    "name": "RecommendationTask",
+                    "isArray": false,
+                    "type": {
+                        "model": "Recommendations"
+                    },
+                    "isRequired": false,
+                    "attributes": [],
+                    "association": {
+                        "connectionType": "BELONGS_TO",
+                        "targetName": "tasksRecommendationTaskId"
+                    }
+                },
+                "taskEnd": {
+                    "name": "taskEnd",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "recommendationsID": {
+                    "name": "recommendationsID",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "assignedTo": {
+                    "name": "assignedTo",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "color": {
+                    "name": "color",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                }
+            },
+            "syncable": true,
+            "pluralName": "Tasks",
+            "attributes": [
+                {
+                    "type": "model",
+                    "properties": {}
+                },
+                {
+                    "type": "key",
+                    "properties": {
+                        "name": "byRecommendations",
+                        "fields": [
+                            "recommendationsID"
+                        ]
+                    }
+                },
+                {
+                    "type": "auth",
+                    "properties": {
+                        "rules": [
+                            {
+                                "allow": "public",
+                                "operations": [
+                                    "create",
+                                    "update",
+                                    "delete",
+                                    "read"
+                                ]
+                            }
+                        ]
+                    }
+                }
+            ]
+        },
         "AssessorReport": {
             "name": "AssessorReport",
             "fields": {
@@ -962,6 +1043,56 @@ export const schema = {
                 }
             ]
         },
+        "Cred": {
+            "name": "Cred",
+            "fields": {
+                "id": {
+                    "name": "id",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "acc": {
+                    "name": "acc",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "sec": {
+                    "name": "sec",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                }
+            },
+            "syncable": true,
+            "pluralName": "Creds",
+            "attributes": [
+                {
+                    "type": "model",
+                    "properties": {}
+                },
+                {
+                    "type": "auth",
+                    "properties": {
+                        "rules": [
+                            {
+                                "allow": "public",
+                                "operations": [
+                                    "create",
+                                    "update",
+                                    "delete",
+                                    "read"
+                                ]
+                            }
+                        ]
+                    }
+                }
+            ]
+        },
         "File": {
             "name": "File",
             "fields": {
@@ -1008,5 +1139,5 @@ export const schema = {
     },
     "enums": {},
     "nonModels": {},
-    "version": "e98084f4226677aab1f7cb7265e47ba7"
+    "version": "a7d213f398710bd773881ba59581a7ad"
 };
