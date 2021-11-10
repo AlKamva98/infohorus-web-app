@@ -35,17 +35,7 @@ const AppHeader = (props) => {
           <CIcon name="logo" height="48" alt="Logo" />
         </CHeaderBrand>
         <CHeaderNav className="d-none d-md-flex me-auto">
-          <CNavItem>
-            <CNavLink to="/dash/dashboard" component={NavLink} activeClassName="active">
-              Dashboard
-            </CNavLink>
-          </CNavItem>
-          <CNavItem>
-            <CNavLink href="#">Users</CNavLink>
-          </CNavItem>
-          <CNavItem>
-            <CNavLink href="#">Settings</CNavLink>
-          </CNavItem>
+          <AppBreadcrumb saveChanges={saveChanges} tasks={tasks} approved={approved} />
         </CHeaderNav>
         <CHeaderNav>
           <CNavItem>
@@ -67,10 +57,6 @@ const AppHeader = (props) => {
         <CHeaderNav className="ms-3">
           <AppHeaderDropdown tasks={tasks} recommendations={recommendations} signOut={signOut} />
         </CHeaderNav>
-      </CContainer>
-      <CHeaderDivider />
-      <CContainer fluid>
-        <AppBreadcrumb saveChanges={saveChanges} tasks={tasks} approved={approved} />
       </CContainer>
     </CHeader>
   )

@@ -35,8 +35,8 @@ const AppSidebar = (props) => {
       }}
     >
       <CSidebarBrand className="d-none d-md-flex" to="/">
-        <CIcon  name="logo-negative" height={35} />
-        <CIcon  name="sygnet" height={35} />
+        <CIcon height={35} />
+        <CIcon height={35} />
       </CSidebarBrand>
       <CSidebarNav>
         <SimpleBar>

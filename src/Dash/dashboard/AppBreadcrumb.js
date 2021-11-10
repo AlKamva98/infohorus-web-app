@@ -64,8 +64,8 @@ const getBreadcrumbs = (location) => {
     (<div className="relative z-10 inline-flex  items-center space-x-3 md:ml-5 lg:justify-end">
     <button onClick={()=>{
       saveChanges(approved, tasks);
-      addToast(exampleToast);
-    } } className="ml-8 inline-flex bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Save changes</button>
+      addToast(exampleToast);}} 
+      className="ms-2 ml-8 inline-flex bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Save changes</button>
 <CToaster ref={toaster} push={toast} placement="top-end" />
     </div>)}
        </>   
