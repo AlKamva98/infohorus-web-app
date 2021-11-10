@@ -27,7 +27,7 @@ import * as mutations from '../../../graphql/mutations'
          updatedUser = omit(updatedUser,"updatedAt");
          updatedUser = omit(updatedUser,"checked");
 
-         await API.graphql({ query: mutations.updateUser, variables: {input: omit(updatedUser, "_deleted")}});
+         await API.graphql({ query: mutations.updateTeam, variables: {input: omit(updatedUser, "_deleted")}});
       }
       catch(err){
         console.log("API err:", err )

@@ -101,7 +101,7 @@ export const Team = (props) => {
         _version: checkbox1._version
         };
         console.log(`This the id of the item I want to delete`, userDetails);
-       await API.graphql({query: mutations.deleteUser ,variables:{input: userDetails}});
+       await API.graphql({query: mutations.deleteTeam ,variables:{input: userDetails}});
        addToast(removeToast); 
       } catch (err) {
           console.log("Error:>> ", err);

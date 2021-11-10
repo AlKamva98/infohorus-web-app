@@ -46,7 +46,7 @@ function Employees(props) {
           sendEmail("New Team member",data, uCred, "infohorus@bahatitech.co.za");
           
         }).finally(async()=>{
-          await API.graphql(graphqlOperation(
+          let a= await API.graphql(graphqlOperation(
             newusermut,{
               input:{
                 
@@ -54,11 +54,14 @@ function Employees(props) {
                   first_name: data.fname,
                   last_name: data.lname,
                   job_title: data.jobtitle,
-                  user_Type: "Team member",
+                  user_type: "Team member",
                   
                 }
                 
               }))
+              console.log("You've add team member::",a)
+          }).catch(e=>{
+            console.log("adding new team member error", e)
           })
           addToast(newUsToast)
           }
@@ -72,7 +75,8 @@ function Employees(props) {
     let {formType}= formState;
     function onChange(e){
         e.persist()
-        updateFormState(()=>({...formState, [e.target.name]: e.target.value}))
+        updateFormState(()=>({...formState, [e.target.name]: e.target.value})); 
+        console.log("changed the::",e.target.value);
       }
       
      async function getCreds(){
@@ -95,12 +99,12 @@ function Employees(props) {
       <Form className="row g-3 m-4 p-4" onSubmit={handleSubmit(handleRegistration, handleError)}> 
         <FormGroup className="col-md-6">
             <Label for="fname" className="visually-hidden" >First name</Label>
-            <Input type="text" {...register("fname" )} className="form-control" onChange={onChange} name="fname" placeholder="First Name" rules={{ required: "Please fill in your First Name"}} autofocus/> 
+            <Input type="text" {...register("fname")} className="form-control" onChange={onChange} name="fname" placeholder="First Name" rules={{ required: "Please fill in your First Name"}} autofocus/> 
         </FormGroup>
 
         <FormGroup className="col-md-6">
             <Label for="lname" className="visually-hidden" >Last name</Label>
-            <Input type="text" {...register("lname" )} className="form-control" onChange={onChange} name="lname" placeholder="Last Name" rules={{ required: "Please fill in your Last Name"}} autofocus/> 
+            <Input type="text" {...register("lname")} className="form-control" onChange={onChange} name="lname" placeholder="Last Name" rules={{ required: "Please fill in your Last Name"}} autofocus/> 
 </FormGroup>
             
             <FormGroup className="col-12">
