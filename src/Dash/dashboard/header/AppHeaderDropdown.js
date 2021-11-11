@@ -9,6 +9,7 @@ import {
   CDropdownMenu,
   CDropdownToggle,
 } from '@coreui/react'
+import { Link} from 'react-router-dom';
 import CIcon from '@coreui/icons-react'
 
 const AppHeaderDropdown = (props) => {
@@ -20,10 +21,12 @@ const AppHeaderDropdown = (props) => {
       </CDropdownToggle>
       <CDropdownMenu className="pt-0" placement="bottom-end">
         <CDropdownHeader className="bg-light fw-semibold py-2">Account</CDropdownHeader>
-        <CDropdownItem href="#">
+       <Link to="/dash/profile">
+          <CDropdownItem href="#">
           <CIcon name="cil-user" className="me-2" />
           Profile
         </CDropdownItem>
+        </Link>
         <CDropdownItem href="#">
           <CIcon name="cil-task" className="me-2" />
           Tasks
@@ -31,6 +34,7 @@ const AppHeaderDropdown = (props) => {
             {tasks && tasks.length}
           </CBadge>
         </CDropdownItem>
+        <Link to="/dash/colors">
         <CDropdownItem href="#">
           <CIcon name="cil-comment-square" className="me-2" />
           Recomendations
@@ -38,6 +42,7 @@ const AppHeaderDropdown = (props) => {
             {recommendations && recommendations.length}
           </CBadge>
         </CDropdownItem>
+        </Link>
         <CDropdownDivider />
         <CDropdownItem onClick={signOut}>
           <CIcon name="cil-lock-locked" className="me-2" />

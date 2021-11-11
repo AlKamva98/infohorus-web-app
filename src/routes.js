@@ -15,6 +15,7 @@ import {Team} from './Dash/views/assess/Team'
 //routes
 import Colors from './Dash/views/theme/colors/Colors'
 import Schedule from './Dash/views/theme/colors/Schedule'
+import Profile from './Dash/views/Profile'
 import QuestionsComp from './Dash/views/assessment/questcomp'
 import Typography from './Dash/views/theme/typography/Typography'
 import Accordion from './Dash/views/components/base/accordion/Accordion'
@@ -78,6 +79,7 @@ const routes = [
   { path: '/dash/calendar', name: 'Calendar', component: CalendarEvents, exact: true },
   { path: '/dash/employees', name: 'Employees', component: Employees, exact: true },
   { path: '/dash/update', name: 'Update', component: Update, exact: true },
+  { path: '/dash/profile', name: 'Profile', component: Profile, exact: true },
   { path: '/dash/team', name: 'Team', component: Team, exact: true },
   { path: '/dash/assess', name: 'Assess', component: Assess, exact: true },
   { path: '/dash/recommendations', name: 'Recommendations', component: Recommendations, exact: true },

@@ -9,6 +9,8 @@ const AppContent = (props) => {
     const {approve, approved, recommendations, errModal, errToggle, revToggle, revModal, msg, rec,toggle,modal, setRec, hasData,datatable,addTask, tasks ,hasTData, news,assRep, continueAss, events, userId }= props;
     console.log("This is recommendations on app content page",recommendations)
     console.log("This is events on app content page",events)
+    console.log("This is user on app content page",userId)
+
     const teamList = ()=>{
     var t;
     var e;
