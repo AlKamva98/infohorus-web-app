@@ -8,7 +8,7 @@ import MainLayout from './Home/layout/MainLayout';
 
 
 const Layouts = (props) => {
-const {setSignedIn, signedIn, userGroup, user} = props;
+const {setSignedIn, signedIn,setUser, userGroup, user} = props;
  
 
     const signOut = async()=>{
@@ -23,8 +23,8 @@ const {setSignedIn, signedIn, userGroup, user} = props;
 
   return (
         <Switch>
-          <Route path="/dash" name="DashboardHome" render={(props) => <DefaultLayout  userGroup={userGroup} signedIn={signedIn} user={user} signOut={signOut} {...props} />} />
-          <Route path="/main" name="Main" render={(props) => <MainLayout userGroup={userGroup} getUserStatus={signedIn} signOut={signOut} {...props} />} />
+          <Route path="/dash" name="DashboardHome" render={(props) => <DefaultLayout  userGroup={userGroup} signedIn={signedIn} setUser={setUser} user={user} signOut={signOut} {...props} />} />
+          <Route path="/main" name="Main" render={(props) => <MainLayout userGroup={userGroup} getUserStatus={signedIn}  signOut={signOut} {...props} />} />
           
           <Redirect from="/" to="/main"/>
         </Switch>

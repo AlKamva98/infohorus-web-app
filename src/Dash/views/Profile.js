@@ -56,9 +56,10 @@ function Profile(props) {
                   first_name: data.fname,
                   last_name: data.lname,
                   job_title: data.jobtitle,
+                  employees: data.employees,
                   company: data.company,
-                  user_type: "Team member",
-                  
+                  industry: data.industry,
+                  _version: userId._version
                 }
                 
               }))
@@ -102,30 +103,30 @@ function Profile(props) {
       <Form className="row g-3 m-4 p-4" onSubmit={handleSubmit(handleRegistration, handleError)}> 
         <FormGroup className="col-md-6">
             <Label for="fname" className="visually-hidden" >First name</Label>
-            <Input type="text" {...register("fname")} className="form-control" onChange={onChange} name="fname" placeholder="First Name" rules={{ required: "Please fill in your First Name"}} autofocus/> 
+            <Input type="text" {...register("fname")} className="form-control" onChange={onChange} name="fname" placeholder="First Name"  value={userId.first_name} rules={{ required: "Please fill in your First Name"}} autofocus/> 
         </FormGroup>
 
         <FormGroup className="col-md-6">
             <Label for="lname" className="visually-hidden" >Last name</Label>
-            <Input type="text" {...register("lname")} className="form-control" onChange={onChange} name="lname" placeholder="Last Name" rules={{ required: "Please fill in your Last Name"}} autofocus/> 
+            <Input type="text" {...register("lname")} className="form-control" onChange={onChange} name="lname" placeholder="Last Name" value={userId.last_name} rules={{ required: "Please fill in your Last Name"}} autofocus/> 
 </FormGroup>
             
             <FormGroup className="col-12">
              <Label for="jobtitle" className="visually-hidden">Job Title</Label>
              <Input  type="text" name="jobtitle"  {...register("jobtitle" )} 
               className=" form-control focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50" 
-              placeholder="Job Title" rules={{ required: "Please fill in your Job title"}}  />
+              placeholder="Job Title" value={userId.job_title} rules={{ required: "Please fill in your Job title"}}  />
             </FormGroup>
                <FormGroup className="col-md-12">
                    <Label for="email" className="visually-hidden">Email address</Label>
                    <Input  type="text" name="email"  {...register("email" )}   className=" form-control focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50" 
-               placeholder="Email Address"
+               placeholder="Email Address" value={userId.email}
              rules={{ required: "Please fill in your Email Address"}}  />
                </FormGroup>
                  <FormGroup className="col-12">
                       <Label for="employees" className="visually-hidden">Number of employees</Label>  
          <Controller name="employees"  control={control} render={({ field }) => (
-                  <Select placeholder="Employees" className=" focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50" onChange={onChange} options={selectEmpOptions} defaultValue="Country" {...field}>
+                  <Select placeholder="Employees" className=" focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50" onChange={onChange} options={selectEmpOptions} inputValue={userId.employees} value={userId.employees} {...field}>
                     </Select>
               )}   {...register("employees")}  rules={{ required: "Please Select your employees"}} />                  
               </FormGroup>
@@ -133,14 +134,14 @@ function Profile(props) {
               <FormGroup className="col-12">
                   <Label for="industry" className="visually-hidden">Industry</Label>
                    <Controller name="industry"    control={control} render={({ field }) => (
-                  <Select placeholder="Industry" className=" focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50" onChange={onChange} options={selectOptionsIndustry} defaultValue="Country" {...field}>
+                  <Select placeholder="Industry" className=" focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50" onChange={onChange} options={selectOptionsIndustry} inputValue={userId.industry} value={userId.industry} {...field}>
                     </Select>
                 )}   {...register("industry")}  rules={{ required: "Please Select your industry"}} />
               </FormGroup>
               <FormGroup className="col-12">
                   <Label for="country" className="visually-hidden">Country</Label>
                    <Controller name="country"  control={control} render={({ field }) => (
-                  <Select placeholder="Country" className=" focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50" options={selectOptionsCountry} defaultValue="Country" {...field}>
+                  <Select placeholder="Country" className=" focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50" options={selectOptionsCountry} inputValue={userId.country} value={userId.country} {...field}>
                     </Select>
                 )}   {...register("country")}  rules={{ required: "Please Select your country"}} />
               </FormGroup>

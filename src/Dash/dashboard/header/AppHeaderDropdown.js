@@ -34,7 +34,7 @@ const AppHeaderDropdown = (props) => {
             {tasks && tasks.length}
           </CBadge>
         </CDropdownItem>
-        <Link to="/dash/colors">
+        <Link to="/dash/theme/colors">
         <CDropdownItem href="#">
           <CIcon name="cil-comment-square" className="me-2" />
           Recomendations

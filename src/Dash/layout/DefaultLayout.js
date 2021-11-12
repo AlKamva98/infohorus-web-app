@@ -8,25 +8,15 @@ import * as mutations from '../../graphql/mutations'
 
 
 const DefaultLayout = (props) => {
-  const {signedIn, signOut, userGroup, user} = props;
+  const {signedIn, signOut, userGroup,setUser, user} = props;
   let approvedRecs =[];
   let upRec = [];
   let ts=[];
   var completed;
   let RecomendationsList = listProps("Rec");
   let TasksList = listProps("Task") ;
-  const [dashState, updateDashState]=useState({
-     approved:[],
-     modal: false,
-     errModal:false,
-     revModal:false,
-     rec:"This is rec",
-     tasks:TasksList,
-
-
-  });
-  const [approved, updateApproved]=useState([]);
-  const [modal, setModal] = useState(false);
+    const [approved, updateApproved]=useState([]);
+    const [modal, setModal] = useState(false);
     const toggle = () => setModal(!modal);
     const [rec, setRec] =useState("");
     const [errModal, setErrModal] = useState(false);
@@ -50,7 +40,9 @@ const DefaultLayout = (props) => {
       getUser().then(User => {
           let users = [];
           userObj= User;
-          console.log("This ",userObj)
+          if((userObj !== undefined)){
+          setUser(userObj);}
+          console.log("This ",user)
           if((userObj !== undefined) && (userObj.userType === "Assessor")){
                 checkAssessComplete(userObj.id);
               }
@@ -281,7 +273,7 @@ const DefaultLayout = (props) => {
         <AppHeader tasks={tasks} recommendations={recommendations} signOut={signOut} saveChanges={saveChanges} approved={approved} />
         <div className="body flex-grow-1 px-3">
           <AppContent approve={approve} approved={approved} recommendations={recommendations} 
-          errModal={errModal} datatable={datatable} hasTData={hasTData} hasData={hasData} errToggle={errToggle} revModal={revModal} revToggle={revToggle}  msg={msg}  tasks={tasks} rec={rec} toggle={toggle} news={data} modal={modal} events={evt} userId={userObj} continuesAss={continueAss} assRep={assRep} setRec={setRec} addTask={addTask} />
+          errModal={errModal} datatable={datatable} hasTData={hasTData} hasData={hasData} errToggle={errToggle} revModal={revModal} revToggle={revToggle}  msg={msg}  tasks={tasks} rec={rec} toggle={toggle} news={data} modal={modal} events={evt} userId={user} continuesAss={continueAss} assRep={assRep} setRec={setRec} addTask={addTask} />
         </div>
         <AppFooter />
       </div>
