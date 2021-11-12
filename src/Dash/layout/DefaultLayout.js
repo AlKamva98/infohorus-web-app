@@ -46,9 +46,9 @@ const DefaultLayout = (props) => {
           if((userObj !== undefined) && (userObj.userType === "Assessor")){
                 checkAssessComplete(userObj.id);
               }
-              if(user.company!==undefined){
+              if(userObj!==undefined){
                 console.log("This is the user", user)
-            listTeam(user.company).then(teamlist =>{
+            listTeam(userObj).then(teamlist =>{
                   completed =  teamlist;
                   for(let i in completed){
                   users.push(completed[i])
@@ -221,7 +221,8 @@ const DefaultLayout = (props) => {
           console.log("Error:>> ", err);
       }
   }
-    async function listTeam(company) {
+    async function listTeam(user) {
+      var company = user.company;
       if(company!==undefined){
       try {
         var teamlist = await API.graphql({query: queries.listTeams,variables:{filter: {company: {contains: company}}}});
