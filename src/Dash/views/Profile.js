@@ -98,7 +98,7 @@ function Profile(props) {
             <Card className="mx-auto mb-4 mt-4 bg-light w-1/2 shadow" >
                 <Card.Body>
         <h2 className="mb-3 fw-normal text-center text-2xl fw-bold">Update Profile</h2>
-        <h4 className="mb-3 fw-normal text-center">Please Fill in the details you want to _lastChangedAt</h4>
+        <h4 className="mb-3 fw-normal text-center">Please change the details you want to update</h4>
 
       <Form className="row g-3 m-4 p-4" onSubmit={handleSubmit(handleRegistration, handleError)}> 
         <FormGroup className="col-md-6">
