@@ -1,8 +1,7 @@
 import React,{useState, useRef} from 'react';
 import {Container, Row, Col,Card,Form} from 'react-bootstrap';
 import {Label, Input, FormGroup,Button} from 'reactstrap';
-import { Link} from 'react-router-dom';
-import { useForm, Controller } from "react-hook-form";
+import { useForm} from "react-hook-form";
 import {sendEmail} from '../../../Home/shared/functions/AwsFuncs'
 import {  API, graphqlOperation } from 'aws-amplify';
 import * as mutations from '../../../graphql/mutations'
@@ -17,7 +16,7 @@ import {
 
 function Employees(props) {
 
-  
+  const {userId}=props;
   var newusermut = mutations.createTeam;
   const initialFormState = {fname:"", lname:"",email:"", jobtitle:"", company:"",employees:"",industry:"",  formType:"signUp"};  
   const signupFailMsg = "Passwords are different!! Pasword and Confirm Password must be the same";
@@ -54,6 +53,8 @@ function Employees(props) {
                   first_name: data.fname,
                   last_name: data.lname,
                   job_title: data.jobtitle,
+                  company: userId.company,
+                  userID: userId.id,
                   user_type: "Team member",
                   
                 }

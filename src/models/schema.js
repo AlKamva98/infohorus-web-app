@@ -65,6 +65,13 @@ export const schema = {
                     "type": "ID",
                     "isRequired": false,
                     "attributes": []
+                },
+                "company": {
+                    "name": "company",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
                 }
             },
             "syncable": true,
@@ -1139,5 +1146,5 @@ export const schema = {
     },
     "enums": {},
     "nonModels": {},
-    "version": "a7d213f398710bd773881ba59581a7ad"
+    "version": "1b1f45660b3912dd20851a60140bbf1b"
 };

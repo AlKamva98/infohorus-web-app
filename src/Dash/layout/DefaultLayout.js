@@ -46,14 +46,16 @@ const DefaultLayout = (props) => {
           if((userObj !== undefined) && (userObj.userType === "Assessor")){
                 checkAssessComplete(userObj.id);
               }
-            listTeam().then(teamlist =>{
+              if(user.company!==undefined){
+                console.log("This is the user", user)
+            listTeam(user.company).then(teamlist =>{
                   completed =  teamlist;
                   for(let i in completed){
                   users.push(completed[i])
                 }
                   console.log("this is the team", teamlist)
                   console.log("this is the team", users)
-              })
+              })}
           
               let data = {columns: COLUMNS,rows: users}
               setDatatable(data);
@@ -219,14 +221,15 @@ const DefaultLayout = (props) => {
           console.log("Error:>> ", err);
       }
   }
-    async function listTeam() {
+    async function listTeam(company) {
+      if(company!==undefined){
       try {
-        var teamlist = await API.graphql({query: queries.listTeams});
+        var teamlist = await API.graphql({query: queries.listTeams,variables:{filter: {company: {contains: company}}}});
         console.log("This is the user",teamlist.data.listTeams.items)
         return teamlist.data.listTeams.items;
       } catch (err) {
           console.log("Error:>> ", err);
-      }
+      }}
   }
 
     async function saveChanges(rec, tasks){

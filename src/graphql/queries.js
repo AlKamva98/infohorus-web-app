@@ -9,6 +9,7 @@ export const getTeam = /* GraphQL */ `
       last_name
       email
       job_title
+      company
       user_type
       userID
       _version
@@ -36,6 +37,7 @@ export const listTeams = /* GraphQL */ `
         last_name
         email
         job_title
+        company
         user_type
         userID
         _version
@@ -68,6 +70,7 @@ export const syncTeams = /* GraphQL */ `
         last_name
         email
         job_title
+        company
         user_type
         userID
         _version

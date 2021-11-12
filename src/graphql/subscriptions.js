@@ -9,6 +9,7 @@ export const onCreateTeam = /* GraphQL */ `
       last_name
       email
       job_title
+      company
       user_type
       userID
       _version
@@ -31,6 +32,7 @@ export const onUpdateTeam = /* GraphQL */ `
       last_name
       email
       job_title
+      company
       user_type
       userID
       _version
@@ -53,6 +55,7 @@ export const onDeleteTeam = /* GraphQL */ `
       last_name
       email
       job_title
+      company
       user_type
       userID
       _version

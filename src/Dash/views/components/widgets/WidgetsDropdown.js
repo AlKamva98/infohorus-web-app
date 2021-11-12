@@ -19,7 +19,7 @@ const WidgetsDropdown = () => {
         <CWidgetDropdown
           className="mb-4"
           color="info"
-          value="78"
+          value="Currently Unavailable"
           title="Assesment Score"
           action={
             <CDropdown alignment="end">
@@ -98,7 +98,7 @@ const WidgetsDropdown = () => {
         <CWidgetDropdown
           className="mb-4"
           color="warning"
-          value="14/25"
+          value="Currently Unavailable"
           title="Tasks done"
           action={
             <CDropdown alignment="end">
@@ -164,7 +164,7 @@ const WidgetsDropdown = () => {
         <CWidgetDropdown
           className="mb-4"
           color="danger"
-          value="7987"
+          value="Currently Unavailable"
           title="Critical Risks"
           action={
             <CDropdown alignment="end">

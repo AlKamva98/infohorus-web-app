@@ -8,12 +8,13 @@ import {
 import WidgetsDropdown from '../components/widgets/WidgetsDropdown.js'
 
 const Dashboard = (props) => {
-  const {news} = props;
+  const {news,userId} = props;
   let hasReport = false;
  
   return (
     <>
-      {hasReport && <WidgetsDropdown />}
+    <h2 className="mb-3 fw-normal text-center text-2xl fw-bold">Welcome {userId.first_name}</h2>
+ <WidgetsDropdown />
       
       <CCol xs={12}>
         <CCard className="mb-4">

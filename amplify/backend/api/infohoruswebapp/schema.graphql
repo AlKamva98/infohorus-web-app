@@ -7,6 +7,7 @@ type Team @model @auth(rules: [{allow: public}]) @key(name: "byUser", fields: ["
   user_type: String
   Teams: [User] @connection(keyName: "byTeam", fields: ["id"])
   userID: ID
+  company: String
 }
 
 type Cred @model @auth(rules: [{allow: public}]) {

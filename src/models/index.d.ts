@@ -13,6 +13,7 @@ export declare class Team {
   readonly user_type?: string;
   readonly Teams?: (User | null)[];
   readonly userID?: string;
+  readonly company?: string;
   constructor(init: ModelInit<Team>);
   static copyOf(source: Team, mutator: (draft: MutableModel<Team>) => MutableModel<Team> | void): Team;
 }
