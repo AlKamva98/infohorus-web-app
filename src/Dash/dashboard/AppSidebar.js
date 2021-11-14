@@ -1,6 +1,8 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-
+import {Link}
+ from 'react-router-dom';
+import {Image} from 'react-bootstrap';
 import {
   CSidebar,
   CSidebarBrand,
@@ -35,9 +37,8 @@ const AppSidebar = (props) => {
       }}
     >
       <CSidebarBrand className="d-none d-md-flex" to="/">
-        <CIcon height={35} />
-        <CIcon height={35} />
-      </CSidebarBrand>
+        <Link to="/" className="relative z-10 flex items-center w-auto text-2xl font-extrabold leading-none text-black select-none"><Image className="img-fluid" src="\images\logok.png" alt="logo"  width="150" height="35"/></Link>
+       </CSidebarBrand>
       <CSidebarNav>
         <SimpleBar>
           <CCreateNavItem items={group==="Assessors" ? _assesnav: _nav} />

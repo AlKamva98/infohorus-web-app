@@ -51,7 +51,8 @@ const DefaultLayout = (props) => {
             listTeam(userObj).then(teamlist =>{
                   completed =  teamlist;
                   for(let i in completed){
-                  users.push(completed[i])
+                    if(completed[i]._deleted===null){
+                  users.push(completed[i])}
                 }
                   console.log("this is the team", teamlist)
                   console.log("this is the team", users)
