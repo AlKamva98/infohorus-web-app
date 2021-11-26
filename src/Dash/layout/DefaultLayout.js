@@ -56,7 +56,7 @@ const DefaultLayout = (props) => {
                 }
                   console.log("this is the team", teamlist)
                   console.log("this is the team", users)
-              })}
+              })}       
           
               let data = {columns: COLUMNS,rows: users}
               setDatatable(data);
@@ -74,7 +74,9 @@ const DefaultLayout = (props) => {
                           from: response[i].taskStart.toString().replace("Z",""),
                           to: response[i].taskEnd.toString().replace("Z",""),
                           title: response[i].taskDesc};
+                         
                           rectks.push(item)
+                          console.log("RecTasks", rectks)
                           setEvt(rectks)
                         }
                        }})

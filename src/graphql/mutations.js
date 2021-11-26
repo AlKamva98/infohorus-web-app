@@ -210,7 +210,7 @@ export const deleteTasks = /* GraphQL */ `
       id
       taskName
       taskDesc
-      taskStar
+      taskStart
       taskEnd
       recommendationsID
       assignedTo
