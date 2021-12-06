@@ -1,6 +1,108 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const onCreateMessage = /* GraphQL */ `
+  subscription OnCreateMessage {
+    onCreateMessage {
+      id
+      userID
+      content
+      user
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      User {
+        id
+        first_name
+        last_name
+        email
+        job_title
+        company
+        employees
+        industry
+        country
+        userType
+        phone
+        teamID
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+    }
+  }
+`;
+export const onUpdateMessage = /* GraphQL */ `
+  subscription OnUpdateMessage {
+    onUpdateMessage {
+      id
+      userID
+      content
+      user
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      User {
+        id
+        first_name
+        last_name
+        email
+        job_title
+        company
+        employees
+        industry
+        country
+        userType
+        phone
+        teamID
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+    }
+  }
+`;
+export const onDeleteMessage = /* GraphQL */ `
+  subscription OnDeleteMessage {
+    onDeleteMessage {
+      id
+      userID
+      content
+      user
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      User {
+        id
+        first_name
+        last_name
+        email
+        job_title
+        company
+        employees
+        industry
+        country
+        userType
+        phone
+        teamID
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+    }
+  }
+`;
 export const onCreateTeam = /* GraphQL */ `
   subscription OnCreateTeam {
     onCreateTeam {
@@ -9,9 +111,9 @@ export const onCreateTeam = /* GraphQL */ `
       last_name
       email
       job_title
-      company
       user_type
       userID
+      company
       _version
       _deleted
       _lastChangedAt
@@ -32,9 +134,9 @@ export const onUpdateTeam = /* GraphQL */ `
       last_name
       email
       job_title
-      company
       user_type
       userID
+      company
       _version
       _deleted
       _lastChangedAt
@@ -55,9 +157,9 @@ export const onDeleteTeam = /* GraphQL */ `
       last_name
       email
       job_title
-      company
       user_type
       userID
+      company
       _version
       _deleted
       _lastChangedAt
@@ -951,6 +1053,10 @@ export const onCreateUser = /* GraphQL */ `
       _lastChangedAt
       createdAt
       updatedAt
+      Messages {
+        nextToken
+        startedAt
+      }
       Teams {
         nextToken
         startedAt
@@ -998,6 +1104,10 @@ export const onUpdateUser = /* GraphQL */ `
       _lastChangedAt
       createdAt
       updatedAt
+      Messages {
+        nextToken
+        startedAt
+      }
       Teams {
         nextToken
         startedAt
@@ -1045,6 +1155,10 @@ export const onDeleteUser = /* GraphQL */ `
       _lastChangedAt
       createdAt
       updatedAt
+      Messages {
+        nextToken
+        startedAt
+      }
       Teams {
         nextToken
         startedAt

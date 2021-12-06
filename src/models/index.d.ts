@@ -4,18 +4,14 @@ import { ModelInit, MutableModel, PersistentModelConstructor } from "@aws-amplif
 
 
 
-export declare class Team {
+export declare class Message {
   readonly id: string;
-  readonly first_name?: string;
-  readonly last_name?: string;
-  readonly email?: string;
-  readonly job_title?: string;
-  readonly user_type?: string;
-  readonly Teams?: (User | null)[];
   readonly userID?: string;
-  readonly company?: string;
-  constructor(init: ModelInit<Team>);
-  static copyOf(source: Team, mutator: (draft: MutableModel<Team>) => MutableModel<Team> | void): Team;
+  readonly User?: User;
+  readonly content?: string;
+  readonly user?: string;
+  constructor(init: ModelInit<Message>);
+  static copyOf(source: Message, mutator: (draft: MutableModel<Message>) => MutableModel<Message> | void): Message;
 }
 
 export declare class User {
@@ -35,6 +31,7 @@ export declare class User {
   readonly AssessorReports?: (AssessorReport | null)[];
   readonly teamID?: string;
   readonly Teams?: (Team | null)[];
+  readonly Messages?: (Message | null)[];
   constructor(init: ModelInit<User>);
   static copyOf(source: User, mutator: (draft: MutableModel<User>) => MutableModel<User> | void): User;
 }
@@ -126,6 +123,20 @@ export declare class AssessorReport {
   readonly isCompleted?: boolean;
   constructor(init: ModelInit<AssessorReport>);
   static copyOf(source: AssessorReport, mutator: (draft: MutableModel<AssessorReport>) => MutableModel<AssessorReport> | void): AssessorReport;
+}
+
+export declare class Team {
+  readonly id: string;
+  readonly first_name?: string;
+  readonly last_name?: string;
+  readonly email?: string;
+  readonly job_title?: string;
+  readonly user_type?: string;
+  readonly Teams?: (User | null)[];
+  readonly userID?: string;
+  readonly company?: string;
+  constructor(init: ModelInit<Team>);
+  static copyOf(source: Team, mutator: (draft: MutableModel<Team>) => MutableModel<Team> | void): Team;
 }
 
 export declare class Cred {

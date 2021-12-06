@@ -1,7 +1,7 @@
 export const schema = {
     "models": {
-        "Team": {
-            "name": "Team",
+        "Message": {
+            "name": "Message",
             "fields": {
                 "id": {
                     "name": "id",
@@ -10,55 +10,6 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
-                "first_name": {
-                    "name": "first_name",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "last_name": {
-                    "name": "last_name",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "email": {
-                    "name": "email",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "job_title": {
-                    "name": "job_title",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "user_type": {
-                    "name": "user_type",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "Teams": {
-                    "name": "Teams",
-                    "isArray": true,
-                    "type": {
-                        "model": "User"
-                    },
-                    "isRequired": false,
-                    "attributes": [],
-                    "isArrayNullable": true,
-                    "association": {
-                        "connectionType": "HAS_MANY",
-                        "associatedWith": "teamID"
-                    }
-                },
                 "userID": {
                     "name": "userID",
                     "isArray": false,
@@ -66,8 +17,28 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
-                "company": {
-                    "name": "company",
+                "User": {
+                    "name": "User",
+                    "isArray": false,
+                    "type": {
+                        "model": "User"
+                    },
+                    "isRequired": false,
+                    "attributes": [],
+                    "association": {
+                        "connectionType": "BELONGS_TO",
+                        "targetName": "messageUserId"
+                    }
+                },
+                "content": {
+                    "name": "content",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "user": {
+                    "name": "user",
                     "isArray": false,
                     "type": "String",
                     "isRequired": false,
@@ -75,7 +46,7 @@ export const schema = {
                 }
             },
             "syncable": true,
-            "pluralName": "Teams",
+            "pluralName": "Messages",
             "attributes": [
                 {
                     "type": "model",
@@ -241,6 +212,20 @@ export const schema = {
                     "isArray": true,
                     "type": {
                         "model": "Team"
+                    },
+                    "isRequired": false,
+                    "attributes": [],
+                    "isArrayNullable": true,
+                    "association": {
+                        "connectionType": "HAS_MANY",
+                        "associatedWith": "userID"
+                    }
+                },
+                "Messages": {
+                    "name": "Messages",
+                    "isArray": true,
+                    "type": {
+                        "model": "Message"
                     },
                     "isRequired": false,
                     "attributes": [],
@@ -1050,6 +1035,114 @@ export const schema = {
                 }
             ]
         },
+        "Team": {
+            "name": "Team",
+            "fields": {
+                "id": {
+                    "name": "id",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "first_name": {
+                    "name": "first_name",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "last_name": {
+                    "name": "last_name",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "email": {
+                    "name": "email",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "job_title": {
+                    "name": "job_title",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "user_type": {
+                    "name": "user_type",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "Teams": {
+                    "name": "Teams",
+                    "isArray": true,
+                    "type": {
+                        "model": "User"
+                    },
+                    "isRequired": false,
+                    "attributes": [],
+                    "isArrayNullable": true,
+                    "association": {
+                        "connectionType": "HAS_MANY",
+                        "associatedWith": "teamID"
+                    }
+                },
+                "userID": {
+                    "name": "userID",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "company": {
+                    "name": "company",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                }
+            },
+            "syncable": true,
+            "pluralName": "Teams",
+            "attributes": [
+                {
+                    "type": "model",
+                    "properties": {}
+                },
+                {
+                    "type": "key",
+                    "properties": {
+                        "name": "byUser",
+                        "fields": [
+                            "userID"
+                        ]
+                    }
+                },
+                {
+                    "type": "auth",
+                    "properties": {
+                        "rules": [
+                            {
+                                "allow": "public",
+                                "operations": [
+                                    "create",
+                                    "update",
+                                    "delete",
+                                    "read"
+                                ]
+                            }
+                        ]
+                    }
+                }
+            ]
+        },
         "Cred": {
             "name": "Cred",
             "fields": {
@@ -1146,5 +1239,5 @@ export const schema = {
     },
     "enums": {},
     "nonModels": {},
-    "version": "1b1f45660b3912dd20851a60140bbf1b"
+    "version": "a3fa3bfcaa528ad95fcff81c0ae62698"
 };

@@ -5,7 +5,7 @@ import {COLUMNS} from "../assessor/columns";
 import {API} from 'aws-amplify'
 import * as queries from '../../graphql/queries';
 import * as mutations from '../../graphql/mutations'
-
+import * as subscriptions from '../../graphql/subscriptions'
 
 const DefaultLayout = (props) => {
   const {signedIn, signOut, userGroup,setUser, user} = props;
@@ -32,13 +32,14 @@ const DefaultLayout = (props) => {
     const [assRep, setAssRep] = useState({});
     const [recommendations, updateRecs] =useState(RecomendationsList);
     const [data, setData] = useState([])
-    var d ;
+    var upTeam =[] ;
     let userObj;
     var [evt, setEvt] = useState([]);
     var rectks= [];
     useEffect(() => { 
+      
       getUser().then(User => {
-          let users = [];
+        let users = [];
           userObj= User;
           if((userObj !== undefined)){
           setUser(userObj);}
@@ -85,6 +86,7 @@ const DefaultLayout = (props) => {
                       
                     }
                     console.log("this is the team table",datatable)
+                    subscribetoTeam(users);
                   }).finally(()=>{
            setHasTData(true);
           });
@@ -92,7 +94,19 @@ const DefaultLayout = (props) => {
     
     },[])
     
-    
+    function subscribetoTeam(dt){
+      API.graphql({
+        query: subscriptions.onCreateTeam,
+      }).subscribe({
+        next: team => {
+         dt.push(team.value.data.onCreateTeam) ;
+         let data = {columns: COLUMNS,rows: dt}
+              setDatatable(data);
+        //upTeam.push(team.value.data.onCreateTeam)
+        console.log("This is the teams", dt);
+        }
+      })
+    }
     async function checkAssessComplete(id){
       var reps;
       var complete = false;

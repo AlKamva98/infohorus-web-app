@@ -45,7 +45,7 @@ const _nav = [
         _component: 'CNavItem',
         as: NavLink,
         anchor: 'Send email',
-        to: '/500',
+        to: '/dash/chat',
       },
     ]
   },

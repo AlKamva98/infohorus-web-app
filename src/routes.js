@@ -11,6 +11,7 @@ import Recommendations from './Dash/assessor/Recommendations'
 import Report from './Dash/assessor/Report'
 import Assign from './Dash/assessor/Assign'
 import {Team} from './Dash/views/assess/Team'
+import Chat from './Dash/views/assess/Chat'
 
 //routes
 import Colors from './Dash/views/theme/colors/Colors'
@@ -77,6 +78,7 @@ const routes = [
   { path: '/dash/cust', name: 'Customer List', component: CustList, exact: true },
   { path: '/dash/assignRec', name:'Assign Recommendations', component: Assign, exact: true},
   { path: '/dash/calendar', name: 'Calendar', component: CalendarEvents, exact: true },
+  { path: '/dash/chat', name: 'Chat', component: Chat, exact: true },
   { path: '/dash/employees', name: 'Employees', component: Employees, exact: true },
   { path: '/dash/update', name: 'Update', component: Update, exact: true },
   { path: '/dash/profile', name: 'Profile', component: Profile, exact: true },

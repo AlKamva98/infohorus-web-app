@@ -73,6 +73,7 @@
     "react-tooltip": "^4.2.21",
     "reactstrap": "^8.9.0",
     "redux": "4.0.5",
+    "shards-react": "^1.0.3",
     "simplebar-react": "^2.3.5",
     "survey-react": "^1.8.57",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.4",
