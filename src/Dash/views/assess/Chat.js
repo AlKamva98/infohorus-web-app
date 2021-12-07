@@ -1,6 +1,7 @@
 import React,{useEffect} from "react";
 import {API, graphqlOperation} from "aws-amplify"
 import {createMessage} from "../../../graphql/mutations"
+import {listMessages} from "../../../graphql/queries"
 // import {
 //   ApolloClient,
 //   InMemoryCache,
@@ -40,14 +41,15 @@ import { Container, Row, Col, FormInput, Button } from "shards-react";
  //   }
  // +`;
  
- const Messages = ({ user }) => {
+ const Messages = ({ user }, userId) => {
   var data ={messages:[{
    id:0,
    user: "Stefano",
    content:"Hi"},
    { id:1,
    user: "Mark",
-   content:"Hello"},
+   content:"Hello"
+  },
    {
     id:2,
     user: "Stefano",
@@ -59,10 +61,11 @@ import { Container, Row, Col, FormInput, Button } from "shards-react";
     content:"I'm gud",
    }
    ]};
-  // const { data } = useSubscription(GET_MESSAGES);
-  // if/ (!data) {
-  //   return null;
-  // }/
+   
+  
+  if (!data) {
+    return null;
+  }
 
   return (
     <>
@@ -108,11 +111,11 @@ import { Container, Row, Col, FormInput, Button } from "shards-react";
 };
 
 const Chat = (props) => {
+  const {userId}=props;
   const [state, stateSet] = React.useState({
-    user: "Stefano",
+    user: userId.first_name,
     content: "",
   });
-  const {userId}=props;
   const postMessage = async (state)=>{
     await API.graphql(graphqlOperation(
             createMessage,{
@@ -140,7 +143,7 @@ const Chat = (props) => {
   };
   return (
     <Container>
-      <Messages user={state.user} />
+      <Messages user={state.user} userId={userId} />
       <Row>
         <Col xs={2} style={{ padding: 0 }}>
           <FormInput

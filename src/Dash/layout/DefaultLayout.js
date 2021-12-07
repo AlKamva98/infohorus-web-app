@@ -13,15 +13,15 @@ const DefaultLayout = (props) => {
   let upRec = [];
   let ts=[];
   var completed;
-  let RecomendationsList = listProps("Rec");
-  let TasksList = listProps("Task") ;
+  // let RecomendationsList = listProps("Rec");
+  // let TasksList = listProps("Task") ;
     const [approved, updateApproved]=useState([]);
     const [modal, setModal] = useState(false);
     const toggle = () => setModal(!modal);
     const [rec, setRec] =useState("");
     const [errModal, setErrModal] = useState(false);
     const errToggle = () => setErrModal(!errModal);
-    const [tasks, setTasks] =useState(TasksList);
+    const [tasks, setTasks] =useState([]);
     const [revModal, setRevModal] = useState(false);
     const revToggle = () => setRevModal(!revModal);
     const [msg, setMsg] =useState("");
@@ -30,7 +30,7 @@ const DefaultLayout = (props) => {
     const [datatable, setDatatable] = useState('');
     const [continueAss, setContinueAss] = useState(false);
     const [assRep, setAssRep] = useState({});
-    const [recommendations, updateRecs] =useState(RecomendationsList);
+    const [recommendations, updateRecs] =useState([]);
     const [data, setData] = useState([])
     var upTeam =[] ;
     let userObj;
@@ -85,10 +85,14 @@ const DefaultLayout = (props) => {
                       })
                       
                     }
+            getMessages(userObj).then(data=>{
+             console.log("This is the messages", data);
+            });
                     console.log("this is the team table",datatable)
                     subscribetoTeam(users);
                   }).finally(()=>{
-           setHasTData(true);
+           
+           setHasTData(true); 
           });
 
     
@@ -206,6 +210,16 @@ const DefaultLayout = (props) => {
         getApproved()
 
        }
+
+       async function getMessages(userId) {
+      try {
+        var messages = await API.graphql({query: queries.listMessages, variables:{filter: {userID: {contains: userId.id}}}});
+        console.log("This is the user",messages)
+        return messages.data.listMessages;
+      } catch (err) {
+          console.log("Error:>> ", err);
+      }
+  }
        
   //      function viewTasks(i){
   //     try{
