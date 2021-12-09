@@ -25,6 +25,7 @@ const DefaultLayout = (props) => {
     const [revModal, setRevModal] = useState(false);
     const revToggle = () => setRevModal(!revModal);
     const [msg, setMsg] =useState("");
+    const [messages, setMessages] = useState([]);
     const [hasData, setHasData] = useState(false);
     const [hasTData, setHasTData] = useState(false);
     const [datatable, setDatatable] = useState('');
@@ -86,7 +87,8 @@ const DefaultLayout = (props) => {
                       
                     }
             getMessages(userObj).then(data=>{
-             console.log("This is the messages", data);
+              setMessages(data)
+              console.log("This is the messages", data);
             });
                     console.log("this is the team table",datatable)
                     subscribetoTeam(users);
@@ -308,7 +310,7 @@ const DefaultLayout = (props) => {
         <AppHeader tasks={tasks} recommendations={recommendations} signOut={signOut} saveChanges={saveChanges} approved={approved} />
         <div className="body flex-grow-1 px-3">
           <AppContent approve={approve} approved={approved} recommendations={recommendations} 
-          errModal={errModal} datatable={datatable} hasTData={hasTData} hasData={hasData} errToggle={errToggle} revModal={revModal} revToggle={revToggle}  msg={msg}  tasks={tasks} rec={rec} toggle={toggle} news={data} modal={modal} events={evt} userId={user} continuesAss={continueAss} assRep={assRep} setRec={setRec} addTask={addTask} />
+          errModal={errModal} datatable={datatable} hasTData={hasTData} hasData={hasData} errToggle={errToggle} revModal={revModal} revToggle={revToggle}  msg={msg}  tasks={tasks} rec={rec} toggle={toggle} news={data} messages={messages} modal={modal} events={evt} userId={user} continuesAss={continueAss} assRep={assRep} setRec={setRec} addTask={addTask} />
         </div>
         <AppFooter />
       </div>

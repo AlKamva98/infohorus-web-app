@@ -4,7 +4,7 @@ import {createMessage} from "../../../graphql/mutations"
 import {listMessages} from "../../../graphql/queries"
 // import {
 //   ApolloClient,
-//   InMemoryCache,
+//   InMemoryCache, 
 //   ApolloProvider,
 //   useSubscription,
 //   useMutation,
@@ -41,35 +41,38 @@ import { Container, Row, Col, FormInput, Button } from "shards-react";
  //   }
  // +`;
  
- const Messages = ({ user }, userId) => {
-  var data ={messages:[{
-   id:0,
-   user: "Stefano",
-   content:"Hi"},
-   { id:1,
-   user: "Mark",
-   content:"Hello"
-  },
-   {
-    id:2,
-    user: "Stefano",
-    content:"How are you?",
-   },
-   {
-    id:3,
-    user: "Mark",
-    content:"I'm gud",
-   }
-   ]};
+ const Messages = (props) => {
+   const { user , userId, messages} = props;
+   console.log("mess",messages)
+   console.log("userId",userId)
+  // var data ={messages:[{
+  //  id:0,
+  //  user: "Stefano",
+  //  content:"Hi"},
+  //  { id:1,
+  //  user: "Mark",
+  //  content:"Hello"
+  // },
+  //  {
+  //   id:2,
+  //   user: "Stefano",
+  //   content:"How are you?",
+  //  },
+  //  {
+  //   id:3,
+  //   user: "Mark",
+  //   content:"I'm gud",
+  //  }
+  //  ]};
    
-  
-  if (!data) {
+  console.log("This is the mess::", messages)
+  if (!messages) {
     return null;
   }
-
+  console.log("These are the messages in the Chat.js file", messages)
   return (
     <>
-      {data.messages.map(({ id, user: messageUser, content }) => (
+      {messages.items.map(({ id, user: messageUser, content }) => (
         <div
           style={{
             display: "flex",
@@ -111,11 +114,12 @@ import { Container, Row, Col, FormInput, Button } from "shards-react";
 };
 
 const Chat = (props) => {
-  const {userId}=props;
+  const {userId, messages} =props;
   const [state, stateSet] = React.useState({
     user: userId.first_name,
     content: "",
   });
+  // const [messages, setMessages] = React.useState([]);
   const postMessage = async (state)=>{
     await API.graphql(graphqlOperation(
             createMessage,{
@@ -127,9 +131,25 @@ const Chat = (props) => {
             })).catch(e=>{
               console.log("Error in sending message", e);
             });}
-
+// async function getMessages(userId) {
+//       try {
+//         var messages = await API.graphql({query: listMessages, variables:{filter: {userID: {contains: userId.id}}}});
+//         console.log("This is the user",messages)
+//         return messages.data.listMessages;
+//       } catch (err) {
+//           console.log("Error:>> ", err);
+//       }
+//   }
+  
   useEffect(() => {
     // subscribeToChat()
+    
+    //  getMessages(userId).then(data=>{
+    //   msgs =data;
+    //   // setMessages(data)
+      //  console.log("These are the messages in the Chat.js file", data)
+       console.log("These are the messages in the Chat.js file", messages)
+    //  })
   }, [])
   const onSend = () => {
     if (state.content.length > 0) {
@@ -143,7 +163,7 @@ const Chat = (props) => {
   };
   return (
     <Container>
-      <Messages user={state.user} userId={userId} />
+      <Messages user={state.user} messages={messages} userId={userId} />
       <Row>
         <Col xs={2} style={{ padding: 0 }}>
           <FormInput
