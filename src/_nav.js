@@ -44,7 +44,7 @@ const _nav = [
       {
         _component: 'CNavItem',
         as: NavLink,
-        anchor: 'Send email',
+        anchor: 'Send Message',
         to: '/dash/chat',
       },
     ]
@@ -68,6 +68,13 @@ const _assesnav = [
     anchor: 'Assess',
     to:'/dash/cust',
     icon: <CIcon name="cil-notes" customClasses="nav-icon" />,
+  },
+  {
+    _component:'CNavItem',
+    as: NavLink,
+    anchor: 'Send Message',
+    to: '/dash/chat',
+    icon: <CIcon name="cil-comment-square" customClasses="nav-icon" />,
   },
   {
     _component:'CNavItem',

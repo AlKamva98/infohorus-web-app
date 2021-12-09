@@ -1,7 +1,7 @@
 import React,{useEffect} from "react";
 import {API, graphqlOperation} from "aws-amplify"
 import {createMessage} from "../../../graphql/mutations"
-import {listMessages} from "../../../graphql/queries"
+import * as subscriptions from "../../../graphql/subscriptions"
 // import {
 //   ApolloClient,
 //   InMemoryCache, 
@@ -72,7 +72,7 @@ import { Container, Row, Col, FormInput, Button } from "shards-react";
   console.log("These are the messages in the Chat.js file", messages)
   return (
     <>
-      {messages.items.map(({ id, user: messageUser, content }) => (
+      {messages.map(({ id, user: messageUser, content }) => (
         <div
           style={{
             display: "flex",
@@ -114,7 +114,7 @@ import { Container, Row, Col, FormInput, Button } from "shards-react";
 };
 
 const Chat = (props) => {
-  const {userId, messages} =props;
+  const {userId,setMessages, messages} =props;
   const [state, stateSet] = React.useState({
     user: userId.first_name,
     content: "",
@@ -131,26 +131,29 @@ const Chat = (props) => {
             })).catch(e=>{
               console.log("Error in sending message", e);
             });}
-// async function getMessages(userId) {
-//       try {
-//         var messages = await API.graphql({query: listMessages, variables:{filter: {userID: {contains: userId.id}}}});
-//         console.log("This is the user",messages)
-//         return messages.data.listMessages;
-//       } catch (err) {
-//           console.log("Error:>> ", err);
-//       }
-//   }
+
   
   useEffect(() => {
-    // subscribeToChat()
-    
-    //  getMessages(userId).then(data=>{
-    //   msgs =data;
-    //   // setMessages(data)
-      //  console.log("These are the messages in the Chat.js file", data)
-       console.log("These are the messages in the Chat.js file", messages)
-    //  })
+    subscribeToChat(messages)    
+    console.log("These are the messages in the Chat.js file", messages)
   }, [])
+
+  function subscribeToChat(dt){
+      API.graphql({
+        query: subscriptions.onCreateMessage,
+      }).subscribe({
+        next: chat => {
+         
+        dt.push(chat.value.data.onCreateMessage) ;
+        setMessages(dt)
+        //upTeam.push(team.value.data.onCreateTeam)
+        console.log("This is the updated chat1", dt);
+        console.log("This is the updated chat2", chat.value.data.onCreateMessage);
+        // setMessage(chat)
+        }
+      })
+    }
+
   const onSend = () => {
     if (state.content.length > 0) {
       console.log("The user ID is::", userId);
