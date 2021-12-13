@@ -11,7 +11,6 @@ const DefaultLayout = (props) => {
   const {signedIn, signOut, userGroup,setUser, user} = props;
   let approvedRecs =[];
   let upRec = [];
-  let ts=[];
   var completed;
   // let RecomendationsList = listProps("Rec");
   // let TasksList = listProps("Task") ;
@@ -33,7 +32,7 @@ const DefaultLayout = (props) => {
     const [assRep, setAssRep] = useState({});
     const [recommendations, updateRecs] =useState([]);
     const [data, setData] = useState([])
-    var upTeam =[] ;
+    let subscript ;
     let userObj;
     var [evt, setEvt] = useState([]);
     var rectks= [];
@@ -91,8 +90,8 @@ const DefaultLayout = (props) => {
               console.log("This is the messages", data);
             });
                     console.log("this is the team table",datatable)
-                    subscribetoTeam(users);
-                  }).finally(()=>{
+                    subscribetoTeam(users.push, subscript);
+                   }).finally(()=>{
            
            setHasTData(true); 
           });
@@ -100,8 +99,8 @@ const DefaultLayout = (props) => {
     
     },[])
     
-    function subscribetoTeam(dt){
-      API.graphql({
+    function subscribetoTeam(dt, subscript){
+      subscript = API.graphql({
         query: subscriptions.onCreateTeam,
       }).subscribe({
         next: team => {
@@ -112,6 +111,7 @@ const DefaultLayout = (props) => {
         console.log("This is the teams", dt);
         }
       })
+      
     }
     async function checkAssessComplete(id){
       var reps;
@@ -173,6 +173,10 @@ const DefaultLayout = (props) => {
             }).catch(e => {
                 console.error(e);
             })
+            break;
+            default:
+              console.log("This is the Default of the switch case")
+              break;
              }
           return data;
   }
@@ -217,7 +221,13 @@ const DefaultLayout = (props) => {
       try {
         var messages = await API.graphql({query: queries.listMessages, variables:{filter: {userID: {contains: userId.id}}}});
         console.log("This is the user",messages)
-        return messages.data.listMessages.items;
+        let s = messages.data.listMessages.items;
+        s.sort((a, b) => {
+    let da = new Date(a.createdAt),
+        db = new Date(b.createdAt);
+    return da - db;
+});
+        return s; 
       } catch (err) {
           console.log("Error:>> ", err);
       }

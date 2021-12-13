@@ -6,9 +6,9 @@ import { useForm, Controller } from "react-hook-form";
 
 export function TaskPopUp (props) {
   
-  const {popupType, tasks,title, body, isOpen, toggle ,btnTxtPositive, btnTxtNegative, bg, btnNegOnClick,className} = props;
+  const {popupType, tasks,title, body, isOpen, toggle ,btnTxtPositive, btnTxtNegative, bg,className} = props;
   const { register, handleSubmit, errors, control } = useForm();
-    const handleError = (errors) => { console.log("Form Errors: "+ errors)};
+    const handleError = (err) => { console.log("Form Errors: "+ errors)};
     const handleTask = async (data) =>{ 
   console.log("This is the input data from the form", data);
   try{
@@ -22,7 +22,7 @@ export function TaskPopUp (props) {
    <Modal isOpen={isOpen} toggle={toggle} className={className}>
         <ModalHeader className="font-extrabold text-xl mx-4 text-gray-800" toggle={toggle}>{title}</ModalHeader>
     <Form className="row " onSubmit={handleSubmit(handleTask, handleError)}> 
-        <ModalBody className={"mx-4 bg-cover bg-no-repeat bg-center "+`${bg}`}><div className=" w-full h-full mx-auto px-12 py-12 bg-white opacity-90"><p className="text-semibold text-lg">{body}</p>
+        <ModalBody className={`mx-4 bg-cover bg-no-repeat bg-center ${bg}`}><div className=" w-full h-full mx-auto px-12 py-12 bg-white opacity-90"><p className="text-semibold text-lg">{body}</p>
 
         <FormGroup className="col-md-12">
             <Label for="taskName" className="visually-hidden" >Task Name</Label>

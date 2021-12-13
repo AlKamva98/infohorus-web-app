@@ -5,15 +5,13 @@ import {routes} from '../../routes'
 
 import { CBreadcrumb, CBreadcrumbItem } from '@coreui/react'
 import {
-  CButton,
   CToast,
   CToastBody,
   CToastClose,
   CToaster,
 } from '@coreui/react'
 
-const ExampleToast = () => {
-}
+
 const AppBreadcrumb = (props) => {
   const currentLocation = useLocation().pathname
   const {saveChanges, approved, tasks} = props;

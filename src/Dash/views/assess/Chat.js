@@ -119,6 +119,7 @@ const Chat = (props) => {
     user: userId.first_name,
     content: "",
   });
+  let subscript;
   // const [messages, setMessages] = React.useState([]);
   const postMessage = async (state)=>{
     await API.graphql(graphqlOperation(
@@ -138,13 +139,14 @@ const Chat = (props) => {
     console.log("These are the messages in the Chat.js file", messages)
   }, [])
 
-  function subscribeToChat(dt){
-      API.graphql({
+  function subscribeToChat(dt, subscript){
+      subscript = API.graphql({
         query: subscriptions.onCreateMessage,
       }).subscribe({
         next: chat => {
          
         dt.push(chat.value.data.onCreateMessage) ;
+        
         setMessages(dt)
         //upTeam.push(team.value.data.onCreateTeam)
         console.log("This is the updated chat1", dt);
