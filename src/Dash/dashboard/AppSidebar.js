@@ -4,6 +4,7 @@ import {Link}
  from 'react-router-dom';
 import {Image} from 'react-bootstrap';
 import {
+  CBadge,
   CSidebar,
   CSidebarBrand,
   CSidebarNav,
