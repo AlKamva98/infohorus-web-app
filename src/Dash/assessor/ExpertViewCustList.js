@@ -22,7 +22,7 @@ function ExpertViewCustList(props){
           for(let i in  listOfUsers.data.listUsers.items){
 
             if( listOfUsers.data.listUsers.items[i].userType === "Assessee"){
-              listOfUsers.data.listUsers.items[i];
+              // listOfUsers.data.listUsers.items[i];
               console.log("This is the approved ",  listOfUsers.data.listUsers.items[i])
               users.push( listOfUsers.data.listUsers.items[i])
               

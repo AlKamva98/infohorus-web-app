@@ -9,7 +9,7 @@ import {
   CSidebarBrand,
   CSidebarNav,
   CSidebarToggler,
-  CCreateNavItem,
+  CCreateNavItem, 
 } from '@coreui/react'
 
 import SimpleBar from 'simplebar-react'
