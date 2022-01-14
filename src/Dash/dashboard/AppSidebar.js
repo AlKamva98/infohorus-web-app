@@ -4,13 +4,14 @@ import {Link}
  from 'react-router-dom';
 import {Image} from 'react-bootstrap';
 import {
-  CBadge,
   CSidebar,
   CSidebarBrand,
   CSidebarNav,
   CSidebarToggler,
-  CCreateNavItem, 
+  CCreateNavItem,
 } from '@coreui/react'
+
+import CIcon from '@coreui/icons-react'
 
 import SimpleBar from 'simplebar-react'
 import 'simplebar/dist/simplebar.min.css'

@@ -40,15 +40,15 @@ function Report(){
          }});
        },[])
 
-  // async function listReport() {
-  //     try {
-  //          var reports = await API.graphql({query: queries.listAssessorReports});
-  //         console.log(reports.data.listAssessorReports.items);
-  //         return reports;
-  //     } catch (err) {
-  //         console.log("Error:>> ", err);
-  //     }
-  // }
+  async function listReport() {
+      try {
+           var reports = await API.graphql({query: queries.listAssessorReports});
+          console.log(reports.data.listAssessorReports.items);
+          return reports;
+      } catch (err) {
+          console.log("Error:>> ", err);
+      }
+  }
 async function listUsers() {
       try {
            var userslist = await API.graphql({query: queries.listUsers});

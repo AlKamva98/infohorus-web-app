@@ -1,5 +1,75 @@
 export const schema = {
     "models": {
+        "Chat": {
+            "name": "Chat",
+            "fields": {
+                "id": {
+                    "name": "id",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "sessionStart": {
+                    "name": "sessionStart",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "sessionEnd": {
+                    "name": "sessionEnd",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "isClosed": {
+                    "name": "isClosed",
+                    "isArray": false,
+                    "type": "Boolean",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "Message": {
+                    "name": "Message",
+                    "isArray": false,
+                    "type": {
+                        "model": "Message"
+                    },
+                    "isRequired": false,
+                    "attributes": [],
+                    "association": {
+                        "connectionType": "BELONGS_TO",
+                        "targetName": "chatMessageId"
+                    }
+                }
+            },
+            "syncable": true,
+            "pluralName": "Chats",
+            "attributes": [
+                {
+                    "type": "model",
+                    "properties": {}
+                },
+                {
+                    "type": "auth",
+                    "properties": {
+                        "rules": [
+                            {
+                                "allow": "public",
+                                "operations": [
+                                    "create",
+                                    "update",
+                                    "delete",
+                                    "read"
+                                ]
+                            }
+                        ]
+                    }
+                }
+            ]
+        },
         "Message": {
             "name": "Message",
             "fields": {
@@ -17,6 +87,13 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
+                "chatID": {
+                    "name": "chatID",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": false,
+                    "attributes": []
+                },
                 "User": {
                     "name": "User",
                     "isArray": false,
@@ -28,6 +105,19 @@ export const schema = {
                     "association": {
                         "connectionType": "BELONGS_TO",
                         "targetName": "messageUserId"
+                    }
+                },
+                "Chat": {
+                    "name": "Chat",
+                    "isArray": false,
+                    "type": {
+                        "model": "Chat"
+                    },
+                    "isRequired": false,
+                    "attributes": [],
+                    "association": {
+                        "connectionType": "BELONGS_TO",
+                        "targetName": "messageChatId"
                     }
                 },
                 "content": {
@@ -1239,5 +1329,5 @@ export const schema = {
     },
     "enums": {},
     "nonModels": {},
-    "version": "a3fa3bfcaa528ad95fcff81c0ae62698"
+    "version": "cac8f7146a9c43aa8e3c8d0443f34e91"
 };

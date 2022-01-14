@@ -4,10 +4,22 @@ import { ModelInit, MutableModel, PersistentModelConstructor } from "@aws-amplif
 
 
 
+export declare class Chat {
+  readonly id: string;
+  readonly sessionStart?: string;
+  readonly sessionEnd?: string;
+  readonly isClosed?: boolean;
+  readonly Message?: Message;
+  constructor(init: ModelInit<Chat>);
+  static copyOf(source: Chat, mutator: (draft: MutableModel<Chat>) => MutableModel<Chat> | void): Chat;
+}
+
 export declare class Message {
   readonly id: string;
   readonly userID?: string;
+  readonly chatID?: string;
   readonly User?: User;
+  readonly Chat?: Chat;
   readonly content?: string;
   readonly user?: string;
   constructor(init: ModelInit<Message>);
