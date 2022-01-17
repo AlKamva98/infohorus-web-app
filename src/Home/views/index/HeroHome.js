@@ -16,7 +16,8 @@ function HeroHome(props) {
                 </h1>
                 <p className="mx-auto text-base text-gray-500 sm:max-w-md lg:text-xl md:max-w-3xl">Infohorus offers cybersecurity services that combine diverse expertise in the areas of cybersecurity, defensive social engineering, cyber negotiations, intelligence, and other specialized operations to enhance critical infrastructure cyber resilience.</p>
                 <div className="relative flex flex-col sm:flex-row sm:space-x-4">
-                  {signedIn ? (<Link to="/main/questions" className="flex items-center w-full btn px-6 py-3 mb-3 text-lg text-white bg-blue-500 rounded-md sm:mb-0 hover:bg-nlue-700 sm:w-auto">
+                  {signedIn ? 
+                  (<Link to="/main/questions" className="flex items-center w-full btn px-6 py-3 mb-3 text-lg text-white bg-blue-500 rounded-md sm:mb-0 hover:bg-blue-700 sm:w-auto">
                     Take Assessment
                     <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5 ml-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round"><line x1={5} y1={12} x2={19} y2={12} className /><polyline points="12 5 19 12 12 19" className /></svg>
                   </Link>):(<Link to="/main/demo" className="flex items-center w-full btn px-6 py-3 mb-3 text-lg text-white bg-blue-500 rounded-md sm:mb-0 hover:bg-blue-700 sm:w-auto">

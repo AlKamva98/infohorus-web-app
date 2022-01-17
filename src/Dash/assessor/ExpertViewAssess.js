@@ -10,10 +10,7 @@ import {questions} from '../../testData/Quests'
 
 
 function ExpertViewAssess (props){
-const initialFormState =[{assessAns:"",assessComment:""}];
 const { state, userId } = props.location;
-let rep ;
-const [formState, updateFormState] = useState(initialFormState)
 const [Answers, setAnswers] = useState()
 const [formValues, setFormValues]= useState(null)
 const [assessForm, setAssessForm] = useState()
@@ -53,27 +50,28 @@ const memoizedHandleDoc = useCallback((doc)=>() => {
         console.log("Report upload error", err)
       }
 }
-async function updateReport(data, done){
-    await API.graphql(graphqlOperation(mutations.updateAssessorReport,{
-    input:{
-      id: rep.id,
-      assrssorComment: data,
-      assessmentResult:data,
-      isCompleted: done,
-      _version: rep._version
-    }
-  }))
-}
+// async function updateReport(data, done){
+//     await API.graphql(graphqlOperation(mutations.updateAssessorReport,{
+//     input:{
+//       id: rep.id,
+//       assrssorComment: data,
+//       assessmentResult:data,
+//       isCompleted: done,
+//       _version: rep._version
+//     }
+//   }))
+// }
 
 let questionnaire;
 let answers =[];
 
  useEffect(()=>{
+   console.log("Expert view")
      getAnswersbyQuestionnaire().then(answerData =>{
         answerData.sort((a,b) => (a.questionID > b.questionID) ? 1 : ((b.questionID > a.questionID) ? -1 : 0))
         setAnswers(answerData);
             }).finally(()=>{
-           rep= createReport().then(()=>{
+           createReport().then(()=>{
               updateReportCreated(true)
               })
             })
@@ -154,11 +152,7 @@ function base64ToArrayBuffer(base64) {
     return bytes.map((byte, i) => binaryString.charCodeAt(i));
 }
 
-function onChange(e){
-        e.persist()
-        console.log("changing:"+e.target.name);
-        updateFormState(()=>({...formState, [e.target.name]: e.target.value}))
-    }
+
 const initialValues= {assessForm:[{assessAns:"",assessComment:"", qName:""}]}
 const savedValues= window.localStorage.getItem(storageName);
  return (

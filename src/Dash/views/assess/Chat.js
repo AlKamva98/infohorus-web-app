@@ -2,70 +2,12 @@ import React,{useEffect} from "react";
 import {API, graphqlOperation} from "aws-amplify"
 import {createMessage} from "../../../graphql/mutations"
 import * as subscriptions from "../../../graphql/subscriptions"
-// import {
-//   ApolloClient,
-//   InMemoryCache, 
-//   ApolloProvider,
-//   useSubscription,
-//   useMutation,
-//   gql,
-// } from "@apollo/client";
-// import { WebSocketLink } from "@apollo/client/link/ws";
 import { Container, Row, Col, FormInput, Button } from "shards-react";
 
-// const link = new WebSocketLink({
-//   uri: `ws://localhost:3000/`,
-//   options: {
-//     reconnect: true,
-//   },
-// });
 
-// const client = new ApolloClient({
-//   link,
-//   uri: "http://localhost:3000/",
-//   cache: new InMemoryCache(),
-// });
-// const GET_MESSAGES = gql`
-//   subscription {
- //     messages {
-//       id
-//       content
-//       user
-//     }
-//   }
-// `;
-
-// const POST_MESSAGE = gql`
-//   mutation($user: String!, $content: String!) {
- //     postMessage(user: $user, content: $content)
- //   }
- // +`;
- 
  const Messages = (props) => {
    const { user , userId, messages} = props;
-   console.log("mess",messages)
-   console.log("userId",userId)
-  // var data ={messages:[{
-  //  id:0,
-  //  user: "Stefano",
-  //  content:"Hi"},
-  //  { id:1,
-  //  user: "Mark",
-  //  content:"Hello"
-  // },
-  //  {
-  //   id:2,
-  //   user: "Stefano",
-  //   content:"How are you?",
-  //  },
-  //  {
-  //   id:3,
-  //   user: "Mark",
-  //   content:"I'm gud",
-  //  }
-  //  ]};
    
-  console.log("This is the mess::", messages)
   if (!messages) {
     return null;
   }
@@ -119,6 +61,7 @@ const Chat = (props) => {
     user: userId.first_name,
     content: "",
   });
+  let subscript;
   // const [messages, setMessages] = React.useState([]);
   const postMessage = async (state)=>{
     await API.graphql(graphqlOperation(
@@ -138,13 +81,14 @@ const Chat = (props) => {
     console.log("These are the messages in the Chat.js file", messages)
   }, [])
 
-  function subscribeToChat(dt){
-      API.graphql({
+  function subscribeToChat(dt, subscript){
+      subscript = API.graphql({
         query: subscriptions.onCreateMessage,
       }).subscribe({
         next: chat => {
          
         dt.push(chat.value.data.onCreateMessage) ;
+        
         setMessages(dt)
         //upTeam.push(team.value.data.onCreateTeam)
         console.log("This is the updated chat1", dt);
