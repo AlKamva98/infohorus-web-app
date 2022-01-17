@@ -7,13 +7,14 @@ import * as queries from '../../graphql/queries'
 import API from '@aws-amplify/api';
 
 function ExpertViewCustList(props){
+  const {userId} = props;
  const [checkbox1, setCheckbox1] = useState('');
  const [datatable, setDatatable] = useState('');
  const [hasData, setHasData] = useState(false);
  const showLogs2 = (e) => {
      setCheckbox1(e);
  };
- 
+ var completed;
 
     useEffect(() => {
          listUsers().then(listOfUsers => {
@@ -22,7 +23,7 @@ function ExpertViewCustList(props){
           for(let i in  listOfUsers.data.listUsers.items){
 
             if( listOfUsers.data.listUsers.items[i].userType === "Assessee"){
-              // listOfUsers.data.listUsers.items[i];
+              completed =  listOfUsers.data.listUsers.items[i];
               console.log("This is the approved ",  listOfUsers.data.listUsers.items[i])
               users.push( listOfUsers.data.listUsers.items[i])
               

@@ -6,7 +6,7 @@ import { CContainer } from '@coreui/react'
 import {routes} from '../../routes'
 
 const AppContent = (props) => {
-    const {approve, approved, recommendations, errModal, errToggle, revToggle, revModal, msg, rec,toggle,modal, setMessages, setRec, hasData,datatable,addTask, tasks ,hasTData, news, events, userId, messages }= props;
+    const {approve, approved, recommendations, errModal, errToggle, revToggle, revModal, msg, rec,toggle,modal, setMessages, setRec, hasData,datatable,addTask, tasks ,hasTData, news,assRep, continueAss, events, userId, messages }= props;
     console.log("This is messages on app content page",messages)
     const teamList = ()=>{
     var t;
