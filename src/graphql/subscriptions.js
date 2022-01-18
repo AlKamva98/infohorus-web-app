@@ -1,18 +1,23 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const onCreateMessage = /* GraphQL */ `
-  subscription OnCreateMessage {
-    onCreateMessage {
+export const onCreateChat = /* GraphQL */ `
+  subscription OnCreateChat {
+    onCreateChat {
       id
+      sessionStart
+      sessionEnd
+      isClosed
       userID
-      content
-      user
       _version
       _deleted
       _lastChangedAt
       createdAt
       updatedAt
+      Messages {
+        nextToken
+        startedAt
+      }
       User {
         id
         first_name
@@ -26,6 +31,114 @@ export const onCreateMessage = /* GraphQL */ `
         userType
         phone
         teamID
+        chatID
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+    }
+  }
+`;
+export const onUpdateChat = /* GraphQL */ `
+  subscription OnUpdateChat {
+    onUpdateChat {
+      id
+      sessionStart
+      sessionEnd
+      isClosed
+      userID
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      Messages {
+        nextToken
+        startedAt
+      }
+      User {
+        id
+        first_name
+        last_name
+        email
+        job_title
+        company
+        employees
+        industry
+        country
+        userType
+        phone
+        teamID
+        chatID
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+    }
+  }
+`;
+export const onDeleteChat = /* GraphQL */ `
+  subscription OnDeleteChat {
+    onDeleteChat {
+      id
+      sessionStart
+      sessionEnd
+      isClosed
+      userID
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      Messages {
+        nextToken
+        startedAt
+      }
+      User {
+        id
+        first_name
+        last_name
+        email
+        job_title
+        company
+        employees
+        industry
+        country
+        userType
+        phone
+        teamID
+        chatID
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+    }
+  }
+`;
+export const onCreateMessage = /* GraphQL */ `
+  subscription OnCreateMessage {
+    onCreateMessage {
+      id
+      chatID
+      content
+      seen
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      Chat {
+        id
+        sessionStart
+        sessionEnd
+        isClosed
+        userID
         _version
         _deleted
         _lastChangedAt
@@ -39,27 +152,20 @@ export const onUpdateMessage = /* GraphQL */ `
   subscription OnUpdateMessage {
     onUpdateMessage {
       id
-      userID
+      chatID
       content
-      user
+      seen
       _version
       _deleted
       _lastChangedAt
       createdAt
       updatedAt
-      User {
+      Chat {
         id
-        first_name
-        last_name
-        email
-        job_title
-        company
-        employees
-        industry
-        country
-        userType
-        phone
-        teamID
+        sessionStart
+        sessionEnd
+        isClosed
+        userID
         _version
         _deleted
         _lastChangedAt
@@ -73,27 +179,20 @@ export const onDeleteMessage = /* GraphQL */ `
   subscription OnDeleteMessage {
     onDeleteMessage {
       id
-      userID
+      chatID
       content
-      user
+      seen
       _version
       _deleted
       _lastChangedAt
       createdAt
       updatedAt
-      User {
+      Chat {
         id
-        first_name
-        last_name
-        email
-        job_title
-        company
-        employees
-        industry
-        country
-        userType
-        phone
-        teamID
+        sessionStart
+        sessionEnd
+        isClosed
+        userID
         _version
         _deleted
         _lastChangedAt
@@ -345,6 +444,7 @@ export const onCreateRecommendations = /* GraphQL */ `
         userType
         phone
         teamID
+        chatID
         _version
         _deleted
         _lastChangedAt
@@ -386,6 +486,7 @@ export const onUpdateRecommendations = /* GraphQL */ `
         userType
         phone
         teamID
+        chatID
         _version
         _deleted
         _lastChangedAt
@@ -427,6 +528,7 @@ export const onDeleteRecommendations = /* GraphQL */ `
         userType
         phone
         teamID
+        chatID
         _version
         _deleted
         _lastChangedAt
@@ -466,6 +568,7 @@ export const onCreateAssessorReport = /* GraphQL */ `
         userType
         phone
         teamID
+        chatID
         _version
         _deleted
         _lastChangedAt
@@ -505,6 +608,7 @@ export const onUpdateAssessorReport = /* GraphQL */ `
         userType
         phone
         teamID
+        chatID
         _version
         _deleted
         _lastChangedAt
@@ -544,6 +648,7 @@ export const onDeleteAssessorReport = /* GraphQL */ `
         userType
         phone
         teamID
+        chatID
         _version
         _deleted
         _lastChangedAt
@@ -924,6 +1029,7 @@ export const onCreateQuestionnaire = /* GraphQL */ `
         userType
         phone
         teamID
+        chatID
         _version
         _deleted
         _lastChangedAt
@@ -974,6 +1080,7 @@ export const onUpdateQuestionnaire = /* GraphQL */ `
         userType
         phone
         teamID
+        chatID
         _version
         _deleted
         _lastChangedAt
@@ -1024,6 +1131,7 @@ export const onDeleteQuestionnaire = /* GraphQL */ `
         userType
         phone
         teamID
+        chatID
         _version
         _deleted
         _lastChangedAt
@@ -1048,12 +1156,13 @@ export const onCreateUser = /* GraphQL */ `
       userType
       phone
       teamID
+      chatID
       _version
       _deleted
       _lastChangedAt
       createdAt
       updatedAt
-      Messages {
+      Chats {
         nextToken
         startedAt
       }
@@ -1099,12 +1208,13 @@ export const onUpdateUser = /* GraphQL */ `
       userType
       phone
       teamID
+      chatID
       _version
       _deleted
       _lastChangedAt
       createdAt
       updatedAt
-      Messages {
+      Chats {
         nextToken
         startedAt
       }
@@ -1150,12 +1260,13 @@ export const onDeleteUser = /* GraphQL */ `
       userType
       phone
       teamID
+      chatID
       _version
       _deleted
       _lastChangedAt
       createdAt
       updatedAt
-      Messages {
+      Chats {
         nextToken
         startedAt
       }

@@ -1,21 +1,26 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const createMessage = /* GraphQL */ `
-  mutation CreateMessage(
-    $input: CreateMessageInput!
-    $condition: ModelMessageConditionInput
+export const createChat = /* GraphQL */ `
+  mutation CreateChat(
+    $input: CreateChatInput!
+    $condition: ModelChatConditionInput
   ) {
-    createMessage(input: $input, condition: $condition) {
+    createChat(input: $input, condition: $condition) {
       id
+      sessionStart
+      sessionEnd
+      isClosed
       userID
-      content
-      user
       _version
       _deleted
       _lastChangedAt
       createdAt
       updatedAt
+      Messages {
+        nextToken
+        startedAt
+      }
       User {
         id
         first_name
@@ -29,6 +34,123 @@ export const createMessage = /* GraphQL */ `
         userType
         phone
         teamID
+        chatID
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+    }
+  }
+`;
+export const updateChat = /* GraphQL */ `
+  mutation UpdateChat(
+    $input: UpdateChatInput!
+    $condition: ModelChatConditionInput
+  ) {
+    updateChat(input: $input, condition: $condition) {
+      id
+      sessionStart
+      sessionEnd
+      isClosed
+      userID
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      Messages {
+        nextToken
+        startedAt
+      }
+      User {
+        id
+        first_name
+        last_name
+        email
+        job_title
+        company
+        employees
+        industry
+        country
+        userType
+        phone
+        teamID
+        chatID
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+    }
+  }
+`;
+export const deleteChat = /* GraphQL */ `
+  mutation DeleteChat(
+    $input: DeleteChatInput!
+    $condition: ModelChatConditionInput
+  ) {
+    deleteChat(input: $input, condition: $condition) {
+      id
+      sessionStart
+      sessionEnd
+      isClosed
+      userID
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      Messages {
+        nextToken
+        startedAt
+      }
+      User {
+        id
+        first_name
+        last_name
+        email
+        job_title
+        company
+        employees
+        industry
+        country
+        userType
+        phone
+        teamID
+        chatID
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+    }
+  }
+`;
+export const createMessage = /* GraphQL */ `
+  mutation CreateMessage(
+    $input: CreateMessageInput!
+    $condition: ModelMessageConditionInput
+  ) {
+    createMessage(input: $input, condition: $condition) {
+      id
+      chatID
+      content
+      seen
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      Chat {
+        id
+        sessionStart
+        sessionEnd
+        isClosed
+        userID
         _version
         _deleted
         _lastChangedAt
@@ -45,27 +167,20 @@ export const updateMessage = /* GraphQL */ `
   ) {
     updateMessage(input: $input, condition: $condition) {
       id
-      userID
+      chatID
       content
-      user
+      seen
       _version
       _deleted
       _lastChangedAt
       createdAt
       updatedAt
-      User {
+      Chat {
         id
-        first_name
-        last_name
-        email
-        job_title
-        company
-        employees
-        industry
-        country
-        userType
-        phone
-        teamID
+        sessionStart
+        sessionEnd
+        isClosed
+        userID
         _version
         _deleted
         _lastChangedAt
@@ -82,27 +197,20 @@ export const deleteMessage = /* GraphQL */ `
   ) {
     deleteMessage(input: $input, condition: $condition) {
       id
-      userID
+      chatID
       content
-      user
+      seen
       _version
       _deleted
       _lastChangedAt
       createdAt
       updatedAt
-      User {
+      Chat {
         id
-        first_name
-        last_name
-        email
-        job_title
-        company
-        employees
-        industry
-        country
-        userType
-        phone
-        teamID
+        sessionStart
+        sessionEnd
+        isClosed
+        userID
         _version
         _deleted
         _lastChangedAt
@@ -112,7 +220,6 @@ export const deleteMessage = /* GraphQL */ `
     }
   }
 `;
-
 export const createTeam = /* GraphQL */ `
   mutation CreateTeam(
     $input: CreateTeamInput!
@@ -124,9 +231,9 @@ export const createTeam = /* GraphQL */ `
       last_name
       email
       job_title
-      company
       user_type
       userID
+      company
       _version
       _deleted
       _lastChangedAt
@@ -150,9 +257,9 @@ export const updateTeam = /* GraphQL */ `
       last_name
       email
       job_title
-      company
       user_type
       userID
+      company
       _version
       _deleted
       _lastChangedAt
@@ -176,9 +283,9 @@ export const deleteTeam = /* GraphQL */ `
       last_name
       email
       job_title
-      company
       user_type
       userID
+      company
       _version
       _deleted
       _lastChangedAt
@@ -287,10 +394,11 @@ export const updateTasks = /* GraphQL */ `
       id
       taskName
       taskDesc
-      taskStar
+      taskStart
       taskEnd
       recommendationsID
       assignedTo
+      color
       _version
       _deleted
       _lastChangedAt
@@ -326,6 +434,7 @@ export const deleteTasks = /* GraphQL */ `
       taskEnd
       recommendationsID
       assignedTo
+      color
       _version
       _deleted
       _lastChangedAt
@@ -370,7 +479,26 @@ export const createRecommendations = /* GraphQL */ `
         nextToken
         startedAt
       }
-      
+      User {
+        id
+        first_name
+        last_name
+        email
+        job_title
+        company
+        employees
+        industry
+        country
+        userType
+        phone
+        teamID
+        chatID
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
     }
   }
 `;
@@ -388,12 +516,34 @@ export const updateRecommendations = /* GraphQL */ `
       isApproved
       userID
       _version
-      
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
       RecommendationTasks {
         nextToken
         startedAt
       }
-     
+      User {
+        id
+        first_name
+        last_name
+        email
+        job_title
+        company
+        employees
+        industry
+        country
+        userType
+        phone
+        teamID
+        chatID
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
     }
   }
 `;
@@ -429,6 +579,10 @@ export const deleteRecommendations = /* GraphQL */ `
         employees
         industry
         country
+        userType
+        phone
+        teamID
+        chatID
         _version
         _deleted
         _lastChangedAt
@@ -454,10 +608,29 @@ export const createAssessorReport = /* GraphQL */ `
       _lastChangedAt
       createdAt
       updatedAt
-      
       QuestionnaireQuestionAnswers {
         nextToken
         startedAt
+      }
+      User {
+        id
+        first_name
+        last_name
+        email
+        job_title
+        company
+        employees
+        industry
+        country
+        userType
+        phone
+        teamID
+        chatID
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
       }
     }
   }
@@ -478,10 +651,29 @@ export const updateAssessorReport = /* GraphQL */ `
       _lastChangedAt
       createdAt
       updatedAt
-      
       QuestionnaireQuestionAnswers {
         nextToken
         startedAt
+      }
+      User {
+        id
+        first_name
+        last_name
+        email
+        job_title
+        company
+        employees
+        industry
+        country
+        userType
+        phone
+        teamID
+        chatID
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
       }
     }
   }
@@ -495,96 +687,36 @@ export const deleteAssessorReport = /* GraphQL */ `
       id
       assrssorComment
       assessmentResult
-      assessorID
+      ID
+      isCompleted
       _version
       _deleted
       _lastChangedAt
       createdAt
       updatedAt
-      Assessor {
+      QuestionnaireQuestionAnswers {
+        nextToken
+        startedAt
+      }
+      User {
         id
         first_name
         last_name
         email
-        numAssessed
+        job_title
+        company
+        employees
+        industry
+        country
+        userType
+        phone
+        teamID
+        chatID
         _version
         _deleted
         _lastChangedAt
         createdAt
         updatedAt
-      }
-      QuestionnaireQuestionAnswers {
-        nextToken
-        startedAt
-      }
-    }
-  }
-`;
-export const createAssessor = /* GraphQL */ `
-  mutation CreateAssessor(
-    $input: CreateAssessorInput!
-    $condition: ModelAssessorConditionInput
-  ) {
-    createAssessor(input: $input, condition: $condition) {
-      id
-      first_name
-      last_name
-      email
-      numAssessed
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
-      AssessorReports {
-        nextToken
-        startedAt
-      }
-    }
-  }
-`;
-export const updateAssessor = /* GraphQL */ `
-  mutation UpdateAssessor(
-    $input: UpdateAssessorInput!
-    $condition: ModelAssessorConditionInput
-  ) {
-    updateAssessor(input: $input, condition: $condition) {
-      id
-      first_name
-      last_name
-      email
-      numAssessed
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
-      AssessorReports {
-        nextToken
-        startedAt
-      }
-    }
-  }
-`;
-export const deleteAssessor = /* GraphQL */ `
-  mutation DeleteAssessor(
-    $input: DeleteAssessorInput!
-    $condition: ModelAssessorConditionInput
-  ) {
-    deleteAssessor(input: $input, condition: $condition) {
-      id
-      first_name
-      last_name
-      email
-      numAssessed
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
-      AssessorReports {
-        nextToken
-        startedAt
       }
     }
   }
@@ -987,6 +1119,10 @@ export const createQuestionnaire = /* GraphQL */ `
         employees
         industry
         country
+        userType
+        phone
+        teamID
+        chatID
         _version
         _deleted
         _lastChangedAt
@@ -1037,6 +1173,10 @@ export const updateQuestionnaire = /* GraphQL */ `
         employees
         industry
         country
+        userType
+        phone
+        teamID
+        chatID
         _version
         _deleted
         _lastChangedAt
@@ -1087,6 +1227,10 @@ export const deleteQuestionnaire = /* GraphQL */ `
         employees
         industry
         country
+        userType
+        phone
+        teamID
+        chatID
         _version
         _deleted
         _lastChangedAt
@@ -1112,12 +1256,27 @@ export const createUser = /* GraphQL */ `
       industry
       country
       userType
+      phone
+      teamID
+      chatID
       _version
       _deleted
       _lastChangedAt
       createdAt
       updatedAt
+      Chats {
+        nextToken
+        startedAt
+      }
+      Teams {
+        nextToken
+        startedAt
+      }
       Recommendations {
+        nextToken
+        startedAt
+      }
+      AssessorReports {
         nextToken
         startedAt
       }
@@ -1152,12 +1311,27 @@ export const updateUser = /* GraphQL */ `
       industry
       country
       userType
+      phone
+      teamID
+      chatID
       _version
       _deleted
       _lastChangedAt
       createdAt
       updatedAt
+      Chats {
+        nextToken
+        startedAt
+      }
+      Teams {
+        nextToken
+        startedAt
+      }
       Recommendations {
+        nextToken
+        startedAt
+      }
+      AssessorReports {
         nextToken
         startedAt
       }
@@ -1192,12 +1366,27 @@ export const deleteUser = /* GraphQL */ `
       industry
       country
       userType
+      phone
+      teamID
+      chatID
       _version
       _deleted
       _lastChangedAt
       createdAt
       updatedAt
+      Chats {
+        nextToken
+        startedAt
+      }
+      Teams {
+        nextToken
+        startedAt
+      }
       Recommendations {
+        nextToken
+        startedAt
+      }
+      AssessorReports {
         nextToken
         startedAt
       }

@@ -30,13 +30,6 @@ import { Redirect } from 'react-router';
      })
     };
     
-//       function omit(obj, ...props) {
-//   const result = { ...obj };
-//   props.forEach(function(prop) {
-//     delete result[prop];
-//   });
-//   return result;
-// }
 
 async function saveData(data){
    try{

@@ -31,18 +31,39 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
-                "Message": {
-                    "name": "Message",
-                    "isArray": false,
+                "Messages": {
+                    "name": "Messages",
+                    "isArray": true,
                     "type": {
                         "model": "Message"
                     },
                     "isRequired": false,
                     "attributes": [],
+                    "isArrayNullable": true,
+                    "association": {
+                        "connectionType": "HAS_MANY",
+                        "associatedWith": "chatID"
+                    }
+                },
+                "User": {
+                    "name": "User",
+                    "isArray": false,
+                    "type": {
+                        "model": "User"
+                    },
+                    "isRequired": false,
+                    "attributes": [],
                     "association": {
                         "connectionType": "BELONGS_TO",
-                        "targetName": "chatMessageId"
+                        "targetName": "chatUserId"
                     }
+                },
+                "userID": {
+                    "name": "userID",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": false,
+                    "attributes": []
                 }
             },
             "syncable": true,
@@ -51,6 +72,15 @@ export const schema = {
                 {
                     "type": "model",
                     "properties": {}
+                },
+                {
+                    "type": "key",
+                    "properties": {
+                        "name": "byUser",
+                        "fields": [
+                            "userID"
+                        ]
+                    }
                 },
                 {
                     "type": "auth",
@@ -80,32 +110,12 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
-                "userID": {
-                    "name": "userID",
-                    "isArray": false,
-                    "type": "ID",
-                    "isRequired": false,
-                    "attributes": []
-                },
                 "chatID": {
                     "name": "chatID",
                     "isArray": false,
                     "type": "ID",
                     "isRequired": false,
                     "attributes": []
-                },
-                "User": {
-                    "name": "User",
-                    "isArray": false,
-                    "type": {
-                        "model": "User"
-                    },
-                    "isRequired": false,
-                    "attributes": [],
-                    "association": {
-                        "connectionType": "BELONGS_TO",
-                        "targetName": "messageUserId"
-                    }
                 },
                 "Chat": {
                     "name": "Chat",
@@ -127,10 +137,10 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
-                "user": {
-                    "name": "user",
+                "seen": {
+                    "name": "seen",
                     "isArray": false,
-                    "type": "String",
+                    "type": "Boolean",
                     "isRequired": false,
                     "attributes": []
                 }
@@ -145,9 +155,9 @@ export const schema = {
                 {
                     "type": "key",
                     "properties": {
-                        "name": "byUser",
+                        "name": "byChat",
                         "fields": [
-                            "userID"
+                            "chatID"
                         ]
                     }
                 },
@@ -297,6 +307,13 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
+                "chatID": {
+                    "name": "chatID",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": false,
+                    "attributes": []
+                },
                 "Teams": {
                     "name": "Teams",
                     "isArray": true,
@@ -311,11 +328,11 @@ export const schema = {
                         "associatedWith": "userID"
                     }
                 },
-                "Messages": {
-                    "name": "Messages",
+                "Chats": {
+                    "name": "Chats",
                     "isArray": true,
                     "type": {
-                        "model": "Message"
+                        "model": "Chat"
                     },
                     "isRequired": false,
                     "attributes": [],
@@ -1329,5 +1346,5 @@ export const schema = {
     },
     "enums": {},
     "nonModels": {},
-    "version": "cac8f7146a9c43aa8e3c8d0443f34e91"
+    "version": "f1e1c3aabb10c6bd39eeec2f800914b1"
 };

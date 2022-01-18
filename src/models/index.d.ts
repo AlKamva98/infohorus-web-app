@@ -9,19 +9,19 @@ export declare class Chat {
   readonly sessionStart?: string;
   readonly sessionEnd?: string;
   readonly isClosed?: boolean;
-  readonly Message?: Message;
+  readonly Messages?: (Message | null)[];
+  readonly User?: User;
+  readonly userID?: string;
   constructor(init: ModelInit<Chat>);
   static copyOf(source: Chat, mutator: (draft: MutableModel<Chat>) => MutableModel<Chat> | void): Chat;
 }
 
 export declare class Message {
   readonly id: string;
-  readonly userID?: string;
   readonly chatID?: string;
-  readonly User?: User;
   readonly Chat?: Chat;
   readonly content?: string;
-  readonly user?: string;
+  readonly seen?: boolean;
   constructor(init: ModelInit<Message>);
   static copyOf(source: Message, mutator: (draft: MutableModel<Message>) => MutableModel<Message> | void): Message;
 }
@@ -42,8 +42,9 @@ export declare class User {
   readonly phone?: string;
   readonly AssessorReports?: (AssessorReport | null)[];
   readonly teamID?: string;
+  readonly chatID?: string;
   readonly Teams?: (Team | null)[];
-  readonly Messages?: (Message | null)[];
+  readonly Chats?: (Chat | null)[];
   constructor(init: ModelInit<User>);
   static copyOf(source: User, mutator: (draft: MutableModel<User>) => MutableModel<User> | void): User;
 }

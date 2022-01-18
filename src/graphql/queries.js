@@ -1,18 +1,23 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const getMessage = /* GraphQL */ `
-  query GetMessage($id: ID!) {
-    getMessage(id: $id) {
+export const getChat = /* GraphQL */ `
+  query GetChat($id: ID!) {
+    getChat(id: $id) {
       id
+      sessionStart
+      sessionEnd
+      isClosed
       userID
-      content
-      user
       _version
       _deleted
       _lastChangedAt
       createdAt
       updatedAt
+      Messages {
+        nextToken
+        startedAt
+      }
       User {
         id
         first_name
@@ -26,6 +31,88 @@ export const getMessage = /* GraphQL */ `
         userType
         phone
         teamID
+        chatID
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+    }
+  }
+`;
+export const listChats = /* GraphQL */ `
+  query ListChats(
+    $filter: ModelChatFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listChats(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        sessionStart
+        sessionEnd
+        isClosed
+        userID
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
+export const syncChats = /* GraphQL */ `
+  query SyncChats(
+    $filter: ModelChatFilterInput
+    $limit: Int
+    $nextToken: String
+    $lastSync: AWSTimestamp
+  ) {
+    syncChats(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      lastSync: $lastSync
+    ) {
+      items {
+        id
+        sessionStart
+        sessionEnd
+        isClosed
+        userID
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
+export const getMessage = /* GraphQL */ `
+  query GetMessage($id: ID!) {
+    getMessage(id: $id) {
+      id
+      chatID
+      content
+      seen
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      Chat {
+        id
+        sessionStart
+        sessionEnd
+        isClosed
+        userID
         _version
         _deleted
         _lastChangedAt
@@ -44,9 +131,9 @@ export const listMessages = /* GraphQL */ `
     listMessages(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
-        userID
+        chatID
         content
-        user
+        seen
         _version
         _deleted
         _lastChangedAt
@@ -73,9 +160,9 @@ export const syncMessages = /* GraphQL */ `
     ) {
       items {
         id
-        userID
+        chatID
         content
-        user
+        seen
         _version
         _deleted
         _lastChangedAt
@@ -87,7 +174,6 @@ export const syncMessages = /* GraphQL */ `
     }
   }
 `;
-
 export const getTeam = /* GraphQL */ `
   query GetTeam($id: ID!) {
     getTeam(id: $id) {
@@ -96,9 +182,9 @@ export const getTeam = /* GraphQL */ `
       last_name
       email
       job_title
-      company
       user_type
       userID
+      company
       _version
       _deleted
       _lastChangedAt
@@ -124,9 +210,9 @@ export const listTeams = /* GraphQL */ `
         last_name
         email
         job_title
-        company
         user_type
         userID
+        company
         _version
         _deleted
         _lastChangedAt
@@ -157,9 +243,9 @@ export const syncTeams = /* GraphQL */ `
         last_name
         email
         job_title
-        company
         user_type
         userID
+        company
         _version
         _deleted
         _lastChangedAt
@@ -177,8 +263,12 @@ export const getCred = /* GraphQL */ `
       id
       acc
       sec
-      
-          }
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+    }
   }
 `;
 export const listCreds = /* GraphQL */ `
@@ -192,6 +282,11 @@ export const listCreds = /* GraphQL */ `
         id
         acc
         sec
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
       }
       nextToken
       startedAt
@@ -215,7 +310,12 @@ export const syncCreds = /* GraphQL */ `
         id
         acc
         sec
-    }
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
       nextToken
       startedAt
     }
@@ -244,6 +344,7 @@ export const getTasks = /* GraphQL */ `
         recDuration
         recNum
         isApproved
+        userID
         _version
         _deleted
         _lastChangedAt
@@ -261,7 +362,7 @@ export const listTaskss = /* GraphQL */ `
   ) {
     listTaskss(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
-          id
+        id
         taskName
         taskDesc
         taskStart
@@ -294,7 +395,7 @@ export const syncTasks = /* GraphQL */ `
       lastSync: $lastSync
     ) {
       items {
-          id
+        id
         taskName
         taskDesc
         taskStart
@@ -320,31 +421,38 @@ export const getRecommendations = /* GraphQL */ `
       recName
       recDesc
       recDuration
+      recNum
       isApproved
       userID
       _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
       RecommendationTasks {
         nextToken
         startedAt
       }
-    }
-  }
-`;
-export const listRecommendationsbyUser = /* GraphQL */ `
-  query byUser(
-    $userID: String
-  ) {
-    byUser(userID: $userID) {
-      items {
+      User {
         id
-        recName
-        recDesc
-        recDuration
-        isApproved
-        userID
+        first_name
+        last_name
+        email
+        job_title
+        company
+        employees
+        industry
+        country
+        userType
+        phone
+        teamID
+        chatID
         _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
       }
-      nextToken
     }
   }
 `;
@@ -364,9 +472,14 @@ export const listRecommendationss = /* GraphQL */ `
         recName
         recDesc
         recDuration
+        recNum
         isApproved
         userID
         _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
       }
       nextToken
       startedAt
@@ -393,6 +506,7 @@ export const syncRecommendations = /* GraphQL */ `
         recDuration
         recNum
         isApproved
+        userID
         _version
         _deleted
         _lastChangedAt
@@ -410,47 +524,37 @@ export const getAssessorReport = /* GraphQL */ `
       id
       assrssorComment
       assessmentResult
-      assessorID
+      ID
+      isCompleted
       _version
       _deleted
       _lastChangedAt
       createdAt
       updatedAt
-      Assessor {
+      QuestionnaireQuestionAnswers {
+        nextToken
+        startedAt
+      }
+      User {
         id
         first_name
         last_name
         email
-        numAssessed
+        job_title
+        company
+        employees
+        industry
+        country
+        userType
+        phone
+        teamID
+        chatID
         _version
         _deleted
         _lastChangedAt
         createdAt
         updatedAt
       }
-      QuestionnaireQuestionAnswers {
-        nextToken
-        startedAt
-      }
-    }
-  }
-`;
-export const assRep = /* GraphQL */ `
-  query ListAssessorReports(
-    $filter: ModelAssessorReportFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listAssessorReports(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        assrssorComment
-        assessmentResult
-        assessorID
-        _version
-      }
-      nextToken
-      startedAt
     }
   }
 `;
@@ -465,7 +569,8 @@ export const listAssessorReports = /* GraphQL */ `
         id
         assrssorComment
         assessmentResult
-        assessorID
+        ID
+        isCompleted
         _version
         _deleted
         _lastChangedAt
@@ -494,81 +599,8 @@ export const syncAssessorReports = /* GraphQL */ `
         id
         assrssorComment
         assessmentResult
-        assessorID
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-      }
-      nextToken
-      startedAt
-    }
-  }
-`;
-export const getAssessor = /* GraphQL */ `
-  query GetAssessor($id: ID!) {
-    getAssessor(id: $id) {
-      id
-      first_name
-      last_name
-      email
-      numAssessed
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
-      AssessorReports {
-        nextToken
-        startedAt
-      }
-    }
-  }
-`;
-export const listAssessors = /* GraphQL */ `
-  query ListAssessors(
-    $filter: ModelAssessorFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listAssessors(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        first_name
-        last_name
-        email
-        numAssessed
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-      }
-      nextToken
-      startedAt
-    }
-  }
-`;
-export const syncAssessors = /* GraphQL */ `
-  query SyncAssessors(
-    $filter: ModelAssessorFilterInput
-    $limit: Int
-    $nextToken: String
-    $lastSync: AWSTimestamp
-  ) {
-    syncAssessors(
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-      lastSync: $lastSync
-    ) {
-      items {
-        id
-        first_name
-        last_name
-        email
-        numAssessed
+        ID
+        isCompleted
         _version
         _deleted
         _lastChangedAt
@@ -892,6 +924,10 @@ export const getQuestionnaire = /* GraphQL */ `
         employees
         industry
         country
+        userType
+        phone
+        teamID
+        chatID
         _version
         _deleted
         _lastChangedAt
@@ -966,11 +1002,30 @@ export const getUser = /* GraphQL */ `
       industry
       country
       userType
+      phone
+      teamID
+      chatID
       _version
       _deleted
       _lastChangedAt
       createdAt
       updatedAt
+      Chats {
+        nextToken
+        startedAt
+      }
+      Teams {
+        nextToken
+        startedAt
+      }
+      Recommendations {
+        nextToken
+        startedAt
+      }
+      AssessorReports {
+        nextToken
+        startedAt
+      }
       Questionnaire {
         id
         questionID
@@ -986,26 +1041,6 @@ export const getUser = /* GraphQL */ `
     }
   }
 `;
-
-export const listUsersEmail = /* GraphQL */ `
-  query ListUsers(
-    $filter: ModelUserFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listUsers(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        email
-        userType
-        _version
-      }
-      nextToken
-      startedAt
-    }
-  }
-`;
-
 export const listUsers = /* GraphQL */ `
   query ListUsers(
     $filter: ModelUserFilterInput
@@ -1024,6 +1059,9 @@ export const listUsers = /* GraphQL */ `
         industry
         country
         userType
+        phone
+        teamID
+        chatID
         _version
         _deleted
         _lastChangedAt
@@ -1058,6 +1096,10 @@ export const syncUsers = /* GraphQL */ `
         employees
         industry
         country
+        userType
+        phone
+        teamID
+        chatID
         _version
         _deleted
         _lastChangedAt
