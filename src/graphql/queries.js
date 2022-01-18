@@ -558,7 +558,7 @@ export const getAssessorReport = /* GraphQL */ `
     }
   }
 `;
-export const assRep = /* GraphQL */ `
+export const listAssessorReports = /* GraphQL */ `
   query ListAssessorReports(
     $filter: ModelAssessorReportFilterInput
     $limit: Int

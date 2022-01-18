@@ -116,7 +116,7 @@ const DefaultLayout = (props) => {
     async function checkAssessComplete(id){
       var reps;
       var complete = false;
-      const assRep = await API.graphql({query: queries.assRep, variables:{filter: {ID: {contains: id}}}}).then(promise => {
+      const assRep = await API.graphql({query: queries.listAssessorReports, variables:{filter: {ID: {contains: id}}}}).then(promise => {
               console.log(promise.data.listAssessorReports.items)
               reps = promise.data.listAssessorReports.items;
             }).finally(()=>{
