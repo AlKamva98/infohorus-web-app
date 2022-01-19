@@ -1,6 +1,6 @@
 import React,{useEffect} from "react";
 import {API, graphqlOperation} from "aws-amplify"
-import {createMessage} from "../../../graphql/mutations"
+import {createMessage, createChat, updateUser} from "../../../graphql/mutations"
 import * as subscriptions from "../../../graphql/subscriptions"
 // import {
 //   ApolloClient,
@@ -40,7 +40,18 @@ import { Container, Row, Col, FormInput, Button } from "shards-react";
  //     postMessage(user: $user, content: $content)
  //   }
  // +`;
- 
+ const newChat = async (now, userId) =>{
+  let chat = await API.graphql(graphqlOperation(
+       createChat,{
+        input:{
+        sessionStart: now,
+        isClosed:false,
+        userID: userId.id,
+        }
+      }
+    ))
+      return chat;
+ }
  const Messages = (props) => {
    const { user , userId, messages} = props;
    console.log("mess",messages)
@@ -72,7 +83,7 @@ import { Container, Row, Col, FormInput, Button } from "shards-react";
   console.log("These are the messages in the Chat.js file", messages)
   return (
     <>
-      {messages.map(({ id, user: messageUser, content }) => (
+      {messages.map(({ id, user: messageUser, content, chatId }) => (
         <div
           style={{
             display: "flex",
@@ -93,7 +104,7 @@ import { Container, Row, Col, FormInput, Button } from "shards-react";
                 paddingTop: 5,
               }}
             >
-              {messageUser.slice(0, 2).toUpperCase()}
+              {messageUser}
             </div>
           )}
           <div
@@ -115,25 +126,64 @@ import { Container, Row, Col, FormInput, Button } from "shards-react";
 
 const Chat = (props) => {
   const {userId,setMessages, messages} =props;
+  let chat;
   const [state, stateSet] = React.useState({
     user: userId.first_name,
     content: "",
+    chatId: "",
+
   });
   // const [messages, setMessages] = React.useState([]);
   const postMessage = async (state)=>{
+    console.log("136 chat id",state.chatId)
     await API.graphql(graphqlOperation(
             createMessage,{
               input:{
                 content: state.content,
-                user: state.user,
-                userID: userId.id,
+                seen:false,
+                chatID: state.chatId
               }
             })).catch(e=>{
               console.log("Error in sending message", e);
             });}
-
+const addchatId = async (userId, chat)=>{
+  console.log("chat",chat)
+  console.log("user",userId)
+  stateSet({
+      ...state,
+      chatId: chat,
+    })
+  try{
+await API.graphql(graphqlOperation(
+          updateUser,{input:{
+            id: userId.id,
+            chatID: chat,
+            _version: userId._version
+          }}
+        ))
+      }
+      catch(err){
+        console.log("Update user err",err)
+      }
+}
   
   useEffect(() => {
+    
+    if(messages.length === 0){
+      newChat(getCurrentDate,userId).then(response=>{
+        console.log(response)
+        chat = response.data.createChat.id;
+        console.log("This is the chatID", chat)
+      }).finally(()=>{
+        addchatId(userId, chat);
+      })
+    }else{
+      chat = messages[0].chatID
+      stateSet({
+      ...state,
+      chatId: chat,
+    })
+    }
     subscribeToChat(messages)    
     console.log("These are the messages in the Chat.js file", messages)
   }, [])
@@ -142,21 +192,35 @@ const Chat = (props) => {
       API.graphql({
         query: subscriptions.onCreateMessage,
       }).subscribe({
-        next: chat => {
-         
-        dt.push(chat.value.data.onCreateMessage) ;
+        next: message => {
+         if(!dt){
+           let dat=[];
+           dat.push(message.value.data.onCreateMessage) ;
         setMessages(dt)
+         }else{
+        dt.push(message.value.data.onCreateMessage) ;
+        setMessages(dt)}
         //upTeam.push(team.value.data.onCreateTeam)
         console.log("This is the updated chat1", dt);
-        console.log("This is the updated chat2", chat.value.data.onCreateMessage);
+        console.log("This is the updated chat2", message.value.data.onCreateMessage);
         // setMessage(chat)
         }
       })
     }
-
-  const onSend = () => {
+function getCurrentDate(){
+   let today = new Date();
+    let date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+    let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+    let dateTime = date+' '+time;
+    console.log("current time", dateTime)
+    return dateTime;
+}
+  const onSend = (userId, chat) => {
+   
     if (state.content.length > 0) {
       console.log("The user ID is::", userId);
+      console.log("The chat ID is::", chat);
+      console.log("The state  is::",  state);
       postMessage(state);
     }
     stateSet({
@@ -192,7 +256,8 @@ const Chat = (props) => {
             }
             onKeyUp={(evt) => {
               if (evt.keyCode === 13) {
-                onSend();
+                console.log("chat id onsend", chat)
+                onSend(userId, chat);
               }
             }}
           />

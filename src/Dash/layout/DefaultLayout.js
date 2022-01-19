@@ -86,14 +86,16 @@ const DefaultLayout = (props) => {
                       })
                       
                     }
+                    
+                    console.log("this is the team table",datatable)
+                    subscribetoTeam(users);
+                  }).finally(()=>{
+                    console.log("This us",userObj)
+           
             getMessages(userObj).then(data=>{
               setMessages(data)
               console.log("This is the messages", data);
             });
-                    console.log("this is the team table",datatable)
-                    subscribetoTeam(users);
-                  }).finally(()=>{
-           
            setHasTData(true); 
           });
 
@@ -215,8 +217,9 @@ const DefaultLayout = (props) => {
 
        async function getMessages(userId) {
       try {
-        var messages = await API.graphql({query: queries.listMessages, variables:{filter: {userID: {contains: userId.id}}}});
-        console.log("This is the user",messages)
+        console.log("This is the user",userId)
+        var messages = await API.graphql({query: queries.listMessages, variables:{filter: {chatID: {contains: userId.chatID}}}});
+        console.log("These are the messages",messages)
         return messages.data.listMessages.items;
       } catch (err) {
           console.log("Error:>> ", err);
