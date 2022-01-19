@@ -1,6 +1,663 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const onCreateChat = /* GraphQL */ `
+  subscription OnCreateChat {
+    onCreateChat {
+      id
+      sessionStart
+      sessionEnd
+      isClosed
+      userID
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      Messages {
+        nextToken
+        startedAt
+      }
+      User {
+        id
+        first_name
+        last_name
+        email
+        job_title
+        company
+        employees
+        industry
+        country
+        userType
+        phone
+        teamID
+        chatID
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+    }
+  }
+`;
+export const onUpdateChat = /* GraphQL */ `
+  subscription OnUpdateChat {
+    onUpdateChat {
+      id
+      sessionStart
+      sessionEnd
+      isClosed
+      userID
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      Messages {
+        nextToken
+        startedAt
+      }
+      User {
+        id
+        first_name
+        last_name
+        email
+        job_title
+        company
+        employees
+        industry
+        country
+        userType
+        phone
+        teamID
+        chatID
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+    }
+  }
+`;
+export const onDeleteChat = /* GraphQL */ `
+  subscription OnDeleteChat {
+    onDeleteChat {
+      id
+      sessionStart
+      sessionEnd
+      isClosed
+      userID
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      Messages {
+        nextToken
+        startedAt
+      }
+      User {
+        id
+        first_name
+        last_name
+        email
+        job_title
+        company
+        employees
+        industry
+        country
+        userType
+        phone
+        teamID
+        chatID
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+    }
+  }
+`;
+export const onCreateMessage = /* GraphQL */ `
+  subscription OnCreateMessage {
+    onCreateMessage {
+      id
+      chatID
+      content
+      seen
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      Chat {
+        id
+        sessionStart
+        sessionEnd
+        isClosed
+        userID
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+    }
+  }
+`;
+export const onUpdateMessage = /* GraphQL */ `
+  subscription OnUpdateMessage {
+    onUpdateMessage {
+      id
+      chatID
+      content
+      seen
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      Chat {
+        id
+        sessionStart
+        sessionEnd
+        isClosed
+        userID
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+    }
+  }
+`;
+export const onDeleteMessage = /* GraphQL */ `
+  subscription OnDeleteMessage {
+    onDeleteMessage {
+      id
+      chatID
+      content
+      seen
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      Chat {
+        id
+        sessionStart
+        sessionEnd
+        isClosed
+        userID
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+    }
+  }
+`;
+export const onCreateTeam = /* GraphQL */ `
+  subscription OnCreateTeam {
+    onCreateTeam {
+      id
+      first_name
+      last_name
+      email
+      job_title
+      user_type
+      userID
+      company
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      Teams {
+        nextToken
+        startedAt
+      }
+    }
+  }
+`;
+export const onUpdateTeam = /* GraphQL */ `
+  subscription OnUpdateTeam {
+    onUpdateTeam {
+      id
+      first_name
+      last_name
+      email
+      job_title
+      user_type
+      userID
+      company
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      Teams {
+        nextToken
+        startedAt
+      }
+    }
+  }
+`;
+export const onDeleteTeam = /* GraphQL */ `
+  subscription OnDeleteTeam {
+    onDeleteTeam {
+      id
+      first_name
+      last_name
+      email
+      job_title
+      user_type
+      userID
+      company
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      Teams {
+        nextToken
+        startedAt
+      }
+    }
+  }
+`;
+export const onCreateCred = /* GraphQL */ `
+  subscription OnCreateCred {
+    onCreateCred {
+      id
+      acc
+      sec
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateCred = /* GraphQL */ `
+  subscription OnUpdateCred {
+    onUpdateCred {
+      id
+      acc
+      sec
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteCred = /* GraphQL */ `
+  subscription OnDeleteCred {
+    onDeleteCred {
+      id
+      acc
+      sec
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onCreateTasks = /* GraphQL */ `
+  subscription OnCreateTasks {
+    onCreateTasks {
+      id
+      taskName
+      taskDesc
+      taskStart
+      taskEnd
+      recommendationsID
+      assignedTo
+      color
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      RecommendationTask {
+        id
+        recName
+        recDesc
+        recDuration
+        recNum
+        isApproved
+        userID
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+    }
+  }
+`;
+export const onUpdateTasks = /* GraphQL */ `
+  subscription OnUpdateTasks {
+    onUpdateTasks {
+      id
+      taskName
+      taskDesc
+      taskStart
+      taskEnd
+      recommendationsID
+      assignedTo
+      color
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      RecommendationTask {
+        id
+        recName
+        recDesc
+        recDuration
+        recNum
+        isApproved
+        userID
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+    }
+  }
+`;
+export const onDeleteTasks = /* GraphQL */ `
+  subscription OnDeleteTasks {
+    onDeleteTasks {
+      id
+      taskName
+      taskDesc
+      taskStart
+      taskEnd
+      recommendationsID
+      assignedTo
+      color
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      RecommendationTask {
+        id
+        recName
+        recDesc
+        recDuration
+        recNum
+        isApproved
+        userID
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+    }
+  }
+`;
+export const onCreateRecommendations = /* GraphQL */ `
+  subscription OnCreateRecommendations {
+    onCreateRecommendations {
+      id
+      recName
+      recDesc
+      recDuration
+      recNum
+      isApproved
+      userID
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      RecommendationTasks {
+        nextToken
+        startedAt
+      }
+      User {
+        id
+        first_name
+        last_name
+        email
+        job_title
+        company
+        employees
+        industry
+        country
+        userType
+        phone
+        teamID
+        chatID
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+    }
+  }
+`;
+export const onUpdateRecommendations = /* GraphQL */ `
+  subscription OnUpdateRecommendations {
+    onUpdateRecommendations {
+      id
+      recName
+      recDesc
+      recDuration
+      recNum
+      isApproved
+      userID
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      RecommendationTasks {
+        nextToken
+        startedAt
+      }
+      User {
+        id
+        first_name
+        last_name
+        email
+        job_title
+        company
+        employees
+        industry
+        country
+        userType
+        phone
+        teamID
+        chatID
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+    }
+  }
+`;
+export const onDeleteRecommendations = /* GraphQL */ `
+  subscription OnDeleteRecommendations {
+    onDeleteRecommendations {
+      id
+      recName
+      recDesc
+      recDuration
+      recNum
+      isApproved
+      userID
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      RecommendationTasks {
+        nextToken
+        startedAt
+      }
+      User {
+        id
+        first_name
+        last_name
+        email
+        job_title
+        company
+        employees
+        industry
+        country
+        userType
+        phone
+        teamID
+        chatID
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+    }
+  }
+`;
+export const onCreateAssessorReport = /* GraphQL */ `
+  subscription OnCreateAssessorReport {
+    onCreateAssessorReport {
+      id
+      assrssorComment
+      assessmentResult
+      ID
+      isCompleted
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      QuestionnaireQuestionAnswers {
+        nextToken
+        startedAt
+      }
+      User {
+        id
+        first_name
+        last_name
+        email
+        job_title
+        company
+        employees
+        industry
+        country
+        userType
+        phone
+        teamID
+        chatID
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+    }
+  }
+`;
+export const onUpdateAssessorReport = /* GraphQL */ `
+  subscription OnUpdateAssessorReport {
+    onUpdateAssessorReport {
+      id
+      assrssorComment
+      assessmentResult
+      ID
+      isCompleted
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      QuestionnaireQuestionAnswers {
+        nextToken
+        startedAt
+      }
+      User {
+        id
+        first_name
+        last_name
+        email
+        job_title
+        company
+        employees
+        industry
+        country
+        userType
+        phone
+        teamID
+        chatID
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+    }
+  }
+`;
+export const onDeleteAssessorReport = /* GraphQL */ `
+  subscription OnDeleteAssessorReport {
+    onDeleteAssessorReport {
+      id
+      assrssorComment
+      assessmentResult
+      ID
+      isCompleted
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      QuestionnaireQuestionAnswers {
+        nextToken
+        startedAt
+      }
+      User {
+        id
+        first_name
+        last_name
+        email
+        job_title
+        company
+        employees
+        industry
+        country
+        userType
+        phone
+        teamID
+        chatID
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+    }
+  }
+`;
 export const onCreateQuestionnaireQuestionAnswer = /* GraphQL */ `
   subscription OnCreateQuestionnaireQuestionAnswer {
     onCreateQuestionnaireQuestionAnswer {
@@ -8,39 +665,17 @@ export const onCreateQuestionnaireQuestionAnswer = /* GraphQL */ `
       questionID
       answerID
       questionnaireID
+      assessorreportID
       _version
       _deleted
       _lastChangedAt
       createdAt
       updatedAt
       Answers {
-        items {
-          id
-          answer
-          questionnaireID
-          questionID
-          questionnairequestionanswerID
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
         nextToken
         startedAt
       }
       Questions {
-        items {
-          id
-          question
-          questionName
-          questionnairequestionanswerID
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
         nextToken
         startedAt
       }
@@ -54,37 +689,6 @@ export const onCreateQuestionnaireQuestionAnswer = /* GraphQL */ `
         _lastChangedAt
         createdAt
         updatedAt
-        QuestionnaireQuestionAnswer {
-          id
-          questionID
-          answerID
-          questionnaireID
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
-        Answers {
-          nextToken
-          startedAt
-        }
-        User {
-          id
-          first_name
-          last_name
-          email
-          job_title
-          company
-          employees
-          industry
-          country
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
       }
     }
   }
@@ -96,39 +700,17 @@ export const onUpdateQuestionnaireQuestionAnswer = /* GraphQL */ `
       questionID
       answerID
       questionnaireID
+      assessorreportID
       _version
       _deleted
       _lastChangedAt
       createdAt
       updatedAt
       Answers {
-        items {
-          id
-          answer
-          questionnaireID
-          questionID
-          questionnairequestionanswerID
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
         nextToken
         startedAt
       }
       Questions {
-        items {
-          id
-          question
-          questionName
-          questionnairequestionanswerID
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
         nextToken
         startedAt
       }
@@ -142,37 +724,6 @@ export const onUpdateQuestionnaireQuestionAnswer = /* GraphQL */ `
         _lastChangedAt
         createdAt
         updatedAt
-        QuestionnaireQuestionAnswer {
-          id
-          questionID
-          answerID
-          questionnaireID
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
-        Answers {
-          nextToken
-          startedAt
-        }
-        User {
-          id
-          first_name
-          last_name
-          email
-          job_title
-          company
-          employees
-          industry
-          country
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
       }
     }
   }
@@ -184,39 +735,17 @@ export const onDeleteQuestionnaireQuestionAnswer = /* GraphQL */ `
       questionID
       answerID
       questionnaireID
+      assessorreportID
       _version
       _deleted
       _lastChangedAt
       createdAt
       updatedAt
       Answers {
-        items {
-          id
-          answer
-          questionnaireID
-          questionID
-          questionnairequestionanswerID
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
         nextToken
         startedAt
       }
       Questions {
-        items {
-          id
-          question
-          questionName
-          questionnairequestionanswerID
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
         nextToken
         startedAt
       }
@@ -230,37 +759,6 @@ export const onDeleteQuestionnaireQuestionAnswer = /* GraphQL */ `
         _lastChangedAt
         createdAt
         updatedAt
-        QuestionnaireQuestionAnswer {
-          id
-          questionID
-          answerID
-          questionnaireID
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
-        Answers {
-          nextToken
-          startedAt
-        }
-        User {
-          id
-          first_name
-          last_name
-          email
-          job_title
-          company
-          employees
-          industry
-          country
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
       }
     }
   }
@@ -283,90 +781,36 @@ export const onCreateAnswer = /* GraphQL */ `
         questionID
         answerID
         questionnaireID
+        assessorreportID
         _version
         _deleted
         _lastChangedAt
         createdAt
         updatedAt
-        Answers {
-          nextToken
-          startedAt
-        }
-        Questions {
-          nextToken
-          startedAt
-        }
-        Questionnaire {
-          id
-          questionaireCompleted
-          questionnaireQuestionanswerID
-          userId
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
       }
       Question {
         id
         questionID
         answerID
         questionnaireID
+        assessorreportID
         _version
         _deleted
         _lastChangedAt
         createdAt
         updatedAt
-        Answers {
-          nextToken
-          startedAt
-        }
-        Questions {
-          nextToken
-          startedAt
-        }
-        Questionnaire {
-          id
-          questionaireCompleted
-          questionnaireQuestionanswerID
-          userId
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
       }
       QuestionnaireQuestionAnswer {
         id
         questionID
         answerID
         questionnaireID
+        assessorreportID
         _version
         _deleted
         _lastChangedAt
         createdAt
         updatedAt
-        Answers {
-          nextToken
-          startedAt
-        }
-        Questions {
-          nextToken
-          startedAt
-        }
-        Questionnaire {
-          id
-          questionaireCompleted
-          questionnaireQuestionanswerID
-          userId
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
       }
     }
   }
@@ -389,90 +833,36 @@ export const onUpdateAnswer = /* GraphQL */ `
         questionID
         answerID
         questionnaireID
+        assessorreportID
         _version
         _deleted
         _lastChangedAt
         createdAt
         updatedAt
-        Answers {
-          nextToken
-          startedAt
-        }
-        Questions {
-          nextToken
-          startedAt
-        }
-        Questionnaire {
-          id
-          questionaireCompleted
-          questionnaireQuestionanswerID
-          userId
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
       }
       Question {
         id
         questionID
         answerID
         questionnaireID
+        assessorreportID
         _version
         _deleted
         _lastChangedAt
         createdAt
         updatedAt
-        Answers {
-          nextToken
-          startedAt
-        }
-        Questions {
-          nextToken
-          startedAt
-        }
-        Questionnaire {
-          id
-          questionaireCompleted
-          questionnaireQuestionanswerID
-          userId
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
       }
       QuestionnaireQuestionAnswer {
         id
         questionID
         answerID
         questionnaireID
+        assessorreportID
         _version
         _deleted
         _lastChangedAt
         createdAt
         updatedAt
-        Answers {
-          nextToken
-          startedAt
-        }
-        Questions {
-          nextToken
-          startedAt
-        }
-        Questionnaire {
-          id
-          questionaireCompleted
-          questionnaireQuestionanswerID
-          userId
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
       }
     }
   }
@@ -495,90 +885,36 @@ export const onDeleteAnswer = /* GraphQL */ `
         questionID
         answerID
         questionnaireID
+        assessorreportID
         _version
         _deleted
         _lastChangedAt
         createdAt
         updatedAt
-        Answers {
-          nextToken
-          startedAt
-        }
-        Questions {
-          nextToken
-          startedAt
-        }
-        Questionnaire {
-          id
-          questionaireCompleted
-          questionnaireQuestionanswerID
-          userId
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
       }
       Question {
         id
         questionID
         answerID
         questionnaireID
+        assessorreportID
         _version
         _deleted
         _lastChangedAt
         createdAt
         updatedAt
-        Answers {
-          nextToken
-          startedAt
-        }
-        Questions {
-          nextToken
-          startedAt
-        }
-        Questionnaire {
-          id
-          questionaireCompleted
-          questionnaireQuestionanswerID
-          userId
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
       }
       QuestionnaireQuestionAnswer {
         id
         questionID
         answerID
         questionnaireID
+        assessorreportID
         _version
         _deleted
         _lastChangedAt
         createdAt
         updatedAt
-        Answers {
-          nextToken
-          startedAt
-        }
-        Questions {
-          nextToken
-          startedAt
-        }
-        Questionnaire {
-          id
-          questionaireCompleted
-          questionnaireQuestionanswerID
-          userId
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
       }
     }
   }
@@ -596,33 +932,10 @@ export const onCreateQuestion = /* GraphQL */ `
       createdAt
       updatedAt
       QuestionnaireQuestionAnswers {
-        items {
-          id
-          questionID
-          answerID
-          questionnaireID
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
         nextToken
         startedAt
       }
       Answers {
-        items {
-          id
-          answer
-          questionnaireID
-          questionID
-          questionnairequestionanswerID
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
         nextToken
         startedAt
       }
@@ -642,33 +955,10 @@ export const onUpdateQuestion = /* GraphQL */ `
       createdAt
       updatedAt
       QuestionnaireQuestionAnswers {
-        items {
-          id
-          questionID
-          answerID
-          questionnaireID
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
         nextToken
         startedAt
       }
       Answers {
-        items {
-          id
-          answer
-          questionnaireID
-          questionID
-          questionnairequestionanswerID
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
         nextToken
         startedAt
       }
@@ -688,33 +978,10 @@ export const onDeleteQuestion = /* GraphQL */ `
       createdAt
       updatedAt
       QuestionnaireQuestionAnswers {
-        items {
-          id
-          questionID
-          answerID
-          questionnaireID
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
         nextToken
         startedAt
       }
       Answers {
-        items {
-          id
-          answer
-          questionnaireID
-          questionID
-          questionnairequestionanswerID
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
         nextToken
         startedAt
       }
@@ -738,44 +1005,14 @@ export const onCreateQuestionnaire = /* GraphQL */ `
         questionID
         answerID
         questionnaireID
+        assessorreportID
         _version
         _deleted
         _lastChangedAt
         createdAt
         updatedAt
-        Answers {
-          nextToken
-          startedAt
-        }
-        Questions {
-          nextToken
-          startedAt
-        }
-        Questionnaire {
-          id
-          questionaireCompleted
-          questionnaireQuestionanswerID
-          userId
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
       }
       Answers {
-        items {
-          id
-          answer
-          questionnaireID
-          questionID
-          questionnairequestionanswerID
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
         nextToken
         startedAt
       }
@@ -789,22 +1026,15 @@ export const onCreateQuestionnaire = /* GraphQL */ `
         employees
         industry
         country
+        userType
+        phone
+        teamID
+        chatID
         _version
         _deleted
         _lastChangedAt
         createdAt
         updatedAt
-        Questionnaire {
-          id
-          questionID
-          answerID
-          questionnaireID
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
       }
     }
   }
@@ -826,44 +1056,14 @@ export const onUpdateQuestionnaire = /* GraphQL */ `
         questionID
         answerID
         questionnaireID
+        assessorreportID
         _version
         _deleted
         _lastChangedAt
         createdAt
         updatedAt
-        Answers {
-          nextToken
-          startedAt
-        }
-        Questions {
-          nextToken
-          startedAt
-        }
-        Questionnaire {
-          id
-          questionaireCompleted
-          questionnaireQuestionanswerID
-          userId
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
       }
       Answers {
-        items {
-          id
-          answer
-          questionnaireID
-          questionID
-          questionnairequestionanswerID
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
         nextToken
         startedAt
       }
@@ -877,22 +1077,15 @@ export const onUpdateQuestionnaire = /* GraphQL */ `
         employees
         industry
         country
+        userType
+        phone
+        teamID
+        chatID
         _version
         _deleted
         _lastChangedAt
         createdAt
         updatedAt
-        Questionnaire {
-          id
-          questionID
-          answerID
-          questionnaireID
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
       }
     }
   }
@@ -914,44 +1107,14 @@ export const onDeleteQuestionnaire = /* GraphQL */ `
         questionID
         answerID
         questionnaireID
+        assessorreportID
         _version
         _deleted
         _lastChangedAt
         createdAt
         updatedAt
-        Answers {
-          nextToken
-          startedAt
-        }
-        Questions {
-          nextToken
-          startedAt
-        }
-        Questionnaire {
-          id
-          questionaireCompleted
-          questionnaireQuestionanswerID
-          userId
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
       }
       Answers {
-        items {
-          id
-          answer
-          questionnaireID
-          questionID
-          questionnairequestionanswerID
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
         nextToken
         startedAt
       }
@@ -965,22 +1128,15 @@ export const onDeleteQuestionnaire = /* GraphQL */ `
         employees
         industry
         country
+        userType
+        phone
+        teamID
+        chatID
         _version
         _deleted
         _lastChangedAt
         createdAt
         updatedAt
-        Questionnaire {
-          id
-          questionID
-          answerID
-          questionnaireID
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
       }
     }
   }
@@ -997,40 +1153,42 @@ export const onCreateUser = /* GraphQL */ `
       employees
       industry
       country
+      userType
+      phone
+      teamID
+      chatID
       _version
       _deleted
       _lastChangedAt
       createdAt
       updatedAt
+      Chats {
+        nextToken
+        startedAt
+      }
+      Teams {
+        nextToken
+        startedAt
+      }
+      Recommendations {
+        nextToken
+        startedAt
+      }
+      AssessorReports {
+        nextToken
+        startedAt
+      }
       Questionnaire {
         id
         questionID
         answerID
         questionnaireID
+        assessorreportID
         _version
         _deleted
         _lastChangedAt
         createdAt
         updatedAt
-        Answers {
-          nextToken
-          startedAt
-        }
-        Questions {
-          nextToken
-          startedAt
-        }
-        Questionnaire {
-          id
-          questionaireCompleted
-          questionnaireQuestionanswerID
-          userId
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
       }
     }
   }
@@ -1047,40 +1205,42 @@ export const onUpdateUser = /* GraphQL */ `
       employees
       industry
       country
+      userType
+      phone
+      teamID
+      chatID
       _version
       _deleted
       _lastChangedAt
       createdAt
       updatedAt
+      Chats {
+        nextToken
+        startedAt
+      }
+      Teams {
+        nextToken
+        startedAt
+      }
+      Recommendations {
+        nextToken
+        startedAt
+      }
+      AssessorReports {
+        nextToken
+        startedAt
+      }
       Questionnaire {
         id
         questionID
         answerID
         questionnaireID
+        assessorreportID
         _version
         _deleted
         _lastChangedAt
         createdAt
         updatedAt
-        Answers {
-          nextToken
-          startedAt
-        }
-        Questions {
-          nextToken
-          startedAt
-        }
-        Questionnaire {
-          id
-          questionaireCompleted
-          questionnaireQuestionanswerID
-          userId
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
       }
     }
   }
@@ -1097,40 +1257,42 @@ export const onDeleteUser = /* GraphQL */ `
       employees
       industry
       country
+      userType
+      phone
+      teamID
+      chatID
       _version
       _deleted
       _lastChangedAt
       createdAt
       updatedAt
+      Chats {
+        nextToken
+        startedAt
+      }
+      Teams {
+        nextToken
+        startedAt
+      }
+      Recommendations {
+        nextToken
+        startedAt
+      }
+      AssessorReports {
+        nextToken
+        startedAt
+      }
       Questionnaire {
         id
         questionID
         answerID
         questionnaireID
+        assessorreportID
         _version
         _deleted
         _lastChangedAt
         createdAt
         updatedAt
-        Answers {
-          nextToken
-          startedAt
-        }
-        Questions {
-          nextToken
-          startedAt
-        }
-        Questionnaire {
-          id
-          questionaireCompleted
-          questionnaireQuestionanswerID
-          userId
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
       }
     }
   }

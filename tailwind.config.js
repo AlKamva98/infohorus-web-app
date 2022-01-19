@@ -1,7 +1,7 @@
 const colors = require('tailwindcss/colors')
 
 module.exports = {
-  purge: [],
+  purge: ['./src/**/*.{js,jsx,ts,tsx}', './public/index.html'],
   presets: [],
   darkMode: false, // or 'media' or 'class'
   theme: {
@@ -82,13 +82,13 @@ module.exports = {
     backdropSepia: (theme) => theme('sepia'),
     backgroundColor: (theme) => theme('colors'),
     backgroundImage: {
-	'slide-one': "url('slide1.png')",
-        'slide-two': "url('slide2.png')",
-        'slide-three': "url('slide3.png')",
-	'slide-four': "url('slide4.png')",
-	'contact': "url('contactbg.png')",
-	'demo': "url('slide1.png')",
-      none: 'none',
+      'slide-one': "url('slide1.png')",
+      'slide-two': "url('slide2.png')",
+      'slide-three': "url('slide3.png')",
+	    'slide-four': "url('slide4.png')",
+      'contact': "url('contactbg.png')",
+	    'demo': "url('slide1.png')",
+	     none: 'none',
       'gradient-to-t': 'linear-gradient(to top, var(--tw-gradient-stops))',
       'gradient-to-tr': 'linear-gradient(to top right, var(--tw-gradient-stops))',
       'gradient-to-r': 'linear-gradient(to right, var(--tw-gradient-stops))',

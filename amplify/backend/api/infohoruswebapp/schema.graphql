@@ -1,27 +1,84 @@
-type QuestionnaireQuestionAnswer
-  @model
-  @auth(rules: [{ allow: public }])
-  @key(name: "byQuestion", fields: ["questionID"]) {
+type Chat @model @auth(rules: [{allow: public}]) @key(name: "byUser", fields: ["userID"]) {
+  id: ID!
+  sessionStart: AWSDateTime
+  sessionEnd: AWSDateTime
+  isClosed: Boolean
+  Messages: [Message] @connection(keyName: "byChat", fields: ["id"])
+  User: User @connection
+  userID: ID
+}
+type Message @model @auth(rules: [{allow: public}]) @key(name: "byChat", fields: ["chatID"]) {
+  id: ID!
+  chatID: ID
+  Chat: Chat @connection  
+  content: String
+  seen: Boolean
+}
+
+type Team @model @auth(rules: [{allow: public}]) @key(name: "byUser", fields: ["userID"]) {
+  id: ID!
+  first_name: String
+  last_name: String
+  email: String
+  job_title: String
+  user_type: String
+  Teams: [User] @connection(keyName: "byTeam", fields: ["id"])
+  userID: ID
+  company: String
+}
+
+type Cred @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  acc: String
+  sec: String
+}
+
+type Tasks @model @auth(rules: [{allow: public}]) @key(name: "byRecommendations", fields: ["recommendationsID"]) {
+  id: ID!
+  taskName: String
+  taskDesc: String
+  taskStart: AWSDateTime
+  RecommendationTask: Recommendations @connection
+  taskEnd: AWSDateTime
+  recommendationsID: ID
+  assignedTo: String
+  color: String
+}
+
+type Recommendations @model @auth(rules: [{allow: public}]) @key(name: "byUser", fields: ["userID"]) {
+  id: ID!
+  recName: String
+  recDesc: String
+  RecommendationTasks: [Tasks] @connection(keyName: "byRecommendations", fields: ["id"])
+  recDuration: String
+  recNum: String
+  isApproved: Boolean
+  userID: ID
+  User: User @connection
+}
+
+type AssessorReport @model @auth(rules: [{allow: public}]) @key(name: "byUser", fields: ["ID"]) {
+  id: ID!
+  assrssorComment: String
+  assessmentResult: String
+  QuestionnaireQuestionAnswers: [QuestionnaireQuestionAnswer] @connection(keyName: "byAssessorReport", fields: ["id"])
+  User: User @connection
+  ID: ID
+  isCompleted: Boolean
+}
+
+type QuestionnaireQuestionAnswer @model @auth(rules: [{allow: public}]) @key(name: "byQuestion", fields: ["questionID"]) @key(name: "byAssessorReport", fields: ["assessorreportID"]) {
   id: ID!
   questionID: ID
   answerID: String
   questionnaireID: String
-  Answers: [Answer]
-    @connection(keyName: "byQuestionnaireQuestionAnswer", fields: ["id"])
-  Questions: [Question]
-    @connection(keyName: "byQuestionnaireQuestionAnswer", fields: ["id"])
+  Answers: [Answer] @connection(keyName: "byQuestionnaireQuestionAnswer", fields: ["id"])
+  Questions: [Question] @connection(keyName: "byQuestionnaireQuestionAnswer", fields: ["id"])
   Questionnaire: Questionnaire @connection
+  assessorreportID: ID
 }
 
-type Answer
-  @model
-  @auth(rules: [{ allow: public }])
-  @key(name: "byQuestionnaire", fields: ["questionnaireID"])
-  @key(name: "byQuestion", fields: ["questionID"])
-  @key(
-    name: "byQuestionnaireQuestionAnswer"
-    fields: ["questionnairequestionanswerID"]
-  ) {
+type Answer @model @auth(rules: [{allow: public}]) @key(name: "byQuestionnaire", fields: ["questionnaireID"]) @key(name: "byQuestion", fields: ["questionID"]) @key(name: "byQuestionnaireQuestionAnswer", fields: ["questionnairequestionanswerID"]) {
   id: ID!
   answer: String
   Questionnaire: QuestionnaireQuestionAnswer @connection
@@ -32,23 +89,16 @@ type Answer
   questionnairequestionanswerID: ID
 }
 
-type Question
-  @model
-  @auth(rules: [{ allow: public }])
-  @key(
-    name: "byQuestionnaireQuestionAnswer"
-    fields: ["questionnairequestionanswerID"]
-  ) {
+type Question @model @auth(rules: [{allow: public}]) @key(name: "byQuestionnaireQuestionAnswer", fields: ["questionnairequestionanswerID"]) {
   id: ID!
   question: String
   questionName: String
   Answers: [Answer] @connection(keyName: "byQuestion", fields: ["id"])
-  QuestionnaireQuestionAnswers: [QuestionnaireQuestionAnswer]
-    @connection(keyName: "byQuestion", fields: ["id"])
+  QuestionnaireQuestionAnswers: [QuestionnaireQuestionAnswer] @connection(keyName: "byQuestion", fields: ["id"])
   questionnairequestionanswerID: ID
 }
 
-type Questionnaire @model @auth(rules: [{ allow: public }]) {
+type Questionnaire @model @auth(rules: [{allow: public}]) {
   id: ID!
   questionaireCompleted: Boolean
   questionnaireQuestionanswerID: ID
@@ -58,7 +108,7 @@ type Questionnaire @model @auth(rules: [{ allow: public }]) {
   QuestionnaireQuestionAnswer: QuestionnaireQuestionAnswer @connection
 }
 
-type User @model @auth(rules: [{ allow: public }]) {
+type User @model @auth(rules: [{allow: public}]) @key(name: "byTeam", fields: ["teamID"]) {
   id: ID!
   first_name: String
   last_name: String
@@ -69,8 +119,17 @@ type User @model @auth(rules: [{ allow: public }]) {
   industry: String
   country: String
   Questionnaire: QuestionnaireQuestionAnswer @connection
+  Recommendations: [Recommendations] @connection(keyName: "byUser", fields: ["id"])
+  userType: String
+  phone: String
+  AssessorReports: [AssessorReport] @connection(keyName: "byUser", fields: ["id"])
+  teamID: ID
+  chatID: ID
+  Teams: [Team] @connection(keyName: "byUser", fields: ["id"])
+  Chats: [Chat] @connection (keyName: "byUser", fields: ["id"])
 }
 
-type File @model @auth(rules: [{ allow: public }]) {
+type File @model @auth(rules: [{allow: public}]) {
   data: String
 }
+ 
