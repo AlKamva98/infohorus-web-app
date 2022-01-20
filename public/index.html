@@ -38,6 +38,37 @@
       You need to enable JavaScript to run this app.
     </noscript>
     <div id="root">
+    <script src="js/cookieconsent.min.js"></script>
+  <script>
+   window.cookieconsent.initialise({
+    container: document.getElementById("content"),
+    palette: {
+ popup: {background: '#DFDFDF', text: '#4C4C4C', link: '#012958'},
+ button: {background: '#338CF5', border: '#0070F4', text: '#fffff'},
+},
+    revokable:true,
+    onStatusChange: function(status) {
+     console.log(this.hasConsented() ?
+      'enable cookies' : 'disable cookies');
+    },
+    content: {
+ header: 'Cookies used on the website!',
+ message: 'This website stores data such as cookies to enable essential site functionality, as well as marketing, personalization, and analytics.',
+ dismiss: 'Got it!',
+ allow: 'Allow cookies',
+ deny: 'Decline',
+ link: 'Cookie Policy',
+ href: 'https://bahatitech.com/assets/Privacy.pdf',
+ close: '&#x274c;',
+ policy: 'Cookie Policy',
+ target: '_blank',
+},
+    law: {
+     regionalLaw: false,
+    },
+    location: true,
+   });
+  </script>
     </div>
     <!--
       This HTML file is a template.
