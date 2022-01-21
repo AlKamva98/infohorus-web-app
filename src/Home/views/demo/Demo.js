@@ -127,7 +127,7 @@ Amplify.configure(awsConfig)
   </p>
   <div className="relative">
   <ReCAPTCHA
-  sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"
+  sitekey="6LdTEZYbAAAAAM8tz216Tdaus6wi9GpqoWYFX-QC"
   className="inline-block w-full px-5 py-4"
   onChange={onChange}/>  
   </div>

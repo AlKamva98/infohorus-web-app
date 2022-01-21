@@ -15,6 +15,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Alegreya+Sans+SC:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.css" />
 <script src="https://cmp.osano.com/16A1BVSv3YVoGSu/6a2ecdee-717a-4f02-9033-5f5e20022d1a/osano.js"></script>
  <script src="https://unpkg.com/@babel/standalone@7.2.5/babel.min.js"></script>
         <script src="https://unpkg.com/survey-react@1.8.37/survey.react.min.js"></script>
@@ -38,39 +39,8 @@
       You need to enable JavaScript to run this app.
     </noscript>
     <div id="root">
-      <div id="content"></div>
     </div>
-        <script src="js/cookieconsent.min.js"></script>
-  <script>
-   window.cookieconsent.initialise({
-    container: document.getElementById("content"),
-    palette: {
- popup: {background: '#DFDFDF', text: '#4C4C4C', link: '#012958'},
- button: {background: '#338CF5', border: '#0070F4', text: '#fffff'},
-},
-    revokable:true,
-    onStatusChange: function(status) {
-     console.log(this.hasConsented() ?
-      'enable cookies' : 'disable cookies');
-    },
-    content: {
- header: 'Cookies used on the website!',
- message: 'This website stores data such as cookies to enable essential site functionality, as well as marketing, personalization, and analytics.',
- dismiss: 'Got it!',
- allow: 'Allow cookies',
- deny: 'Decline',
- link: 'Cookie Policy',
- href: 'https://bahatitech.com/assets/Privacy.pdf',
- close: '&#x274c;',
- policy: 'Cookie Policy',
- target: '_blank',
-},
-    law: {
-     regionalLaw: false,
-    },
-    location: true,
-   });
-  </script>
+        
     <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.
@@ -85,6 +55,25 @@
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.js" data-cfasync="false"></script>
+<script>
+window.cookieconsent.initialise({
+  "palette": {
+    "popup": {
+      "background": "#eaf7f7",
+      "text": "#5c7291"
+    },
+    "button": {
+      "background": "#56cbdb",
+      "text": "#ffffff"
+    }
+  },
+  "content": {
+    "message": "This website stores data such as cookies to enable essential site functionality, as well as marketing, personalization, and analytics.",
+    "link": "Privacy Policy",
+    "href": "https://bahatitech.com/assets/Privacy.pdf"
+  }
+});
+</script>
   </body>
 </html>
