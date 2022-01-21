@@ -105,7 +105,7 @@ function Contact(){
         
         <div className="relative">
         <ReCAPTCHA
-        sitekey="6LdTEZYbAAAAAM8tz216Tdaus6wi9GpqoWYFX-QC"
+        sitekey="6LchGCkeAAAAAFvX1zSUSIxM80T1W9DatQBj8VAR"
         className="inline-block w-full px-5 py-4"
         onChange={onChange}
         />  
