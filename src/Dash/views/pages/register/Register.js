@@ -59,35 +59,15 @@ function Register(props) {
         let username = data.email;
         let email = data.email;
         let password = data.password;
-        let emailValid = checkEmail(email);
-        if(password === data.confPassword && emailValid===true){
-          await Auth.signUp({username, password,attributes: {email}})
-          console.log("SignUp complete")
-          updateFormState(()=>({...formState, formType: "verifyMail"}))
-
-          console.log("Sending to the API")
-          await API.graphql(graphqlOperation(
-            newusermut,{
-              input:{
-              
-                email: data.email,
-                first_name: data.fname,
-                last_name: data.lname,
-                job_title: data.jobtitle,
-                phone: data.phone,
-                company: data.company,
-                employees: data.employees.value,
-                industry: data.industry.value,
-                country: data.country.value,
-                userType: "Assessee"
-              }
-  
-          }))
-        console.log("This is the users data:"+JSON.stringify(data))
-        console.log("Data sent to the API")
-      }else{
-        togglePass(emailValid);
-      }    
+        let emailValid;
+         checkEmail(email).then(isValid=>{
+           emailValid = isValid;
+           regUser(username, email,data.fname,data.lname,data.jobtitle,data.phone,data.company,data.employees,data.industry,data.country, password, data.confPassword, emailValid).catch(err=>{
+             console.log("This is an error registering the user", err)
+           });
+           console.log("This is the users data:",JSON.stringify(data));
+         });
+         
     }
       catch(err){
         console.log("API err:", err )
@@ -138,6 +118,34 @@ await axios.get(`https://emailvalidation.abstractapi.com/v1/?api_key=463d1f07dbb
         }
     }
    
+    async function regUser(username, email,fname,lname,jobtitle,phone,company,employees,industry,country, password, confPassword, emailValid)
+        {if(password === confPassword && emailValid===true){
+          await Auth.signUp({username, password,attributes: {email}})
+          console.log("SignUp complete")
+          updateFormState(()=>({...formState, formType: "verifyMail"}))
+
+          console.log("Sending to the API")
+          await API.graphql(graphqlOperation(
+            newusermut,{
+              input:{
+              
+                email: email,
+                first_name: fname,
+                last_name: lname,
+                job_title: jobtitle,
+                phone: phone,
+                company: company,
+                employees: employees.value,
+                industry: industry.value,
+                country: country.value,
+                userType: "Assessee"
+              }
+  
+          }))
+        console.log("Data sent to the API")
+      }else{
+        togglePass(emailValid);
+      } }  
 
  return (
  <div>
