@@ -257,7 +257,7 @@ const DefaultLayout = (props) => {
           console.log("Error:>> ", err);
       }
   }
-    async function listTeam(user) {
+    async function listTeam(user) {//get teams
       var company = user.company;
       if(company!==undefined){
       try {
@@ -269,7 +269,7 @@ const DefaultLayout = (props) => {
       }}
   }
 
-    async function saveChanges(rec, tasks){
+    async function saveChanges(rec, tasks){ //update the backend data
       try{
       
        if(rec){
@@ -290,14 +290,14 @@ const DefaultLayout = (props) => {
       }
     }
 
-    async function uploadTask (task){
+    async function uploadTask (task){//add tasks to backend
       var res;
       if (task){   
        res= await API.graphql({query: mutations.createTasks, variables: {input: task}})
       }
       return res;
     }
-    function addTask(task){
+    function addTask(task){//add task to recommendation
       uploadTask(task).then(response=>{
         tasks.push(response.data.createTasks);
       setTasks(tasks)}).catch((err)=>{
