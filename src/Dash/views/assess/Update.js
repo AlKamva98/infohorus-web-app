@@ -1,8 +1,8 @@
 import React,{useState} from 'react';
 import {Container, Row, Col,Card,Form} from 'react-bootstrap';
 import {Label, Input, FormGroup,Button} from 'reactstrap';
-import { useForm, Controller } from "react-hook-form";
-import {  API, graphqlOperation } from 'aws-amplify';
+import { useForm } from "react-hook-form";
+import {  API } from 'aws-amplify';
 import * as mutations from '../../../graphql/mutations'
 
   function Update(props) {
@@ -12,7 +12,7 @@ import * as mutations from '../../../graphql/mutations'
     fname:"", lname:"",email:"", jobtitle:"", company:"",employees:"",industry:"", authCode:"",chkAgreement:"", formType:"signUp"};  
     const [formState, updateFormState] = useState(initialFormState);
     
-    const { register, handleSubmit, errors, control } = useForm();
+    const { register, handleSubmit} = useForm();
     const handleError = (errors) => { console.log("Form Errors: "+ errors)};
     const handleRegistration = async (data) =>{ 
       

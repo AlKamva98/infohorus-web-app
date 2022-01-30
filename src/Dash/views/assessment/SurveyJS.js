@@ -9,7 +9,6 @@ import {create_UUID} from '../../../Home/shared/utils/utils'
 import * as mutations from '../../../graphql/mutations'
 import * as queries from '../../../graphql/queries'
 import * as Survey from 'survey-react';
-import { PopUp } from '../../../Home/shared/utils/Modal';
 import ReactTooltip from 'react-tooltip'
 import { questionIDs } from './questionId.js';
 
@@ -31,14 +30,14 @@ export function SurveyJS(props) {
     var addQuestionnaire = mutations.createQuestionnaire;
     const [questionnaireState, setQuestionnaireState] = useState(false)
     const [modal, setModal] = useState(false);
-    const { register, handleSubmit, reset, formState: { errors }, control } = useForm();
+    const { register, control } = useForm();
     const toggle = () => {
         setModal(!modal);
     }
     Survey.StylesManager.applyTheme("modern");
     let survey = new Survey.Model(SurveyJSON);
     const [authus, setAuthus] = useState();
-    const questionaireId = survey.surveyId;
+    // const questionaireId = survey.surveyId;
     survey.firstPageIsStarted = true;
     survey.sendResultOnPageNext = true;
     const [qnaireUUID, setQnaireUUID] = useState(create_UUID());
@@ -48,7 +47,7 @@ export function SurveyJS(props) {
     const [recipientName, setRecipientName] = useState("");
     const [recipientEmail, setRecipientEmail] = useState("");
     const [isDisabled, setIsDisabled] = useState(false);
-    const msg = "You are not authorized to view questions unless you register. Please register to complete questionnaire."
+    // const msg = "You are not authorized to view questions unless you register. Please register to complete questionnaire."
     const emailContainer = useRef(null);
 
     /**===============================================================================
@@ -59,6 +58,9 @@ export function SurveyJS(props) {
     useEffect(() => {
         survey.storeDataAsText = false;
         checkUser()
+        if(!qnaireUUID){
+            setQnaireUUID(create_UUID())
+        }
         //window.localStorage.removeItem("questionaire_data")
         console.log("Team List", teamList)
         console.log("approved", approved)
@@ -93,7 +95,7 @@ async function getCreds(){
     }
     function sendEmail(uCred) {
         setIsDisabled(true);
-        const doc = (new DOMParser).parseFromString(emailContainer.current.innerHTML, 'text/html');
+        const doc = (new DOMParser()).parseFromString(emailContainer.current.innerHTML, 'text/html');
         const emailBodyWithremovedProgressText = removeElement(doc, 'sv-progress__text');
         const emailBodyWithFooterRemoved = removeElement(emailBodyWithremovedProgressText, 'sv-footer');
 
@@ -425,7 +427,7 @@ async function getCreds(){
                     uploadAnswersPerPage(ans)
                 })
 
-                // setQuestionnaireState(true);
+                setQuestionnaireState(true);
                 const updatedQNaire = {
                     id: currentQNaireId,
                     _version: qUser._version,

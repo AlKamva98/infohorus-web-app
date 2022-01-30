@@ -15,11 +15,9 @@ function App()  {
    const [signedIn, setSignedIn] = useState(false);
    const [userGroup, setUserGroup] = useState();
    const [user, setUser] = useState();
+   const [cku, setcku] = useState();
   useEffect(()=>{
-    checkUser();
-    },[])
-
-async function checkUser(){
+    const checkUser = async () =>{
         try{
             const userchk = await Auth.currentAuthenticatedUser();
             console.log("The user is: ",userchk.attributes.email)
@@ -28,15 +26,19 @@ async function checkUser(){
             setUserGroup(userchk.signInUserSession.accessToken.payload["cognito:groups"][0]);
             setSignedIn(true);
            }
-        console.log("The user is::",user)
         }catch(err){
         console.log("user Error:",err); 
         }
      }
+
+    checkUser();
+    setcku(checkUser);
+    },[])
+
     return (
       <Router>
           <Switch>
-            <Route exact path="/login" name="Login Page" render={(props) => <Login signedIn={signedIn} checkUser={checkUser} userGroup={userGroup} {...props} />} />
+            <Route exact path="/login" name="Login Page" render={(props) => <Login signedIn={signedIn} checkUser={cku} userGroup={userGroup} {...props} />} />
             <Route
               exact
               path="/register"
