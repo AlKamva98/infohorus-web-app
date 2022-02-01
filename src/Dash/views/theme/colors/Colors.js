@@ -22,7 +22,8 @@ function review(i){
       console.log("View task error: ", err);
     }
     }
-    
+    console.log("This is the approved recommendations",approved)
+    console.log("This is the pending recommendations",RecomendationsList)
 
   return (
     <>
