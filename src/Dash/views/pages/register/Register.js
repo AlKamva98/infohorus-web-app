@@ -22,7 +22,6 @@ Amplify.configure(awsConfig)
 
 function Register(props) {
       const {
-    buttonLabel,
     className
   } = props;
 
@@ -108,9 +107,10 @@ await axios.get(`https://emailvalidation.abstractapi.com/v1/?api_key=463d1f07dbb
       
       async function checkUser(){
         try{
-          const user = await Auth.currentAuthenticatedUser();
-          console.log(user)
-            setUser(user);
+          const u = await Auth.currentAuthenticatedUser();
+          console.log(u)
+            setUser(u);
+            console.log("This is the user", user)
             const a = await Auth.currentUserInfo();
             console.log("User Info is:"+ a);     
         }catch(err){
@@ -295,7 +295,7 @@ await axios.get(`https://emailvalidation.abstractapi.com/v1/?api_key=463d1f07dbb
       </div>
       {/* Right Image */}
       <div className="relative top-0 right-0 h-64 mt-12 md:-mt-16 md:absolute md:h-96">
-        <img src="https://cdn.devdojo.com/images/december2020/designs3d.png" className="object-cover mt-3 mr-5 h-80 lg:h-96" />
+        <img alt='Sign up complete' src="https://cdn.devdojo.com/images/december2020/designs3d.png" className="object-cover mt-3 mr-5 h-80 lg:h-96" />
       </div>
     </div>
     {/* Separator */}

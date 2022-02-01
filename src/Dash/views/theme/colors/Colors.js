@@ -6,7 +6,7 @@ import { CRow, CCard, CCardHeader, CCardBody } from '@coreui/react';
 import { Button } from 'react-bootstrap';
 
 const Colors = (props) => {
-    const {approve, approved, RecomendationsList, errModal, errToggle, revToggle, revModal, rec,toggle, userId,modal, setRec,viewTasks, addTask, tasks,teamList, hasData }= props;
+    const {approve, approved, RecomendationsList, errModal, errToggle, revToggle, revModal, rec, setRec, addTask, tasks,teamList, hasData }= props;
     const [msg, setMsg] =useState("");
     var RecTask;
 
@@ -22,7 +22,8 @@ function review(i){
       console.log("View task error: ", err);
     }
     }
-    
+    console.log("This is the approved recommendations",approved)
+    console.log("This is the pending recommendations",RecomendationsList)
 
   return (
     <>
@@ -38,7 +39,7 @@ function review(i){
       console.log("More tasks", tasks)
       return(<>
       <li >
-      <a  className="hover:bg-blue-500 hover:border-transparent hover:shadow-lg group block rounded-lg p-4 border border-gray-200">   
+      <div  className="hover:bg-blue-500 hover:border-transparent hover:shadow-lg group block rounded-lg p-4 border border-gray-200">   
         <dl className="grid sm:block lg:grid xl:block grid-cols-2 grid-rows-2 items-center">
           <div>
             <dt className="sr-only">Title</dt>
@@ -68,16 +69,18 @@ function review(i){
                     <div className="col-start-2 row-start-1 row-end-3">
             <dt className="sr-only">Tasks</dt>
             {tasks && (tasks.map((task, i)=>{
+              let ts = null;
               if(task.recommendationsID===values.id){
                 RecTask = task;
                 i++;
                 console.log("These are the tasks in this recommendation", RecTask)
-                return(
-                  <dd className="flex justify-end group-hover:text-blue-200 sm:justify-start font-medium lg:justify-end xl:justify-start -space-x-2">
+                
+                ts=  (<dd className="flex justify-end group-hover:text-blue-200 sm:justify-start font-medium lg:justify-end xl:justify-start -space-x-2">
                 {`Task ${i}: ${RecTask.taskDesc}- Assigned to:${RecTask.assignedTo}`}
-                </dd>
-                )
+                </dd>);
+                
               }
+              return ts;
             }))}
           </div>
           <div className="col-start-2 row-start-1 row-end-3">
@@ -88,7 +91,7 @@ function review(i){
             </dd>
           </div>
         </dl>
-      </a>
+      </div>
     </li>
   </>)
       })}
@@ -107,7 +110,7 @@ function review(i){
     {RecomendationsList ? (RecomendationsList.map((values, index)=>{
 return(<>
     <li x-for="item in items">
-      <a  className="hover:bg-blue-500 hover:border-transparent hover:shadow-lg group block rounded-lg p-4 border border-gray-200">
+      <div  className="hover:bg-blue-500 hover:border-transparent hover:shadow-lg group block rounded-lg p-4 border border-gray-200">
         <dl className="grid sm:block lg:grid xl:block grid-cols-2 grid-rows-2 items-center">
           <div>
             <dt className="sr-only">Title</dt>
@@ -135,7 +138,7 @@ return(<>
             </dd>
           </div>
         </dl>
-      </a>
+      </div>
     </li>
     
     </>)

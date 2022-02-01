@@ -10,20 +10,31 @@ import {questions} from '../../testData/Quests'
 
 
 function ExpertViewAssess (props){
-const initialFormState =[{assessAns:"",assessComment:""}];
+// const initialFormState =[{assessAns:"",assessComment:""}];
 const { state, userId } = props.location;
-let rep ;
-const [formState, updateFormState] = useState(initialFormState)
+// let rep ;
+// const [formState, updateFormState] = useState(initialFormState)
 const [Answers, setAnswers] = useState()
 const [formValues, setFormValues]= useState(null)
 const [assessForm, setAssessForm] = useState()
 const [reportCreated, updateReportCreated] = useState(false);
 const memoizedHandleDoc = useCallback((doc)=>() => {
-      downloadDocument(doc);
+  const downloadDocument = async (doc)=>{
+  if(doc.endsWith(".pdf")){
+   await Storage.get(doc, {download: true}).then(data => {
+                        data.Body.text().then(data2 => {
+                          convert(data2.substr(28));
+                        })
 
-    },
-    [], // Tells React to memoize regardless of arguments.
-  );
+                    }).catch(err =>{
+                      console.log("Download Document Error::::", err)
+                      console.error(err, err.stack);
+                    });
+}}    
+  downloadDocument(doc);
+ },
+    [] // Tells React to memoize regardless of arguments.
+);
 
   
   
@@ -53,17 +64,17 @@ const memoizedHandleDoc = useCallback((doc)=>() => {
         console.log("Report upload error", err)
       }
 }
-async function updateReport(data, done){
-    await API.graphql(graphqlOperation(mutations.updateAssessorReport,{
-    input:{
-      id: rep.id,
-      assrssorComment: data,
-      assessmentResult:data,
-      isCompleted: done,
-      _version: rep._version
-    }
-  }))
-}
+// async function updateReport(data, done){
+//     await API.graphql(graphqlOperation(mutations.updateAssessorReport,{
+//     input:{
+//       id: rep.id,
+//       assrssorComment: data,
+//       assessmentResult:data,
+//       isCompleted: done,
+//       _version: rep._version
+//     }
+//   }))
+// }
 
 let questionnaire;
 let answers =[];
@@ -129,18 +140,7 @@ try{
   }
 
 
-async function downloadDocument(doc){
-  if(doc.endsWith(".pdf")){
-   await Storage.get(doc, {download: true}).then(data => {
-                        data.Body.text().then(data2 => {
-                          convert(data2.substr(28));
-                        })
 
-                    }).catch(err =>{
-                      console.log("Download Document Error::::", err)
-                      console.error(err, err.stack);
-                    });
-}}
 function convert(data){
     const arrayBuffer = base64ToArrayBuffer(data);
     const blob = new Blob([arrayBuffer], {type: 'application/pdf'});
@@ -154,11 +154,7 @@ function base64ToArrayBuffer(base64) {
     return bytes.map((byte, i) => binaryString.charCodeAt(i));
 }
 
-function onChange(e){
-        e.persist()
-        console.log("changing:"+e.target.name);
-        updateFormState(()=>({...formState, [e.target.name]: e.target.value}))
-    }
+
 const initialValues= {assessForm:[{assessAns:"",assessComment:"", qName:""}]}
 const savedValues= window.localStorage.getItem(storageName);
  return (

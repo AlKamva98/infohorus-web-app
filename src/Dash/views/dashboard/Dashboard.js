@@ -9,7 +9,7 @@ import WidgetsDropdown from '../components/widgets/WidgetsDropdown.js'
 
 const Dashboard = (props) => {
   const {news,userId} = props;
-  let hasReport = false;
+  // let hasReport = false;
  
   return (
     <>
@@ -30,13 +30,13 @@ const Dashboard = (props) => {
       return(<>
             <div className="flex m-3 py-4 px-4 shadow-md rounded-lg bg-gray-200">
               {imgUrl &&
-              <img className="w-40 h-40 mr-4" src={imgUrl}/>
+              <img alt='icon' className="w-40 h-40 mr-4" src={imgUrl}/>
               }
               <div>
             <h5 className="text-lg font-semibold">{article.name}</h5>    
             <p className="text-medium-emphasis small">
               {article.description}
-              <a href={article.url} target="_blank">
+              <a href={article.url} target="_blank" rel="noreferrer">
                 read more
               </a>
               .

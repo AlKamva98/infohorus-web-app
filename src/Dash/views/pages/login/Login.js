@@ -1,4 +1,4 @@
-import React,{useState, useEffect} from 'react'
+import React,{useState} from 'react'
 import { Link, Redirect } from 'react-router-dom'
 import {Auth} from 'aws-amplify';
 import {
@@ -13,7 +13,6 @@ import {
   CInputGroup,
   CInputGroupText,
   CRow,
-  CSpinner,
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
 import {PopUp} from '../../../../Home/shared/utils/Modal'
@@ -26,7 +25,7 @@ const {signedIn, checkUser} = props;
   const [msg, setMsg] = useState("")
   const initialFormState = {email:"", password:""};
   const [formState, updateFormState] = useState(initialFormState);
-  var signinFailMsg = "You have filled in an incorrect email or password. Please retry with the correct details. If you dont have an account, create a new account.";
+  //var signinFailMsg = "You have filled in an incorrect email or password. Please retry with the correct details. If you dont have an account, create a new account.";
 
 
 
