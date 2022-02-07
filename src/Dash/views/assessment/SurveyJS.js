@@ -468,9 +468,9 @@ async function getCreds(){
         return (<>
                 {authus !== undefined && (
                     <div className={className}>
-                        <Prompt
+                        {/* <Prompt
                             when={shouldBlockNavigation}
-                            message="Are you sure you want to leave?"/>
+                            message="Are you sure you want to leave?"/> */}
                             {/* <Container className =" overflow-hidden p-5  bg-light bdy">
                             <Col className="col-md-12">
                             <h5>Please fill in the following questionnaire</h5><br/>

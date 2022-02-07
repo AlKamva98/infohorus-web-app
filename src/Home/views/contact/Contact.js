@@ -135,6 +135,7 @@ function Contact(){
               body="Thank you for your message, your message has been sent. A Bahati Tech employee will contact you shortly." 
               btnTxtPositive="Okay"
               bg="bg-contact"
+              prev="/"
               toggle={toggle}
               isOpen={modal}/>
     </>

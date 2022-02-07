@@ -7,7 +7,7 @@ import {routes} from '../../routes'
 
 const AppContent = (props) => {
     const {approve, approved, recommendations, errModal, errToggle, revToggle, revModal, msg, rec,toggle,modal, setMessages, setRec, hasData,datatable,addTask, tasks ,hasTData, news,assRep, continueAss, events, userId, messages }= props;
-    console.log("This is messages on app content page",messages)
+    console.log("This is events on app content page",events)
     const teamList = ()=>{
     var t;
     var e;
