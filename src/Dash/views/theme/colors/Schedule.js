@@ -22,7 +22,7 @@ function Schedule(props) {
   const toggle = () => setModal(!modal);
   const handleCalendarClose = () => console.log("Calendar closed");
   const handleCalendarOpen = () => console.log("Calendar opened");
-  const { register, handleSubmit, reset, formState: { errors }, control } = useForm();
+  const { register, handleSubmit, formState: { errors }, control } = useForm();
   const handleRegistration = async (data) =>{ 
     toggle()
     var diff = date.getTime() - sdate.getTime();
@@ -42,6 +42,7 @@ function Schedule(props) {
      recommendationsID: state.id
     }
     updateDuration(diffDays);
+    console.log("This is the duration of the task", duration);
     console.log("This is the task that has been scheduled", task);
     addTask(task);
   }

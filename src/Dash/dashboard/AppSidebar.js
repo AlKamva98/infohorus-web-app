@@ -11,8 +11,6 @@ import {
   CCreateNavItem,
 } from '@coreui/react'
 
-import CIcon from '@coreui/icons-react'
-
 import SimpleBar from 'simplebar-react'
 import 'simplebar/dist/simplebar.min.css'
 
@@ -32,10 +30,8 @@ const AppSidebar = (props) => {
       unfoldable={unfoldable}
       show={sidebarShow}
       onShow={() => console.log('show')}
-      onHide={() => {
-        dispatch({ type: 'set', sidebarShow: false })
-      }}
-    >
+      onHide={() => { dispatch({ type: 'set', sidebarShow: false }) }}>
+      
       <CSidebarBrand className="d-none d-md-flex" to="/">
         <Link to="/" className="relative z-10 flex items-center w-auto text-2xl font-extrabold leading-none text-black select-none"><Image className="img-fluid" src="\images\logok.png" alt="logo"  width="150" height="35"/></Link>
        </CSidebarBrand>

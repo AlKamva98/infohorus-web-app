@@ -11,7 +11,6 @@ const DefaultLayout = (props) => {
   const {signedIn, signOut, userGroup,setUser, user} = props;
   let approvedRecs =[];
   let upRec = [];
-  let ts=[];
   var completed;
   // let RecomendationsList = listProps("Rec");
   // let TasksList = listProps("Task") ;
@@ -33,7 +32,6 @@ const DefaultLayout = (props) => {
     const [assRep, setAssRep] = useState({});
     const [recommendations, updateRecs] =useState([]);
     const [data, setData] = useState([])
-    var upTeam =[] ;
     let userObj;
     var [evt, setEvt] = useState([]);
     var rectks= [];
@@ -111,6 +109,7 @@ const DefaultLayout = (props) => {
       var reps;
       var complete = false;
       const assRep = await API.graphql({query: queries.listAssessorReports, variables:{filter: {ID: {contains: id}}}}).then(promise => {
+
               reps = promise.data.listAssessorReports.items;
             }).finally(()=>{
               for(let i in reps){
@@ -163,7 +162,11 @@ const DefaultLayout = (props) => {
               return promise.data.listTaskss.items;
             }).catch(e => {
                 console.error(e);
-            })
+            });
+            break;
+            default:
+              console.log("Niether Recommendations nor Tasks were selected");
+              break;
              }
           return data;
   }
@@ -178,6 +181,7 @@ const DefaultLayout = (props) => {
               for(let i in recommendations){//loops through the array 
                 if(recommendations[i].isApproved){//checks if the array 
             upRec.splice(i,1)}// removes the approved rec from the main array
+            break;
           }
                 }
         for(let i in approvedRecs){
@@ -297,7 +301,7 @@ const DefaultLayout = (props) => {
         <AppHeader tasks={tasks} recommendations={recommendations} signOut={signOut} saveChanges={saveChanges} approved={approved} />
         <div className="body flex-grow-1 px-3">
           <AppContent approve={approve} approved={approved} recommendations={recommendations} 
-          errModal={errModal} datatable={datatable} hasTData={hasTData} hasData={hasData} errToggle={errToggle} revModal={revModal} revToggle={revToggle}  msg={msg}  tasks={tasks} rec={rec} toggle={toggle} news={data} messages={messages} setMessages={setMessages} modal={modal} events={evt} userId={user} continuesAss={continueAss} assRep={assRep} setRec={setRec} addTask={addTask} />
+          errModal={errModal} datatable={datatable} hasTData={hasTData} hasData={hasData} errToggle={errToggle} revModal={revModal} revToggle={revToggle}  msg={msg} setMsg={setMsg}  tasks={tasks} rec={rec} toggle={toggle} news={data} messages={messages} setMessages={setMessages} modal={modal} events={evt} userId={user} continuesAss={continueAss} assRep={assRep} setRec={setRec} addTask={addTask} />
         </div>
         <AppFooter />
       </div>

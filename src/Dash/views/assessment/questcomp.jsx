@@ -5,7 +5,7 @@ import { SurveyJS } from './SurveyJS';
 
 function QuestionsComp(props) {
   const {
-    buttonLabel, className, teamList, approved
+    teamList, approved
   } = props;
 
   return (
