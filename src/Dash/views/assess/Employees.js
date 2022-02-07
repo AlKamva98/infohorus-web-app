@@ -19,14 +19,8 @@ function Employees(props) {
   const {userId}=props;
   var newusermut = mutations.createTeam;
   const initialFormState = {fname:"", lname:"",email:"", jobtitle:"", company:"",employees:"",industry:"",  formType:"signUp"};  
-  const signupFailMsg = "Passwords are different!! Pasword and Confirm Password must be the same";
-  const [modalPass, setModalPass] = useState(false);
-  const togglePass = () => setModalPass(!modalPass);
-  const [modalErrPop, setModalErrPop] = useState(false);
-  const toggleErrPop = () => setModalErrPop(!modalErrPop);
+  // const signupFailMsg = "Passwords are different!! Pasword and Confirm Password must be the same";
   const [formState, updateFormState] = useState(initialFormState);
-  const [errTitle, setErrTitle] = useState("");
-  const [errMess, setErrMess] = useState("");
   const [toast, addToast] = useState(0)
   const atoaster = useRef()
  const newUsToast = (
@@ -37,7 +31,7 @@ function Employees(props) {
   </div>
   </CToast>
   )
-    const { register, handleSubmit, errors, control } = useForm();
+    const { register, handleSubmit} = useForm();
     const handleError = (errors) => { console.log("Form Errors: "+ errors)};
     const handleRegistration = async (data) =>{ 
       try{
@@ -68,9 +62,7 @@ function Employees(props) {
           }
       catch(err){
         console.log("API err:", err )
-        setErrTitle(err.code);
-        setErrMess(err.message);
-        toggleErrPop();
+      
       }
     };
     let {formType}= formState;

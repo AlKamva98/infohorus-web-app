@@ -3,21 +3,20 @@ import {Button} from 'react-bootstrap'
 import {Link} from 'react-router-dom'
 
 function Recommendations(props) {
-  const [modal, setModal] = React.useState(false);
-  const toggle = () => setModal(!modal);
+  // const [modal, setModal] = React.useState(false);
+  // const toggle = () => setModal(!modal);
   const { assess, client, userId } = props.location;
   const tasks = [];
   
 console.log("This the assessor's data", assess)
 console.log("This the client's data", client)
 console.log("This the client's id", userId)
-let newArr=[];
 
-function addRec(id){
- let assForm = assess.assessForm[id];
- toggle();
+// function addRec(id){
+//  let assForm = assess.assessForm[id];
+//  toggle();
  
-}
+// }
 
 for (const key in assess.assessForm) {
   for(let i in client){

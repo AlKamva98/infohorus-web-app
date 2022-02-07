@@ -9,7 +9,7 @@ export function PopUp (props) {
   <div>
    <Modal isOpen={isOpen} toggle={toggle} className={className}>
         <ModalHeader className="font-extrabold text-xl mx-4 text-gray-800" toggle={toggle}>{title}</ModalHeader>
-        <ModalBody className={"mx-4 bg-cover bg-no-repeat bg-center "+`${bg}`}><div className=" w-full h-full mx-auto px-12 py-12 bg-white opacity-90"><h4 className="text-bold text-lg">{head}</h4><p className="text-semibold text-lg">{body}</p> <p className="text-semibold text-lg">{tasks}</p></div>
+        <ModalBody className={`mx-4 bg-cover bg-no-repeat bg-center ${bg}`}><div className=" w-full h-full mx-auto px-12 py-12 bg-white opacity-90"><h4 className="text-bold text-lg">{head}</h4><p className="text-semibold text-lg">{body}</p> <p className="text-semibold text-lg">{tasks}</p></div>
         </ModalBody>
         <ModalFooter>
           <Link to={prev}><Button className="btn btn-primary" onClick={toggle}>{btnTxtPositive}</Button></Link>
