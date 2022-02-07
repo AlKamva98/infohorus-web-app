@@ -37,7 +37,7 @@ const AppContent = (props) => {
                   name={route.name}
                   render={(props) => (
                     <>
-                      <route.component teamList={a}  {...props} />
+<route.component teamList={a} approve={approve} approved={approved} recommendations={recommendations} errModal={errModal} errToggle={errToggle} revToggle={revToggle} revModal={revModal} msg={msg} rec={rec} toggle={toggle} modal={modal} setMessages={setMessages}  setRec={setRec} hasData={hasData} datatable= {datatable} addTask= {addTask} tasks= {tasks} hasTData= {hasTData} news= {news} assRep= {assRep} continueAss= {continueAss} events= {events} userId= {userId}  {...props} />
                     </>
                   )}
                 />
