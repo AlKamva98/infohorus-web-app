@@ -120,7 +120,8 @@ const {signedIn, checkUser} = props;
       </CContainer> 
       <PopUp
       title="Login Error!" 
-      body={`Error: ${msg}`} 
+      body={`Error: ${msg}`}
+      prev="/login" 
       isOpen ={modal}
       btnTxtPositive="Retry"
       />

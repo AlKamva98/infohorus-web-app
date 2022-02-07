@@ -148,6 +148,7 @@ title="Demo Request sent"
 body="Thank you for filling in your details, your demo request has been sent. A Bahati Tech employee will contact you to shedule the requested demo." 
 btnTxtPositive="Okay"
 bg=""
+prev="/"
 toggle={toggle}
 isOpen={modal}
 />

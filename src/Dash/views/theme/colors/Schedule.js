@@ -27,9 +27,12 @@ function Schedule(props) {
     toggle()
     var diff = date.getTime() - sdate.getTime();
     var diffDays = diff/(1000 * 3600 * 24);
-    var tsStart = new Date(sdate.getFullYear()+"/"+ sdate.getMonth()+"/"+ sdate.getDate()); 
-    var tsEnd = new Date(date.getFullYear()+"/"+ date.getMonth()+"/"+ date.getDate()); 
-    console.log("task start date",tsStart);
+    var sMonth = sdate.getMonth()+1;
+    var eMonth = date.getMonth()+1;
+    var tsStart = new Date(sdate.getFullYear()+"/"+ sMonth+"/"+ sdate.getDate()); 
+    var tsEnd = new Date(date.getFullYear()+"/"+ eMonth+"/"+ date.getDate()); 
+    console.log("task start date",sMonth);
+    console.log("task ends",eMonth)
     var task = {
      taskDesc: data.taskDesc,
      taskStart: tsStart,
@@ -66,7 +69,7 @@ function Schedule(props) {
     <label className=" text-xl font-semibold">Start date: </label>
     <DatePicker
   selected={sdate}
-  onChange={(date) => sSetDate(date)}
+  onChange={(date) => {console.log("this is the start date", date); sSetDate(date);}}
   name="startDate"
   onCalendarClose={handleCalendarClose}
   onCalendarOpen={handleCalendarOpen}
@@ -77,7 +80,7 @@ function Schedule(props) {
     <label className=" text-xl font-semibold">End date: </label>
     <DatePicker
   selected={date}
-  onChange={(date) => setDate(date)}
+  onChange={(date) => {console.log("this is the end date", date); setDate(date);}}
   name="endDate"
   onCalendarClose={handleCalendarClose}
   onCalendarOpen={handleCalendarOpen}
@@ -124,6 +127,7 @@ title="Task Scheduled"
 body={"Your task has been scheduled, check the Calendar to view it."}
 btnTxtPositive="Return"
 bg=""
+prev="/dash/theme"
 toggle={toggle}
 isOpen={modal}
 />

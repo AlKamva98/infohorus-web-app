@@ -14,8 +14,10 @@ import {
 const AppBreadcrumb = (props) => {
   const currentLocation = useLocation().pathname
   const {saveChanges, approved, tasks} = props;
+
   const getRouteName = (pathname, routes) => {
     const currentRoute = routes.find((route) => route.path === pathname)
+    console.log(currentRoute)
   return currentRoute.name
 }
 

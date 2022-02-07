@@ -42,20 +42,16 @@ const DefaultLayout = (props) => {
           userObj= User;
           if((userObj !== undefined)){
           setUser(userObj);}
-          console.log("This ",user)
           if((userObj !== undefined) && (userObj.userType === "Assessor")){
                 checkAssessComplete(userObj.id);
               }
               if(userObj!==undefined){
-                console.log("This is the user", user)
             listTeam(userObj).then(teamlist =>{
                   completed =  teamlist;
                   for(let i in completed){
                     if(completed[i]._deleted===null){
                   users.push(completed[i])}
                 }
-                  console.log("this is the team", teamlist)
-                  console.log("this is the team", users)
               })}       
           
               let data = {columns: COLUMNS,rows: users}
@@ -85,15 +81,12 @@ const DefaultLayout = (props) => {
                       
                     }
                     
-                    console.log("this is the team table",datatable)
                     subscribetoTeam(users);
                   }).finally(()=>{
-                    console.log("This us",userObj)
            
             getMessages(userObj).then(data=>{
               setMessages(data)
-              console.log("This is the messages", data);
-            });
+                         });
            setHasTData(true); 
           });
 
@@ -109,15 +102,14 @@ const DefaultLayout = (props) => {
          let data = {columns: COLUMNS,rows: dt}
               setDatatable(data);
         //upTeam.push(team.value.data.onCreateTeam)
-        console.log("This is the teams", dt);
         }
       })
     }
     async function checkAssessComplete(id){
       var reps;
       var complete = false;
-      await API.graphql({query: queries.listAssessorReports, variables:{filter: {ID: {contains: id}}}}).then(promise => {
-              console.log(promise.data.listAssessorReports.items)
+      const assRep = await API.graphql({query: queries.listAssessorReports, variables:{filter: {ID: {contains: id}}}}).then(promise => {
+
               reps = promise.data.listAssessorReports.items;
             }).finally(()=>{
               for(let i in reps){
@@ -157,7 +149,6 @@ const DefaultLayout = (props) => {
              switch(prop){
                case "Rec":
                  data = await API.graphql({query: queries.listRecommendationss, variables: {filter: {userID: {contains: userId}}}}).then(promise => {
-                  console.log("Recommendations",promise.data.listRecommendationss.items)
               return promise.data.listRecommendationss.items;
             }).catch(e => {
                 console.error(e);
@@ -168,7 +159,6 @@ const DefaultLayout = (props) => {
             break;
             case "Task": 
             data = await API.graphql({query: queries.listTaskss}).then(promise => {
-              console.log("This is the task read from the backend", promise.data.listTaskss.items)
               return promise.data.listTaskss.items;
             }).catch(e => {
                 console.error(e);
@@ -220,9 +210,7 @@ const DefaultLayout = (props) => {
 
        async function getMessages(userId) {
       try {
-        console.log("This is the user",userId)
         var messages = await API.graphql({query: queries.listMessages, variables:{filter: {chatID: {contains: userId.chatID}}}});
-        console.log("These are the messages",messages)
         return messages.data.listMessages.items;
       } catch (err) {
           console.log("Error:>> ", err);
@@ -254,7 +242,6 @@ const DefaultLayout = (props) => {
     async function getUser() {
       try {
         var userslist = await API.graphql({query: queries.listUsers, variables:{filter: {email: {contains: user}}}});
-        console.log("This is the user",userslist)
         return userslist.data.listUsers.items[0];
       } catch (err) {
           console.log("Error:>> ", err);
@@ -265,7 +252,6 @@ const DefaultLayout = (props) => {
       if(company!==undefined){
       try {
         var teamlist = await API.graphql({query: queries.listTeams,variables:{filter: {company: {contains: company}}}});
-        console.log("This is the user",teamlist.data.listTeams.items)
         return teamlist.data.listTeams.items;
       } catch (err) {
           console.log("Error:>> ", err);
@@ -289,7 +275,6 @@ const DefaultLayout = (props) => {
      
     }
       catch(err){
-        console.log("There's an error in the Save changes function", err)
       }
     }
 

@@ -215,6 +215,7 @@ await axios.get(`https://emailvalidation.abstractapi.com/v1/?api_key=463d1f07dbb
                <PopUp isOpen={modalPass} 
                btnTxtPositive="Retry" 
                title="Sign up Failed" 
+               prev="/register"
                body={errMess} 
                toggle={togglePass} 
                className={className}/>
@@ -271,6 +272,7 @@ await axios.get(`https://emailvalidation.abstractapi.com/v1/?api_key=463d1f07dbb
                btnTxtPositive="Retry" 
                title={errTitle} 
                body={errMess} 
+               prev="/register"
                toggle={toggleErrPop} 
                className={className}/>
 
