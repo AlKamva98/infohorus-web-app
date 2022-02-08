@@ -14,15 +14,13 @@ import {
 
 
 export const Team = (props) => {
-  const {hasTData, datatable} = props;
+  const { teamTable} = props;
   const [checkbox1, setCheckbox1] = useState('');
   const rtoaster = useRef()
  const [toast, addToast] = useState(0)
  const showLogs2 = (e) => {
-     console.log('SHOWLOGS:::', e);
      setCheckbox1(e);
     };
-    console.log('SHOWLOGS:::', datatable);
  const removeToast = (
   <CToast autohide={false} color="danger" className="text-white align-items-center">
   <div className="d-flex">
@@ -47,14 +45,14 @@ export const Team = (props) => {
   // }
 
   return (<>
-    {hasTData  && (<><Container>
+    (<><Container>
  <h4 className="text-center display-4">Meet The team</h4>
  <span>Click on the customer to assign tasks</span>
  </Container>
     <div className="py-3">
       <MDBDataTableV5
         hover
-        data={datatable}
+        data={teamTable}
         autoWidth
         checkbox
         headCheckboxID='id2'
@@ -86,7 +84,7 @@ export const Team = (props) => {
    <div>
       {checkbox1 && <p>{JSON.stringify(delete checkbox1.checkbox && checkbox1.first_name)}</p>}
     </div>
-    </>)}
+    </>)
     <CToaster ref={rtoaster} push={toast} placement="top-end" />
     </>)
 

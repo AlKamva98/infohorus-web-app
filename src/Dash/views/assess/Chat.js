@@ -1,6 +1,6 @@
-import React,{useEffect} from "react";
+import React,{useEffect, useState} from "react";
 import {API, graphqlOperation} from "aws-amplify"
-import {createMessage, createChat, updateUser} from "../../../graphql/mutations"
+import {createMessage, createChat as createNewChat, updateUser} from "../../../graphql/mutations"
 import * as subscriptions from "../../../graphql/subscriptions"
 // import {
 //   ApolloClient,
@@ -40,22 +40,25 @@ import { Container, Row, Col, FormInput, Button } from "shards-react";
  //     postMessage(user: $user, content: $content)
  //   }
  // +`;
- const newChat = async (now, userId) =>{
+ const createChat = async (now, userDetails) =>{
   let chat = await API.graphql(graphqlOperation(
-       createChat,{
+       createNewChat,{
         input:{
         sessionStart: now,
         isClosed:false,
-        userID: userId.id,
+        userID: userDetails.id,
         }
       }
     ))
       return chat;
  }
+
+ 
+
  const Messages = (props) => {
-   const { user , userId, messages} = props;
+   const { user , userDetails, messages} = props;
    console.log("mess",messages)
-   console.log("userId",userId)
+   console.log("userId",userDetails)
   // var data ={messages:[{
   //  id:0,
   //  user: "Stefano",
@@ -125,10 +128,10 @@ import { Container, Row, Col, FormInput, Button } from "shards-react";
 };
 
 const Chat = (props) => {
-  const {userId,setMessages, messages} =props;
-  let chat;
+  const {userDetails,setMessages, messages} =props;
+  const [chat, setChat] = useState([])
   const [state, stateSet] = React.useState({
-    user: userId.first_name,
+    user: userDetails.first_name,
     content: "",
     chatId: "",
 
@@ -146,9 +149,9 @@ const Chat = (props) => {
             })).catch(e=>{
               console.log("Error in sending message", e);
             });}
-const addchatId = async (userId, chat)=>{
+const addchatId = async (userDetails, chat)=>{
   console.log("chat",chat)
-  console.log("user",userId)
+  console.log("user",userDetails)
   stateSet({
       ...state,
       chatId: chat,
@@ -156,9 +159,9 @@ const addchatId = async (userId, chat)=>{
   try{
 await API.graphql(graphqlOperation(
           updateUser,{input:{
-            id: userId.id,
+            id: userDetails.id,
             chatID: chat,
-            _version: userId._version
+            _version: userDetails._version
           }}
         ))
       }
@@ -168,14 +171,20 @@ await API.graphql(graphqlOperation(
 }
   
   useEffect(() => {
-    
+    const ck= async() =>{ await chatHandler()}  ;
+    ck()
+    subscribeToChat(messages)    
+    console.log("These are the messages in the Chat.js file", messages)
+  }, [])
+
+  const chatHandler =async()=>{
     if(messages.length === 0){
-      newChat(getCurrentDate,userId).then(response=>{
-        console.log(response)
-        chat = response.data.createChat.id;
+      const newChat = await createChat(getCurrentDate,userDetails)
+        console.log(newChat)
+        chat = newChat.data.createChat.id;
         console.log("This is the chatID", chat)
-      }).finally(()=>{
-        addchatId(userId, chat);
+      .finally(()=>{
+        addchatId(userDetails, chat);
       })
     }else{
       chat = messages[0].chatID
@@ -184,10 +193,8 @@ await API.graphql(graphqlOperation(
       chatId: chat,
     })
     }
-    subscribeToChat(messages)    
-    console.log("These are the messages in the Chat.js file", messages)
-  }, [])
-
+  }
+  
   function subscribeToChat(dt){
       API.graphql({
         query: subscriptions.onCreateMessage,
@@ -215,10 +222,10 @@ function getCurrentDate(){
     console.log("current time", dateTime)
     return dateTime;
 }
-  const onSend = (userId, chat) => {
+  const onSend = (userDetails, chat) => {
    
     if (state.content.length > 0) {
-      console.log("The user ID is::", userId);
+      console.log("The user ID is::", userDetails);
       console.log("The chat ID is::", chat);
       console.log("The state  is::",  state);
       postMessage(state);
@@ -230,7 +237,7 @@ function getCurrentDate(){
   };
   return (
     <Container>
-      <Messages user={state.user} messages={messages} userId={userId} />
+      <Messages user={state.user} messages={messages} userDetails={userDetails} />
       <Row>
         <Col xs={2} style={{ padding: 0 }}>
           <FormInput
@@ -257,7 +264,7 @@ function getCurrentDate(){
             onKeyUp={(evt) => {
               if (evt.keyCode === 13) {
                 console.log("chat id onsend", chat)
-                onSend(userId, chat);
+                onSend(userDetails, chat);
               }
             }}
           />

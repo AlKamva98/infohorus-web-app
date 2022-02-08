@@ -13571,13 +13571,12 @@
     "loose-envify" "^1.1.0"
     "symbol-observable" "^1.0.3"
 
-"redux@^4.0.0", "redux@^4.0.4", "redux@>=3", "redux@4.0.5":
-  "integrity" "sha512-VSz1uMAH24DM6MF72vcojpYPtrTUu3ByVWfPL1nPfVRb5mZVTve5GnNCUV53QM/BZ66xfWrm0CTWoM+Xlz8V1w=="
-  "resolved" "https://registry.npmjs.org/redux/-/redux-4.0.5.tgz"
-  "version" "4.0.5"
+"redux@^4.0.0", "redux@^4.0.4", "redux@^4.1.2", "redux@>=3":
+  "integrity" "sha512-SH8PglcebESbd/shgf6mii6EIoRM0zrQyjcuQ+ojmfxjTtE0z9Y8pa62iA/OJ58qjP6j27uyW4kUF4jl/jd6sw=="
+  "resolved" "https://registry.npmjs.org/redux/-/redux-4.1.2.tgz"
+  "version" "4.1.2"
   dependencies:
-    "loose-envify" "^1.4.0"
-    "symbol-observable" "^1.2.0"
+    "@babel/runtime" "^7.9.2"
 
 "regenerate-unicode-properties@^8.2.0":
   "integrity" "sha512-F9DjY1vKLo/tPePDycuH3dn9H1OTPIkVD9Kz4LODu+F2C75mgjAJ7x/gwy6ZcSNRAAkhNlJSOHRe8k3p+K9WhA=="
@@ -15012,7 +15011,7 @@
     "unquote" "~1.1.1"
     "util.promisify" "~1.0.0"
 
-"symbol-observable@^1.0.2", "symbol-observable@^1.0.3", "symbol-observable@^1.0.4", "symbol-observable@^1.1.0", "symbol-observable@^1.2.0", "symbol-observable@1.2.0":
+"symbol-observable@^1.0.2", "symbol-observable@^1.0.3", "symbol-observable@^1.0.4", "symbol-observable@^1.1.0", "symbol-observable@1.2.0":
   "integrity" "sha512-e900nM8RRtGhlV36KGEU9k65K3mPb1WV70OdjfxlG2EAuM1noi/E/BaW/uMhL7bPEssK8QV57vN3esixjUvcXQ=="
   "resolved" "https://registry.npmjs.org/symbol-observable/-/symbol-observable-1.2.0.tgz"
   "version" "1.2.0"

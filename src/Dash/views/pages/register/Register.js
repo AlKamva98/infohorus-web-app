@@ -1,4 +1,4 @@
-import React,{useState, useEffect} from 'react';
+import React,{useState} from 'react';
 import {Container, Row, Image, Col,Card,Form} from 'react-bootstrap';
 import {Label, Input, FormGroup,Button} from 'reactstrap';
 import Select  from 'react-select';
@@ -36,7 +36,6 @@ function Register(props) {
   const [formState, updateFormState] = useState(initialFormState);
   const [errTitle, setErrTitle] = useState("");
   const [errMess, setErrMess] = useState("");
-  const [user, setUser] = useState(null);
   const togglePass = (valid) =>{
     signupFailMsg = "Invalid email!! Please enter your company email, not a free email(gmail, yahoo, hotmail, etc)";
     if(valid===true){
@@ -45,23 +44,17 @@ function Register(props) {
   setErrMess(signupFailMsg)
     setModalPass(!modalPass)
   };
-    useEffect(()=>{
-    checkUser();
-    },[])
 
     const { register, handleSubmit, getValues,formState: { errors }, control } = useForm();
-    const handleError = (errors) => { console.log("Form Errors: "+ errors)};
+    const handleError = () => { console.log("Form Errors: ",errors)};
     const handleRegistration = async (data) =>{ 
       
       try{
         
-        let username = data.email;
-        let email = data.email;
-        let password = data.password;
-        let emailValid;
-         checkEmail(email).then(isValid=>{
+         let emailValid;
+         checkEmail(data.email).then(isValid=>{
            emailValid = isValid;
-           regUser(username, email,data.fname,data.lname,data.jobtitle,data.phone,data.company,data.employees,data.industry,data.country, password, data.confPassword, emailValid).catch(err=>{
+           regUser(data, emailValid).catch(err=>{
              console.log("This is an error registering the user", err)
            });
            console.log("This is the users data:",JSON.stringify(data));
@@ -105,30 +98,22 @@ await axios.get(`https://emailvalidation.abstractapi.com/v1/?api_key=463d1f07dbb
         }
       }
       
-      async function checkUser(){
-        try{
-          const u = await Auth.currentAuthenticatedUser();
-          console.log(u)
-            setUser(u);
-            console.log("This is the user", user)
-            const a = await Auth.currentUserInfo();
-            console.log("User Info is:"+ a);     
-        }catch(err){
-            console.log(err);
-        }
-    }
+      
    
-    async function regUser(username, email,fname,lname,jobtitle,phone,company,employees,industry,country, password, confPassword, emailValid)
-        {if(password === confPassword && emailValid===true){
-          await Auth.signUp({username, password,attributes: {email}})
-          console.log("SignUp complete")
+    async function regUser(data, emailValid){
+      const {email,fname,lname,jobtitle,phone,company,employees,industry,country, password, confPassword} = data;
+
+      const username = email;
+      if(password === confPassword && emailValid===true){
+         const s= await Auth.signUp({username, password,attributes: {email}})
+          console.log("SignUp complete", s)
           updateFormState(()=>({...formState, formType: "verifyMail"}))
 
           console.log("Sending to the API")
           await API.graphql(graphqlOperation(
             newusermut,{
               input:{
-              
+                id: s.userSub,
                 email: email,
                 first_name: fname,
                 last_name: lname,

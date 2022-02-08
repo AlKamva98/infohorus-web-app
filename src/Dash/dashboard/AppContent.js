@@ -6,16 +6,16 @@ import { CContainer } from '@coreui/react'
 import {routes} from '../../routes'
 
 const AppContent = (props) => {
-    const {approve, approved, recommendations, errModal, errToggle, revToggle, revModal, msg, rec,toggle,modal, setMessages, setRec, hasData,datatable,addTask, tasks ,hasTData, news,assRep, continueAss, events, userId, messages }= props;
-    console.log("This is events on app content page",events)
+    const {approve, approved, recommendations, errModal, errToggle, revToggle, revModal, msg, rec,toggle,modal, setMessages, setRec,teamTable,addTask, tasks, news,assRep, continueAss, events, userDetails, messages }= props;
+    console.log("This is events on app content page",recommendations)
 
     const teamList = ()=>{
     var t;
     var e;
     var mmb = [];
-    if(datatable.rows){ 
-    for(t in datatable.rows){
-      var f = datatable.rows[t].email;
+    if(teamTable.rows){ 
+    for(t in teamTable.rows){
+      var f = teamTable.rows[t].email;
       e={value: f, label: f}
       mmb.push(e)
     }
@@ -37,7 +37,7 @@ const AppContent = (props) => {
                   name={route.name}
                   render={(props) => (
                     <>
-<route.component teamList={a} approve={approve} approved={approved} recommendations={recommendations} errModal={errModal} errToggle={errToggle} revToggle={revToggle} revModal={revModal} msg={msg} rec={rec} toggle={toggle} modal={modal} setMessages={setMessages}  setRec={setRec} hasData={hasData} datatable= {datatable} addTask= {addTask} tasks= {tasks} hasTData= {hasTData} news= {news} assRep= {assRep} continueAss= {continueAss} events= {events} userId= {userId}  {...props} />
+<route.component teamList={a} approve={approve} approved={approved} recommendations={recommendations} errModal={errModal} errToggle={errToggle} revToggle={revToggle} revModal={revModal} msg={msg} rec={rec} toggle={toggle} modal={modal} setMessages={setMessages}  setRec={setRec} teamTable= {teamTable} addTask= {addTask} tasks= {tasks} news= {news} assRep= {assRep} continueAss= {continueAss} events= {events} userDetails= {userDetails}  {...props} />
                     </>
                   )}
                 />

@@ -1,6 +1,5 @@
 import React,{useState} from 'react'
 import { Link, Redirect } from 'react-router-dom'
-import {Auth} from 'aws-amplify';
 import {
   CButton,
   CCard,
@@ -19,36 +18,23 @@ import {PopUp} from '../../../../Home/shared/utils/Modal'
 
   const Login = (props) => {
 
-const {signedIn, checkUser} = props;
-  const [modal, setModal] = useState(false);
-  const toggle = () => setModal(!modal);
-  const [msg, setMsg] = useState("")
+const {signedIn, signInHandler, toggle,modal, errMsg} = props;
   const initialFormState = {email:"", password:""};
   const [formState, updateFormState] = useState(initialFormState);
-  //var signinFailMsg = "You have filled in an incorrect email or password. Please retry with the correct details. If you dont have an account, create a new account.";
-
-
 
  function onChange(e){
         e.persist()
         console.log("changing:",e.target.name);
         updateFormState(()=>({...formState, [e.target.name]: e.target.value}))
     }
- async function handleSignIn(){
-    try{
-        const {email, password} = formState
-        await Auth.signIn(email, password)
-        console.log("User is signed in", signedIn)
-        checkUser()
-        }catch(err){
-            setMsg(err.message);
-            toggle();
-            console.log("Sign in Error: ",err);
-       }
+ async function handleSignIn(e){
+        e.preventDefault()
+        signInHandler(formState);
+        console.log("this it the event handler",e)
+        e.target[0].value = "";
+        e.target[1].value = ""
+        updateFormState(initialFormState);
 }
-
-    
-    
 
   return (
     <div className="bg-light min-vh-100 d-flex flex-row align-items-center">
@@ -60,7 +46,7 @@ const {signedIn, checkUser} = props;
             <CCardGroup>
               <CCard className="p-4">
                 <CCardBody>
-                  <CForm>
+                  <CForm onSubmit={handleSignIn}>
                     <div className=" mb-4">
     <img className=" d-block mx-auto img-fluid" src="./images/fav-logo.png" alt="Our logo" width="40" height="40"/>
               <h4 className="w-full mr-2 text-2xl text-center font-extrabold">Sign In</h4>
@@ -86,7 +72,7 @@ const {signedIn, checkUser} = props;
                     </CInputGroup>
                     <CRow>
                       <CCol xs="6">
-                        <CButton color="primary" onClick={()=>{handleSignIn()}} >
+                        <CButton color="primary" type="submit" >
                           Login
                         </CButton>
                       </CCol>
@@ -120,9 +106,10 @@ const {signedIn, checkUser} = props;
       </CContainer> 
       <PopUp
       title="Login Error!" 
-      body={`Error: ${msg}`}
-      prev="/login" 
+      body={`Error: ${errMsg}`}
       isOpen ={modal}
+      toggle={toggle}
+      prev={"/login"}
       btnTxtPositive="Retry"
       />
       </div>
