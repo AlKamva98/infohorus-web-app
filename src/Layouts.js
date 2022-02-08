@@ -1,4 +1,3 @@
-import {Auth} from 'aws-amplify';
 import React from 'react';
 import {  Redirect, Route, Switch } from 'react-router-dom';
 
@@ -8,23 +7,17 @@ import MainLayout from './Home/layout/MainLayout';
 
 
 const Layouts = (props) => {
-const {setSignedIn, signedIn,setUser, userGroup, user} = props;
+const {signOutHandler, signedIn,setUser, userGroup, user} = props;
  
 
-    const signOut = async()=>{
-      try{
-      console.log("Signing out");
-      setSignedIn(false);
-      await Auth.signOut();
-    }catch(err){
-      console.log("Rendering Error: ", err)
-    }
+    const handleSignOut = async()=>{
+        signOutHandler() 
       }
 
   return (
         <Switch>
-          <Route path="/dash" name="DashboardHome" render={(props) => <DefaultLayout  userGroup={userGroup} signedIn={signedIn} setUser={setUser} user={user} signOut={signOut} {...props} />} />
-          <Route path="/main" name="Main" render={(props) => <MainLayout userGroup={userGroup} getUserStatus={signedIn}  signOut={signOut} {...props} />} />
+          <Route path="/dash" name="DashboardHome" render={(props) => <DefaultLayout  userGroup={userGroup} signedIn={signedIn} setUser={setUser} user={user} signOut={handleSignOut} {...props} />} />
+          <Route path="/main" name="Main" render={(props) => <MainLayout userGroup={userGroup} signedIn={signedIn}  signOut={handleSignOut} {...props} />} />
           
           <Redirect from="/" to="/main"/>
         </Switch>

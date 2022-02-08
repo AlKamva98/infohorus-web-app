@@ -2,97 +2,114 @@ import React,{useEffect, useState} from 'react'
 import {Redirect} from 'react-router-dom'
 import { AppContent, AppSidebar, AppFooter, AppHeader } from '../dashboard/index'
 import {COLUMNS} from "../assessor/columns";
-import {API} from 'aws-amplify'
+import {API, Auth, graphqlOperation} from 'aws-amplify'
 import * as queries from '../../graphql/queries';
 import * as mutations from '../../graphql/mutations'
 import * as subscriptions from '../../graphql/subscriptions'
 
 const DefaultLayout = (props) => {
-  const {signedIn, signOut, userGroup,setUser, user} = props;
-  let approvedRecs =[];
-  let upRec = [];
-  var completed;
+  const {signedIn, signOut, userGroup} = props;
+  const [userDetails, setUserDetails] = useState({});
+  const [teamMembers, setTeamMembers] = useState([])
+  const [teamTable, setTeamTable] = useState('');
+  const [recommendations, setRecommendations] =useState([]);
+  const [approved, setApproved]=useState([]);
+  const [tasks, setTasks] =useState([]);
+  
   // let RecomendationsList = listProps("Rec");
   // let TasksList = listProps("Task") ;
-    const [approved, updateApproved]=useState([]);
     const [modal, setModal] = useState(false);
     const toggle = () => setModal(!modal);
     const [rec, setRec] =useState("");
     const [errModal, setErrModal] = useState(false);
     const errToggle = () => setErrModal(!errModal);
-    const [tasks, setTasks] =useState([]);
     const [revModal, setRevModal] = useState(false);
     const revToggle = () => setRevModal(!revModal);
     const [msg, setMsg] =useState("");
     const [messages, setMessages] = useState([]);
     const [hasData, setHasData] = useState(false);
     const [hasTData, setHasTData] = useState(false);
-    const [datatable, setDatatable] = useState('');
     const [continueAss, setContinueAss] = useState(false);
     const [assRep, setAssRep] = useState({});
-    const [recommendations, updateRecs] =useState([]);
     const [data, setData] = useState([])
     let userObj;
     var [evt, setEvt] = useState([]);
     var rectks= [];
-    useEffect(() => { 
-      
-      getUser().then(User => {
-        let users = [];
-          userObj= User;
-          if((userObj !== undefined)){
-          setUser(userObj);}
-          if((userObj !== undefined) && (userObj.userType === "Assessor")){
-                checkAssessComplete(userObj.id);
-              }
-              if(userObj!==undefined){
-            listTeam(userObj).then(teamlist =>{
-                  completed =  teamlist;
-                  for(let i in completed){
-                    if(completed[i]._deleted===null){
-                  users.push(completed[i])}
-                }
-              })}       
-          
-              let data = {columns: COLUMNS,rows: users}
-              setDatatable(data);
-              if(!hasData && userObj!==undefined){
-                listProps("Rec", userObj.id).then(data =>{
-                  updateRecs(data);
-                  listProps("Task",userObj.id).then(response=>{
-                    if(response){
-                      setTasks(response)
-                      console.log("This is the tasks",response)
-                      for(let i in response){
-                        let item ={
-                          id: i,
-                          color: response[i].color,
-                          from: response[i].taskStart.toString().replace("Z",""),
-                          to: response[i].taskEnd.toString().replace("Z",""),
-                          title: response[i].taskDesc};
-                         
-                          rectks.push(item)
-                          console.log("RecTasks", rectks)
-                          setEvt(rectks)
-                        }
-                       }})
-                       listArticles().then(promise=>{setData(promise);})
-                      })
-                      
-                    }
-                    
-                    subscribetoTeam(users);
-                  }).finally(()=>{
-           
-            getMessages(userObj).then(data=>{
-              setMessages(data)
-                         });
-           setHasTData(true); 
-          });
-
     
+    useEffect(() => { 
+      const getDashValues = async() =>{
+        const currentUser = await getUser();
+        if(currentUser){
+          setUserDetails(currentUser.data.getUser);
+          const team = await listTeam(currentUser.data.getUser.company)
+          setTeamMembers(team)
+          teamsTableHandler(team)
+          recommendationsHandler(currentUser.data.getUser.id)
+          tasksHandler(currentUser.data.getUser.id)
+          newsArticleshandler()
+        }
+      }
+      getDashValues();
+
     },[])
     
+    useEffect(() => {   
+    console.log("This is the teams table", teamTable)  
+    },[teamMembers])
+    
+    //team member handlers
+    const addTeamMemberHandler= (member) =>{
+      
+    }
+    const updateTeamMemberHandler= () =>{
+
+    }
+    const deleteTeamMemberHandler= (id) =>{
+        const newTeam = teamMembers.filter((teamMember)=>{
+          return teamMember.id !== id;
+        })  
+        setTeamMembers(newTeam);
+        teamsTableHandler(newTeam);
+    }
+    const teamsTableHandler = (team) =>{
+      const data = {columns: COLUMNS,rows: team}
+      setTeamTable(data)
+
+    }
+
+    const recommendationsHandler = async (id)=>{
+      const recommendations = await listProps("Rec", id)
+      getApproved(recommendations);
+      getPending(recommendations);
+
+    }
+
+    const tasksHandler = async (id)=>{
+    const Tasks = await listProps("Task",id);
+
+    setTasks(Tasks)
+    let taskEvents = [];
+    for(let i in Tasks){
+      let item ={
+        id: i,
+        color: Tasks[i].color,
+        from: Tasks[i].taskStart.toString().replace("Z",""),
+        to: Tasks[i].taskEnd.toString().replace("Z",""),
+        title: Tasks[i].taskDesc
+      };
+  
+      taskEvents.push(item);
+      }
+      console.log("These are the task events", taskEvents);
+      setEvt(taskEvents)
+    }
+
+    const newsArticleshandler = async () =>{
+      const articles = await listArticles();
+      console.log("These are the articles", articles)
+      setData(articles);
+    }
+
     function subscribetoTeam(dt){
       API.graphql({
         query: subscriptions.onCreateTeam,
@@ -100,7 +117,7 @@ const DefaultLayout = (props) => {
         next: team => {
          dt.push(team.value.data.onCreateTeam) ;
          let data = {columns: COLUMNS,rows: dt}
-              setDatatable(data);
+              setTeamTable(data);
         //upTeam.push(team.value.data.onCreateTeam)
         }
       })
@@ -152,9 +169,6 @@ const DefaultLayout = (props) => {
               return promise.data.listRecommendationss.items;
             }).catch(e => {
                 console.error(e);
-            }).finally(()=>{
-              setHasData(true);
-              getApproved()
             })
             break;
             case "Task": 
@@ -172,28 +186,23 @@ const DefaultLayout = (props) => {
   }
 
   
-    function getApproved(){//scans through the a recommendations array, gets approved recs, and moves those recs to a new array
-         try{
-          if(hasData){
-            approvedRecs = recommendations.filter(checkRec);//filters 
-            upRec = recommendations;
-            if(approvedRecs!==undefined||approvedRecs!==null){//checks if approvedRecs is not null
-              for(let i in recommendations){//loops through the array 
-                if(recommendations[i].isApproved){//checks if the array 
-            upRec.splice(i,1)}// removes the approved rec from the main array
-            break;
+    function getApproved(recommendations){//scans through the a recommendations array, gets approved recs, and moves those recs to a new array
+            const approvedRecs = recommendations.filter((rec)=>{
+              return rec.isApproved
+            });//filters 
+          
+          console.log("These are the apporved recos", approvedRecs);
+          setApproved(approvedRecs);
           }
-                }
-        for(let i in approvedRecs){
-          approved.push(approvedRecs[i])//adds the approved rev to the approved array
-              }
-          updateApproved(approved);//
-          updateRecs(upRec)
-        }
-}catch(err){
-
-     }
-      }
+    function getPending(recommendations){//
+            const pendingRecs = recommendations.filter((rec)=>{
+              return rec.isApproved === false;
+            });//filters 
+          
+          console.log("These are the pending recos", pendingRecs);
+          setRecommendations(pendingRecs);
+          }
+          
        function checkRec(recommendation){
          return recommendation.isApproved === true;
        }
@@ -241,15 +250,17 @@ const DefaultLayout = (props) => {
 
     async function getUser() {
       try {
-        var userslist = await API.graphql({query: queries.listUsers, variables:{filter: {email: {contains: user}}}});
-        return userslist.data.listUsers.items[0];
+        const a = await Auth.currentUserInfo();
+          return  await API.graphql(graphqlOperation(queries.getUser, { id: a.username }));
       } catch (err) {
           console.log("Error:>> ", err);
       }
   }
-    async function listTeam(user) {//get teams
-      var company = user.company;
-      if(company!==undefined){
+    
+  
+  async function listTeam(company) {//get teams
+      
+      if(company){
       try {
         var teamlist = await API.graphql({query: queries.listTeams,variables:{filter: {company: {contains: company}}}});
         return teamlist.data.listTeams.items;
@@ -301,7 +312,7 @@ const DefaultLayout = (props) => {
         <AppHeader tasks={tasks} recommendations={recommendations} signOut={signOut} saveChanges={saveChanges} approved={approved} />
         <div className="body flex-grow-1 px-3">
           <AppContent approve={approve} approved={approved} recommendations={recommendations} 
-          errModal={errModal} datatable={datatable} hasTData={hasTData} hasData={hasData} errToggle={errToggle} revModal={revModal} revToggle={revToggle}  msg={msg} setMsg={setMsg}  tasks={tasks} rec={rec} toggle={toggle} news={data} messages={messages} setMessages={setMessages} modal={modal} events={evt} userId={user} continuesAss={continueAss} assRep={assRep} setRec={setRec} addTask={addTask} />
+          errModal={errModal} teamTable={teamTable}  errToggle={errToggle} revModal={revModal} revToggle={revToggle}  msg={msg} setMsg={setMsg}  tasks={tasks} rec={rec} toggle={toggle} news={data} messages={messages} setMessages={setMessages} modal={modal} events={evt} userDetails={userDetails} continuesAss={continueAss} assRep={assRep} setRec={setRec} addTask={addTask} />
         </div>
         <AppFooter />
       </div>

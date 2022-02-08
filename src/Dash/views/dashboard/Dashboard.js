@@ -8,12 +8,12 @@ import {
 import WidgetsDropdown from '../components/widgets/WidgetsDropdown.js'
 
 const Dashboard = (props) => {
-  const {news,userId} = props;
+  const {news,userDetails} = props;
   // let hasReport = false;
  
   return (
     <>
-    <h2 className="mb-3 fw-normal text-center text-2xl fw-bold">Welcome {userId.first_name}</h2>
+    <h2 className="mb-3 fw-normal text-center text-2xl fw-bold">Welcome {userDetails.first_name}</h2>
  <WidgetsDropdown />
       
       <CCol xs={12}>
@@ -24,11 +24,11 @@ const Dashboard = (props) => {
           <CCardBody>
             {news ? (news.map((article, index)=>{
               var imgUrl=null;
-              if(article.provider[0].image!==undefined){  
+              if(article.provider[0].image){  
               imgUrl =article.provider[0].image.thumbnail.contentUrl;}
                console.log(article, index)
       return(<>
-            <div className="flex m-3 py-4 px-4 shadow-md rounded-lg bg-gray-200">
+            <div key={index} className="flex m-3 py-4 px-4 shadow-md rounded-lg bg-gray-200">
               {imgUrl &&
               <img alt='icon' className="w-40 h-40 mr-4" src={imgUrl}/>
               }

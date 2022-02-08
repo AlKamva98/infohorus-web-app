@@ -3,11 +3,11 @@ import { Content, Footer, Header } from '../shared/index'
 
 
 const MainLayout = (props) => {
-  const {getUserStatus, signOut} = props;
+  const {signedIn, signOut} = props;
   return (
     <div>
       <div className="wrapper d-flex flex-column min-vh-100 bg-light">
-        <Header signedIn={getUserStatus} show={true} signOut= {signOut} />
+        <Header signedIn={signedIn} show={true} signOut= {signOut} />
         <div className="w-screen">
           <Content />
         </div>

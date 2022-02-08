@@ -6,14 +6,15 @@ import { CRow, CCard, CCardHeader, CCardBody } from '@coreui/react';
 import { Button } from 'react-bootstrap';
 
 const Colors = (props) => {
-    const {approve, approved, RecomendationsList, errModal, errToggle, revToggle, revModal, rec, setRec, addTask, tasks,teamList, hasData }= props;
+    const {approve, approved, recommendations, errModal, errToggle, revToggle, revModal, rec, setRec, addTask, tasks,teamList }= props;
     const [msg, setMsg] =useState("");
     var RecTask;
 
+    console.log("These are recommendations", recommendations)
 function review(i){
       try{ 
   
-     setRec(RecomendationsList[i]);
+     setRec(recommendations[i]);
      revToggle();
     }catch(err){
 
@@ -23,7 +24,7 @@ function review(i){
     }
     }
     console.log("This is the approved recommendations",approved)
-    console.log("This is the pending recommendations",RecomendationsList)
+    console.log("This is the pending recommendations",recommendations)
 
   return (
     <>
@@ -38,7 +39,7 @@ function review(i){
      {approved.map((values, index)=>{
       console.log("More tasks", tasks)
       return(<>
-      <li >
+      <li key={index} >
       <div  className="hover:bg-blue-500 hover:border-transparent hover:shadow-lg group block rounded-lg p-4 border border-gray-200">   
         <dl className="grid sm:block lg:grid xl:block grid-cols-2 grid-rows-2 items-center">
           <div>
@@ -75,7 +76,7 @@ function review(i){
                 i++;
                 console.log("These are the tasks in this recommendation", RecTask)
                 
-                ts=  (<dd className="flex justify-end group-hover:text-blue-200 sm:justify-start font-medium lg:justify-end xl:justify-start -space-x-2">
+                ts=  (<dd key={i} className="flex justify-end group-hover:text-blue-200 sm:justify-start font-medium lg:justify-end xl:justify-start -space-x-2">
                 {`Task ${i}: ${RecTask.taskDesc}- Assigned to:${RecTask.assignedTo}`}
                 </dd>);
                 
@@ -100,16 +101,16 @@ function review(i){
         </CCardBody>
       </CCard>)}
     
-     { hasData && (<CCard className="mb-4">
+     { recommendations && (<CCard className="mb-4">
         <CCardHeader>
           Pending Recomendations
         </CCardHeader>
         <CCardBody>
           <CRow className="mb-3">
            <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 gap-4">
-    {RecomendationsList ? (RecomendationsList.map((values, index)=>{
+    {recommendations ? (recommendations.map((values, index)=>{
 return(<>
-    <li x-for="item in items">
+    <li x-for="item in items" key={index}>
       <div  className="hover:bg-blue-500 hover:border-transparent hover:shadow-lg group block rounded-lg p-4 border border-gray-200">
         <dl className="grid sm:block lg:grid xl:block grid-cols-2 grid-rows-2 items-center">
           <div>
