@@ -26,7 +26,6 @@ const Dashboard = (props) => {
               var imgUrl=null;
               if(article.provider[0].image){  
               imgUrl =article.provider[0].image.thumbnail.contentUrl;}
-               console.log(article, index)
       return(<>
             <div key={index} className="flex m-3 py-4 px-4 shadow-md rounded-lg bg-gray-200">
               {imgUrl &&

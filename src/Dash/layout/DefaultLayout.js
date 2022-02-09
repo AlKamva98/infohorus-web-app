@@ -5,7 +5,7 @@ import {COLUMNS} from "../assessor/columns";
 import {API, Auth, graphqlOperation} from 'aws-amplify'
 import * as queries from '../../graphql/queries';
 import * as mutations from '../../graphql/mutations'
-import * as subscriptions from '../../graphql/subscriptions'
+import Contact from 'src/Home/views/contact/Contact';
 
 const DefaultLayout = (props) => {
   const {signedIn, signOut, userGroup} = props;
@@ -16,8 +16,6 @@ const DefaultLayout = (props) => {
   const [approved, setApproved]=useState([]);
   const [tasks, setTasks] =useState([]);
   
-  // let RecomendationsList = listProps("Rec");
-  // let TasksList = listProps("Task") ;
     const [modal, setModal] = useState(false);
     const toggle = () => setModal(!modal);
     const [rec, setRec] =useState("");
@@ -27,14 +25,10 @@ const DefaultLayout = (props) => {
     const revToggle = () => setRevModal(!revModal);
     const [msg, setMsg] =useState("");
     const [messages, setMessages] = useState([]);
-    const [hasData, setHasData] = useState(false);
-    const [hasTData, setHasTData] = useState(false);
     const [continueAss, setContinueAss] = useState(false);
     const [assRep, setAssRep] = useState({});
     const [data, setData] = useState([])
-    let userObj;
     var [evt, setEvt] = useState([]);
-    var rectks= [];
     
     useEffect(() => { 
       const getDashValues = async() =>{
@@ -57,6 +51,18 @@ const DefaultLayout = (props) => {
     console.log("This is the teams table", teamTable)  
     },[teamMembers])
     
+    useEffect(() => {  
+      console.log("Recommendations have been changed to", recommendations)
+      const approvedRec = recommendations.filter((rec)=>{
+        return rec.isApproved
+      });//filters 
+    
+    console.log("These are the apporved recos", approvedRec[0]);
+    addToApprovedHandler(approvedRec[0])
+     },[recommendations])
+    const addToApprovedHandler =(appRec)=>{
+      setApproved([...approved, appRec])
+    }
     //team member handlers
     const addTeamMemberHandler= (member) =>{
       
@@ -71,15 +77,18 @@ const DefaultLayout = (props) => {
         setTeamMembers(newTeam);
         teamsTableHandler(newTeam);
     }
-    const teamsTableHandler = (team) =>{
-      const data = {columns: COLUMNS,rows: team}
+    const teamsTableHandler = () =>{
+      const newTeam = teamMembers.filter((member)=>{
+        return member._deleted === undefined
+      })
+      const data = {columns: COLUMNS,rows: newTeam}
       setTeamTable(data)
 
     }
 
     const recommendationsHandler = async (id)=>{
       const recommendations = await listProps("Rec", id)
-      getApproved(recommendations);
+      // getApproved(recommendations);
       getPending(recommendations);
 
     }
@@ -100,28 +109,16 @@ const DefaultLayout = (props) => {
   
       taskEvents.push(item);
       }
-      console.log("These are the task events", taskEvents);
+      
       setEvt(taskEvents)
     }
 
     const newsArticleshandler = async () =>{
       const articles = await listArticles();
-      console.log("These are the articles", articles)
       setData(articles);
     }
 
-    function subscribetoTeam(dt){
-      API.graphql({
-        query: subscriptions.onCreateTeam,
-      }).subscribe({
-        next: team => {
-         dt.push(team.value.data.onCreateTeam) ;
-         let data = {columns: COLUMNS,rows: dt}
-              setTeamTable(data);
-        //upTeam.push(team.value.data.onCreateTeam)
-        }
-      })
-    }
+    
     async function checkAssessComplete(id){
       var reps;
       var complete = false;
@@ -198,9 +195,7 @@ const DefaultLayout = (props) => {
             const pendingRecs = recommendations.filter((rec)=>{
               return rec.isApproved === false;
             });//filters 
-          
-          console.log("These are the pending recos", pendingRecs);
-          setRecommendations(pendingRecs);
+          setRecommendations(recommendations);
           }
           
        function checkRec(recommendation){
@@ -208,12 +203,11 @@ const DefaultLayout = (props) => {
        }
       function approve(rec){
         rec.isApproved = true;
-        for(let i in recommendations){
-          if(rec.id === recommendations[i].id){
-            recommendations.splice(i, 1, rec)
-         }
-        }
-        getApproved()
+        setRecommendations(recommendations.map((recommendation)=>{
+          console.log(recommendation.isApproved)
+          return recommendation.id === rec.id ? {...recommendation, isApproved: true}: recommendation;
+        }))
+        console.log("rec is ",rec.isApproved)
 
        }
 

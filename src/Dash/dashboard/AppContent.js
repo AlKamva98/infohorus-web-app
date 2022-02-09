@@ -7,7 +7,7 @@ import {routes} from '../../routes'
 
 const AppContent = (props) => {
     const {approve, approved, recommendations, errModal, errToggle, revToggle, revModal, msg, rec,toggle,modal, setMessages, setRec,teamTable,addTask, tasks, news,assRep, continueAss, events, userDetails, messages }= props;
-    console.log("This is events on app content page",recommendations)
+    console.log("This is approved on app content page",approved)
 
     const teamList = ()=>{
     var t;
@@ -23,7 +23,6 @@ const AppContent = (props) => {
     return mmb;
   }
   var a =teamList();
-  console.log("These are the messages in the App content page:::", messages);
   return (
     <CContainer lg className="w-full">
         <Switch>
