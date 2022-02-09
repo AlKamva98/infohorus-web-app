@@ -77,9 +77,9 @@ const DefaultLayout = (props) => {
         setTeamMembers(newTeam);
         teamsTableHandler(newTeam);
     }
-    const teamsTableHandler = () =>{
-      const newTeam = teamMembers.filter((member)=>{
-        return member._deleted === undefined
+    const teamsTableHandler = (team) =>{
+      const newTeam = team.filter((member)=>{
+        return member._deleted === null
       })
       const data = {columns: COLUMNS,rows: newTeam}
       setTeamTable(data)
@@ -306,7 +306,7 @@ const DefaultLayout = (props) => {
         <AppHeader tasks={tasks} recommendations={recommendations} signOut={signOut} saveChanges={saveChanges} approved={approved} />
         <div className="body flex-grow-1 px-3">
           <AppContent approve={approve} approved={approved} recommendations={recommendations} 
-          errModal={errModal} teamTable={teamTable}  errToggle={errToggle} revModal={revModal} revToggle={revToggle}  msg={msg} setMsg={setMsg}  tasks={tasks} rec={rec} toggle={toggle} news={data} messages={messages} setMessages={setMessages} modal={modal} events={evt} userDetails={userDetails} continuesAss={continueAss} assRep={assRep} setRec={setRec} addTask={addTask} />
+          errModal={errModal} teamTable={teamTable}  deleteMember={deleteTeamMemberHandler} errToggle={errToggle} revModal={revModal} revToggle={revToggle}  msg={msg} setMsg={setMsg}  tasks={tasks} rec={rec} toggle={toggle} news={data} messages={messages} setMessages={setMessages} modal={modal} events={evt} userDetails={userDetails} continuesAss={continueAss} assRep={assRep} setRec={setRec} addTask={addTask} />
         </div>
         <AppFooter />
       </div>
