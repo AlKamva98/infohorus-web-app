@@ -24,11 +24,10 @@ function review(i){
     }
     }
     console.log("This is the approved recommendations",approved)
-    console.log("This is the pending recommendations",recommendations)
 
   return (
     <>
-    {approved && ( <CCard className="mb-4">
+    { ( <CCard className="mb-4">
         <CCardHeader>
           Approved Recomendations
         </CCardHeader>
@@ -36,9 +35,8 @@ function review(i){
           <CRow >
           
                 <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 gap-4" >
-     {approved.map((values, index)=>{
-      console.log("More tasks", tasks)
-      return(<>
+     {recommendations.map((values, index)=>{
+      return(<>{values.isApproved &&(
       <li key={index} >
       <div  className="hover:bg-blue-500 hover:border-transparent hover:shadow-lg group block rounded-lg p-4 border border-gray-200">   
         <dl className="grid sm:block lg:grid xl:block grid-cols-2 grid-rows-2 items-center">
@@ -74,7 +72,6 @@ function review(i){
               if(task.recommendationsID===values.id){
                 RecTask = task;
                 i++;
-                console.log("These are the tasks in this recommendation", RecTask)
                 
                 ts=  (<dd key={i} className="flex justify-end group-hover:text-blue-200 sm:justify-start font-medium lg:justify-end xl:justify-start -space-x-2">
                 {`Task ${i}: ${RecTask.taskDesc}- Assigned to:${RecTask.assignedTo}`}
@@ -93,7 +90,7 @@ function review(i){
           </div>
         </dl>
       </div>
-    </li>
+    </li>)}
   </>)
       })}
     </ul>
@@ -109,7 +106,7 @@ function review(i){
           <CRow className="mb-3">
            <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 gap-4">
     {recommendations ? (recommendations.map((values, index)=>{
-return(<>
+return(<>{!values.isApproved &&
     <li x-for="item in items" key={index}>
       <div  className="hover:bg-blue-500 hover:border-transparent hover:shadow-lg group block rounded-lg p-4 border border-gray-200">
         <dl className="grid sm:block lg:grid xl:block grid-cols-2 grid-rows-2 items-center">
@@ -141,6 +138,7 @@ return(<>
         </dl>
       </div>
     </li>
+}
     
     </>)
       })):(<p>Recommendations are unavailable</p>)
