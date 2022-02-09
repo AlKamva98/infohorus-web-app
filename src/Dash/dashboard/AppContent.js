@@ -6,7 +6,7 @@ import { CContainer } from '@coreui/react'
 import {routes} from '../../routes'
 
 const AppContent = (props) => {
-    const {approve, approved, recommendations, errModal, errToggle, revToggle, revModal, msg, rec,toggle,modal, setMessages, setRec,teamTable,addTask, tasks, news,assRep, continueAss, events, userDetails, messages }= props;
+    const {approve, approved,deleteMember, recommendations, errModal, errToggle, revToggle, revModal, msg, rec,toggle,modal, setMessages, setRec,teamTable,addTask, tasks, news,assRep, continueAss, events, userDetails, messages }= props;
     console.log("This is approved on app content page",approved)
 
     const teamList = ()=>{
@@ -36,7 +36,7 @@ const AppContent = (props) => {
                   name={route.name}
                   render={(props) => (
                     <>
-<route.component teamList={a} approve={approve} approved={approved} recommendations={recommendations} errModal={errModal} errToggle={errToggle} revToggle={revToggle} revModal={revModal} msg={msg} rec={rec} toggle={toggle} modal={modal} setMessages={setMessages}  setRec={setRec} teamTable= {teamTable} addTask= {addTask} tasks= {tasks} news= {news} assRep= {assRep} continueAss= {continueAss} events= {events} userDetails= {userDetails}  {...props} />
+<route.component teamList={a} approve={approve} deleteMember={deleteMember} approved={approved} recommendations={recommendations} errModal={errModal} errToggle={errToggle} revToggle={revToggle} revModal={revModal} msg={msg} rec={rec} toggle={toggle} modal={modal} setMessages={setMessages}  setRec={setRec} teamTable= {teamTable} addTask= {addTask} tasks= {tasks} news= {news} assRep= {assRep} continueAss= {continueAss} events= {events} userDetails= {userDetails}  {...props} />
                     </>
                   )}
                 />
