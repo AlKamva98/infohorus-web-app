@@ -14,7 +14,7 @@ import {
 
 
 export const Team = (props) => {
-  const { deleteMember,teamTable} = props;
+  const { deleteMember,updateMember,teamTable,handleMemberAdd} = props;
   const [checkbox1, setCheckbox1] = useState('');
   const rtoaster = useRef()
  const [toast, addToast] = useState(0)
@@ -29,8 +29,28 @@ export const Team = (props) => {
   </div>
   </CToast>
   )
-
-  const handleDelete = async ()=>{
+  
+  const handleMemberUpdate = async (data)=>{
+    if(checkbox1){
+        var updatedUser= checkbox1;
+        console.log("This the user being updated", updatedUser)
+        updatedUser.first_name= data.fname;
+        updatedUser.last_name= data.lname;
+        console.log(updatedUser.last_name)
+        console.log(data.lname)
+        updatedUser.job_title= data.jobtitle;
+        updatedUser.email = data.email;
+        updatedUser = omit(updatedUser,"_lastChangedAt");
+        updatedUser = omit(updatedUser,"createdAt");
+        updatedUser = omit(updatedUser,"updatedAt");
+        updatedUser = omit(updatedUser,"checked");
+        updatedUser = omit(updatedUser, "_deleted");
+        updatedUser = omit(updatedUser, "checkbox");
+        updateMember(updatedUser)
+        
+      }
+  }
+  const handleMemberDelete = async ()=>{
     if(checkbox1){
     try {
       const userDetails = {
@@ -46,19 +66,13 @@ export const Team = (props) => {
     }}
   }
 
-  // async function deleteUser(checkbox) {
-  //       try {
-  //       const userDetails = {
-  //       id: checkbox.id,
-  //       _version: checkbox._version
-  //       };
-  //       console.log(`This the id of the item I want to delete`, userDetails);
-  //      await API.graphql({query: mutations.deleteUser ,variables:{input: userDetails}});
-  //      addToast(removeToast); 
-  //     } catch (err) {
-  //         console.log("Error:>> ", err);
-  //     }
-  // }
+  function omit(obj, ...props) {
+    const result = { ...obj };
+    props.forEach(function(prop) {
+      delete result[prop];
+    });
+    return result;
+  }
 
   return (<>
     <Container>
@@ -78,16 +92,16 @@ export const Team = (props) => {
           />
     </div>
  <div>
-    <Link to="/dash/employees"><Button className= "mb-5 bg-green-500 hover:bg-green-300 focus:bg-green-400 active:bg-green-400"  type="button">Add new +</Button></Link>
+    <Link to={{pathname:"/dash/employees", addMember:handleMemberAdd}}><Button className= "mb-5 bg-green-500 hover:bg-green-300 focus:bg-green-400 active:bg-green-400"  type="button">Add new +</Button></Link>
 
-  <Button onClick={  async ()=> {handleDelete()}
+  <Button onClick={  async ()=> {handleMemberDelete()}
 } className= "ml-5 mb-5 bg-red-600 hover:bg-red-400 focus:bg-red-500 active:bg-red-500"  type="submit">Remove -</Button>
-  <Link to= {{pathname: "/dash/update" ,userData: checkbox1}}><Button className= "ml-5 mb-5 bg-yellow-500 hover:bg-yellow-300 focus:bg-yellow-400 active:bg-yellow-400"  type="submit">Update</Button></Link>
+  <Link to= {{pathname: "/dash/update" ,updateMember: handleMemberUpdate}}><Button className= "ml-5 mb-5 bg-yellow-500 hover:bg-yellow-300 focus:bg-yellow-400 active:bg-yellow-400"  type="submit">Update</Button></Link>
     <Link to= {{pathname: "/dash/theme" ,state: checkbox1}}><Button className= "ml-5 mb-5"  type="submit">Assign</Button></Link>
  </div>
-   <div>
+   {/* <div>
       {checkbox1 && <p>{JSON.stringify(delete checkbox1.checkbox && checkbox1.first_name)}</p>}
-    </div>
+    </div> */}
 
     <CToaster ref={rtoaster} push={toast} placement="top-end" />
     </>)

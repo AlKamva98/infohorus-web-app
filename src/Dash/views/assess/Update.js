@@ -6,44 +6,22 @@ import {  API } from 'aws-amplify';
 import * as mutations from '../../../graphql/mutations'
 
   function Update(props) {
-    const {userData} = props.location;
-    var updatedUser ={...userData};
+    const {updateMember} = props.location;
     const initialFormState = {
     fname:"", lname:"",email:"", jobtitle:"", company:"",employees:"",industry:"", authCode:"",chkAgreement:"", formType:"signUp"};  
     const [formState, updateFormState] = useState(initialFormState);
-    
     const { register, handleSubmit} = useForm();
+    
     const handleError = (errors) => { console.log("Form Errors: "+ errors)};
-    const handleRegistration = async (data) =>{ 
-      
-      try{
-         updatedUser.first_name= data.fname;
-         updatedUser.last_name= data.lname;
-         updatedUser.job_title= data.jobtitle;
-         updatedUser.email = data.email;
-         updatedUser = omit(updatedUser,"_lastChangedAt");
-         updatedUser = omit(updatedUser,"createdAt");
-         updatedUser = omit(updatedUser,"updatedAt");
-         updatedUser = omit(updatedUser,"checked");
-
-         await API.graphql({ query: mutations.updateTeam, variables: {input: omit(updatedUser, "_deleted")}});
-      }
-      catch(err){
-        console.log("API err:", err )
-        }
+    const handleRegistration = (data) =>{ 
+      updateMember(data)
     };
     let {formType}= formState;
     function onChange(e){
         e.persist()
         updateFormState(()=>({...formState, [e.target.name]: e.target.value}))
       }
-      function omit(obj, ...props) {
-  const result = { ...obj };
-  props.forEach(function(prop) {
-    delete result[prop];
-  });
-  return result;
-}
+ 
  return (
  <div>
 {formType==="signUp" && ( <Container className="container-fluid">
