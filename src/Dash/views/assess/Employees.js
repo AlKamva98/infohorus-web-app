@@ -2,10 +2,6 @@ import React,{useState, useRef} from 'react';
 import {Container, Row, Col,Card,Form} from 'react-bootstrap';
 import {Label, Input, FormGroup,Button} from 'reactstrap';
 import { useForm} from "react-hook-form";
-import {sendEmail} from '../../../Home/shared/functions/AwsFuncs'
-import {  API, graphqlOperation } from 'aws-amplify';
-import * as mutations from '../../../graphql/mutations'
-import * as queries from '../../../graphql/queries'
 import {
   CToast,
   CToastBody,
@@ -16,8 +12,8 @@ import {
 
 function Employees(props) {
 
-  const {userId}=props;
-  var newusermut = mutations.createTeam;
+  const {addMember}=props.location;
+  
   const initialFormState = {fname:"", lname:"",email:"", jobtitle:"", company:"",employees:"",industry:"",  formType:"signUp"};  
   // const signupFailMsg = "Passwords are different!! Pasword and Confirm Password must be the same";
   const [formState, updateFormState] = useState(initialFormState);
@@ -35,29 +31,7 @@ function Employees(props) {
     const handleError = (errors) => { console.log("Form Errors: "+ errors)};
     const handleRegistration = async (data) =>{ 
       try{
-        getCreds().then((uCred)=>{
-          sendEmail("New Team member",data, uCred, "infohorus@bahatitech.co.za");
-          
-        }).finally(async()=>{
-          let a= await API.graphql(graphqlOperation(
-            newusermut,{
-              input:{
-                
-                email: data.email,
-                  first_name: data.fname,
-                  last_name: data.lname,
-                  job_title: data.jobtitle,
-                  company: userId.company,
-                  userID: userId.id,
-                  user_type: "Team member",
-                  
-                }
-                
-              }))
-              console.log("You've add team member::",a)
-          }).catch(e=>{
-            console.log("adding new team member error", e)
-          })
+          addMember(data)
           addToast(newUsToast)
           }
       catch(err){
@@ -72,10 +46,7 @@ function Employees(props) {
         console.log("changed the::",e.target.value);
       }
       
-     async function getCreds(){
-      let cred  = await API.graphql(graphqlOperation(queries.getCred, { id: 'ak100' }));
-      return cred;
-    }
+     
    
  return (
  <div>

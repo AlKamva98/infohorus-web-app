@@ -5,6 +5,7 @@ import {COLUMNS} from "../assessor/columns";
 import {API, Auth, graphqlOperation} from 'aws-amplify'
 import * as queries from '../../graphql/queries';
 import * as mutations from '../../graphql/mutations'
+import {sendEmail} from '../../Home/shared/functions/AwsFuncs'
 import Contact from 'src/Home/views/contact/Contact';
 
 const DefaultLayout = (props) => {
@@ -64,11 +65,41 @@ const DefaultLayout = (props) => {
       setApproved([...approved, appRec])
     }
     //team member handlers
-    const addTeamMemberHandler= (member) =>{
+    const addTeamMemberHandler= async(member) =>{
+    //  const creds = await getCreds() ;
+    //         sendEmail("New Team member",member, creds, "infohorus@bahatitech.co.za");
+        
+        const response= await API.graphql(graphqlOperation(
+          mutations.createTeam,{
+            input:{
+              
+              email: member.email,
+                first_name: member.fname,
+                last_name: member.lname,
+                job_title: member.jobtitle,
+                company: userDetails.company,
+                userID: userDetails.id,
+                user_type: "Team member",
+                
+              }
+              
+            })).catch(e=>{
+              console.log("adding new team member error", e)
+            });
+            console.log("You've add team member::",response)
+            setTeamMembers([...teamMembers, response.data.createTeam]);
+        teamsTableHandler([...teamMembers, response.data.createTeam]);
+        
       
     }
-    const updateTeamMemberHandler= () =>{
+    const updateTeamMemberHandler= async (member) =>{
+      const response = await API.graphql({ query: mutations.updateTeam, variables: {input: member}})
+        .catch((err)=>{console.log("There was an error in updating the team member", err)});
 
+        console.log("This is the updated data",response)
+        setTeamMembers(teamMembers.map((teamMember)=>{
+          return teamMember.id === member.id ? {...response.data.updateTeam}: teamMember
+        }))
     }
     const deleteTeamMemberHandler= (id) =>{
         const newTeam = teamMembers.filter((teamMember)=>{
@@ -211,6 +242,13 @@ const DefaultLayout = (props) => {
 
        }
 
+       async function getCreds(){
+        let cred  = await API.graphql(graphqlOperation(queries.getCred, { id: 'ak100' })).catch(err=>{
+          console.log("Error getting creds",err)
+        });
+        return cred;
+      }
+
        async function getMessages(userId) {
       try {
         var messages = await API.graphql({query: queries.listMessages, variables:{filter: {chatID: {contains: userId.chatID}}}});
@@ -306,7 +344,7 @@ const DefaultLayout = (props) => {
         <AppHeader tasks={tasks} recommendations={recommendations} signOut={signOut} saveChanges={saveChanges} approved={approved} />
         <div className="body flex-grow-1 px-3">
           <AppContent approve={approve} approved={approved} recommendations={recommendations} 
-          errModal={errModal} teamTable={teamTable}  deleteMember={deleteTeamMemberHandler} errToggle={errToggle} revModal={revModal} revToggle={revToggle}  msg={msg} setMsg={setMsg}  tasks={tasks} rec={rec} toggle={toggle} news={data} messages={messages} setMessages={setMessages} modal={modal} events={evt} userDetails={userDetails} continuesAss={continueAss} assRep={assRep} setRec={setRec} addTask={addTask} />
+          errModal={errModal} teamTable={teamTable} handleMemberAdd={addTeamMemberHandler} updateMember={updateTeamMemberHandler} deleteMember={deleteTeamMemberHandler} errToggle={errToggle} revModal={revModal} revToggle={revToggle}  msg={msg} setMsg={setMsg}  tasks={tasks} rec={rec} toggle={toggle} news={data} messages={messages} setMessages={setMessages} modal={modal} events={evt} userDetails={userDetails} continuesAss={continueAss} assRep={assRep} setRec={setRec} addTask={addTask} />
         </div>
         <AppFooter />
       </div>
