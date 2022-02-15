@@ -16,6 +16,8 @@ const DefaultLayout = (props) => {
   const [recommendations, setRecommendations] =useState([]);
   const [approved, setApproved]=useState([]);
   const [tasks, setTasks] =useState([]);
+  const [news, setNews] = useState([])
+  const [evt, setEvt] = useState([]);
   
     const [modal, setModal] = useState(false);
     const toggle = () => setModal(!modal);
@@ -27,11 +29,7 @@ const DefaultLayout = (props) => {
     const [msg, setMsg] =useState("");
     const [messages, setMessages] = useState([]);
     const [continueAss, setContinueAss] = useState(false);
-    const [assRep, setAssRep] = useState({});
-    const [data, setData] = useState([])
-    var [evt, setEvt] = useState([]);
-    
-    useEffect(() => { 
+     useEffect(() => { 
       const getDashValues = async() =>{
         const currentUser = await getUser();
         if(currentUser){
@@ -146,27 +144,9 @@ const DefaultLayout = (props) => {
 
     const newsArticleshandler = async () =>{
       const articles = await listArticles();
-      setData(articles);
+      setNews(articles);
     }
 
-    
-    async function checkAssessComplete(id){
-      var reps;
-      var complete = false;
-      const assRep = await API.graphql({query: queries.listAssessorReports, variables:{filter: {ID: {contains: id}}}}).then(promise => {
-
-              reps = promise.data.listAssessorReports.items;
-            }).finally(()=>{
-              for(let i in reps){
-                if(reps[i].isComplete){
-                    setContinueAss(true)
-                    setAssRep(reps[i])
-                    break;
-                }
-              }
-             return complete; 
-            })
-    }
 
       async function listArticles() { //gets the articles from the bing news api     
         var url = "https://bing-news-search1.p.rapidapi.com/news/search?q=ransomware%20attacks&freshness=Day&textFormat=Raw&safeSearch=Off"
@@ -344,7 +324,7 @@ const DefaultLayout = (props) => {
         <AppHeader tasks={tasks} recommendations={recommendations} signOut={signOut} saveChanges={saveChanges} approved={approved} />
         <div className="body flex-grow-1 px-3">
           <AppContent approve={approve} approved={approved} recommendations={recommendations} 
-          errModal={errModal} teamTable={teamTable} handleMemberAdd={addTeamMemberHandler} updateMember={updateTeamMemberHandler} deleteMember={deleteTeamMemberHandler} errToggle={errToggle} revModal={revModal} revToggle={revToggle}  msg={msg} setMsg={setMsg}  tasks={tasks} rec={rec} toggle={toggle} news={data} messages={messages} setMessages={setMessages} modal={modal} events={evt} userDetails={userDetails} continuesAss={continueAss} assRep={assRep} setRec={setRec} addTask={addTask} />
+          errModal={errModal} teamTable={teamTable} handleMemberAdd={addTeamMemberHandler} updateMember={updateTeamMemberHandler} deleteMember={deleteTeamMemberHandler} errToggle={errToggle} revModal={revModal} revToggle={revToggle}  msg={msg} setMsg={setMsg}  tasks={tasks} rec={rec} toggle={toggle} news={news} messages={messages} setMessages={setMessages} modal={modal} events={evt} userDetails={userDetails} continuesAss={continueAss}  setRec={setRec} addTask={addTask} />
         </div>
         <AppFooter />
       </div>

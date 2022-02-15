@@ -57,7 +57,6 @@ export function SurveyJS(props) {
 
     useEffect(() => {
         survey.storeDataAsText = false;
-        checkUser()
         if(!qnaireUUID){
             setQnaireUUID(create_UUID())
         }
@@ -66,14 +65,7 @@ export function SurveyJS(props) {
         console.log("approved", approved)
     }, [])
 
-    async function checkUser() {
-        try {
-            const authus = await Auth.currentAuthenticatedUser()
-            setAuthus(authus);
-        } catch (err) {
-
-        }
-    }
+ 
 
     function setName(event) {
         setRecipientName(event.target.value);
