@@ -7,10 +7,13 @@ import * as queries from '../../graphql/queries';
 import * as mutations from '../../graphql/mutations'
 import {sendEmail} from '../../Home/shared/functions/AwsFuncs'
 import Contact from 'src/Home/views/contact/Contact';
+import { current } from 'tailwindcss/colors';
 
 const DefaultLayout = (props) => {
   const {signedIn, signOut, userGroup} = props;
   const [userDetails, setUserDetails] = useState({});
+  const [hasQuestionnaire, setHasQuestionnaire ] = useState(false);
+  const [questionnaire, setQuestionnaire ] = useState(false);
   const [teamMembers, setTeamMembers] = useState([])
   const [teamTable, setTeamTable] = useState('');
   const [recommendations, setRecommendations] =useState([]);
@@ -31,6 +34,7 @@ const DefaultLayout = (props) => {
     const [continueAss, setContinueAss] = useState(false);
      useEffect(() => { 
       const getDashValues = async() =>{
+        newsArticleshandler()
         const currentUser = await getUser();
         if(currentUser){
           setUserDetails(currentUser.data.getUser);
@@ -39,7 +43,7 @@ const DefaultLayout = (props) => {
           teamsTableHandler(team)
           recommendationsHandler(currentUser.data.getUser.id)
           tasksHandler(currentUser.data.getUser.id)
-          newsArticleshandler()
+          getQuestionnaire(currentUser.data.getUser.id)
         }
       }
       getDashValues();
@@ -94,7 +98,6 @@ const DefaultLayout = (props) => {
       const response = await API.graphql({ query: mutations.updateTeam, variables: {input: member}})
         .catch((err)=>{console.log("There was an error in updating the team member", err)});
 
-        console.log("This is the updated data",response)
         setTeamMembers(teamMembers.map((teamMember)=>{
           return teamMember.id === member.id ? {...response.data.updateTeam}: teamMember
         }))
@@ -281,6 +284,16 @@ const DefaultLayout = (props) => {
       }}
   }
 
+  const getQuestionnaire = async (id) =>{
+    const response = await API.graphql({query: queries.listQuestionnaires, variables:{filter: {userId: {contains: id}}}})
+    .catch((err)=>{console.log("Error getting questionnaire", err)});
+    console.log("This is the questionnaire", response)
+
+    if(response)
+      setHasQuestionnaire(true)
+      setQuestionnaire(response.data.listQuestionnaires.items[0])
+  }
+
     async function saveChanges(rec, tasks){ //update the backend data
       try{
       
@@ -324,7 +337,7 @@ const DefaultLayout = (props) => {
         <AppHeader tasks={tasks} recommendations={recommendations} signOut={signOut} saveChanges={saveChanges} approved={approved} />
         <div className="body flex-grow-1 px-3">
           <AppContent approve={approve} approved={approved} recommendations={recommendations} 
-          errModal={errModal} teamTable={teamTable} handleMemberAdd={addTeamMemberHandler} updateMember={updateTeamMemberHandler} deleteMember={deleteTeamMemberHandler} errToggle={errToggle} revModal={revModal} revToggle={revToggle}  msg={msg} setMsg={setMsg}  tasks={tasks} rec={rec} toggle={toggle} news={news} messages={messages} setMessages={setMessages} modal={modal} events={evt} userDetails={userDetails} continuesAss={continueAss}  setRec={setRec} addTask={addTask} />
+          errModal={errModal} teamTable={teamTable} handleMemberAdd={addTeamMemberHandler} updateMember={updateTeamMemberHandler} deleteMember={deleteTeamMemberHandler} errToggle={errToggle} hasQuestionnaire={hasQuestionnaire} questionnaire={questionnaire} revModal={revModal} revToggle={revToggle}  msg={msg} setMsg={setMsg}  tasks={tasks} rec={rec} toggle={toggle} news={news} messages={messages} setMessages={setMessages} modal={modal} events={evt} userDetails={userDetails} continuesAss={continueAss}  setRec={setRec} addTask={addTask} />
         </div>
         <AppFooter />
       </div>

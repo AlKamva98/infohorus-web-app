@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import Layouts from './Layouts'
-import Amplify,{Auth} from 'aws-amplify';
+import {Auth} from 'aws-amplify';
 import './Dash/scss/style.scss'
 
 // Pages
@@ -78,6 +78,6 @@ async function checkUser(){
     )
   }
 
-  Amplify.Logger.LOG_LEVEL = "DEBUG";
+  // Amplify.Logger.LOG_LEVEL = "DEBUG";
 
 export default React.memo(App)

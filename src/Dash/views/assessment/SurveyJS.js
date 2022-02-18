@@ -2,8 +2,7 @@ import React, {useEffect, useState, useRef} from 'react';
 import{Modal, ModalBody, ModalHeader,ModalFooter, Button, Form, FormGroup} from 'reactstrap'
 import {useForm, Controller } from "react-hook-form";
 import Select  from 'react-select';
-import { API, Auth, graphqlOperation, Storage } from 'aws-amplify';
-import {Prompt} from 'react-router-dom'
+import { API, graphqlOperation, Storage } from 'aws-amplify';
 import {SurveyJSON,surveyCss} from './survey.js'
 import {create_UUID} from '../../../Home/shared/utils/utils'
 import * as mutations from '../../../graphql/mutations'
@@ -17,6 +16,9 @@ export function SurveyJS(props) {
     const {
         className,
         teamList,
+        userDetails,
+        questionnaireData,
+        hasQuestionnaireData,
         approved
     } = props;
     /**===========================================================================================
@@ -28,20 +30,19 @@ export function SurveyJS(props) {
     var addAns = mutations.createAnswer;
     var said;
     var addQuestionnaire = mutations.createQuestionnaire;
-    const [questionnaireState, setQuestionnaireState] = useState(false)
+    const [questionnaireComplete, setQuestionnaireComplete] = useState(false)
     const [modal, setModal] = useState(false);
+    const [savedAnswers, setSavedAnswers] = useState([]);
     const { register, control } = useForm();
     const toggle = () => {
         setModal(!modal);
     }
     Survey.StylesManager.applyTheme("modern");
     let survey = new Survey.Model(SurveyJSON);
-    const [authus, setAuthus] = useState();
     // const questionaireId = survey.surveyId;
     survey.firstPageIsStarted = true;
     survey.sendResultOnPageNext = true;
     const [qnaireUUID, setQnaireUUID] = useState(create_UUID());
-    const [shouldBlockNavigation, setShouldBlockNavigation] = useState(true)
     let qids = questionIDs;
     var currentQNaireId;
     const [recipientName, setRecipientName] = useState("");
@@ -57,15 +58,24 @@ export function SurveyJS(props) {
 
     useEffect(() => {
         survey.storeDataAsText = false;
+        console.log("This is the questionnaire the user didnt complete", questionnaireData);
+        if(hasQuestionnaireData)
+        getAnswers(questionnaireData.id)
         if(!qnaireUUID){
-            setQnaireUUID(create_UUID())
+            // setQnaireUUID(create_UUID())
         }
-        //window.localStorage.removeItem("questionaire_data")
-        console.log("Team List", teamList)
+        //window.localStorage.removeItem("questionaire_data"))
         console.log("approved", approved)
     }, [])
 
- 
+ const getAnswers = async (qid)=>{
+     const response = await API.graphql({query: queries.listAnswers,variables:{filter:{questionnaireID:{contains:qid}}}})
+     .catch(err=>{console.log("There was an error getting the user's Previous answers", err)});
+     setQnaireUUID(qid)
+     response.data.listAnswers.items.sort((a,b) => (a.questionID > b.questionID) ? 1 : ((b.questionID > a.questionID) ? -1 : 0));
+     console.log("Answers:::",response)
+     setSavedAnswers(response.data.listAnswers)
+ }
 
     function setName(event) {
         setRecipientName(event.target.value);
@@ -91,7 +101,7 @@ async function getCreds(){
         const emailBodyWithremovedProgressText = removeElement(doc, 'sv-progress__text');
         const emailBodyWithFooterRemoved = removeElement(emailBodyWithremovedProgressText, 'sv-footer');
 
-        console.log('USERS:::: ', authus);
+        console.log('USERS:::: ', userDetails);
        
 
          const AWS = require("aws-sdk");
@@ -131,9 +141,9 @@ async function getCreds(){
                     Data: 'Questionnaire Help'
                 }
             },
-            Source: authus.attributes.email, /* required */
+            Source: userDetails.email, /* required */
             ReplyToAddresses: [
-                authus.attributes.email,
+                userDetails.email,
                 /* more items */
             ],
         };
@@ -232,10 +242,10 @@ async function getCreds(){
                         for(let d in survey.data){
 
                             console.log(getAnswerPerPage());
-                            console.log("This is data",prevData.ansid)
+                            console.log("This is data")
                             console.log("This is qid",questionID)
                             if(questionID === d ){
-                                const a = await API.graphql({query: queries.getAnswer , variables:{input:prevData.ansid}})
+                                const a = await API.graphql({query: queries.getAnswer , variables:{input:survey.data}})
                                 console.log("anwser:",a)
                                 //     const updatedAnswer = {
                             //     id: a.data,
@@ -355,33 +365,18 @@ async function getCreds(){
         //onStarted//
         survey.onStarted.add(async function () {
             console.log("Current questionnaire ID", qnaireUUID)
-            let email = authus.attributes.email;
-            console.log(email)
+            
             try {
-                if(prevData){//if the user is returning to a saved insance of the assessment
-                console.log(survey.data);
-                currentQNaireId= survey.data.uuid;
-                console.log("Current questionnaire ID", currentQNaireId)
+                if(hasQuestionnaireData){//if the user is returning to a saved insance of the assessment
+                survey.data= savedAnswers;
+                    console.log(survey.data);
+                // currentQNaireId= survey.data.uuid;
+                // console.log("Current questionnaire ID", currentQNaireId)
             
 
-                }else{//The user is creating a new assessment
-                var us = await API.graphql(graphqlOperation(queries.listUsers))
-                let userId
-                
-//================Get user id==================================
-                let users = us.data.listUsers.items;
-                 for(let user in users) {
-                    console.log(users[user].email)
-                    console.log(email===users[user].email)
-                    if (email ===users[user].email) {
-                        userId = String(users[user].id);
-                        qUser = users[user];
-                        break;
-                    }
                 }
-                console.log("The User Id is:", userId)
-//==============================================================
-                console.log("Current questionnaire ID", qnaireUUID)
+                else{
+                    console.log("Current questionnaire ID", qnaireUUID)
                 // const QQA =await API.graphql(graphqlOperation(mutations.createQuestionnaireQuestionAnswer, {
                 // input:{questionnaireId: currentQNaireId,}
                 // }))
@@ -394,14 +389,14 @@ async function getCreds(){
                         input: {
                             id: qnaireUUID,
                             questionaireCompleted: false,
-                            userId: userId,
+                            userId: userDetails.id,
                         }
                     }
                 ));
                 if(!currentQNaireId){
                     currentQNaireId=qn.data.createQuestionnaire.id;
                 }
-                console.log("New Questionnaire is: ", qn)
+            
 //===============================================================                
                
             }} catch (err) {
@@ -419,7 +414,7 @@ async function getCreds(){
                     uploadAnswersPerPage(ans)
                 })
 
-                setQuestionnaireState(true);
+                setQuestionnaireComplete(true);
                 const updatedQNaire = {
                     id: currentQNaireId,
                     _version: qUser._version,
@@ -434,13 +429,14 @@ async function getCreds(){
         });
 
         //
-        var prevData = window.localStorage.getItem(storageName) || null;
-        if (prevData) {
-            var data = JSON.parse(prevData)
+        // var prevData = window.localStorage.getItem(storageName) || null;
+       
+        const resumeQuestionnaire=(data)=>{
+            if (hasQuestionnaireData) {
             survey.data = data;
             console.log(survey.data)
-            console.log(prevData)
-            currentQNaireId = data.uuid;
+            console.log(data)
+            currentQNaireId = data.questionnaireID;
             console.log("Current questionnaire ID", currentQNaireId)
 
             if (data.pageNo) {
@@ -449,18 +445,16 @@ async function getCreds(){
             }
             console.log("ID set: ", qnaireUUID);
             console.log("Current ID:", currentQNaireId);
-        }
+        }}
         /**================================================================================================
          * End of Survey Functions
          * ================================================================================================
          */
 
-        if (questionnaireState) {
-            setShouldBlockNavigation(false)
-        }
+        
 
         return (<>
-                {authus !== undefined && (
+                { (
                     <div className={className}>
                         {/* <Prompt
                             when={shouldBlockNavigation}
