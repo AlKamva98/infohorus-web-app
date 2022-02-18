@@ -178,7 +178,7 @@ await API.graphql(graphqlOperation(
   }, [])
 
   const chatHandler =async()=>{
-    if(messages.length === 0){
+    if(messages && messages.length === 0){
       const newChat = await createChat(getCurrentDate,userDetails)
         console.log(newChat)
         chat = newChat.data.createChat.id;
@@ -186,7 +186,8 @@ await API.graphql(graphqlOperation(
       .finally(()=>{
         addchatId(userDetails, chat);
       })
-    }else{
+    }else {
+      if(messages)
       chat = messages[0].chatID
       stateSet({
       ...state,

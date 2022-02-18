@@ -23,7 +23,7 @@ export const SurveyJSON={
    ],
    questionTitleLocation: "top",
    title: "Start The Assessment",
-   description: "",
+   description: "Read through the questions and answer all the available questions.",
    navigationButtonsVisibility: "show",
    questionsOrder: "initial"
   },
