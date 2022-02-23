@@ -9,7 +9,7 @@ import * as mutations from '../../../graphql/mutations'
 import * as queries from '../../../graphql/queries'
 import * as Survey from 'survey-react';
 import ReactTooltip from 'react-tooltip'
-import { questionIDs } from './questionId.js';
+import { questionIDs, answersSaved } from './questionId.js';
 
 
 export function SurveyJS(props) {
@@ -19,6 +19,7 @@ export function SurveyJS(props) {
         userDetails,
         questionnaireData,
         hasQuestionnaireData,
+        handleCreateQuestionnaire,
         approved
     } = props;
     /**===========================================================================================
@@ -32,7 +33,7 @@ export function SurveyJS(props) {
     var addQuestionnaire = mutations.createQuestionnaire;
     const [questionnaireComplete, setQuestionnaireComplete] = useState(false)
     const [modal, setModal] = useState(false);
-    const [savedAnswers, setSavedAnswers] = useState([]);
+    const [savedAnswers, setSavedAnswers] = useState([null]);
     const { register, control } = useForm();
     const toggle = () => {
         setModal(!modal);
@@ -44,7 +45,6 @@ export function SurveyJS(props) {
     survey.sendResultOnPageNext = true;
     const [qnaireUUID, setQnaireUUID] = useState(create_UUID());
     let qids = questionIDs;
-    var currentQNaireId;
     const [recipientName, setRecipientName] = useState("");
     const [recipientEmail, setRecipientEmail] = useState("");
     const [isDisabled, setIsDisabled] = useState(false);
@@ -59,24 +59,38 @@ export function SurveyJS(props) {
     useEffect(() => {
         survey.storeDataAsText = false;
         console.log("This is the questionnaire the user didnt complete", questionnaireData);
-        if(hasQuestionnaireData)
+        if(hasQuestionnaireData){
         getAnswers(questionnaireData.id)
-        if(!qnaireUUID){
-            // setQnaireUUID(create_UUID())
-        }
+         }else{
+            setQnaireUUID(create_UUID())
+            }
         //window.localStorage.removeItem("questionaire_data"))
-        console.log("approved", approved)
+        
     }, [])
 
  const getAnswers = async (qid)=>{
      const response = await API.graphql({query: queries.listAnswers,variables:{filter:{questionnaireID:{contains:qid}}}})
      .catch(err=>{console.log("There was an error getting the user's Previous answers", err)});
+     
      setQnaireUUID(qid)
      response.data.listAnswers.items.sort((a,b) => (a.questionID > b.questionID) ? 1 : ((b.questionID > a.questionID) ? -1 : 0));
-     console.log("Answers:::",response)
-     setSavedAnswers(response.data.listAnswers)
+     console.log("Answers read from backend",response.data.listAnswers )
+     setSavedAnswers(response.data.listAnswers.items.map((answer)=>{
+       
+        for(qid in questionIDs ){
+         if(answer.questionID === questionIDs[qid].id ) {
+             answer.questionID= questionIDs[qid].questionName
+            
+            }
+      }
+      
+      answersSaved[answer.questionID]= answer.answer;
+        answersSaved.pageNo = questionnaireData.currentPage;
+      
+      return answersSaved;
+    }))
  }
-
+ 
     function setName(event) {
         setRecipientName(event.target.value);
     }
@@ -163,14 +177,14 @@ async function getCreds(){
 
     var storageName = "questionaire_data"
 
-    function saveSurveyData(result, uuid) {
-        var data = result.data;
-        data.pageNo = result.currentPageNo;
-        data.uuid = uuid;
-        data.ansid = said;
-        console.log("Saved data is", data);
-        window.localStorage.setItem(storageName, JSON.stringify(data))
-    }
+    // function saveSurveyData(result, uuid) {
+    //     var data = result.data;
+    //     data.pageNo = result.currentPageNo;
+    //     data.uuid = uuid;
+    //     data.ansid = said;
+    //     console.log("Saved data is", data);
+    //     window.localStorage.setItem(storageName, JSON.stringify(data))
+    // }
 
     function getAnswerPerPage() {//get answers from the page
         try {
@@ -187,28 +201,28 @@ async function getCreds(){
             var ans;
             var doc;
             var qname;
-            if (data.followupQ11a !== undefined) {
+            if (data.followupQ11a) {
                 console.log("Follow up 11 a", data.followupQ11a[0])
                 doc = data.followupQ11a[0];
                 qname = 0;
-            } else if (data.followupQ8a !== undefined) {
+            } else if (data.followupQ8a) {
                 console.log("Follow up 8a", data.followupQ8a[0]);
                 doc = data.followupQ8a[0];
                 qname = 1;
                 console.log("answers recieved");
-            } else if (data.followupQ8c !== undefined) {
+            } else if (data.followupQ8c) {
                 console.log("Follow up 8c", data.followupQ8c[0]);
                 doc = data.followupQ8c[0];
                 qname = 2;
-            } else if (data.followupQ14c !== undefined) {
+            } else if (data.followupQ14c) {
                 console.log("Follow up 14c", data.followupQ14c[0])
                 doc = data.followupQ14c[0]
                 qname = 3
-            } else if (data.followupQ16b !== undefined) {
+            } else if (data.followupQ16b ) {
                 console.log("Follow up 16b", data.followupQ16b[0])
                 doc = data.followupQ16b[0]
                 qname = 4
-            } else if (data.followupQ17a !== undefined) {
+            } else if (data.followupQ17a ) {
                 console.log("Follow up 17a", data.followupQ17a[0])
                 doc = data.followupQ17a[0]
                 qname = 5
@@ -263,21 +277,18 @@ async function getCreds(){
                             addAns, {
                                 input: {
                                     answer: ans[anspq],
-                                    questionnaireID: currentQNaireId,
+                                    questionnaireID: qnaireUUID,
                                     questionID: questionID,
                                 }
                             }
                         ));
-                        said = String(storedAns.data.createAnswer.id);
-                        await API.graphql(graphqlOperation(
-                            mutations.createQuestionnaireQuestionAnswer, {
-                                input: {
-                                    answerID: said,
-                                    questionID: questionID,
-                                    questionnaireID: currentQNaireId,
-                                }
-                            }
-                        ))
+                        const updatedQNaire = {
+                            id: questionnaireData.id,
+                            _version: questionnaireData._version,
+                            currentPage: survey.currentPageNo,
+                        }
+        
+                        await API.graphql({query: mutations.updateQuestionnaire, variables: {input: updatedQNaire}});
                     }
                 }
             } catch (err) {
@@ -352,7 +363,6 @@ async function getCreds(){
 
         //onPartialSend///
         survey.onPartialSend.add(function (result) {
-            saveSurveyData(result, currentQNaireId)
             var ans = getAnswerPerPage();
             var doc = getDocAnswers(ans);
             uploadDocuments(doc, ans).then(ans => {
@@ -368,34 +378,22 @@ async function getCreds(){
             
             try {
                 if(hasQuestionnaireData){//if the user is returning to a saved insance of the assessment
-                survey.data= savedAnswers;
-                    console.log(survey.data);
-                // currentQNaireId= survey.data.uuid;
-                // console.log("Current questionnaire ID", currentQNaireId)
-            
-
+                    console.log("These are the saved answers", savedAnswers)
+                    resumeQuestionnaire(savedAnswers[0])
+                
                 }
                 else{
-                    console.log("Current questionnaire ID", qnaireUUID)
+                console.log("Current questionnaire ID", qnaireUUID)
                 // const QQA =await API.graphql(graphqlOperation(mutations.createQuestionnaireQuestionAnswer, {
-                // input:{questionnaireId: currentQNaireId,}
+                // input:{questionnaireId: qnaireUUID,}
                 // }))
                 // console.log("Questionnaire Question: ",QQA)
                 // var qqId = String(QQA.data.createQuestionnaireQuestionAnswer.id);
                 // console.log("Questionnaire Question: ",qqId)
 //======================creating a new Questionnaire=======================
-                const qn = await API.graphql(graphqlOperation(
-                    addQuestionnaire, {
-                        input: {
-                            id: qnaireUUID,
-                            questionaireCompleted: false,
-                            userId: userDetails.id,
-                        }
-                    }
-                ));
-                if(!currentQNaireId){
-                    currentQNaireId=qn.data.createQuestionnaire.id;
-                }
+                
+                handleCreateQuestionnaire(qnaireUUID)
+               
             
 //===============================================================                
                
@@ -407,7 +405,6 @@ async function getCreds(){
         //onComplete//
         survey.onComplete.add(async function (result) {
             try {
-                saveSurveyData(result, currentQNaireId)
                 var ans = getAnswerPerPage();
                 var doc = getDocAnswers(ans);
                 uploadDocuments(doc, ans).then(ans => {
@@ -416,9 +413,10 @@ async function getCreds(){
 
                 setQuestionnaireComplete(true);
                 const updatedQNaire = {
-                    id: currentQNaireId,
+                    id: qnaireUUID,
                     _version: qUser._version,
                     questionaireCompleted: true,
+                    currentPage: survey.currentPageNo,
                 }
 
                 await API.graphql({query: mutations.updateQuestionnaire, variables: {input: updatedQNaire}});
@@ -432,20 +430,18 @@ async function getCreds(){
         // var prevData = window.localStorage.getItem(storageName) || null;
        
         const resumeQuestionnaire=(data)=>{
-            if (hasQuestionnaireData) {
+            console.log("answers",data)
             survey.data = data;
             console.log(survey.data)
             console.log(data)
-            currentQNaireId = data.questionnaireID;
-            console.log("Current questionnaire ID", currentQNaireId)
 
             if (data.pageNo) {
+                console.log("The current pg no is:", data.pageNo)
                 survey.currentPageNo = data.pageNo;
                 console.log("Page no is:", survey.currentPageNo)
             }
             console.log("ID set: ", qnaireUUID);
-            console.log("Current ID:", currentQNaireId);
-        }}
+        }
         /**================================================================================================
          * End of Survey Functions
          * ================================================================================================
@@ -456,9 +452,7 @@ async function getCreds(){
         return (<>
                 { (
                     <div className={className}>
-                        {/* <Prompt
-                            when={shouldBlockNavigation}
-                            message="Are you sure you want to leave?"/> */}
+                        
                             {/* <Container className =" overflow-hidden p-5  bg-light bdy">
                             <Col className="col-md-12">
                             <h5>Please fill in the following questionnaire</h5><br/>

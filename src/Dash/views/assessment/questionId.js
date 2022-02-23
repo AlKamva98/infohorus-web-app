@@ -467,3 +467,88 @@ export const questionIDs =  [
  "questionNum": "Question 17"
 }
 ]
+
+export const answersSaved = {};
+  // {
+  //   qmain1:"",
+  //   followupQ1a:"",
+  //   followupQ1b:"",
+  //   followupQ1c:"",
+  //   followupQ1d:"",
+  //   qmain2:"",
+  //   followupQ2a:"",
+  //   followupQ2b:"",
+  //   followupQ2c:"",
+  //   qmain3:"",
+  //   followupQ3a:"",
+  //  followupQ3b:"",
+  //   qmain4:"",
+  //   followupQ4a:"",
+  //   followupQ4b:"",
+  //   followupQ4c:"",
+  //   followupQ4d:"",
+  //   qmain5:"",
+  //   followupQ5a:"",
+  //   followupQ5b:"",
+  //   qmain6:"",
+  //   followup6a:"",
+  //   followup6b:"",
+  //   followup6c:"",
+  //   qmain7:"",
+  //   followupQ7a:"",
+  //   followupQ7b:"",
+  //   followupQ7c:"",
+  //   followupQ7d:"",
+  //   followupQ7e:"",
+  //   qmain8:"",
+  //   followupQ8a:"",
+  //   followupQ8b:"",
+  //   followupQ8c:"",
+  //   followupQ8d:"",
+  //   followupQ8e:"",
+  //   followupQ8f:"",
+  //   followupQ8g:"",
+  //   followupQ8h:"",
+  //   followupQ8i:"",
+  //   qmain9:"",
+  //   followupQ9a:"",
+  //   followupQ9b:"",
+  //   qmain10:"",
+  //   followupQ10a:"",
+  //   followupQ10b:"",
+  //   qmain11:"",
+  //   followupQ11a:"",
+  //   followupQ11b:"",
+  //   qmain12:"",
+  //   followupQ12a:"",
+  //   followupQ12b:"",
+  //   followupQ12c:"",
+  //   qmain13:"",
+  //   followupQ13a:"",
+  //   followupQ13b:"",
+  //   qmain14:"",
+  //   followupQ14a:"",
+  //   followupQ14b:"",
+  //   followupQ14c:"",
+    
+  //   qmain15:"",
+    
+  //   followupQ15a:"",
+
+  //   followupQ15c:""
+  //   ,
+  //   qmain16:""
+  
+  //  ,
+  //    followupQ16a:""
+  //  ,
+  //   followupQ16b:""
+  //   ,
+  //   followupQ16c:""
+  //  ,
+  //   followupQ16d:""
+  //  ,
+  //   qmain17:""
+  //  ,
+  //   followupQ17a:""
+  //  }

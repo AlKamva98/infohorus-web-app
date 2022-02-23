@@ -21,6 +21,12 @@ export type AmplifyDependentResourcesAttributes = {
             "AppClientID": "string"
         }
     },
+    "api": {
+        "infohoruswebapp": {
+            "GraphQLAPIIdOutput": "string",
+            "GraphQLAPIEndpointOutput": "string"
+        }
+    },
     "storage": {
         "userDocuments": {
             "BucketName": "string",

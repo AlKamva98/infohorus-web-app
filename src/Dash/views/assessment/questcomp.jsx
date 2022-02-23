@@ -5,12 +5,12 @@ import { SurveyJS } from './SurveyJS';
 
 function QuestionsComp(props) {
   const {
-    teamList, approved, userDetails, questionnaire, hasQuestionnaire
+    teamList, approved, userDetails, questionnaire, hasQuestionnaire,handleCreateQuestionnaire
   } = props;
 
   return (
     <div className="w-full mx-auto bg-cover bg-no-repeat bg-center bg-contact" >
-      <SurveyJS teamList={teamList} approved={approved} hasQuestionnaireData={hasQuestionnaire} userDetails={userDetails} questionnaireData={questionnaire} className="justify-center bg-white opacity-90" />
+      <SurveyJS teamList={teamList} approved={approved} hasQuestionnaireData={hasQuestionnaire} handleCreateQuestionnaire={handleCreateQuestionnaire} userDetails={userDetails} questionnaireData={questionnaire} className="justify-center bg-white opacity-90" />
     </div>)
 }
 
