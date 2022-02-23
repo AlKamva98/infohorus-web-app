@@ -13,7 +13,7 @@ const DefaultLayout = (props) => {
   const {signedIn, signOut, userGroup} = props;
   const [userDetails, setUserDetails] = useState({});
   const [hasQuestionnaire, setHasQuestionnaire ] = useState(false);
-  const [questionnaire, setQuestionnaire ] = useState(false);
+  const [questionnaire, setQuestionnaire ] = useState({});
   const [teamMembers, setTeamMembers] = useState([])
   const [teamTable, setTeamTable] = useState('');
   const [recommendations, setRecommendations] =useState([]);
@@ -287,11 +287,27 @@ const DefaultLayout = (props) => {
   const getQuestionnaire = async (id) =>{
     const response = await API.graphql({query: queries.listQuestionnaires, variables:{filter: {userId: {contains: id}}}})
     .catch((err)=>{console.log("Error getting questionnaire", err)});
-    console.log("This is the questionnaire", response)
+    console.log("This is the questionnaire", response.data.listQuestionnaires.items)
 
-    if(response)
+    if(response.data.listQuestionnaires.items.length !== 0)
       setHasQuestionnaire(true)
       setQuestionnaire(response.data.listQuestionnaires.items[0])
+  }
+
+  const createQuestionnaireHandler = async (qid)=>{
+    const response = await API.graphql(graphqlOperation(
+      mutations.createQuestionnaire, {
+          input: {
+              id: qid,
+              questionaireCompleted: false,
+              currentPage: 0,
+              userId: userDetails.id,
+          }
+      }
+      )).catch(err=>{console.error("Error creating questionnaire",err)});
+      console.log("Questionnaire created!!")
+      setHasQuestionnaire(true)
+      setQuestionnaire(response.data.createQuestionnaire)
   }
 
     async function saveChanges(rec, tasks){ //update the backend data
@@ -337,7 +353,7 @@ const DefaultLayout = (props) => {
         <AppHeader tasks={tasks} recommendations={recommendations} signOut={signOut} saveChanges={saveChanges} approved={approved} />
         <div className="body flex-grow-1 px-3">
           <AppContent approve={approve} approved={approved} recommendations={recommendations} 
-          errModal={errModal} teamTable={teamTable} handleMemberAdd={addTeamMemberHandler} updateMember={updateTeamMemberHandler} deleteMember={deleteTeamMemberHandler} errToggle={errToggle} hasQuestionnaire={hasQuestionnaire} questionnaire={questionnaire} revModal={revModal} revToggle={revToggle}  msg={msg} setMsg={setMsg}  tasks={tasks} rec={rec} toggle={toggle} news={news} messages={messages} setMessages={setMessages} modal={modal} events={evt} userDetails={userDetails} continuesAss={continueAss}  setRec={setRec} addTask={addTask} />
+          errModal={errModal} teamTable={teamTable} handleMemberAdd={addTeamMemberHandler} updateMember={updateTeamMemberHandler} handleCreateQuestionnaire={createQuestionnaireHandler} deleteMember={deleteTeamMemberHandler} errToggle={errToggle} hasQuestionnaire={hasQuestionnaire} questionnaire={questionnaire} revModal={revModal} revToggle={revToggle}  msg={msg} setMsg={setMsg}  tasks={tasks} rec={rec} toggle={toggle} news={news} messages={messages} setMessages={setMessages} modal={modal} events={evt} userDetails={userDetails} continuesAss={continueAss}  setRec={setRec} addTask={addTask} />
         </div>
         <AppFooter />
       </div>

@@ -104,6 +104,7 @@ type Questionnaire @model @auth(rules: [{allow: public}]) {
   questionnaireQuestionanswerID: ID
   User: User @connection
   userId: ID
+  currentPage:Int
   Answers: [Answer] @connection(keyName: "byQuestionnaire", fields: ["id"])
   QuestionnaireQuestionAnswer: QuestionnaireQuestionAnswer @connection
 }

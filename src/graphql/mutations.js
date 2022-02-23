@@ -1088,6 +1088,7 @@ export const createQuestionnaire = /* GraphQL */ `
       questionaireCompleted
       questionnaireQuestionanswerID
       userId
+      currentPage
       _version
       _deleted
       _lastChangedAt
@@ -1141,6 +1142,7 @@ export const updateQuestionnaire = /* GraphQL */ `
       id
       questionaireCompleted
       questionnaireQuestionanswerID
+      currentPage
       userId
       _version
       _deleted
@@ -1195,6 +1197,7 @@ export const deleteQuestionnaire = /* GraphQL */ `
       id
       questionaireCompleted
       questionnaireQuestionanswerID
+      currentPage
       userId
       _version
       _deleted

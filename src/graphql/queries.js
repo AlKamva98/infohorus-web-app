@@ -892,6 +892,7 @@ export const getQuestionnaire = /* GraphQL */ `
       id
       questionaireCompleted
       questionnaireQuestionanswerID
+      currentPage
       userId
       _version
       _deleted
@@ -948,6 +949,7 @@ export const listQuestionnaires = /* GraphQL */ `
         id
         questionaireCompleted
         questionnaireQuestionanswerID
+        currentPage
         userId
         _version
         _deleted
@@ -977,6 +979,7 @@ export const syncQuestionnaires = /* GraphQL */ `
         id
         questionaireCompleted
         questionnaireQuestionanswerID
+        currentPage
         userId
         _version
         _deleted
