@@ -522,33 +522,21 @@ export const getAssessorReport = /* GraphQL */ `
   query GetAssessorReport($id: ID!) {
     getAssessorReport(id: $id) {
       id
-      assrssorComment
-      assessmentResult
-      ID
+      assessScore
+      criticalRisks
+      questionnaireID
       isCompleted
       _version
       _deleted
       _lastChangedAt
       createdAt
       updatedAt
-      QuestionnaireQuestionAnswers {
-        nextToken
-        startedAt
-      }
-      User {
+      Questionnaire {
         id
-        first_name
-        last_name
-        email
-        job_title
-        company
-        employees
-        industry
-        country
-        userType
-        phone
-        teamID
-        chatID
+        questionaireCompleted
+        questionnaireQuestionanswerID
+        userId
+        currentPage
         _version
         _deleted
         _lastChangedAt
@@ -567,9 +555,9 @@ export const listAssessorReports = /* GraphQL */ `
     listAssessorReports(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
-        assrssorComment
-        assessmentResult
-        ID
+        assessScore
+        criticalRisks
+        questionnaireID
         isCompleted
         _version
         _deleted
@@ -597,9 +585,9 @@ export const syncAssessorReports = /* GraphQL */ `
     ) {
       items {
         id
-        assrssorComment
-        assessmentResult
-        ID
+        assessScore
+        criticalRisks
+        questionnaireID
         isCompleted
         _version
         _deleted
@@ -638,6 +626,7 @@ export const getQuestionnaireQuestionAnswer = /* GraphQL */ `
         questionaireCompleted
         questionnaireQuestionanswerID
         userId
+        currentPage
         _version
         _deleted
         _lastChangedAt
@@ -892,13 +881,25 @@ export const getQuestionnaire = /* GraphQL */ `
       id
       questionaireCompleted
       questionnaireQuestionanswerID
-      currentPage
       userId
+      currentPage
       _version
       _deleted
       _lastChangedAt
       createdAt
       updatedAt
+      AssessorReport {
+        id
+        assessScore
+        criticalRisks
+        questionnaireID
+        isCompleted
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
       QuestionnaireQuestionAnswer {
         id
         questionID
@@ -949,8 +950,8 @@ export const listQuestionnaires = /* GraphQL */ `
         id
         questionaireCompleted
         questionnaireQuestionanswerID
-        currentPage
         userId
+        currentPage
         _version
         _deleted
         _lastChangedAt
@@ -979,8 +980,8 @@ export const syncQuestionnaires = /* GraphQL */ `
         id
         questionaireCompleted
         questionnaireQuestionanswerID
-        currentPage
         userId
+        currentPage
         _version
         _deleted
         _lastChangedAt
@@ -1022,10 +1023,6 @@ export const getUser = /* GraphQL */ `
         startedAt
       }
       Recommendations {
-        nextToken
-        startedAt
-      }
-      AssessorReports {
         nextToken
         startedAt
       }

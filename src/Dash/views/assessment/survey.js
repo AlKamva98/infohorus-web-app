@@ -14,6 +14,21 @@ export const SurveyJSON={
  pages: [
   {
    name: "Start Page",
+   sendEmailPopUp:<form onSubmit={()=>{console.log("submit Clicked")}}>
+       <div>
+           <label id="recipient-name" className="col-form-label">Recipient Name:</label>
+           <input type="text" data-tip data-for="teamTip" className="form-control" id="recipient-name"/>
+       </div>
+<div>
+<label id="recipient-email" className="col-form-label">Recipient Email:</label>
+<input placeholder="Recipient Email"  className="form-control" defaultValue="Recipient Email" />
+       </div>
+   <button  className="btn bg-grey-600 hover:bg-grey-400 text-white" onClick={()=>{console.log("Modal close")}}>Close</button>
+   <button className="btn bg-green-500 hover:bg-green-300 text-white"  type="submit">Send
+       message</button>
+
+   </form>
+,
    elements: [
     {
      type: "panel",

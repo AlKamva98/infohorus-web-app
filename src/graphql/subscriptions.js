@@ -542,33 +542,21 @@ export const onCreateAssessorReport = /* GraphQL */ `
   subscription OnCreateAssessorReport {
     onCreateAssessorReport {
       id
-      assrssorComment
-      assessmentResult
-      ID
+      assessScore
+      criticalRisks
+      questionnaireID
       isCompleted
       _version
       _deleted
       _lastChangedAt
       createdAt
       updatedAt
-      QuestionnaireQuestionAnswers {
-        nextToken
-        startedAt
-      }
-      User {
+      Questionnaire {
         id
-        first_name
-        last_name
-        email
-        job_title
-        company
-        employees
-        industry
-        country
-        userType
-        phone
-        teamID
-        chatID
+        questionaireCompleted
+        questionnaireQuestionanswerID
+        userId
+        currentPage
         _version
         _deleted
         _lastChangedAt
@@ -582,33 +570,21 @@ export const onUpdateAssessorReport = /* GraphQL */ `
   subscription OnUpdateAssessorReport {
     onUpdateAssessorReport {
       id
-      assrssorComment
-      assessmentResult
-      ID
+      assessScore
+      criticalRisks
+      questionnaireID
       isCompleted
       _version
       _deleted
       _lastChangedAt
       createdAt
       updatedAt
-      QuestionnaireQuestionAnswers {
-        nextToken
-        startedAt
-      }
-      User {
+      Questionnaire {
         id
-        first_name
-        last_name
-        email
-        job_title
-        company
-        employees
-        industry
-        country
-        userType
-        phone
-        teamID
-        chatID
+        questionaireCompleted
+        questionnaireQuestionanswerID
+        userId
+        currentPage
         _version
         _deleted
         _lastChangedAt
@@ -622,33 +598,21 @@ export const onDeleteAssessorReport = /* GraphQL */ `
   subscription OnDeleteAssessorReport {
     onDeleteAssessorReport {
       id
-      assrssorComment
-      assessmentResult
-      ID
+      assessScore
+      criticalRisks
+      questionnaireID
       isCompleted
       _version
       _deleted
       _lastChangedAt
       createdAt
       updatedAt
-      QuestionnaireQuestionAnswers {
-        nextToken
-        startedAt
-      }
-      User {
+      Questionnaire {
         id
-        first_name
-        last_name
-        email
-        job_title
-        company
-        employees
-        industry
-        country
-        userType
-        phone
-        teamID
-        chatID
+        questionaireCompleted
+        questionnaireQuestionanswerID
+        userId
+        currentPage
         _version
         _deleted
         _lastChangedAt
@@ -684,6 +648,7 @@ export const onCreateQuestionnaireQuestionAnswer = /* GraphQL */ `
         questionaireCompleted
         questionnaireQuestionanswerID
         userId
+        currentPage
         _version
         _deleted
         _lastChangedAt
@@ -719,6 +684,7 @@ export const onUpdateQuestionnaireQuestionAnswer = /* GraphQL */ `
         questionaireCompleted
         questionnaireQuestionanswerID
         userId
+        currentPage
         _version
         _deleted
         _lastChangedAt
@@ -754,6 +720,7 @@ export const onDeleteQuestionnaireQuestionAnswer = /* GraphQL */ `
         questionaireCompleted
         questionnaireQuestionanswerID
         userId
+        currentPage
         _version
         _deleted
         _lastChangedAt
@@ -995,11 +962,24 @@ export const onCreateQuestionnaire = /* GraphQL */ `
       questionaireCompleted
       questionnaireQuestionanswerID
       userId
+      currentPage
       _version
       _deleted
       _lastChangedAt
       createdAt
       updatedAt
+      AssessorReport {
+        id
+        assessScore
+        criticalRisks
+        questionnaireID
+        isCompleted
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
       QuestionnaireQuestionAnswer {
         id
         questionID
@@ -1046,11 +1026,24 @@ export const onUpdateQuestionnaire = /* GraphQL */ `
       questionaireCompleted
       questionnaireQuestionanswerID
       userId
+      currentPage
       _version
       _deleted
       _lastChangedAt
       createdAt
       updatedAt
+      AssessorReport {
+        id
+        assessScore
+        criticalRisks
+        questionnaireID
+        isCompleted
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
       QuestionnaireQuestionAnswer {
         id
         questionID
@@ -1097,11 +1090,24 @@ export const onDeleteQuestionnaire = /* GraphQL */ `
       questionaireCompleted
       questionnaireQuestionanswerID
       userId
+      currentPage
       _version
       _deleted
       _lastChangedAt
       createdAt
       updatedAt
+      AssessorReport {
+        id
+        assessScore
+        criticalRisks
+        questionnaireID
+        isCompleted
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
       QuestionnaireQuestionAnswer {
         id
         questionID
@@ -1174,10 +1180,6 @@ export const onCreateUser = /* GraphQL */ `
         nextToken
         startedAt
       }
-      AssessorReports {
-        nextToken
-        startedAt
-      }
       Questionnaire {
         id
         questionID
@@ -1226,10 +1228,6 @@ export const onUpdateUser = /* GraphQL */ `
         nextToken
         startedAt
       }
-      AssessorReports {
-        nextToken
-        startedAt
-      }
       Questionnaire {
         id
         questionID
@@ -1275,10 +1273,6 @@ export const onDeleteUser = /* GraphQL */ `
         startedAt
       }
       Recommendations {
-        nextToken
-        startedAt
-      }
-      AssessorReports {
         nextToken
         startedAt
       }

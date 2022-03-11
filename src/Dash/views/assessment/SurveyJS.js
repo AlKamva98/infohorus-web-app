@@ -29,18 +29,25 @@ export function SurveyJS(props) {
     Survey.Survey.cssType = "bootstrap";
     var myCss = surveyCss;
     var addAns = mutations.createAnswer;
-    var said;
-    var addQuestionnaire = mutations.createQuestionnaire;
-    const [questionnaireComplete, setQuestionnaireComplete] = useState(false)
     const [modal, setModal] = useState(false);
     const [savedAnswers, setSavedAnswers] = useState([null]);
-    const { register, control } = useForm();
     const toggle = () => {
         setModal(!modal);
     }
     Survey.StylesManager.applyTheme("modern");
+
+    Survey.Serializer.addProperty("page", "sendEmailPopUp:html")
+
+    function showSendEmailPopUp(element){
+        document
+        .getElementById("sendEmail")
+        .innerHTML = element.sendEmailPopUp;
+    // $("#questionDescriptionPopup").modal();
+    }
+
     let survey = new Survey.Model(SurveyJSON);
-    // const questionaireId = survey.surveyId;
+    const { register, handleSubmit,formState: { errors }, control } = useForm();
+    const handleError = () => { console.log("Form Errors: ",errors)};
     survey.firstPageIsStarted = true;
     survey.sendResultOnPageNext = true;
     const [qnaireUUID, setQnaireUUID] = useState(create_UUID());
@@ -58,7 +65,6 @@ export function SurveyJS(props) {
 
     useEffect(() => {
         survey.storeDataAsText = false;
-        console.log("This is the questionnaire the user didnt complete", questionnaireData);
         if(hasQuestionnaireData){
         getAnswers(questionnaireData.id)
          }else{
@@ -74,7 +80,6 @@ export function SurveyJS(props) {
      
      setQnaireUUID(qid)
      response.data.listAnswers.items.sort((a,b) => (a.questionID > b.questionID) ? 1 : ((b.questionID > a.questionID) ? -1 : 0));
-     console.log("Answers read from backend",response.data.listAnswers )
      setSavedAnswers(response.data.listAnswers.items.map((answer)=>{
        
         for(qid in questionIDs ){
@@ -96,6 +101,7 @@ export function SurveyJS(props) {
     }
 
     function setEmail(event) {
+        console.log(event.target.value)
         setRecipientEmail(event.target.value);
     }
 
@@ -106,17 +112,20 @@ export function SurveyJS(props) {
         return newDoc;
     }
 async function getCreds(){
-      let cred  = await API.graphql(graphqlOperation(queries.getCred, { id: 'ak100' }));
-      return cred;
+    const cred  = await API.graphql(graphqlOperation(queries.getCred, { id: 'ak100' }));
+    return cred;
     }
-    function sendEmail(uCred) {
+    const handleSendEmail = async(data)=>{
+        const cred = await getCreds().catch(err=>{console.log("Error getting Creds", err)})
+
+        console.log("This is the form data", data);
+        sendEmail(cred, data.recipientEmail.value);
+    }
+    function sendEmail(uCred,email) {
         setIsDisabled(true);
         const doc = (new DOMParser()).parseFromString(emailContainer.current.innerHTML, 'text/html');
         const emailBodyWithremovedProgressText = removeElement(doc, 'sv-progress__text');
         const emailBodyWithFooterRemoved = removeElement(emailBodyWithremovedProgressText, 'sv-footer');
-
-        console.log('USERS:::: ', userDetails);
-       
 
          const AWS = require("aws-sdk");
         const cred = new AWS.Credentials({
@@ -135,7 +144,7 @@ async function getCreds(){
         var params = {
             Destination: {
                 ToAddresses: [
-                    recipientEmail,
+                    email,
                     /* more items */
                 ]
             },
@@ -189,7 +198,6 @@ async function getCreds(){
     function getAnswerPerPage() {//get answers from the page
         try {
             var ans = survey.currentPage.getValue();
-            console.log("Answers on this screen are::::", ans);
             return ans;
         } catch (err) {
             console.log("Get Answer per page Error: ", err);
@@ -372,6 +380,34 @@ async function getCreds(){
 
         var qUser;
 
+        survey
+    .onAfterRenderPage
+    .add(function (survey, options) {
+        //Do nothing if a page contains no description to show in a modal popup
+        if (!options.page.sendEmailPopUp) 
+            return;
+        
+        //Create a 'More Info' button to invoke a modal popup
+        var btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "btn btn-info btn-xs";
+
+        btn.style.position = "absolute";
+        btn.style.marginLeft = "20px"
+
+        btn.innerHTML = "More Info";
+        btn.onclick = function () {
+            showSendEmailPopUp(survey.currentPage);
+        }
+        //Insert the created 'More Info' button into the rendered page's header
+        var header = options
+            .htmlElement
+            .querySelector("h4");
+        var span = document.createElement("span");
+        span.innerHTML = "  ";
+        header.appendChild(span);
+        header.appendChild(btn);
+    });
         //onStarted//
         survey.onStarted.add(async function () {
             console.log("Current questionnaire ID", qnaireUUID)
@@ -411,7 +447,6 @@ async function getCreds(){
                     uploadAnswersPerPage(ans)
                 })
 
-                setQuestionnaireComplete(true);
                 const updatedQNaire = {
                     id: qnaireUUID,
                     _version: qUser._version,
@@ -463,10 +498,10 @@ async function getCreds(){
                         <span className="fw-semibold text-lg m-4">Need to consult a colleague on this answer?<p
                             className="btn-link d-none d-md-inline-block pointer m-1" onClick={toggle}>Send an internal message</p>directly to them for a quick response.</span>
                         <Modal isOpen={modal} toggle={toggle} className={className}>
+                                <Form onSubmit={handleSubmit(handleSendEmail, handleError)}>
                             <ModalHeader toggle={toggle}><h5 className="modal-title" id="exampleModalLabel">Send
                                 Question to Colleague</h5></ModalHeader>
                             <ModalBody>
-                                <Form>
                                     <FormGroup>
                                         <label id="recipient-name" className="col-form-label">Recipient Name:</label>
                                         <input type="text" data-tip data-for="teamTip" className="form-control" id="recipient-name"
@@ -483,13 +518,13 @@ async function getCreds(){
               Can't find who you're looking for? Check if the user is added to your list of team members in the teams page.
             </ReactTooltip>
                                     </FormGroup>
-                                </Form>
                             </ModalBody>
                             <ModalFooter>
-                                <Button className="btn bg-grey-600 hover:bg-grey-400 text-white" onClick={toggle}>Close</Button>
-                                <Button className="btn bg-green-500 hover:bg-green-300 text-white" disabled={isDisabled} onClick={async ()=>{getCreds().then(uCred=>{sendEmail(uCred);})}}>Send
+                                <Button  className="btn bg-grey-600 hover:bg-grey-400 text-white" onClick={toggle}>Close</Button>
+                                <Button className="btn bg-green-500 hover:bg-green-300 text-white"  type="submit">Send
                                     message</Button>
                             </ModalFooter>
+                                </Form>
                         </Modal>
                         
                     </div>
