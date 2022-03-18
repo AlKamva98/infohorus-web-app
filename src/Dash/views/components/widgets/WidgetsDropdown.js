@@ -28,9 +28,7 @@ const WidgetsDropdown = (props) => {
                 <CIcon name="cil-options" className="text-high-emphasis-inverse" />
               </CDropdownToggle>
               <CDropdownMenu>
-                <CDropdownItem>Action</CDropdownItem>
-                <CDropdownItem>Another action</CDropdownItem>
-                <CDropdownItem>Something else here...</CDropdownItem>
+                <CDropdownItem>Learn More</CDropdownItem>
                 <CDropdownItem disabled>Disabled action</CDropdownItem>
               </CDropdownMenu>
             </CDropdown>
@@ -107,10 +105,6 @@ const WidgetsDropdown = (props) => {
                 <CIcon name="cil-options" className="text-high-emphasis-inverse" />
               </CDropdownToggle>
               <CDropdownMenu>
-                <CDropdownItem>Action</CDropdownItem>
-                <CDropdownItem>Another action</CDropdownItem>
-                <CDropdownItem>Something else here...</CDropdownItem>
-                <CDropdownItem disabled>Disabled action</CDropdownItem>
               </CDropdownMenu>
             </CDropdown>
           }

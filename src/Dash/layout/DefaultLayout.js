@@ -20,6 +20,7 @@ const DefaultLayout = (props) => {
   const [tasks, setTasks] =useState([]);
   const [news, setNews] = useState([])
   const [evt, setEvt] = useState([]);
+  const [assRepData, setAssRepData] = useState(null) 
   
     const [modal, setModal] = useState(false);
     const toggle = () => setModal(!modal);
@@ -145,6 +146,11 @@ const DefaultLayout = (props) => {
       setEvt(taskEvents)
     }
 
+    const assRepHandler = (data)=>{
+      setAssRepData(data);
+      console.log("The assessor's report is:",assRepData)
+    }
+
     const newsArticleshandler = async () =>{
       const articles = await listArticles();
       setNews(articles);
@@ -249,7 +255,7 @@ const DefaultLayout = (props) => {
       
          let rep=[];
          rep.push(report.value.data.onCreateAssessorReport) ;
-     
+        assRepHandler(rep);
       
       console.log("This is the updated chat2", report.value.data.onCreateAssessorReport);
       
@@ -369,7 +375,7 @@ const DefaultLayout = (props) => {
         <AppHeader tasks={tasks} recommendations={recommendations} signOut={signOut} saveChanges={saveChanges} approved={approved} />
         <div className="body flex-grow-1 px-3">
           <AppContent approve={approve} approved={approved} recommendations={recommendations} 
-          errModal={errModal} teamTable={teamTable} handleMemberAdd={addTeamMemberHandler} updateMember={updateTeamMemberHandler} handleCreateQuestionnaire={createQuestionnaireHandler} deleteMember={deleteTeamMemberHandler} errToggle={errToggle} hasQuestionnaire={hasQuestionnaire} questionnaire={questionnaire} revModal={revModal} revToggle={revToggle}  msg={msg} setMsg={setMsg}  tasks={tasks} rec={rec} toggle={toggle} news={news} messages={messages} setMessages={setMessages} modal={modal} events={evt} userDetails={userDetails}   setRec={setRec} addTask={addTask} />
+          errModal={errModal} teamTable={teamTable} handleMemberAdd={addTeamMemberHandler} updateMember={updateTeamMemberHandler} handleCreateQuestionnaire={createQuestionnaireHandler} deleteMember={deleteTeamMemberHandler} errToggle={errToggle} hasQuestionnaire={hasQuestionnaire} questionnaire={questionnaire} revModal={revModal} revToggle={revToggle}  msg={msg} setMsg={setMsg}  tasks={tasks} rec={rec} toggle={toggle} news={news} messages={messages} setMessages={setMessages} modal={modal} events={evt} userDetails={userDetails}  assRepData={assRepData}  setRec={setRec} addTask={addTask} />
         </div>
         <AppFooter />
       </div>

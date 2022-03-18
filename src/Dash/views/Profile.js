@@ -14,10 +14,11 @@ import {
   CToastClose,
   CToaster,
 } from '@coreui/react'
+import { Link } from 'react-router-dom';
 
 
 function Profile(props) {
-  const {userId}=props;
+  const {userDetails}=props;
   var updateusermut = mutations.updateUser;
   const initialFormState = {fname:"", lname:"",email:"", jobtitle:"", company:"",employees:"",industry:"",  formType:"signUp"};  
   // const signupFailMsg = "Passwords are different!! Pasword and Confirm Password must be the same";
@@ -32,7 +33,7 @@ function Profile(props) {
   </div>
   </CToast>
   )
-  console.log("this is the users deats", userId);
+  console.log("this is the users deats", userDetails);
     const { register, handleSubmit, control } = useForm();
     const handleError = (errors) => { console.log("Form Errors: "+ errors)};
     const handleRegistration = async (data) =>{ 
@@ -52,7 +53,7 @@ function Profile(props) {
                   employees: data.employees,
                   company: data.company,
                   industry: data.industry,
-                  _version: userId._version
+                  _version: userDetails._version
                 }
                 
               }))
@@ -94,30 +95,30 @@ function Profile(props) {
       <Form className="row g-3 m-4 p-4" onSubmit={handleSubmit(handleRegistration, handleError)}> 
         <FormGroup className="col-md-6">
             <Label for="fname" className="visually-hidden" >First name</Label>
-            <Input type="text" {...register("fname")} className="form-control" onChange={onChange} name="fname" placeholder="First Name"  value={userId.first_name} rules={{ required: "Please fill in your First Name"}} autofocus/> 
+            <Input type="text" {...register("fname")} className="form-control" onChange={onChange} name="fname" placeholder="First Name"  value={userDetails.first_name} rules={{ required: "Please fill in your First Name"}} autofocus/> 
         </FormGroup>
 
         <FormGroup className="col-md-6">
             <Label for="lname" className="visually-hidden" >Last name</Label>
-            <Input type="text" {...register("lname")} className="form-control" onChange={onChange} name="lname" placeholder="Last Name" value={userId.last_name} rules={{ required: "Please fill in your Last Name"}} autofocus/> 
+            <Input type="text" {...register("lname")} className="form-control" onChange={onChange} name="lname" placeholder="Last Name" value={userDetails.last_name} rules={{ required: "Please fill in your Last Name"}} autofocus/> 
 </FormGroup>
             
             <FormGroup className="col-12">
              <Label for="jobtitle" className="visually-hidden">Job Title</Label>
              <Input  type="text" name="jobtitle"  {...register("jobtitle" )} 
               className=" form-control focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50" 
-              placeholder="Job Title" value={userId.job_title} rules={{ required: "Please fill in your Job title"}}  />
+              placeholder="Job Title" value={userDetails.job_title} rules={{ required: "Please fill in your Job title"}}  />
             </FormGroup>
                <FormGroup className="col-md-12">
                    <Label for="email" className="visually-hidden">Email address</Label>
                    <Input  type="text" name="email"  {...register("email" )}   className=" form-control focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50" 
-               placeholder="Email Address" value={userId.email}
+               placeholder="Email Address" value={userDetails.email}
              rules={{ required: "Please fill in your Email Address"}}  />
                </FormGroup>
                  <FormGroup className="col-12">
                       <Label for="employees" className="visually-hidden">Number of employees</Label>  
          <Controller name="employees"  control={control} render={({ field }) => (
-                  <Select placeholder="Employees" className=" focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50" onChange={onChange} options={selectEmpOptions} inputValue={userId.employees} value={userId.employees} {...field}>
+                  <Select placeholder="Employees" className=" focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50" onChange={onChange} options={selectEmpOptions} inputValue={userDetails.employees} value={userDetails.employees} {...field}>
                     </Select>
               )}   {...register("employees")}  rules={{ required: "Please Select your employees"}} />                  
               </FormGroup>
@@ -125,19 +126,20 @@ function Profile(props) {
               <FormGroup className="col-12">
                   <Label for="industry" className="visually-hidden">Industry</Label>
                    <Controller name="industry"    control={control} render={({ field }) => (
-                  <Select placeholder="Industry" className=" focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50" onChange={onChange} options={selectOptionsIndustry} inputValue={userId.industry} value={userId.industry} {...field}>
+                  <Select placeholder="Industry" className=" focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50" onChange={onChange} options={selectOptionsIndustry} inputValue={userDetails.industry} value={userDetails.industry} {...field}>
                     </Select>
                 )}   {...register("industry")}  rules={{ required: "Please Select your industry"}} />
               </FormGroup>
               <FormGroup className="col-12">
                   <Label for="country" className="visually-hidden">Country</Label>
                    <Controller name="country"  control={control} render={({ field }) => (
-                  <Select placeholder="Country" className=" focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50" options={selectOptionsCountry} inputValue={userId.country} value={userId.country} {...field}>
+                  <Select placeholder="Country" className=" focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50" options={selectOptionsCountry} inputValue={userDetails.country} value={userDetails.country} {...field}>
                     </Select>
                 )}   {...register("country")}  rules={{ required: "Please Select your country"}} />
               </FormGroup>
             
             <FormGroup className="checkbox mb-3">
+              <Link to="/dash/forms/range">Edit Account information</Link>
             <Button type="submit" className="w-100 my-3 text-lg text-white fw-semibold py-3 bg-blue-700  hover:bg-blue-500 focus:bg-blue-600 focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50"  >Update Profile</Button>
             </FormGroup>
         </Form>
