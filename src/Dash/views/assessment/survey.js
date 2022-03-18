@@ -25,10 +25,12 @@ export const SurveyJSON={
    title: "Start The Assessment",
    description: "Read through the questions and answer all the available questions.",
    navigationButtonsVisibility: "show",
-   questionsOrder: "initial"
+  //  questionsOrder: "initial"
   },
   {
    name: "Quest1",
+   sendEmailPopUp:"Send email"
+,
    elements: [
     {
      type: "panel",
@@ -130,6 +132,7 @@ export const SurveyJSON={
   },
   {
    name: "Quest2",
+   sendEmailPopUp:"Send email",
    elements: [
     {
      type: "panel",
@@ -213,6 +216,7 @@ export const SurveyJSON={
   },
   {
    name: "Quest3",
+   sendEmailPopUp:"Send email",
    elements: [
     {
      type: "panel",
@@ -271,6 +275,7 @@ export const SurveyJSON={
   },
   {
    name: "Quest4",
+   sendEmailPopUp:"Send email",
    elements: [
     {
      type: "panel",
@@ -342,6 +347,7 @@ export const SurveyJSON={
   },
   {
    name: "Quest5",
+   sendEmailPopUp:"Send email",
    elements: [
     {
      type: "panel",
@@ -379,6 +385,7 @@ export const SurveyJSON={
   },
   {
    name: "Quest6",
+   sendEmailPopUp:"Send email",
    elements: [
     {
      type: "panel",
@@ -432,6 +439,7 @@ export const SurveyJSON={
   },
   {
    name: "Quest7",
+   sendEmailPopUp:"Send email",
    elements: [
     {
      type: "panel",
@@ -513,6 +521,7 @@ export const SurveyJSON={
   },
   {
    name: "Quest8",
+   sendEmailPopUp:"Send email",
    elements: [
     {
      type: "panel",
@@ -636,6 +645,7 @@ export const SurveyJSON={
   },
   {
    name: "Quest9",
+   sendEmailPopUp:"Send email",
    elements: [
     {
      type: "panel",
@@ -681,6 +691,7 @@ export const SurveyJSON={
   },
   {
    name: "Quest10",
+   sendEmailPopUp:"Send email",
    elements: [
     {
      type: "panel",
@@ -746,6 +757,7 @@ export const SurveyJSON={
   },
   {
    name: "Quest11",
+   sendEmailPopUp:"Send email",
    elements: [
     {
      type: "panel",
@@ -791,6 +803,7 @@ export const SurveyJSON={
   },
   {
    name: "Quest12",
+   sendEmailPopUp:"Send email",
    elements: [
     {
      type: "panel",
@@ -844,6 +857,7 @@ export const SurveyJSON={
   },
   {
    name: "Quest13",
+   sendEmailPopUp:"Send email",
    elements: [
     {
      type: "panel",
@@ -889,6 +903,7 @@ export const SurveyJSON={
   },
   {
    name: "Quest14",
+   sendEmailPopUp:"Send email",
    elements: [
     {
      type: "panel",
@@ -951,6 +966,7 @@ export const SurveyJSON={
   },
   {
    name: "Quest15",
+   sendEmailPopUp:"Send email",
    elements: [
     {
      type: "panel",
@@ -1016,6 +1032,7 @@ export const SurveyJSON={
   },
   {
    name: "Quest16",
+   sendEmailPopUp:"Send email",
    elements: [
     {
      type: "panel",
@@ -1098,6 +1115,7 @@ export const SurveyJSON={
   },
   {
    name: "Quest17",
+   sendEmailPopUp:"Send email",
    elements: [
     {
      type: "panel",
@@ -1137,8 +1155,8 @@ export const SurveyJSON={
  ],
  showProgressBar: "top",
  progressBarType: "questions",
- pageNextText: "Save & Continue",
- completeText: "Save & Submit",
+ pageNextText: "Next question",
+ completeText: "Submit",
  completedHtml: "<p><h4>Thank you for completing the Assessment.</h4></p><p>We will contact you for further infomation</p>",
 }
 

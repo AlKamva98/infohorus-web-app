@@ -768,6 +768,13 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
+                "currentPage": {
+                    "name": "currentPage",
+                    "isArray": false,
+                    "type": "Int",
+                    "isRequired": false,
+                    "attributes": []
+                },
                 "Answers": {
                     "name": "Answers",
                     "isArray": true,
@@ -1346,5 +1353,5 @@ export const schema = {
     },
     "enums": {},
     "nonModels": {},
-    "version": "f1e1c3aabb10c6bd39eeec2f800914b1"
+    "version": "fa0924eaaf147c447bfa83edcb54db80"
 };

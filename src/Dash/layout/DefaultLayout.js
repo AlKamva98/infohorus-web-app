@@ -4,10 +4,9 @@ import { AppContent, AppSidebar, AppFooter, AppHeader } from '../dashboard/index
 import {COLUMNS} from "../assessor/columns";
 import {API, Auth, graphqlOperation} from 'aws-amplify'
 import * as queries from '../../graphql/queries';
+import * as subscriptions from '../../graphql/subscriptions';
 import * as mutations from '../../graphql/mutations'
 import {sendEmail} from '../../Home/shared/functions/AwsFuncs'
-import Contact from 'src/Home/views/contact/Contact';
-import { current } from 'tailwindcss/colors';
 
 const DefaultLayout = (props) => {
   const {signedIn, signOut, userGroup} = props;
@@ -31,8 +30,8 @@ const DefaultLayout = (props) => {
     const revToggle = () => setRevModal(!revModal);
     const [msg, setMsg] =useState("");
     const [messages, setMessages] = useState([]);
-    const [continueAss, setContinueAss] = useState(false);
-     useEffect(() => { 
+
+    useEffect(() => { 
       const getDashValues = async() =>{
         newsArticleshandler()
         const currentUser = await getUser();
@@ -44,6 +43,7 @@ const DefaultLayout = (props) => {
           recommendationsHandler(currentUser.data.getUser.id)
           tasksHandler(currentUser.data.getUser.id)
           getQuestionnaire(currentUser.data.getUser.id)
+          subscribeToAssessRep()
         }
       }
       getDashValues();
@@ -68,8 +68,8 @@ const DefaultLayout = (props) => {
     }
     //team member handlers
     const addTeamMemberHandler= async(member) =>{
-    //  const creds = await getCreds() ;
-    //         sendEmail("New Team member",member, creds, "infohorus@bahatitech.co.za");
+     const creds = await getCreds() ;
+            sendEmail("New Team member",member, creds, "infohorus@bahatitech.co.za");
         
         const response= await API.graphql(graphqlOperation(
           mutations.createTeam,{
@@ -240,6 +240,22 @@ const DefaultLayout = (props) => {
           console.log("Error:>> ", err);
       }
   }
+  
+  function subscribeToAssessRep(){
+    API.graphql({
+      query: subscriptions.onCreateAssessorReport,
+    }).subscribe({
+      next: report => {
+      
+         let rep=[];
+         rep.push(report.value.data.onCreateAssessorReport) ;
+     
+      
+      console.log("This is the updated chat2", report.value.data.onCreateAssessorReport);
+      
+      }
+    })
+  }
        
   //      function viewTasks(i){
   //     try{
@@ -353,7 +369,7 @@ const DefaultLayout = (props) => {
         <AppHeader tasks={tasks} recommendations={recommendations} signOut={signOut} saveChanges={saveChanges} approved={approved} />
         <div className="body flex-grow-1 px-3">
           <AppContent approve={approve} approved={approved} recommendations={recommendations} 
-          errModal={errModal} teamTable={teamTable} handleMemberAdd={addTeamMemberHandler} updateMember={updateTeamMemberHandler} handleCreateQuestionnaire={createQuestionnaireHandler} deleteMember={deleteTeamMemberHandler} errToggle={errToggle} hasQuestionnaire={hasQuestionnaire} questionnaire={questionnaire} revModal={revModal} revToggle={revToggle}  msg={msg} setMsg={setMsg}  tasks={tasks} rec={rec} toggle={toggle} news={news} messages={messages} setMessages={setMessages} modal={modal} events={evt} userDetails={userDetails} continuesAss={continueAss}  setRec={setRec} addTask={addTask} />
+          errModal={errModal} teamTable={teamTable} handleMemberAdd={addTeamMemberHandler} updateMember={updateTeamMemberHandler} handleCreateQuestionnaire={createQuestionnaireHandler} deleteMember={deleteTeamMemberHandler} errToggle={errToggle} hasQuestionnaire={hasQuestionnaire} questionnaire={questionnaire} revModal={revModal} revToggle={revToggle}  msg={msg} setMsg={setMsg}  tasks={tasks} rec={rec} toggle={toggle} news={news} messages={messages} setMessages={setMessages} modal={modal} events={evt} userDetails={userDetails}   setRec={setRec} addTask={addTask} />
         </div>
         <AppFooter />
       </div>

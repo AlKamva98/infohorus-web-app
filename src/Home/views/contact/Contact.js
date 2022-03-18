@@ -30,8 +30,6 @@ function Contact(){
         toggle();
         reset({fname:"", email:"", phone:"", taMessage:""  });
       })
-      console.log("This is the users data:"+JSON.stringify(data));
-      console.log("Data sent to the API");
     }
       catch(err){
         console.log("API err:", err )
@@ -46,9 +44,7 @@ function Contact(){
     
     function onChange(value) {
       console.log("Captcha value:", value);
-      console.log("Verified state is:", verified)
       setVerified(true);
-      console.log("Verified state is:", verified)
     }
     
 

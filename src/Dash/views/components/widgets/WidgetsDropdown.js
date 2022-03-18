@@ -12,14 +12,15 @@ import { getStyle } from '@coreui/utils'
 import { CChartBar, CChartLine } from '@coreui/react-chartjs'
 import CIcon from '@coreui/icons-react'
 
-const WidgetsDropdown = () => {
+const WidgetsDropdown = (props) => {
+  const {tasks} =props;
   return (
     <CRow>
       <CCol sm="6" lg="4">
         <CWidgetDropdown
           className="mb-4"
           color="info"
-          value="Currently Unavailable"
+          value={`54%`}
           title="Assesment Score"
           action={
             <CDropdown alignment="end">
@@ -98,7 +99,7 @@ const WidgetsDropdown = () => {
         <CWidgetDropdown
           className="mb-4"
           color="warning"
-          value="Currently Unavailable"
+          value={tasks? `0/${tasks.length} Tasks Completed`:`Currently Unavailable`}
           title="Tasks done"
           action={
             <CDropdown alignment="end">
@@ -164,7 +165,7 @@ const WidgetsDropdown = () => {
         <CWidgetDropdown
           className="mb-4"
           color="danger"
-          value="Currently Unavailable"
+          value="8 critical risks found"
           title="Critical Risks"
           action={
             <CDropdown alignment="end">

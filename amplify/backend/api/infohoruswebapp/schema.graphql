@@ -57,13 +57,12 @@ type Recommendations @model @auth(rules: [{allow: public}]) @key(name: "byUser",
   User: User @connection
 }
 
-type AssessorReport @model @auth(rules: [{allow: public}]) @key(name: "byUser", fields: ["ID"]) {
+type AssessorReport @model @auth(rules: [{allow: public}]) @key(name: "byQuestionnaire", fields: ["questionnaireID"]) {
   id: ID!
-  assrssorComment: String
-  assessmentResult: String
-  QuestionnaireQuestionAnswers: [QuestionnaireQuestionAnswer] @connection(keyName: "byAssessorReport", fields: ["id"])
-  User: User @connection
-  ID: ID
+  assessScore: String
+  criticalRisks: String
+  Questionnaire: Questionnaire @connection
+  questionnaireID: ID
   isCompleted: Boolean
 }
 
@@ -105,6 +104,7 @@ type Questionnaire @model @auth(rules: [{allow: public}]) {
   User: User @connection
   userId: ID
   currentPage:Int
+  AssessorReport: AssessorReport @connection
   Answers: [Answer] @connection(keyName: "byQuestionnaire", fields: ["id"])
   QuestionnaireQuestionAnswer: QuestionnaireQuestionAnswer @connection
 }
@@ -123,7 +123,6 @@ type User @model @auth(rules: [{allow: public}]) @key(name: "byTeam", fields: ["
   Recommendations: [Recommendations] @connection(keyName: "byUser", fields: ["id"])
   userType: String
   phone: String
-  AssessorReports: [AssessorReport] @connection(keyName: "byUser", fields: ["id"])
   teamID: ID
   chatID: ID
   Teams: [Team] @connection(keyName: "byUser", fields: ["id"])
