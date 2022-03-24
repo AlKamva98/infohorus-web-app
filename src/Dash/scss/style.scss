@@ -30,62 +30,62 @@ $enable-rtl: true;
   display: inline;
   content: "⚠ ";
 }
-.slide-left {
-  width:100%;
-  overflow:hidden;
-}
-.slide-left h1 {
-  animation: slide-left 3s;
-}
+// .slide-left {
+//   width:100%;
+//   overflow:hidden;
+// }
+// .slide-left h1 {
+//   animation: slide-left 3s;
+// }
 
-@keyframes slide-left {
-  from {
-    margin-left: 100%;
-    width: 100%; 
-    opacity: 0%;
-  }
+// @keyframes slide-left {
+//   from {
+//     margin-left: 100%;
+//     width: 100%; 
+//     opacity: 0%;
+//   }
 
-  to {
-    margin-left: 0%;
-    width: 100%;
-    opacity: 90%;
-  }
-}
-.slide-right {
-  overflow:hidden;
-}
-.slide-right  {
-  animation: slide-right 3s;
-}
+//   to {
+//     margin-left: 0%;
+//     width: 100%;
+//     opacity: 90%;
+//   }
+// }
+// .slide-right {
+//   overflow:hidden;
+// }
+// .slide-right  {
+//   animation: slide-right 3s;
+// }
 
-@keyframes slide-right {
-  from {
-    margin-left: -100%;
-    opacity: 0%;
-  }
+// @keyframes slide-right {
+//   from {
+//     margin-left: -100%;
+//     opacity: 0%;
+//   }
 
-  to {
-    margin-left: 0%;
-    opacity: 90%;
-  }
-}
-.slide-in {
-  width:100%;
-  overflow:hidden;
-}
-.slide-in p {
-  animation: 7s slide-in;
-}
+//   to {
+//     margin-left: 0%;
+//     opacity: 90%;
+//   }
+// }
+// .slide-in {
+//   width:100%;
+//   overflow:hidden;
+// }
+// .slide-in p {
+//   animation: 7s slide-in;
+// }
 
-@keyframes slide-in {
-  from {
-    opacity:0%;
-  }
+// @keyframes slide-in {
+//   from {
+//     opacity:0%;
+//   }
 
-  to {
-    opacity: 90%;
-  }
-}
+//   to {
+//     opacity: 90%;
+//   }
+// }
 
 @tailwind base;
 @tailwind components;
