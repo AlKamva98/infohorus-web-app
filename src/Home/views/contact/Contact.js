@@ -53,11 +53,11 @@ function Contact(){
    <section className="w-full opacity-80 bg-white">
         <div className="mx-auto max-w-7xl">
           <div className="flex flex-col lg:flex-row">
-               <div className="relative w-full bg-cover lg:w-6/12 xl:w-7/12 bg-gradient-to-r from-white via-white to-gray-100">
+               <div className=" w-full bg-cover lg:w-6/12 xl:w-7/12 bg-gradient-to-r from-white via-white to-gray-100">
               <div className="flex flex-col items-start justify-start w-full h-full p-10 lg:p-16 xl:p-24">
                 <h4 className="w-full text-5xl font-extrabold">Contact us</h4>
-                <form onSubmit={handleSubmit(onSubmit)} className="relative w-full mt-10 space-y-8">
-                  <div className="relative">
+                <form onSubmit={handleSubmit(onSubmit)} className=" w-full mt-10 space-y-8">
+                  <div className="">
                     <label className="font-semibold text-xl text-gray-900">Name</label>
                     <Controller type="text" control={control} name="name" render={({ field }) => (
           <Input className=" w-full inline-block px-4 py-4 mt-2 text-xl placeholder-gray-400 bg-gray-200 rounded-lg focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50" 
@@ -67,7 +67,7 @@ function Contact(){
                     <ErrorMessage errors={errors} className="err mb-4" name="name" as="p" />
                   </div>
                   
-                  <div className="relative">
+                  <div className="">
                     <label className="font-semibold text-xl text-gray-900">Email</label>
                     <Controller type="text" control={control} name="email" render={({ field }) => (
           <Input className=" w-full inline-block px-4 py-4 mt-2 text-xl placeholder-gray-400 bg-gray-200 rounded-lg focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50" 
@@ -80,7 +80,7 @@ function Contact(){
             }}} />
                   <ErrorMessage errors={errors} className="err mb-4" name="email" as="p" />                   
                   </div>
-                  <div className="relative">
+                  <div className="">
                     <label className="font-semibold text-xl text-gray-900">Phone</label>
                     <Controller  type="text" control={control} name="phone" render={({ field }) => (
           <PhoneInput className=" w-full inline-block px-4 py-4 mt-2 text-xl placeholder-gray-400 bg-gray-200 rounded-lg focus:outline-none focus:bg-whhite focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50" 
@@ -89,7 +89,7 @@ function Contact(){
         )} {...register("phone")} rules={{required:"Phone Number is required"}} />
                   <ErrorMessage errors={errors} className="err mb-4" name="phone" as="p" />                   
                   </div>
-          <div className="relative">
+          <div className="">
           <label className="font-semibold text-xl text-gray-900">Message</label>
           <Controller control={control} render={({ field }) => (
           <Input type="textarea" rows="4" className=" w-full inline-block px-4 py-4 mt-2 text-xl placeholder-gray-400 bg-gray-200 rounded-lg focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50" 
@@ -99,23 +99,23 @@ function Contact(){
 			    <ErrorMessage errors={errors} className="err mb-4" name="taMessage" as="p" />                  
           </div>
         
-        <div className="relative">
+        <div className="">
         <ReCAPTCHA
         sitekey="6LchGCkeAAAAAFvX1zSUSIxM80T1W9DatQBj8VAR"
         className="inline-block w-full px-5 py-4"
         onChange={onChange}
         />  
         </div>
-        <div className="relative">
+        <div className="">
         <button type="submit" disabled={!verified} className="inline-block w-full px-5 py-4 text-lg font-medium text-center text-white transition duration-200 bg-blue-600 rounded-lg hover:bg-blue-700 ease">Submit</button>            
         </div>
         </form>
               </div>
             </div>
             <div className="w-full bg-white lg:w-6/12 xl:w-5/12">
-              <div className="relative flex flex-col items-center justify-center w-full h-full px-10 my-20 lg:px-16 lg:my-0">
+              <div className=" flex flex-col items-center justify-center w-full h-full px-10 my-20 lg:px-16 lg:my-0">
                 <div className="flex flex-col items-start space-y-8 tracking-tight lg:max-w-3xl">
-                  <div className="relative">
+                  <div className="">
                     <p className="mb-2 font-medium text-gray-700 uppercase"></p>
                     <h2 className="text-5xl font-bold text-gray-900 xl:text-6xl">Contact Us</h2>
                   </div>  

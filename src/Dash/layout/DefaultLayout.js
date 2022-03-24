@@ -125,26 +125,40 @@ const DefaultLayout = (props) => {
       getPending(recommendations);
 
     }
+const eventsHandler = (Tasks)=>{
+  let taskEvents=[]
+  for(let i in Tasks){
+    let item ={
+      id: i,
+      color: Tasks[i].color,
+      from: Tasks[i].taskStart.toString().replace("Z",""),
+      to: Tasks[i].taskEnd.toString().replace("Z",""),
+      title: Tasks[i].taskDesc
+    };
 
+    taskEvents.push(item);
+    }
+    
+    setEvt(taskEvents)  
+}
+
+const addEventHandler=(task)=>{
+  let evnt ={
+    id: task.id,
+    color: task.color,
+    from: task.taskStart.toString().replace("Z",""),
+    to: task.taskEnd.toString().replace("Z",""),
+    title: task.taskDesc
+  };
+  setEvt([...evt, evnt])  
+
+}
     const tasksHandler = async (id)=>{
     const Tasks = await listProps("Task",id);
 
     setTasks(Tasks)
-    let taskEvents = [];
-    for(let i in Tasks){
-      let item ={
-        id: i,
-        color: Tasks[i].color,
-        from: Tasks[i].taskStart.toString().replace("Z",""),
-        to: Tasks[i].taskEnd.toString().replace("Z",""),
-        title: Tasks[i].taskDesc
-      };
-  
-      taskEvents.push(item);
-      }
-      
-      setEvt(taskEvents)
-    }
+    eventsHandler(Tasks)  
+  }
 
     const assRepHandler = (data)=>{
       setAssRepData(data);
@@ -352,19 +366,16 @@ const DefaultLayout = (props) => {
       }
     }
 
-    async function uploadTask (task){//add tasks to backend
-      var res;
+     async function addTask(task){//add task to recommendation
+      
       if (task){   
-       res= await API.graphql({query: mutations.createTasks, variables: {input: task}})
-      }
-      return res;
-    }
-    function addTask(task){//add task to recommendation
-      uploadTask(task).then(response=>{
-        tasks.push(response.data.createTasks);
-      setTasks(tasks)}).catch((err)=>{
-        console.log("Task upload error::::>",err)
-      })
+       const res= await API.graphql({query: mutations.createTasks, variables: {input: task}}).catch((err)=>{
+           console.log("Task upload error::::>",err)
+          })
+
+          setTasks([...tasks, res.data.createTasks])
+          addEventHandler(res.data.createTasks)
+        }
     }
     
       return (

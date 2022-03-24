@@ -19,7 +19,7 @@ function HeroHome(props) {
     <div class="slide-in">
                 <p className="mx-auto text-base text-gray-500 sm:max-w-md lg:text-xl md:max-w-3xl">Infohorus offers cybersecurity services that combine diverse expertise in the areas of cybersecurity, defensive social engineering, cyber negotiations, intelligence, and other specialized operations to enhance critical infrastructure cyber resilience.</p>
     </div>
-                <div className="relative flex flex-col sm:flex-row sm:space-x-4">
+                <div className=" flex flex-col sm:flex-row sm:space-x-4">
                   <div className='slide-right'>
                     {signedIn ? (<Link to="/main/questions" className="flex items-center w-full btn px-6 py-3 mb-3 text-lg text-white bg-blue-500 rounded-md sm:mb-0 hover:bg-nlue-700 sm:w-auto">
                     Take Assessment
