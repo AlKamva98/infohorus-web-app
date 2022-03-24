@@ -1,6 +1,7 @@
 import React, {useEffect, useState, useRef} from 'react';
 import{Modal, ModalBody, ModalHeader,ModalFooter, Button, Form, FormGroup} from 'reactstrap'
 import {useForm, Controller } from "react-hook-form";
+import * as $AD from 'jquery';
 import Select  from 'react-select';
 import { API, graphqlOperation, Storage } from 'aws-amplify';
 import {SurveyJSON,surveyCss} from './survey.js'
@@ -29,18 +30,34 @@ export function SurveyJS(props) {
     Survey.Survey.cssType = "bootstrap";
     var myCss = surveyCss;
     var addAns = mutations.createAnswer;
-    var said;
-    var addQuestionnaire = mutations.createQuestionnaire;
-    const [questionnaireComplete, setQuestionnaireComplete] = useState(false)
+    window["$"] = window["jQuery"] = $AD;
     const [modal, setModal] = useState(false);
+    const [emailBody, setEmailBody] = useState();
     const [savedAnswers, setSavedAnswers] = useState([null]);
-    const { register, control } = useForm();
+    const [currentPageNo, setCurrentPageNo] = useState([null]);
     const toggle = () => {
         setModal(!modal);
+        console.log("This is the modal")
     }
     Survey.StylesManager.applyTheme("modern");
+
+    Survey.Serializer.addProperty("page", "sendEmailPopUp:text")
+
+    function showSendEmailPopUp(element){
+        const currPageNo = survey.currentPageNo;
+        const doc = (new DOMParser()).parseFromString(emailContainer.current.innerHTML, 'text/html');
+        const emailBodyWithremovedProgressText = removeElement(doc, 'sv-progress__text');
+        const emailBodyWithFooterRemoved = removeElement(emailBodyWithremovedProgressText, 'sv-footer');
+        setEmailBody(emailBodyWithFooterRemoved)
+        console.log("This is the element", element)
+        console.log("The current page is:", currPageNo)
+        setCurrentPageNo(currPageNo)
+        toggle()
+    }
+
     let survey = new Survey.Model(SurveyJSON);
-    // const questionaireId = survey.surveyId;
+    const { register, handleSubmit,formState: { errors }, control } = useForm();
+    const handleError = () => { console.log("Form Errors: ",errors)};
     survey.firstPageIsStarted = true;
     survey.sendResultOnPageNext = true;
     const [qnaireUUID, setQnaireUUID] = useState(create_UUID());
@@ -58,7 +75,6 @@ export function SurveyJS(props) {
 
     useEffect(() => {
         survey.storeDataAsText = false;
-        console.log("This is the questionnaire the user didnt complete", questionnaireData);
         if(hasQuestionnaireData){
         getAnswers(questionnaireData.id)
          }else{
@@ -74,7 +90,6 @@ export function SurveyJS(props) {
      
      setQnaireUUID(qid)
      response.data.listAnswers.items.sort((a,b) => (a.questionID > b.questionID) ? 1 : ((b.questionID > a.questionID) ? -1 : 0));
-     console.log("Answers read from backend",response.data.listAnswers )
      setSavedAnswers(response.data.listAnswers.items.map((answer)=>{
        
         for(qid in questionIDs ){
@@ -96,6 +111,7 @@ export function SurveyJS(props) {
     }
 
     function setEmail(event) {
+        console.log(event.target.value)
         setRecipientEmail(event.target.value);
     }
 
@@ -106,18 +122,17 @@ export function SurveyJS(props) {
         return newDoc;
     }
 async function getCreds(){
-      let cred  = await API.graphql(graphqlOperation(queries.getCred, { id: 'ak100' }));
-      return cred;
+    const cred  = await API.graphql(graphqlOperation(queries.getCred, { id: 'ak100' }));
+    return cred;
     }
-    function sendEmail(uCred) {
+    const handleSendEmail = async(data)=>{
+        const cred = await getCreds().catch(err=>{console.log("Error getting Creds", err)})
+
+        console.log("This is the form data", data);
+        sendEmail(cred, data.recipientEmail.value);
+    }
+    function sendEmail(uCred,email) {
         setIsDisabled(true);
-        const doc = (new DOMParser()).parseFromString(emailContainer.current.innerHTML, 'text/html');
-        const emailBodyWithremovedProgressText = removeElement(doc, 'sv-progress__text');
-        const emailBodyWithFooterRemoved = removeElement(emailBodyWithremovedProgressText, 'sv-footer');
-
-        console.log('USERS:::: ', userDetails);
-       
-
          const AWS = require("aws-sdk");
         const cred = new AWS.Credentials({
             accessKeyId: uCred.data.getCred.acc,
@@ -135,7 +150,7 @@ async function getCreds(){
         var params = {
             Destination: {
                 ToAddresses: [
-                    recipientEmail,
+                    email,
                     /* more items */
                 ]
             },
@@ -146,7 +161,7 @@ async function getCreds(){
                         Data: `<h3>Hi ${recipientName}!</h3><br/>\n` +
                             `<p>We are currently conducting an enterprise-wide cybersecurity risk assessment and need your input on the following:</p><br/>\n` +
                             `<p>Can you please assist me with the following question:</p><br/>\n` +
-                            `<p>${emailBodyWithFooterRemoved.documentElement.innerHTML}</p><br/>\n` +
+                            `<p>${emailBody.documentElement.innerHTML}</p><br/>\n` +
                             `<p>Kind Regards,</p>\n`
                     }
                 },
@@ -189,7 +204,6 @@ async function getCreds(){
     function getAnswerPerPage() {//get answers from the page
         try {
             var ans = survey.currentPage.getValue();
-            console.log("Answers on this screen are::::", ans);
             return ans;
         } catch (err) {
             console.log("Get Answer per page Error: ", err);
@@ -365,13 +379,41 @@ async function getCreds(){
         survey.onPartialSend.add(function (result) {
             var ans = getAnswerPerPage();
             var doc = getDocAnswers(ans);
-            uploadDocuments(doc, ans).then(ans => {
-            uploadAnswersPerPage(ans)
-            })
+            // uploadDocuments(doc, ans).then(ans => {
+            // uploadAnswersPerPage(ans)
+            // })
         })
 
         var qUser;
 
+        survey
+    .onAfterRenderPage
+    .add(function (survey, options) {
+        //Do nothing if a page contains no description to show in a modal popup
+        if (!options.page.sendEmailPopUp) 
+            return;
+        
+        //Create a 'send Email' button to invoke a modal popup
+        var btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "btn btn-info btn-xs";
+
+        btn.style.position = "absolute";
+        btn.style.marginLeft = "20px"
+
+        btn.innerHTML = "Send Email";
+        btn.onclick = function () {
+            showSendEmailPopUp(survey.currentPage);
+        }
+        //Insert the created 'More Info' button into the rendered page's header
+        var header = options
+            .htmlElement
+            .querySelector("h4");
+        var span = document.createElement("span");
+        span.innerHTML = "  ";
+        header.appendChild(span);
+        header.appendChild(btn);
+    });
         //onStarted//
         survey.onStarted.add(async function () {
             console.log("Current questionnaire ID", qnaireUUID)
@@ -411,7 +453,6 @@ async function getCreds(){
                     uploadAnswersPerPage(ans)
                 })
 
-                setQuestionnaireComplete(true);
                 const updatedQNaire = {
                     id: qnaireUUID,
                     _version: qUser._version,
@@ -435,9 +476,12 @@ async function getCreds(){
             console.log(survey.data)
             console.log(data)
 
-            if (data.pageNo) {
+            if (data.pageNo && currentPageNo===null) {
                 console.log("The current pg no is:", data.pageNo)
                 survey.currentPageNo = data.pageNo;
+                console.log("Page no is:", survey.currentPageNo)
+            }else{
+                survey.currentPageNo = currentPageNo;
                 console.log("Page no is:", survey.currentPageNo)
             }
             console.log("ID set: ", qnaireUUID);
@@ -461,12 +505,12 @@ async function getCreds(){
                         <div ref={emailContainer}><Survey.Survey model={survey} css={myCss}/></div>
                         <hr className="bg-secondary"/>
                         <span className="fw-semibold text-lg m-4">Need to consult a colleague on this answer?<p
-                            className="btn-link d-none d-md-inline-block pointer m-1" onClick={toggle}>Send an internal message</p>directly to them for a quick response.</span>
-                        <Modal isOpen={modal} toggle={toggle} className={className}>
+                            className="d-none d-md-inline-block pointer m-1" >Send an internal message</p>directly to them by clicking the send email button.</span>
+                        <Modal isOpen={modal} id="questionDescriptionPopup" toggle={toggle} className={className}>
+                                <Form onSubmit={handleSubmit(handleSendEmail, handleError)}>
                             <ModalHeader toggle={toggle}><h5 className="modal-title" id="exampleModalLabel">Send
                                 Question to Colleague</h5></ModalHeader>
                             <ModalBody>
-                                <Form>
                                     <FormGroup>
                                         <label id="recipient-name" className="col-form-label">Recipient Name:</label>
                                         <input type="text" data-tip data-for="teamTip" className="form-control" id="recipient-name"
@@ -483,13 +527,13 @@ async function getCreds(){
               Can't find who you're looking for? Check if the user is added to your list of team members in the teams page.
             </ReactTooltip>
                                     </FormGroup>
-                                </Form>
                             </ModalBody>
                             <ModalFooter>
-                                <Button className="btn bg-grey-600 hover:bg-grey-400 text-white" onClick={toggle}>Close</Button>
-                                <Button className="btn bg-green-500 hover:bg-green-300 text-white" disabled={isDisabled} onClick={async ()=>{getCreds().then(uCred=>{sendEmail(uCred);})}}>Send
+                                <Button  className="btn bg-grey-600 hover:bg-grey-400 text-white" onClick={toggle}>Close</Button>
+                                <Button className="btn bg-green-500 hover:bg-green-300 text-white"  type="submit">Send
                                     message</Button>
                             </ModalFooter>
+                                </Form>
                         </Modal>
                         
                     </div>

@@ -4,10 +4,9 @@ import { AppContent, AppSidebar, AppFooter, AppHeader } from '../dashboard/index
 import {COLUMNS} from "../assessor/columns";
 import {API, Auth, graphqlOperation} from 'aws-amplify'
 import * as queries from '../../graphql/queries';
+import * as subscriptions from '../../graphql/subscriptions';
 import * as mutations from '../../graphql/mutations'
 import {sendEmail} from '../../Home/shared/functions/AwsFuncs'
-import Contact from 'src/Home/views/contact/Contact';
-import { current } from 'tailwindcss/colors';
 
 const DefaultLayout = (props) => {
   const {signedIn, signOut, userGroup} = props;
@@ -21,6 +20,7 @@ const DefaultLayout = (props) => {
   const [tasks, setTasks] =useState([]);
   const [news, setNews] = useState([])
   const [evt, setEvt] = useState([]);
+  const [assRepData, setAssRepData] = useState(null) 
   
     const [modal, setModal] = useState(false);
     const toggle = () => setModal(!modal);
@@ -31,8 +31,8 @@ const DefaultLayout = (props) => {
     const revToggle = () => setRevModal(!revModal);
     const [msg, setMsg] =useState("");
     const [messages, setMessages] = useState([]);
-    const [continueAss, setContinueAss] = useState(false);
-     useEffect(() => { 
+
+    useEffect(() => { 
       const getDashValues = async() =>{
         newsArticleshandler()
         const currentUser = await getUser();
@@ -44,6 +44,7 @@ const DefaultLayout = (props) => {
           recommendationsHandler(currentUser.data.getUser.id)
           tasksHandler(currentUser.data.getUser.id)
           getQuestionnaire(currentUser.data.getUser.id)
+          subscribeToAssessRep()
         }
       }
       getDashValues();
@@ -68,8 +69,8 @@ const DefaultLayout = (props) => {
     }
     //team member handlers
     const addTeamMemberHandler= async(member) =>{
-    //  const creds = await getCreds() ;
-    //         sendEmail("New Team member",member, creds, "infohorus@bahatitech.co.za");
+     const creds = await getCreds() ;
+            sendEmail("New Team member",member, creds, "infohorus@bahatitech.co.za");
         
         const response= await API.graphql(graphqlOperation(
           mutations.createTeam,{
@@ -124,25 +125,44 @@ const DefaultLayout = (props) => {
       getPending(recommendations);
 
     }
+const eventsHandler = (Tasks)=>{
+  let taskEvents=[]
+  for(let i in Tasks){
+    let item ={
+      id: i,
+      color: Tasks[i].color,
+      from: Tasks[i].taskStart.toString().replace("Z",""),
+      to: Tasks[i].taskEnd.toString().replace("Z",""),
+      title: Tasks[i].taskDesc
+    };
 
+    taskEvents.push(item);
+    }
+    
+    setEvt(taskEvents)  
+}
+
+const addEventHandler=(task)=>{
+  let evnt ={
+    id: task.id,
+    color: task.color,
+    from: task.taskStart.toString().replace("Z",""),
+    to: task.taskEnd.toString().replace("Z",""),
+    title: task.taskDesc
+  };
+  setEvt([...evt, evnt])  
+
+}
     const tasksHandler = async (id)=>{
     const Tasks = await listProps("Task",id);
 
     setTasks(Tasks)
-    let taskEvents = [];
-    for(let i in Tasks){
-      let item ={
-        id: i,
-        color: Tasks[i].color,
-        from: Tasks[i].taskStart.toString().replace("Z",""),
-        to: Tasks[i].taskEnd.toString().replace("Z",""),
-        title: Tasks[i].taskDesc
-      };
-  
-      taskEvents.push(item);
-      }
-      
-      setEvt(taskEvents)
+    eventsHandler(Tasks)  
+  }
+
+    const assRepHandler = (data)=>{
+      setAssRepData(data);
+      console.log("The assessor's report is:",assRepData)
     }
 
     const newsArticleshandler = async () =>{
@@ -240,6 +260,22 @@ const DefaultLayout = (props) => {
           console.log("Error:>> ", err);
       }
   }
+  
+  function subscribeToAssessRep(){
+    API.graphql({
+      query: subscriptions.onCreateAssessorReport,
+    }).subscribe({
+      next: report => {
+      
+         let rep=[];
+         rep.push(report.value.data.onCreateAssessorReport) ;
+        assRepHandler(rep);
+      
+      console.log("This is the updated chat2", report.value.data.onCreateAssessorReport);
+      
+      }
+    })
+  }
        
   //      function viewTasks(i){
   //     try{
@@ -330,19 +366,16 @@ const DefaultLayout = (props) => {
       }
     }
 
-    async function uploadTask (task){//add tasks to backend
-      var res;
+     async function addTask(task){//add task to recommendation
+      
       if (task){   
-       res= await API.graphql({query: mutations.createTasks, variables: {input: task}})
-      }
-      return res;
-    }
-    function addTask(task){//add task to recommendation
-      uploadTask(task).then(response=>{
-        tasks.push(response.data.createTasks);
-      setTasks(tasks)}).catch((err)=>{
-        console.log("Task upload error::::>",err)
-      })
+       const res= await API.graphql({query: mutations.createTasks, variables: {input: task}}).catch((err)=>{
+           console.log("Task upload error::::>",err)
+          })
+
+          setTasks([...tasks, res.data.createTasks])
+          addEventHandler(res.data.createTasks)
+        }
     }
     
       return (
@@ -353,7 +386,7 @@ const DefaultLayout = (props) => {
         <AppHeader tasks={tasks} recommendations={recommendations} signOut={signOut} saveChanges={saveChanges} approved={approved} />
         <div className="body flex-grow-1 px-3">
           <AppContent approve={approve} approved={approved} recommendations={recommendations} 
-          errModal={errModal} teamTable={teamTable} handleMemberAdd={addTeamMemberHandler} updateMember={updateTeamMemberHandler} handleCreateQuestionnaire={createQuestionnaireHandler} deleteMember={deleteTeamMemberHandler} errToggle={errToggle} hasQuestionnaire={hasQuestionnaire} questionnaire={questionnaire} revModal={revModal} revToggle={revToggle}  msg={msg} setMsg={setMsg}  tasks={tasks} rec={rec} toggle={toggle} news={news} messages={messages} setMessages={setMessages} modal={modal} events={evt} userDetails={userDetails} continuesAss={continueAss}  setRec={setRec} addTask={addTask} />
+          errModal={errModal} teamTable={teamTable} handleMemberAdd={addTeamMemberHandler} updateMember={updateTeamMemberHandler} handleCreateQuestionnaire={createQuestionnaireHandler} deleteMember={deleteTeamMemberHandler} errToggle={errToggle} hasQuestionnaire={hasQuestionnaire} questionnaire={questionnaire} revModal={revModal} revToggle={revToggle}  msg={msg} setMsg={setMsg}  tasks={tasks} rec={rec} toggle={toggle} news={news} messages={messages} setMessages={setMessages} modal={modal} events={evt} userDetails={userDetails}  assRepData={assRepData}  setRec={setRec} addTask={addTask} />
         </div>
         <AppFooter />
       </div>

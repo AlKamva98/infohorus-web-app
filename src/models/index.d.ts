@@ -92,6 +92,7 @@ export declare class Questionnaire {
   readonly questionnaireQuestionanswerID?: string;
   readonly User?: User;
   readonly userId?: string;
+  readonly currentPage?: number;
   readonly Answers?: (Answer | null)[];
   readonly QuestionnaireQuestionAnswer?: QuestionnaireQuestionAnswer;
   constructor(init: ModelInit<Questionnaire>);
