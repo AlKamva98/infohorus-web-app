@@ -167,6 +167,8 @@ const addEventHandler=(task)=>{
 
     const newsArticleshandler = async () =>{
       const articles = await listArticles();
+      articles.sort((a,b) => (a.datePublished < b.datePublished) ? 1 : ((b.datePublished < a.datePublished) ? -1 : 0))
+      console.log("These are the articles", articles)
       setNews(articles);
     }
 
@@ -178,6 +180,7 @@ const addEventHandler=(task)=>{
           "headers": {
             "x-bingapis-sdk": "true",
             "x-rapidapi-host": "bing-news-search1.p.rapidapi.com",
+            'X-Search-Location': 'USA',
             "x-rapidapi-key": "e9f592d88cmshdf92743d72abbf8p11fd0ajsn2ac0044023b0"
           }
         }
