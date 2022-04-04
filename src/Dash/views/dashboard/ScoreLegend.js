@@ -7,7 +7,7 @@ function ScoreLegend(props) {
               <div className="flex flex-col items-start justify-start w-full h-full p-10 lg:p-16 xl:p-24">
                 <div className="">
                       <h4 className="text-lg font-extrabold mr-10 pb-4 tracking-tight text-center text-gray-900 sm:text-3xl md:text-xl lg:text-2xl xl:text-3xl">CYBER-SECURITY CAPABILITY MATURITY SCORECARD</h4>
-    <p className=" mx-8 text-base pb-4 text-gray-800 sm:max-w-md lg:text-lg md:max-w-2xl">The scorecard describes a four-level evolutionary path of increasingly organized and systematically more mature processes. The model defines four maturity indicator levels (MILs), MIL0 through MIL3, which apply independently to each domain in the model. You can assess your organization’s maturity score and consider your priories. The MILs define a dual progression of maturity: an approach progression and a management progression, which are explained in the following sections.</p>
+    <p className=" mx-8 text-base pb-4 text-gray-800 sm:max-w-md lg:text-lg md:max-w-2xl">The scorecard describes a four-level evolutionary path of increasingly organized and systematically more mature processes. The model defines four maturity indicator levels (MILs), MIL0 through MIL3, which apply independently to each domain in the model. You can assess your organization’s maturity score and consider your priorities. The MILs define a dual progression of maturity: an approach progression and a management progression, which are explained in the following sections.</p>
 <div className="w-full h-auto overflow-hidden ">
                 <img src="\images\legend.png" alt="legend gif" />
               </div>
