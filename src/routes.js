@@ -52,6 +52,8 @@ import CoreUIIcons from './Dash/views/components/icons/coreui-icons/CoreUIIcons'
 import Flags from './Dash/views/components/icons/flags/Flags'
 import Brands from './Dash/views/components/icons/brands/Brands'
 
+import ScoreLegend from './Dash/views/dashboard/ScoreLegend'
+
 import Alerts from './Dash/views/components/notifications/alerts/Alerts'
 import Badges from './Dash/views/components/notifications/badges/Badges'
 import Modals from './Dash/views/components/notifications/modals/Modals'
@@ -72,6 +74,7 @@ const routes = [
   { path: '/dash/theme', name: 'Theme', component: Colors, exact: true },
   { path: '/dash/assessment', name: 'Assessment', component: QuestionsComp, exact: true },
   { path: '/dash/dashboard', name: 'Dashboard', component: Dashboard, exact: true  },
+  { path: '/dash/score', name: 'Legend', component: ScoreLegend, exact: true  },
   { path: '/dash/theme/colors', name: 'Colors', component: Colors, exact: true },
   { path: '/dash/schedule', name: 'Schedule', component: Schedule, exact: true },
   { path: '/dash/theme/typography', name: 'Typography', component: Typography, exact: true },

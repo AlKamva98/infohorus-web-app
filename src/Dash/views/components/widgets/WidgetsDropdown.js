@@ -11,6 +11,7 @@ import {
 import { getStyle } from '@coreui/utils'
 import { CChartBar, CChartLine } from '@coreui/react-chartjs'
 import CIcon from '@coreui/icons-react'
+import { Link } from 'react-router-dom'
 
 const WidgetsDropdown = (props) => {
   const {tasks} =props;
@@ -28,8 +29,7 @@ const WidgetsDropdown = (props) => {
                 <CIcon name="cil-options" className="text-high-emphasis-inverse" />
               </CDropdownToggle>
               <CDropdownMenu>
-                <CDropdownItem>Learn More</CDropdownItem>
-                <CDropdownItem disabled>Disabled action</CDropdownItem>
+                <CDropdownItem><Link to="/dash/score">Learn More</Link></CDropdownItem>
               </CDropdownMenu>
             </CDropdown>
           }
