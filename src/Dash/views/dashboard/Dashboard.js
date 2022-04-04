@@ -24,8 +24,8 @@ const Dashboard = (props) => {
           <CCardBody>
             {news ? (news.map((article, index)=>{
               var imgUrl=null;
-              if(article.provider[0].image){  
-              imgUrl =article.provider[0].image.thumbnail.contentUrl;}
+              if(article.image){  
+              imgUrl =article.image.contentUrl;}
       return(<>
             <div key={index} className="flex m-3 py-4 px-4 shadow-md rounded-lg bg-gray-200">
               {imgUrl &&

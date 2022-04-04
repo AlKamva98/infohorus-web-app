@@ -174,16 +174,18 @@ const addEventHandler=(task)=>{
 
 
       async function listArticles() { //gets the articles from the bing news api     
-        var url = "https://bing-news-search1.p.rapidapi.com/news/search?q=ransomware%20attacks&freshness=Day&textFormat=Raw&safeSearch=Off"
+        var url = "https://bing-news-search1.p.rapidapi.com/news/search?q=critical%20infrastructure%20hacking%20ransomware&freshness=Month&originalImg=true&textFormat=Raw&safeSearch=Strict"
         var headers={
           "method": "GET",
           "headers": {
             "x-bingapis-sdk": "true",
             "x-rapidapi-host": "bing-news-search1.p.rapidapi.com",
-            'X-Search-Location': 'USA',
+            'X-Search-Location': 'ZA',
             "x-rapidapi-key": "e9f592d88cmshdf92743d72abbf8p11fd0ajsn2ac0044023b0"
           }
         }
+        
+        
         var req = new Request(url, headers);  
         var res =  fetch(req)
         .then(response => { 
