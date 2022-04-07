@@ -125,7 +125,7 @@ return(<>{!values.isApproved &&
           <div className="col-start-2 row-start-1 row-end-3">
             <dt className="sr-only">Durarion</dt>
             <dd className="flex justify-end group-hover:text-blue-200 sm:justify-start font-medium lg:justify-end xl:justify-start -space-x-2">
-            Duration: {values.recDuration}
+            Duration: {values.recDuration} day(s)
             </dd>
           </div>
           <div className="col-start-2 row-start-1 row-end-3">
