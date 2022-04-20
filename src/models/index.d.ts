@@ -38,9 +38,9 @@ export declare class User {
   readonly country?: string;
   readonly Questionnaire?: QuestionnaireQuestionAnswer;
   readonly Recommendations?: (Recommendations | null)[];
+  readonly Tasks?: (Tasks | null)[];
   readonly userType?: string;
   readonly phone?: string;
-  readonly AssessorReports?: (AssessorReport | null)[];
   readonly teamID?: string;
   readonly chatID?: string;
   readonly Teams?: (Team | null)[];
@@ -93,17 +93,28 @@ export declare class Questionnaire {
   readonly User?: User;
   readonly userId?: string;
   readonly currentPage?: number;
+  readonly AssessorReport?: AssessorReport;
   readonly Answers?: (Answer | null)[];
   readonly QuestionnaireQuestionAnswer?: QuestionnaireQuestionAnswer;
   constructor(init: ModelInit<Questionnaire>);
   static copyOf(source: Questionnaire, mutator: (draft: MutableModel<Questionnaire>) => MutableModel<Questionnaire> | void): Questionnaire;
 }
 
+export declare class AssessorReport {
+  readonly id: string;
+  readonly assessScore?: string;
+  readonly criticalRisks?: string;
+  readonly Questionnaire?: Questionnaire;
+  readonly questionnaireID?: string;
+  readonly isCompleted?: boolean;
+  constructor(init: ModelInit<AssessorReport>);
+  static copyOf(source: AssessorReport, mutator: (draft: MutableModel<AssessorReport>) => MutableModel<AssessorReport> | void): AssessorReport;
+}
+
 export declare class Recommendations {
   readonly id: string;
   readonly recName?: string;
   readonly recDesc?: string;
-  readonly RecommendationTasks?: (Tasks | null)[];
   readonly recDuration?: string;
   readonly recNum?: string;
   readonly isApproved?: boolean;
@@ -118,25 +129,12 @@ export declare class Tasks {
   readonly taskName?: string;
   readonly taskDesc?: string;
   readonly taskStart?: string;
-  readonly RecommendationTask?: Recommendations;
-  readonly taskEnd?: string;
-  readonly recommendationsID?: string;
+  readonly UserTask?: User;
+  readonly userID?: string;
   readonly assignedTo?: string;
   readonly color?: string;
   constructor(init: ModelInit<Tasks>);
   static copyOf(source: Tasks, mutator: (draft: MutableModel<Tasks>) => MutableModel<Tasks> | void): Tasks;
-}
-
-export declare class AssessorReport {
-  readonly id: string;
-  readonly assrssorComment?: string;
-  readonly assessmentResult?: string;
-  readonly QuestionnaireQuestionAnswers?: (QuestionnaireQuestionAnswer | null)[];
-  readonly User?: User;
-  readonly ID?: string;
-  readonly isCompleted?: boolean;
-  constructor(init: ModelInit<AssessorReport>);
-  static copyOf(source: AssessorReport, mutator: (draft: MutableModel<AssessorReport>) => MutableModel<AssessorReport> | void): AssessorReport;
 }
 
 export declare class Team {

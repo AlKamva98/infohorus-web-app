@@ -4,7 +4,7 @@ import { schema } from './schema';
 
 
 
-const { Chat, Message, User, QuestionnaireQuestionAnswer, Answer, Question, Questionnaire, Recommendations, Tasks, AssessorReport, Team, Cred, File } = initSchema(schema);
+const { Chat, Message, User, QuestionnaireQuestionAnswer, Answer, Question, Questionnaire, AssessorReport, Recommendations, Tasks, Team, Cred, File } = initSchema(schema);
 
 export {
   Chat,
@@ -14,9 +14,9 @@ export {
   Answer,
   Question,
   Questionnaire,
+  AssessorReport,
   Recommendations,
   Tasks,
-  AssessorReport,
   Team,
   Cred,
   File

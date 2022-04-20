@@ -33,14 +33,13 @@ type Cred @model @auth(rules: [{allow: public}]) {
   sec: String
 }
 
-type Tasks @model @auth(rules: [{allow: public}]) @key(name: "byRecommendations", fields: ["recommendationsID"]) {
+type Tasks @model @auth(rules: [{allow: public}]) @key(name: "byUser", fields: ["userID"]) {
   id: ID!
   taskName: String
   taskDesc: String
   taskStart: AWSDateTime
-  RecommendationTask: Recommendations @connection
-  taskEnd: AWSDateTime
-  recommendationsID: ID
+  UserTask: User @connection
+  userID: ID
   assignedTo: String
   color: String
 }
@@ -49,7 +48,6 @@ type Recommendations @model @auth(rules: [{allow: public}]) @key(name: "byUser",
   id: ID!
   recName: String
   recDesc: String
-  RecommendationTasks: [Tasks] @connection(keyName: "byRecommendations", fields: ["id"])
   recDuration: String
   recNum: String
   isApproved: Boolean
@@ -121,6 +119,7 @@ type User @model @auth(rules: [{allow: public}]) @key(name: "byTeam", fields: ["
   country: String
   Questionnaire: QuestionnaireQuestionAnswer @connection
   Recommendations: [Recommendations] @connection(keyName: "byUser", fields: ["id"])
+  Tasks: [Tasks] @connection(keyName: "byUser", fields: ["id"])
   userType: String
   phone: String
   teamID: ID
