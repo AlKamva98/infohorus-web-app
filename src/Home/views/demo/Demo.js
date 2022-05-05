@@ -6,9 +6,10 @@ import {selectOptionsCountry} from '../../testData/selectOptions'
 import PhoneInput from 'react-phone-number-input'
 import 'react-phone-number-input/style.css'
 import React,{useState} from 'react';
+// import ReactPlayer from 'react-player';
 import ReCAPTCHA from "react-google-recaptcha"; 
 import {PopUp} from '../../shared/utils/Modal'
-import {Link} from 'react-router-dom';
+import {Link, useHistory} from 'react-router-dom';
 import {sendEmail} from '../../shared/functions/AwsFuncs'
 import * as queries from '../../../graphql/queries'
 import { Amplify, API, Auth, Storage, graphqlOperation } from 'aws-amplify';
@@ -23,18 +24,20 @@ Amplify.configure(awsConfig)
  function Demo() {
     const [modal, setModal] = useState(false);
     const toggle = () => setModal(!modal);
+    const history = useHistory();
     const [verified, setVerified] = useState(false);
     const { register, handleSubmit, getValues, reset, formState: { errors }, control } = useForm();
-    const handleRegistration = async (data) =>{ 
+    const handleDemoReq = async (data) =>{ 
       try{
-      getCreds().then((uCred)=>{
-        sendEmail("Demo",data, uCred, "infohorus@bahatitech.co.za");
-        toggle();
-        reset({email:"", fname:"", country:"",organisation:"", jobtitle:"",phone:"",marketing:""});
-      })
+      // getCreds().then((uCred)=>{
+      //   sendEmail("Demo",data, uCred, "infohorus@bahatitech.co.za");
+      //   toggle();
+      //   reset({email:"", fname:"", country:"",organisation:"", jobtitle:"",phone:"",marketing:""});
+      // })
       console.log("This is the users data:"+JSON.stringify(data));
       console.log("Data sent to the API");
-      }
+    history.push("/main/demov")  
+    }
       catch(err){
         console.log("API err:", err )
       }
@@ -79,9 +82,9 @@ Amplify.configure(awsConfig)
             <div className="w-full bg-white lg:w-6/12 xl:w-5/12">
               <div className=" flex flex-col items-center justify-center w-full h-full px-10 my-20 lg:px-16 lg:my-0">
                 <div className="flex flex-col items-start space-y-8 tracking-tight lg:max-w-3xl">
-  <h4 className="w-full text-3xl font-bold">Request Demo</h4>
+  <h4 className="w-full text-3xl font-bold">Watch Demo</h4>
   <h5 className="w-full text-base ">Complete the form below and a representative will be in touch shortly to discuss and schedule the demo.</h5>
-  <form className="w-full mt-10 pb-3 space-y-8" onSubmit={handleSubmit(handleRegistration)}>
+  <form className="w-full mt-10 pb-3 space-y-8" onSubmit={handleSubmit(handleDemoReq)}>
 
     <Controller  type="text" control={control} name="fname"   {...register("fname" )} render={({ field }) => (
           <Input className=" w-full inline-block px-4 py-4 mt-2 text-xl placeholder-gray-400 bg-gray-200 rounded-lg focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50" 
@@ -90,40 +93,28 @@ Amplify.configure(awsConfig)
         )} rules={{ required: "Please fill in your name"}}  />
     <ErrorMessage errors={errors} className="err mb-4" name="fname" as="p" />
     
-    <Controller  type="text" control={control} name="organisation"   {...register("organisation" )} render={({ field }) => (<Input className=" w-full inline-block px-4 py-4 mt-2 text-xl placeholder-gray-400 bg-gray-200 rounded-lg focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50" 
-          placeholder="Company" 
-          {...field} />
-        )} rules={{ required: "Please fill in your company's name"}}  />
-    <ErrorMessage errors={errors} className="err mb-4" name="organisation" as="p" />
-    
-    <Controller  type="text" control={control} name="jobtitle"   {...register("jobtitle" )} render={({ field }) => (<Input className=" w-full inline-block px-4 py-4 mt-2 text-xl placeholder-gray-400 bg-gray-200 rounded-lg focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50" 
-          placeholder="Job Title" 
-          {...field} />
-        )} rules={{ required: "Please fill in your job title"}}  />
-    <ErrorMessage errors={errors} className="err mb-4" name="jobtitle" as="p" />
     
     <Controller  type="email" control={control} name="email"   {...register("email" )} render={({ field }) => (<Input className=" w-full inline-block px-4 py-4 mt-2 text-xl placeholder-gray-400 bg-gray-200 rounded-lg focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50" 
           placeholder="Email" 
           {...field} />
-        )} rules={{ required: "Please fill in your email address",validate: () => {
-          if(getValues("email").includes("@gmail")|| getValues("email").includes("@yahoo")){
+          )} rules={{ required: "Please fill in your email address",validate: () => {
+            if(getValues("email").includes("@gmail")|| getValues("email").includes("@yahoo")){
               return "Please enter your company email, not your personal email.";
             }
-            }}}  />
+          }}}  />
     <ErrorMessage errors={errors} className="err mb-4" name="email" as="p" />
-    
     <Controller  type="text" control={control} name="phone"   {...register("phone" )} render={({ field }) => (<PhoneInput className=" w-full inline-block px-4 py-4 mt-2 text-xl placeholder-gray-400 bg-gray-200 rounded-lg focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50" 
-          placeholder="Phone number" 
+          placeholder="Phone number(Optional)" 
           {...field} />
-        )} rules={{ required: "Please fill in your phone number"}}  />
-    <ErrorMessage errors={errors} className="err mb-4" name="phone" as="p" />
-  <Controller name="country"   control={control} render={({ field }) => (
-              <Select placeholder="Country" className="block w-full px-4 py-4 mt-2 text-xl placeholder-gray-400 bg-gray-200 rounded-lg focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50" options={selectOptionsCountry} defaultValue="Country" {...field}>
-                </Select>
-            )}   {...register("country")}  rules={{ required: "Please Select your country"}} />
-  <ErrorMessage errors={errors} className="err mb-4" name="country" as="p" />
-  <p className=" text-base pb-4 text-gray-800 sm:max-w-md lg:text-lg md:max-w-2xl">By registering, you agree to the processing of your personal data by <a href="http://bahatitech.co.za" target="_blank" rel="noreferrer">Bahati Tech</a> as described in the <Link to="privacy" target="blank">Privacy Statement.</Link></p>
-  <p className=" text-base pb-4 text-gray-800 sm:max-w-md lg:text-lg md:max-w-2xl"><span><input type="checkbox" name="marketing" {...register('marketing', { required: false })}/></span> Yes, I would like to receive marketing communications regarding Bahati Tech products, services, and events. I can unsubscribe at a later time.
+        )}   />
+          <Controller  type="text" control={control} name="organisation"   {...register("organisation" )} render={({ field }) => (<Input className=" w-full inline-block px-4 py-4 mt-2 text-xl placeholder-gray-400 bg-gray-200 rounded-lg focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50" 
+                placeholder="Company" 
+                {...field} />
+              )} rules={{ required: "Please fill in your company's name"}}  />
+          <ErrorMessage errors={errors} className="err mb-4" name="organisation" as="p" />
+    
+  <p className=" text-sm pb-1 text-gray-800 sm:max-w-md md:max-w-2xl">Upon submission, <a href="http://bahatitech.co.za" target="_blank" rel="noreferrer">Bahati Tech</a> will collect the contact information provided and use it for future communications regarding our products and services. You may unsubscribe from these communications at anytime. Access our <Link to="privacy" target="blank">Privacy Statement.</Link> to review our commitment to protecting your privacy.  </p>
+  <p className=" text-sm pb-4 text-gray-800 sm:max-w-md  md:max-w-2xl"><span><input type="checkbox" name="marketing" {...register('marketing', { required: false })}/></span> Yes, I would like to receive marketing communications regarding Bahati Tech products, services, and events. I can unsubscribe at a later time.
   </p>
   <div className="">
   <ReCAPTCHA
@@ -132,7 +123,7 @@ Amplify.configure(awsConfig)
   onChange={onChange}/>  
   </div>
   <div className="">
-  <button type="submit" disabled={!verified} className="inline-block w-full px-5 py-4 text-lg font-medium text-center text-white transition duration-200 bg-blue-600 rounded-lg hover:bg-blue-700 ease">Request Demo</button>
+  <button type="submit"  className="inline-block w-full px-5 py-4 text-lg font-medium text-center text-white transition duration-200 bg-blue-600 rounded-lg hover:bg-blue-700 ease">Watch Demo</button>
   </div>
   </form> 
 </div>

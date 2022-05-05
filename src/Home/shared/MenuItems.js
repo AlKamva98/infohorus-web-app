@@ -15,11 +15,11 @@ export const MenuItems =[
   cName : 'relative font-medium leading-6 text-gray-600 transition duration-150 ease-out hover:text-gray-900'
   
  },
- {
-  title: 'Contact Us',
-  url: '/main/contact',
-  cName : 'relative font-medium leading-6 text-gray-600 transition duration-150 ease-out hover:text-gray-900'
- },
+//  {
+//   title: 'Contact Us',
+//   url: '/main/contact',
+//   cName : 'relative font-medium leading-6 text-gray-600 transition duration-150 ease-out hover:text-gray-900'
+//  },
  {
   title: 'Dashboard',
   url: '/dash',
