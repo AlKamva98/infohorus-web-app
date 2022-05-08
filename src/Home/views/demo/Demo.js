@@ -29,11 +29,11 @@ Amplify.configure(awsConfig)
     const { register, handleSubmit, getValues, reset, formState: { errors }, control } = useForm();
     const handleDemoReq = async (data) =>{ 
       try{
-      // getCreds().then((uCred)=>{
-      //   sendEmail("Demo",data, uCred, "infohorus@bahatitech.co.za");
-      //   toggle();
-      //   reset({email:"", fname:"", country:"",organisation:"", jobtitle:"",phone:"",marketing:""});
-      // })
+      getCreds().then((uCred)=>{
+        sendEmail("Demo",data, uCred, "infohorus@bahatitech.co.za");
+        toggle();
+        reset({email:"", fname:"", country:"",organisation:"", jobtitle:"",phone:"",marketing:""});
+      })
       console.log("This is the users data:"+JSON.stringify(data));
       console.log("Data sent to the API");
     history.push("/main/demov")  
