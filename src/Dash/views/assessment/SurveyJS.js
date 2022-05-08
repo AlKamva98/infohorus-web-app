@@ -475,13 +475,14 @@ async function getCreds(){
             survey.data = data;
             console.log(survey.data)
             console.log(data)
-
+            console.log("page is", currentPageNo)
+            
             if (data.pageNo && currentPageNo===null) {
                 console.log("The current pg no is:", data.pageNo)
                 survey.currentPageNo = data.pageNo;
                 console.log("Page no is:", survey.currentPageNo)
             }else{
-                survey.currentPageNo = currentPageNo;
+                survey.currentPageNo = data.pageNo;
                 console.log("Page no is:", survey.currentPageNo)
             }
             console.log("ID set: ", qnaireUUID);

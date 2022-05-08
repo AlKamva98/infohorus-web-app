@@ -7,7 +7,7 @@ const MainLayout = (props) => {
   return (
     <div>
       <div className="wrapper d-flex flex-column min-vh-100 bg-light">
-        <Header className="fixed" signedIn={signedIn} show={true} signOut= {signOut} />
+        <Header className="fixed drop-shadow-md" signedIn={signedIn} show={true} signOut= {signOut} />
         <div className="w-screen">
           <Content />
         </div>

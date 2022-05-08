@@ -208,7 +208,7 @@ const addEventHandler=(task)=>{
             })
             break;
             case "Task": 
-            data = await API.graphql({query: queries.listTaskss}).then(promise => {
+            data = await API.graphql({query: queries.listTaskss, variables: {filter: {userID: {contains: userId}}}}).then(promise => {
               return promise.data.listTaskss.items;
             }).catch(e => {
                 console.error(e);

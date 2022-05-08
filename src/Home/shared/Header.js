@@ -7,10 +7,10 @@ import { Transition } from '@tailwindui/react'
  function Header (props) {
    const {signedIn, show, signOut} = props;
     return (      
-      <nav className="relative w-full py-10 text-gray-700  body-font fixed">
+      <nav className="relative z-40 drop-shadow w-full py-10 text-gray-700  body-font fixed">
         <div className="container flex fixed bg-gray-100 top-0 inset-x-0  flex-col flex-wrap items-center justify-between py-2 mx-auto md:flex-row max-w-7xl">
           <Link to="/" className="relative z-10 flex items-center w-auto text-2xl font-extrabold leading-none text-black select-none"><Image className="img-fluid" src="\images\mainlogo.png" alt="logo"  width="200" height="75"/></Link>
-            <ul className="top-0 left-0 z-0 flex text-xl font-semibold items-center justify-center w-full h-full py-5 -ml-0 space-x-5 text-base md:-ml-5 md:py-0 md:absolute">
+            <ul className="md:flex gap-8 p-6 bg-gray-100 text-xl bg-gray-100 font-semibold items-center">
           {MenuItems.map((item,index)=>{
             return(
               <li key={index}>

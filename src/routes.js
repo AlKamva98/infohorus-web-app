@@ -2,6 +2,7 @@
 import Index from './Home/views/index/Index'
 import Contact from './Home/views/contact/Contact'
 import Demo from './Home/views/demo/Demo'
+import DemoVideo from './Home/views/demo/DemoVideo'
 import About from './Home/views/about/About'
 
 //assessor
@@ -136,6 +137,7 @@ const mainRoutes=[
   { path: '/main/About', name: 'About', component: About, exact: true },
   { path: '/main/contact', name: 'Contact', component: Contact, exact: true },
   { path: '/main/demo', name: 'Demo', component: Demo, exact: true },
+  { path: '/main/demov', name: 'Demo Video', component: DemoVideo, exact: true },
   //{ path: '/login', name: 'Login', component: Login },  
   { path: '/main/index', name: 'Index', component: Index, exact: true }
 ]

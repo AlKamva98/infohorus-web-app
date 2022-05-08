@@ -263,6 +263,11 @@ export const getCred = /* GraphQL */ `
       id
       acc
       sec
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
     }
   }
 `;
@@ -277,6 +282,11 @@ export const listCreds = /* GraphQL */ `
         id
         acc
         sec
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
       }
       nextToken
       startedAt
@@ -318,8 +328,7 @@ export const getTasks = /* GraphQL */ `
       taskName
       taskDesc
       taskStart
-      taskEnd
-      recommendationsID
+      userID
       assignedTo
       color
       _version
@@ -327,14 +336,20 @@ export const getTasks = /* GraphQL */ `
       _lastChangedAt
       createdAt
       updatedAt
-      RecommendationTask {
+      UserTask {
         id
-        recName
-        recDesc
-        recDuration
-        recNum
-        isApproved
-        userID
+        first_name
+        last_name
+        email
+        job_title
+        company
+        employees
+        industry
+        country
+        userType
+        phone
+        teamID
+        chatID
         _version
         _deleted
         _lastChangedAt
@@ -356,8 +371,7 @@ export const listTaskss = /* GraphQL */ `
         taskName
         taskDesc
         taskStart
-        taskEnd
-        recommendationsID
+        userID
         assignedTo
         color
         _version
@@ -389,8 +403,7 @@ export const syncTasks = /* GraphQL */ `
         taskName
         taskDesc
         taskStart
-        taskEnd
-        recommendationsID
+        userID
         assignedTo
         color
         _version
@@ -419,10 +432,6 @@ export const getRecommendations = /* GraphQL */ `
       _lastChangedAt
       createdAt
       updatedAt
-      RecommendationTasks {
-        nextToken
-        startedAt
-      }
       User {
         id
         first_name
@@ -1009,6 +1018,10 @@ export const getUser = /* GraphQL */ `
         startedAt
       }
       Teams {
+        nextToken
+        startedAt
+      }
+      Tasks {
         nextToken
         startedAt
       }
