@@ -88,13 +88,13 @@ const {signedIn, signInHandler, toggle,modal, errMsg} = props;
               <CCard className="text-white bg-primary py-5" style={{ width: '44%' }}>
                 <CCardBody className="text-center">
                   <div>
-                    <h2>Sign up</h2>
+                    <h1 classsName="w-full mr-2 text-2xl text-center font-extrabold" >Request Demo</h1>
                     <p>
-                     Register now and see for yourself how Infohorus can help you improve, assess and improve your cybersecurity posture, build a collaborative cybersecurity culture across your organization and prepare to respond and recover from any attacks you may encounter.
+                     Request a demo and see for yourself how Infohorus can help you improve, assess and improve your cybersecurity posture, build a collaborative cybersecurity culture across your organization and prepare to respond and recover from any attacks you may encounter.
                     </p>
-                    <Link to="/register">
+                    <Link to="/main/demo">
                       <CButton color="primary" className="mt-3" active tabIndex={-1}>
-                        Register Now!
+                      Request Demo
                       </CButton>
                     </Link>
                   </div>
