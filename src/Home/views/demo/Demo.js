@@ -123,7 +123,7 @@ Amplify.configure(awsConfig)
   onChange={onChange}/>  
   </div>
   <div className="">
-  <button type="submit"  className="inline-block w-full px-5 py-4 text-lg font-medium text-center text-white transition duration-200 bg-blue-600 rounded-lg hover:bg-blue-700 ease">Watch Demo</button>
+  <button type="submit"  className="inline-block w-full px-5 py-4 text-lg font-medium text-center text-white transition duration-200 bg-blue-600 rounded-lg hover:bg-blue-700 ease">Watch Demo Video</button>
   </div>
   </form> 
 </div>
