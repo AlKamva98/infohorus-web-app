@@ -7,10 +7,10 @@ import { Transition } from '@tailwindui/react'
  function Header (props) {
    const {signedIn, show, signOut} = props;
     return (      
-      <nav className="relative z-40 drop-shadow w-full py-10 text-gray-700  body-font fixed">
-        <div className="container flex fixed bg-gray-100 top-0 inset-x-0  flex-col flex-wrap items-center justify-between py-2 mx-auto md:flex-row max-w-7xl">
+      <nav className="relative z-40 drop-shadow w-full py-10 text-cyan-700  body-font fixed">
+        <div className="container flex fixed bg-bgCol top-0 inset-x-0  flex-col flex-wrap items-center justify-between py-2 mx-auto md:flex-row max-w-7xl">
           <Link to="/" className="relative z-10 flex items-center w-auto text-2xl font-extrabold leading-none text-black select-none"><Image className="img-fluid" src="\images\mainlogo.png" alt="logo"  width="200" height="75"/></Link>
-            <ul className="md:flex gap-8 p-6 bg-gray-100 text-xl bg-gray-100 font-semibold items-center">
+            <ul className="md:flex gap-8 p-6 text-xl bg-bgCol font-semibold items-center">
           {MenuItems.map((item,index)=>{
             return(
               <li key={index}>
@@ -25,7 +25,7 @@ import { Transition } from '@tailwindui/react'
             <div className="relative z-10 inline-flex  items-center space-x-3 md:ml-5 lg:justify-end">
             
             <span className="inline-flex">
-              {signedIn ?(<Link to="/" onClick={signOut} className="inline-flex items-center font-semibold justify-center btn px-4 py-2 text-gray-600 bg-gray-100 border border-gray-100 text-lg leading-6 whitespace-no-wrap rounded-md shadow-sm hover:bg-gray-600 hover:text-white ">Sign Out</Link>):(<Link to="/login" className="inline-flex items-center justify-center px-4 py-2 text-lg leading-6 btn text-gray-600 whitespace-no-wrap bg-gray-100 font-semibold border border-gray-200 rounded-md shadow-sm hover:bg-gray-600 hover:text-white focus:outline-none focus:shadow-none">
+              {signedIn ?(<Link to="/" onClick={signOut} className="inline-flex items-center font-semibold justify-center btn px-4 py-2 text-gray-600 bg-gray-100 border border-gray-100 text-lg leading-6 whitespace-no-wrap rounded-md shadow-sm hover:bg-gray-600 hover:text-white ">Sign Out</Link>):(<Link to="/login" className="inline-flex items-center justify-center px-4 py-2 text-lg leading-6 btn text-cyan-200 bg-bgCol  border-cyan-200 rounded-md hover:bg-cyan-400 hover:text-white whitespace-no-wrap  font-semibold  rounded-md  focus:outline-none focus:shadow-none">
               Sign In
               </Link>)}
             </span>
