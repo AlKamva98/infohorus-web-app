@@ -1,6 +1,8 @@
 import React from 'react'
 import HeroHome from "./HeroHome";
 import Features from "./Features";
+import About from "../about/About"
+import ContactSec from './ContactSec';
 //home page
 const Index = props => {
 const signedIn =false;
@@ -8,6 +10,8 @@ const signedIn =false;
   <div clasName="w-full bg-white">
    <HeroHome signedIn={signedIn} />
    <Features />
+   <About/>
+   <ContactSec/>
   </div>
  )
 }
