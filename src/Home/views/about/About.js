@@ -12,7 +12,7 @@ import { Carousel } from 'react-responsive-carousel';
 
     <h1 className = "text-4xl font-bold text-gray-100 tracking-tight text-center pb-6 sm:text-xl md:text-3xl lg:text-4xl xl:text-5xl" >
     <span className = "block xl:inline" > Why Infohorus? </span> </h1>
-<Carousel dynamicHeight={false}  infiniteLoop={true} interval={12000} autoPlay={true} className = "w-full  mx-auto ">
+<Carousel dynamicHeight={false} infiniteLoop={true} interval={12000} autoPlay={true} className = "w-full  mx-auto ">
   <div  className="flex flex-wrap items-center w-full mx-auto "> 
     <div className="w-4/5 mx-auto pt-3 pb-3 pr-3 pl-3 opacity-70 bg-cyan-500 rounded-md ">
        <p className = "mx-auto text-base text-center pb-4 text-white sm:max-w-md lg:text-lg md:max-w-3xl" > Ransomware is the fastest - growing attack vector targeting all sorts of companies, institutions, and organizations. No organization is immune to cyber - attacks. Cyber attackers can demand money from companies and institutions of all sizes and industries including nonprofits, enterprises, and startups. </p> 
