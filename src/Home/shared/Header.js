@@ -9,7 +9,7 @@ import { Transition } from '@tailwindui/react'
     return (      
       <nav className="relative z-40 drop-shadow w-full py-10 text-cyan-700  body-font fixed">
         <div className="container flex fixed bg-bgCol top-0 inset-x-0  flex-col flex-wrap items-center justify-between py-2 mx-auto md:flex-row max-w-7xl">
-          <Link to="/" className="relative z-10 flex items-center w-auto text-2xl font-extrabold leading-none text-black select-none"><Image className="img-fluid" src="\images\mainlogo.png" alt="logo"  width="200" height="75"/></Link>
+          <Link to="/" className="relative z-10 flex items-center w-auto text-2xl font-extrabold leading-none text-black select-none"><Image className="img-fluid" src="\images\logonew.png" alt="logo"  width="200" height="75"/></Link>
             <ul className="md:flex gap-8 p-6 text-xl bg-bgCol font-semibold items-center">
           {MenuItems.map((item,index)=>{
             return(
