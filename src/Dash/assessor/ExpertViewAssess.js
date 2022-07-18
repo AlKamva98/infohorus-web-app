@@ -12,7 +12,6 @@ import {questions} from '../../testData/Quests'
 function ExpertViewAssess (props){
 // const initialFormState =[{assessAns:"",assessComment:""}];
 const { state, userId } = props.location;
-let rep ;
 // const [formState, updateFormState] = useState(initialFormState)
 const [Answers, setAnswers] = useState()
 const [formValues, setFormValues]= useState(null)
@@ -25,7 +24,6 @@ const memoizedHandleDoc = useCallback((doc)=>() => {
                         data.Body.text().then(data2 => {
                           convert(data2.substr(28));
                         })
-
                     }).catch(err =>{
                       console.log("Download Document Error::::", err)
                       console.error(err, err.stack);
@@ -84,7 +82,7 @@ let answers =[];
         answerData.sort((a,b) => (a.questionID > b.questionID) ? 1 : ((b.questionID > a.questionID) ? -1 : 0))
         setAnswers(answerData);
             }).finally(()=>{
-           rep= createReport().then(()=>{
+           let rep= createReport().then(()=>{
               updateReportCreated(true)
               })
             })

@@ -1,4 +1,4 @@
- import React from 'react';
+import React from 'react';
 import {Link} from 'react-router-dom'
 import {Image} from 'react-bootstrap'
 import {MenuItems} from './MenuItems'
@@ -25,7 +25,7 @@ import { Transition } from '@tailwindui/react'
             <div className="relative z-10 inline-flex  items-center space-x-3 md:ml-5 lg:justify-end">
             
             <span className="inline-flex">
-              {signedIn ?(<Link to="/" onClick={signOut} className="inline-flex items-center font-semibold justify-center btn px-4 py-2 text-gray-600 bg-gray-100 border border-gray-100 text-lg leading-6 whitespace-no-wrap rounded-md shadow-sm hover:bg-gray-600 hover:text-white ">Sign Out</Link>):(<Link to="/login" className="inline-flex items-center justify-center px-4 py-2 text-lg leading-6 btn text-cyan-200 bg-bgCol  border-cyan-200 rounded-md hover:bg-cyan-400 hover:text-white whitespace-no-wrap  font-semibold  rounded-md  focus:outline-none focus:shadow-none">
+              {signedIn ?(<Link to="/" onClick={signOut} className="inline-flex items-center justify-center px-4 py-2 text-lg leading-6 btn text-cyan-200 bg-bgCol  border-cyan-200 rounded-md hover:bg-cyan-400 hover:text-white whitespace-no-wrap  font-semibold  rounded-md  focus:outline-none focus:shadow-none">Sign Out</Link>):(<Link to="/login" className="inline-flex items-center justify-center px-4 py-2 text-lg leading-6 btn text-cyan-200 bg-bgCol  border-cyan-200 rounded-md hover:bg-cyan-400 hover:text-white whitespace-no-wrap  font-semibold  rounded-md  focus:outline-none focus:shadow-none">
               Sign In
               </Link>)}
             </span>
