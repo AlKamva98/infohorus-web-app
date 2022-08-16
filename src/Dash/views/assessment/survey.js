@@ -1,10 +1,10 @@
 export const surveyCss = {
     "navigationButton": "btn btn-green",
     "navigation": {
-      "complete": "btn sv_complete_btn btn-primary float-right",
-      "prev": "btn sv_prev_btn btn-outline-secondary",
-      "next": "btn sv_next_btn btn-primary float-right",
-      "start": "btn sv_start_btn btn-primary",
+      "complete": "btn sv_complete_btn bg-cyan-600 hover:bg-cyan-800 text-white float-right",
+      "prev": "btn sv_prev_btn  border-cyan-600 sm:mb-0 hover:bg-cyan-600 ",
+      "next": "btn sv_next_btn bg-cyan-600 hover:bg-cyan-800 text-white float-right",
+      "start": "btn sv_start_btn bg-cyan-600 hover:bg-cyan-800 text-white",
       "preview": "btn sv_preview_btn btn-primary float-right",
       "edit": "btn sv_edit_btn btn-primary "
     }

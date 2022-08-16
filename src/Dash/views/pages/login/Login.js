@@ -48,7 +48,7 @@ const {signedIn, signInHandler, toggle,modal, errMsg} = props;
                 <CCardBody>
                   <CForm onSubmit={handleSignIn}>
                     <div className=" mb-4">
-    <img className=" d-block mx-auto img-fluid" src="./images/fav-logo.png" alt="Our logo" width="40" height="40"/>
+    <img className=" d-block mx-auto img-fluid" src="./images/logonew.png" alt="Our logo" width="150" height="100"/>
               <h4 className="w-full mr-2 text-2xl text-center font-extrabold">Sign In</h4>
 </div> 
                     <p className="text-medium-emphasis">Sign In to your account</p>
@@ -72,9 +72,9 @@ const {signedIn, signInHandler, toggle,modal, errMsg} = props;
                     </CInputGroup>
                     <CRow>
                       <CCol xs="6">
-                        <CButton color="primary" type="submit" >
+                        <button className="flex items-center w-full btn text-lg text-white bg-cyan-600 sm:mb-0 hover:bg-cyan-800 sm:w-auto" type="submit" >
                           Login
-                        </CButton>
+                        </button>
                       </CCol>
                       <CCol xs="6" className="text-right">
                         <CButton color="link" className="px-0">
@@ -85,7 +85,7 @@ const {signedIn, signInHandler, toggle,modal, errMsg} = props;
                   </CForm>
                 </CCardBody>
               </CCard>
-              <CCard className="text-white bg-primary py-5" style={{ width: '44%' }}>
+              <CCard className="text-white bg-cyan-900 py-5" style={{ width: '44%' }}>
                 <CCardBody className="text-center">
                   <div>
                     <h1 classsName="w-full mr-2 text-2xl text-center font-extrabold" >Request Demo</h1>
@@ -93,9 +93,9 @@ const {signedIn, signInHandler, toggle,modal, errMsg} = props;
                      Request a demo and see for yourself how Infohorus can help you improve, assess and improve your cybersecurity posture, build a collaborative cybersecurity culture across your organization and prepare to respond and recover from any attacks you may encounter.
                     </p>
                     <Link to="/main/demo">
-                      <CButton color="primary" className="mt-3" active tabIndex={-1}>
+                      <button className="flex items-center w-full btn text-lg text-white mx-auto my-4 bg-cyan-900 border-cyan-600 sm:mb-0 hover:bg-cyan-600 sm:w-auto" >
                       Request Demo
-                      </CButton>
+                      </button>
                     </Link>
                   </div>
                 </CCardBody>
