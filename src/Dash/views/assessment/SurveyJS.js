@@ -396,12 +396,12 @@ async function getCreds(){
         //Create a 'send Email' button to invoke a modal popup
         var btn = document.createElement("button");
         btn.type = "button";
-        btn.className = "btn btn-info btn-xs";
+        btn.className = "btn btn-info btn-xs text-white border-cyan-600 bg-cyan-600 hover:bg-cyan-900";
 
         btn.style.position = "absolute";
         btn.style.marginLeft = "20px"
 
-        btn.innerHTML = "Send Email";
+        btn.innerHTML = "Ask Colleague";
         btn.onclick = function () {
             showSendEmailPopUp(survey.currentPage);
         }
@@ -506,7 +506,7 @@ async function getCreds(){
                         <div ref={emailContainer}><Survey.Survey model={survey} css={myCss}/></div>
                         <hr className="bg-secondary"/>
                         <span className="fw-semibold text-lg m-4">Need to consult a colleague on this answer?<p
-                            className="d-none d-md-inline-block pointer m-1" >Send an internal message</p>directly to them by clicking the send email button.</span>
+                            className="d-none d-md-inline-block pointer m-1" >Send an internal message</p>directly to them by clicking the "Ask Colleague" button.</span>
                         <Modal isOpen={modal} id="questionDescriptionPopup" toggle={toggle} className={className}>
                                 <Form onSubmit={handleSubmit(handleSendEmail, handleError)}>
                             <ModalHeader toggle={toggle}><h5 className="modal-title" id="exampleModalLabel">Send
