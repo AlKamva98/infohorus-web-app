@@ -505,8 +505,7 @@ async function getCreds(){
                             </Container> */}
                         <div ref={emailContainer}><Survey.Survey model={survey} css={myCss}/></div>
                         <hr className="bg-secondary"/>
-                        <span className="fw-semibold text-lg m-4">Need to consult a colleague on this answer?<p
-                            className="d-none d-md-inline-block pointer m-1" >Send an internal message</p>directly to them by clicking the "Ask Colleague" button.</span>
+                        <span className=" text-base fw-semibold mx-4 my-4">Need to consult a colleague on this answer? Send an internal message directly to them by clicking the "Ask Colleague" button.</span>
                         <Modal isOpen={modal} id="questionDescriptionPopup" toggle={toggle} className={className}>
                                 <Form onSubmit={handleSubmit(handleSendEmail, handleError)}>
                             <ModalHeader toggle={toggle}><h5 className="modal-title" id="exampleModalLabel">Send
