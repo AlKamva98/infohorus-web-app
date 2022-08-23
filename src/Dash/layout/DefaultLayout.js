@@ -7,6 +7,8 @@ import * as queries from '../../graphql/queries';
 import * as subscriptions from '../../graphql/subscriptions';
 import * as mutations from '../../graphql/mutations'
 import {sendEmail} from '../../Home/shared/functions/AwsFuncs'
+import IdleTimer from "./IdleTimer";
+
 
 const DefaultLayout = (props) => {
   const {signedIn, signOut, userGroup} = props;
@@ -31,7 +33,25 @@ const DefaultLayout = (props) => {
     const revToggle = () => setRevModal(!revModal);
     const [msg, setMsg] =useState("");
     const [messages, setMessages] = useState([]);
-
+    const [isTimeout, setIsTimeout] = useState(false);
+    useEffect(() => {
+      const timer = new IdleTimer({
+        timeout: 300, //expire after  seconds
+        onTimeout: () => {
+          signOut();
+          setIsTimeout(true);
+        },
+        onExpired: () => {
+          //do something if expired on load
+          setIsTimeout(true);
+        }
+      });
+  
+      return () => {
+        timer.cleanUp();
+      };
+    }, []);
+  
     useEffect(() => { 
       const getDashValues = async() =>{
         newsArticleshandler()
