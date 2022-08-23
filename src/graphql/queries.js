@@ -263,11 +263,7 @@ export const getCred = /* GraphQL */ `
       id
       acc
       sec
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
+      
     }
   }
 `;
@@ -282,12 +278,7 @@ export const listCreds = /* GraphQL */ `
         id
         acc
         sec
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-      }
+       }
       nextToken
       startedAt
     }
@@ -310,12 +301,7 @@ export const syncCreds = /* GraphQL */ `
         id
         acc
         sec
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-      }
+       }
       nextToken
       startedAt
     }

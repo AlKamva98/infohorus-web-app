@@ -123,6 +123,7 @@ export function SurveyJS(props) {
     }
 async function getCreds(){
     const cred  = await API.graphql(graphqlOperation(queries.getCred, { id: 'ak100' }));
+    console.log("THIS IS THE CREDENTIALS!!!", cred);
     return cred;
     }
     const handleSendEmail = async(data)=>{
@@ -204,6 +205,7 @@ async function getCreds(){
     function getAnswerPerPage() {//get answers from the page
         try {
             var ans = survey.currentPage.getValue();
+            console.log("THESE ARE THE ANSWERS OF THE PREVIOUS PAGE", ans);
             return ans;
         } catch (err) {
             console.log("Get Answer per page Error: ", err);
@@ -379,9 +381,9 @@ async function getCreds(){
         survey.onPartialSend.add(function (result) {
             var ans = getAnswerPerPage();
             var doc = getDocAnswers(ans);
-            // uploadDocuments(doc, ans).then(ans => {
-            // uploadAnswersPerPage(ans)
-            // })
+            uploadDocuments(doc, ans).then(ans => {
+            uploadAnswersPerPage(ans)
+            })
         })
 
         var qUser;
