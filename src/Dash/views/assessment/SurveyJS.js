@@ -123,6 +123,7 @@ export function SurveyJS(props) {
     }
 async function getCreds(){
     const cred  = await API.graphql(graphqlOperation(queries.getCred, { id: 'ak100' }));
+    console.log("THIS IS THE CREDENTIALS!!!", cred);
     return cred;
     }
     const handleSendEmail = async(data)=>{
@@ -204,6 +205,7 @@ async function getCreds(){
     function getAnswerPerPage() {//get answers from the page
         try {
             var ans = survey.currentPage.getValue();
+            console.log("THESE ARE THE ANSWERS OF THE PREVIOUS PAGE", ans);
             return ans;
         } catch (err) {
             console.log("Get Answer per page Error: ", err);
@@ -379,9 +381,9 @@ async function getCreds(){
         survey.onPartialSend.add(function (result) {
             var ans = getAnswerPerPage();
             var doc = getDocAnswers(ans);
-            // uploadDocuments(doc, ans).then(ans => {
-            // uploadAnswersPerPage(ans)
-            // })
+            uploadDocuments(doc, ans).then(ans => {
+            uploadAnswersPerPage(ans)
+            })
         })
 
         var qUser;
@@ -505,8 +507,7 @@ async function getCreds(){
                             </Container> */}
                         <div ref={emailContainer}><Survey.Survey model={survey} css={myCss}/></div>
                         <hr className="bg-secondary"/>
-                        <span className="fw-semibold text-lg m-4">Need to consult a colleague on this answer?<p
-                            className="d-none d-md-inline-block pointer m-1" >Send an internal message</p>directly to them by clicking the "Ask Colleague" button.</span>
+                        <span className=" text-base fw-semibold mx-4 my-4">Need to consult a colleague on this answer? Send an internal message directly to them by clicking the "Ask Colleague" button.</span>
                         <Modal isOpen={modal} id="questionDescriptionPopup" toggle={toggle} className={className}>
                                 <Form onSubmit={handleSubmit(handleSendEmail, handleError)}>
                             <ModalHeader toggle={toggle}><h5 className="modal-title" id="exampleModalLabel">Send

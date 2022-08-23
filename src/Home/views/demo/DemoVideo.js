@@ -12,7 +12,7 @@ function DemoVideo(props) {
       </div>
       </div>
       <div className='py-12 bg-white'>
-      <ReactPlayer url="https://youtu.be/wKEmTDR9lKs" style={{position: 'relative', margin:'auto', top: '0', left: '0', width: '100%', height: '100%'}}/>
+      <ReactPlayer url="https://youtu.be/FAeIH942WQI" style={{position: 'relative', margin:'auto', top: '0', left: '0', width: '100%', height: '100%'}}/>
       </div>
       <div className="py-8 text-white text-center">
       <h1 className="text-2xl font-extrabold tracking-tight sm:text-2xl md:text-2xl lg:text-3xl xl:text-4xl " >Thank you for watching our demo video</h1>
