@@ -45,6 +45,7 @@ export function SurveyJS(props) {
 
     function showSendEmailPopUp(element){
         const currPageNo = survey.currentPageNo;
+
         const doc = (new DOMParser()).parseFromString(emailContainer.current.innerHTML, 'text/html');
         const emailBodyWithremovedProgressText = removeElement(doc, 'sv-progress__text');
         const emailBodyWithFooterRemoved = removeElement(emailBodyWithremovedProgressText, 'sv-footer');
@@ -484,7 +485,7 @@ async function getCreds(){
                 survey.currentPageNo = data.pageNo;
                 console.log("Page no is:", survey.currentPageNo)
             }else{
-                survey.currentPageNo = data.pageNo;
+                survey.currentPageNo = currentPageNo;
                 console.log("Page no is:", survey.currentPageNo)
             }
             console.log("ID set: ", qnaireUUID);
