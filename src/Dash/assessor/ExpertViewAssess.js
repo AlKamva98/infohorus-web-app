@@ -209,8 +209,7 @@ const savedValues= window.localStorage.getItem(storageName);
 )
 }
 </Formik>}
-    {reportCreated && <Redirect to={{pathname: "/dash/recommendations" , assess: assessForm, client: Answers, userId: state.id}} ></Redirect>}
-  
+    
   </>)
   
   }
