@@ -82,9 +82,9 @@ let answers =[];
         answerData.sort((a,b) => (a.questionID > b.questionID) ? 1 : ((b.questionID > a.questionID) ? -1 : 0))
         setAnswers(answerData);
             }).finally(()=>{
-           let rep= createReport().then(()=>{
-              updateReportCreated(true)
-              })
+          //  let rep= createReport().then(()=>{
+          //     updateReportCreated(true)
+          //     })
             })
 },[])
 

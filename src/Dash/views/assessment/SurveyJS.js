@@ -45,10 +45,12 @@ export function SurveyJS(props) {
 
     function showSendEmailPopUp(element){
         const currPageNo = survey.currentPageNo;
+
         const doc = (new DOMParser()).parseFromString(emailContainer.current.innerHTML, 'text/html');
         const emailBodyWithremovedProgressText = removeElement(doc, 'sv-progress__text');
         const emailBodyWithFooterRemoved = removeElement(emailBodyWithremovedProgressText, 'sv-footer');
-        setEmailBody(emailBodyWithFooterRemoved)
+        const emailBodyWithButtonRemoved = removeElement(emailBodyWithFooterRemoved, "btn_inf")
+        setEmailBody(emailBodyWithButtonRemoved)
         console.log("This is the element", element)
         console.log("The current page is:", currPageNo)
         setCurrentPageNo(currPageNo)
@@ -272,18 +274,18 @@ async function getCreds(){
                         for(let d in survey.data){
 
                             console.log(getAnswerPerPage());
-                            console.log("This is data")
+                            console.log("This is data", survey.data)
                             console.log("This is qid",questionID)
                             if(questionID === d ){
                                 const a = await API.graphql({query: queries.getAnswer , variables:{input:survey.data}})
                                 console.log("anwser:",a)
-                                //     const updatedAnswer = {
-                            //     id: a.data,
-                            //     _version: a._version,
-                            //     questionaireCompleted: true,
-                            // }
+                                    const updatedAnswer = {
+                                id: a.data,
+                                _version: a._version,
+                                questionaireCompleted: true,
+                            }
 
-                            // await API.graphql({query: mutations.updateAnswer, variables: {input: updatedAnswer}});
+                            await API.graphql({query: mutations.updateAnswer, variables: {input: updatedAnswer}});
                             }else{
 
                             }
@@ -479,12 +481,13 @@ async function getCreds(){
             console.log(data)
             console.log("page is", currentPageNo)
             
-            if (data.pageNo && currentPageNo===null) {
+            if (data.pageNo > currentPageNo) {
                 console.log("The current pg no is:", data.pageNo)
                 survey.currentPageNo = data.pageNo;
                 console.log("Page no is:", survey.currentPageNo)
-            }else{
-                survey.currentPageNo = data.pageNo;
+            }else if (data.pageNo < currentPageNo){
+                survey.currentPageNo = currentPageNo;
+                data.pageNo = currentPageNo;
                 console.log("Page no is:", survey.currentPageNo)
             }
             console.log("ID set: ", qnaireUUID);
