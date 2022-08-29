@@ -367,7 +367,10 @@ async function getCreds(){
         return data;//returns the answer as the document name
     }
 
-
+function quidToQname(qid){
+    let qname =""
+    return qname
+}
 
 
         /**================================================================================================
