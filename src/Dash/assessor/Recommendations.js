@@ -5,7 +5,8 @@ import {Link} from 'react-router-dom'
 function Recommendations(props) {
   // const [modal, setModal] = React.useState(false);
   // const toggle = () => setModal(!modal);
-  const { assess, client, userId } = props.location;
+  console.log("Props", props);
+  const { assess, client, userId } = props.location.state;
   const tasks = [];
   
 console.log("This the assessor's data", assess)

@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useCallback} from 'react';
-import {Redirect} from 'react-router-dom'
+import {useHistory} from 'react-router-dom'
 import {Input} from "reactstrap";
 import { API, Storage,graphqlOperation } from 'aws-amplify';
 import {Formik, Form, FieldArray, Field} from 'formik'
@@ -15,8 +15,9 @@ const { state, userId } = props.location;
 // const [formState, updateFormState] = useState(initialFormState)
 const [Answers, setAnswers] = useState()
 const [formValues, setFormValues]= useState(null)
-const [assessForm, setAssessForm] = useState()
 const [reportCreated, updateReportCreated] = useState(false);
+const history = useHistory()
+
 const memoizedHandleDoc = useCallback((doc)=>() => {
   const downloadDocument = async (doc)=>{
   if(doc.endsWith(".pdf")){
@@ -38,8 +39,11 @@ const memoizedHandleDoc = useCallback((doc)=>() => {
   
   const onSubmit = async (data ) =>{    
     console.log("This is the data from the form", data)
-    setAssessForm(data)
     saveAssessorData(data)
+    //  let rep= createReport().then(()=>{
+    //           updateReportCreated(true)
+    //           })
+              history.push('/dash/recommendations', {assess: data, client: Answers , userId:userId })
     
   }
   
@@ -78,13 +82,12 @@ let questionnaire;
 let answers =[];
 
  useEffect(()=>{
+  console.log("THIS IS THE STATE VARIABLE", state);
      getAnswersbyQuestionnaire().then(answerData =>{
         answerData.sort((a,b) => (a.questionID > b.questionID) ? 1 : ((b.questionID > a.questionID) ? -1 : 0))
         setAnswers(answerData);
             }).finally(()=>{
-          //  let rep= createReport().then(()=>{
-          //     updateReportCreated(true)
-          //     })
+          
             })
 },[])
 
@@ -125,8 +128,7 @@ try{
           answerslist[i].qnum = questions[quest].questionNum;
         }
       };
-      console.log("The answer array list has been updated to the following:", answerslist)
-
+      
     answers.push(answerslist[i]);
       }
       };
