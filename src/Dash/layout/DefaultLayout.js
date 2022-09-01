@@ -72,16 +72,16 @@ const DefaultLayout = (props) => {
     },[])
     
     useEffect(() => {   
-    console.log("This is the teams table", teamTable)  
+    // console.log("This is the teams table", teamTable)  
     },[teamMembers])
     
     useEffect(() => {  
-      console.log("Recommendations have been changed to", recommendations)
+      // console.log("Recommendations have been changed to", recommendations)
       const approvedRec = recommendations.filter((rec)=>{
         return rec.isApproved
       });//filters 
     
-    console.log("These are the apporved recos", approvedRec[0]);
+    // console.log("These are the apporved recos", approvedRec[0]);
     addToApprovedHandler(approvedRec[0])
      },[recommendations])
     const addToApprovedHandler =(appRec)=>{
@@ -109,7 +109,7 @@ const DefaultLayout = (props) => {
             })).catch(e=>{
               console.log("adding new team member error", e)
             });
-            console.log("You've add team member::",response)
+            // console.log("You've add team member::",response)
             setTeamMembers([...teamMembers, response.data.createTeam]);
         teamsTableHandler([...teamMembers, response.data.createTeam]);
         
@@ -182,13 +182,13 @@ const addEventHandler=(task)=>{
 
     const assRepHandler = (data)=>{
       setAssRepData(data);
-      console.log("The assessor's report is:",assRepData)
+      // console.log("The assessor's report is:",assRepData)
     }
 
     const newsArticleshandler = async () =>{
       const articles = await listArticles();
       articles.sort((a,b) => (a.datePublished < b.datePublished) ? 1 : ((b.datePublished < a.datePublished) ? -1 : 0))
-      console.log("These are the articles", articles)
+      // console.log("These are the articles", articles)
       setNews(articles);
     }
 
@@ -247,7 +247,7 @@ const addEventHandler=(task)=>{
               return rec.isApproved
             });//filters 
           
-          console.log("These are the apporved recos", approvedRecs);
+          // console.log("These are the apporved recos", approvedRecs);
           setApproved(approvedRecs);
           }
     function getPending(recommendations){//
@@ -263,10 +263,10 @@ const addEventHandler=(task)=>{
       function approve(rec){
         rec.isApproved = true;
         setRecommendations(recommendations.map((recommendation)=>{
-          console.log(recommendation.isApproved)
+          // console.log(recommendation.isApproved)
           return recommendation.id === rec.id ? {...recommendation, isApproved: true}: recommendation;
         }))
-        console.log("rec is ",rec.isApproved)
+        // console.log("rec is ",rec.isApproved)
 
        }
 
@@ -296,7 +296,7 @@ const addEventHandler=(task)=>{
          rep.push(report.value.data.onCreateAssessorReport) ;
         assRepHandler(rep);
       
-      console.log("This is the updated chat2", report.value.data.onCreateAssessorReport);
+      // console.log("This is the updated chat2", report.value.data.onCreateAssessorReport);
       
       }
     })
