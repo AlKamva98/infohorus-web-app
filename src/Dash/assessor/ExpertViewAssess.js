@@ -43,6 +43,7 @@ const memoizedHandleDoc = useCallback((doc)=>() => {
     //  let rep= createReport().then(()=>{
     //           updateReportCreated(true)
     //           })
+    console.log("Answers", Answers)
               history.push('/dash/recommendations', {assess: data, client: Answers , userId:userId })
     
   }
@@ -196,8 +197,8 @@ const savedValues= window.localStorage.getItem(storageName);
           <Field name={`assessForm.${index}.assessComment`} type="textarea" onChange={handleChange} rows="4" className="w-full inline-block px-4 py-4 mt-2 text-xl placeholder-gray-400 bg-gray-200 rounded-lg focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50" 
             placeholder="Assessor's Comments" as={Input} /> 
           </div>
-          <pre>{JSON.stringify(values.assessForm[index],null,2)}</pre>
             </div>
+            
            
            )
           }))}

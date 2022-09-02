@@ -10,7 +10,7 @@ import * as mutations from '../../../graphql/mutations'
 import * as queries from '../../../graphql/queries'
 import * as Survey from 'survey-react';
 import ReactTooltip from 'react-tooltip'
-import { questionIDs, answersSaved } from './questionId.js';
+import { questionIDs, answersSaved, awqid } from './questionId.js';
 
 
 export function SurveyJS(props) {
@@ -31,9 +31,11 @@ export function SurveyJS(props) {
     var myCss = surveyCss;
     var addAns = mutations.createAnswer;
     window["$"] = window["jQuery"] = $AD;
+    const answersWithQuestionID ={};
     const [modal, setModal] = useState(false);
     const [emailBody, setEmailBody] = useState();
     const [savedAnswers, setSavedAnswers] = useState([null]);
+    let answersFromDB=[];
     const [currentPageNo, setCurrentPageNo] = useState([null]);
     const toggle = () => {
         setModal(!modal);
@@ -91,21 +93,30 @@ export function SurveyJS(props) {
      .catch(err=>{console.log("There was an error getting the user's Previous answers", err)});
      
      setQnaireUUID(qid)
-     response.data.listAnswers.items.sort((a,b) => (a.questionID > b.questionID) ? 1 : ((b.questionID > a.questionID) ? -1 : 0));
-     setSavedAnswers(response.data.listAnswers.items.map((answer)=>{
-       
-        for(qid in questionIDs ){
-         if(answer.questionID === questionIDs[qid].id ) {
-             answer.questionID= questionIDs[qid].questionName
-            
+     var ans = response.data.listAnswers.items.sort((a,b) => (a.questionID > b.questionID) ? 1 : ((b.questionID > a.questionID) ? -1 : 0))  
+     console.log("This is the answers sorted", ans)
+     answersFromDB = ans;
+     console.log("This is the response from the getAnswers query", answersFromDB)
+     setSavedAnswers(formatAnswersFromDBToDisplayInFrontEnd(answersFromDB))
+ }
+
+ function formatAnswersFromDBToDisplayInFrontEnd(answersFromDB){
+    for(let answer in answersFromDB){
+       var questionnaireName ="";
+        for( let qid in questionIDs ){
+         if(answersFromDB[answer].questionID === questionIDs[qid].id ) {
+            questionnaireName= questionIDs[qid].questionName
+        break;
             }
       }
       
-      answersSaved[answer.questionID]= answer.answer;
+      answersWithQuestionID[answersFromDB[answer].questionID]= questionnaireName;
+      answersSaved[questionnaireName]= answersFromDB[answer].answer;
         answersSaved.pageNo = questionnaireData.currentPage;
-      
+    
+    }
+    console.log("These are the answers from the database", answersSaved)//Theres an undefined:undefined that I dont know how was generated, This is a reminder to investigate
       return answersSaved;
-    }))
  }
  
     function setName(event) {
@@ -254,68 +265,89 @@ async function getCreds(){
         }
     }
 
+    function getOldAns(ans){
+        let answer = null;
+        console.log("checking answer exists?", ans)
+        for (let id in answersWithQuestionID){
+            if(ans.valueOf() === answersWithQuestionID[id].valueOf()){
+                console.log("It's a match!!")
+                answer = searchAnswerByQId(id);
+            }
+        }
+        console.log("The answer in check answer is:::",answer);
+        return answer;
+    }
+
+    function qnameToQid(ans){
+        let QID = null;
+        for (let id in awqid){
+            if(ans.valueOf() === awqid[id].valueOf()){
+                console.log("It's a match!!")
+                QID = id;
+                break;
+        }
+        }
+        return QID;
+    }
+
+    function searchAnswerByQId(id){
+        let answer = null;
+        for(let ans in answersFromDB){
+            if(answersFromDB[ans].questionID.valueOf() === id.valueOf()){
+                console.log("answerFound")
+                answer = answersFromDB[ans];
+                console.log("The answer is:::",answer);
+                break;
+            }
+        }
+        return answer;
+    }
+
     async function uploadAnswersPerPage(ans) {
         if (ans) {
-            try {
-                console.log(ans);
-                var anspq;
-                var questionID;
-                for (anspq in ans) {
+         
+                for (let anspq in ans) {
                     if (ans[anspq] !== undefined) {
+                        let oldAns = getOldAns(anspq);
 
-                        console.log("Answer is: ", ans[anspq]);
-                        for (let qid in qids) {
-                            let qname = String(qids[qid].questionName)
-                            if (qname.valueOf() === String(anspq).valueOf()) {
-                                questionID = qids[qid].id;
-                            }
-                        };
-
-                        for(let d in survey.data){
-
-                            console.log(getAnswerPerPage());
-                            console.log("This is data", survey.data)
-                            console.log("This is qid",questionID)
-                            if(questionID === d ){
-                                const a = await API.graphql({query: queries.getAnswer , variables:{input:survey.data}})
-                                console.log("anwser:",a)
-                                    const updatedAnswer = {
-                                id: a.data,
-                                _version: a._version,
-                                questionaireCompleted: true,
+                        if(oldAns){
+                        const updatedAnswer = {
+                                id: oldAns.id,
+                                _version: oldAns._version,
+                                answer: ans[anspq],
                             }
 
-                            await API.graphql({query: mutations.updateAnswer, variables: {input: updatedAnswer}});
-                            }else{
-
-                            }
+                        await API.graphql({query: mutations.updateAnswer, variables: {input: updatedAnswer}}).catch(err=>{console.error("Error while updating",err )});
+                        }else{
+                            var questionID = qnameToQid(anspq);                       
+                            console.log("Question ID", questionID);
+                            var storedAns = await API.graphql(graphqlOperation(
+                                    addAns, {
+                                        input: {
+                                            answer: ans[anspq],
+                                            questionnaireID: qnaireUUID,
+                                            questionID: questionID,
+                                        }
+                                    }
+                                )).catch(err=>{console.error("Error uploading new answer", err)});
                         }
-                        
-                        var storedAns = await API.graphql(graphqlOperation(
-                            addAns, {
-                                input: {
-                                    answer: ans[anspq],
-                                    questionnaireID: qnaireUUID,
-                                    questionID: questionID,
-                                }
-                            }
-                        ));
-                        const updatedQNaire = {
-                            id: questionnaireData.id,
-                            _version: questionnaireData._version,
-                            currentPage: survey.currentPageNo,
-                        }
-        
-                        await API.graphql({query: mutations.updateQuestionnaire, variables: {input: updatedQNaire}});
+                      
+                        updateQuestionnaire(survey.currentPageNo,false)
                     }
                 }
-            } catch (err) {
-                console.log("Answer per page upload Error: ", err);
-            }
         }
     }
 
+    async function updateQuestionnaire(currentPage, isComplete){
+        const updatedQNaire = {
+            id: questionnaireData.id,
+            _version: questionnaireData._version,
+            questionaireCompleted: isComplete,
+            currentPage: currentPage,
+        }
 
+        await API.graphql({query: mutations.updateQuestionnaire, variables: {input: updatedQNaire}}).catch(err=>{console.error("There was an error while updating the questionnaire", err)});
+    }
     async function uploadDocuments(ans, data) {
         if (data.followupQ11a || data.followupQ8a || data.followupQ14c || data.followupQ16b || data.followup17a) {//checks if the answers are for document uploading questions
             var doc = ans.docObj
@@ -366,12 +398,13 @@ async function getCreds(){
         }
         return data;//returns the answer as the document name
     }
+function isQuestionAlreadyAnswered(answerQuestionid, ){
+    let isAnswered = false;
 
-function quidToQname(qid){
-    let qname =""
-    return qname
+
+
+    return isAnswered
 }
-
 
         /**================================================================================================
          * End of Custom Functions
@@ -391,7 +424,6 @@ function quidToQname(qid){
             })
         })
 
-        var qUser;
 
         survey
     .onAfterRenderPage
@@ -428,7 +460,7 @@ function quidToQname(qid){
             try {
                 if(hasQuestionnaireData){//if the user is returning to a saved insance of the assessment
                     console.log("These are the saved answers", savedAnswers)
-                    resumeQuestionnaire(savedAnswers[0])
+                    resumeQuestionnaire(savedAnswers)
                 
                 }
                 else{
@@ -459,16 +491,8 @@ function quidToQname(qid){
                 uploadDocuments(doc, ans).then(ans => {
                     uploadAnswersPerPage(ans)
                 })
-
-                const updatedQNaire = {
-                    id: qnaireUUID,
-                    _version: qUser._version,
-                    questionaireCompleted: true,
-                    currentPage: survey.currentPageNo,
-                }
-
-                await API.graphql({query: mutations.updateQuestionnaire, variables: {input: updatedQNaire}});
-                console.log("Questionnaire state upadated!");
+                
+                updateQuestionnaire(survey.currentPageNo, true)
             } catch (err) {
                 console.log("This is the Error:", err);
             }
