@@ -32,20 +32,22 @@ for (const key in assess.assessForm) {
   <div>
     <h4 className="text-xl fw-bold">This is the Recommendations screen</h4>
     {assess && assess.assessForm.map((val, index)=>{
-      return(<>
-            <div key={index} className="flex flex-col mb-4">
+      console.log("This is the value from the form", val.client.qname);
+      return(<>{ val.client.qname ?
+        <div key={index} className="flex flex-col mb-4">
             <p className="text-xl font-semibold text-gray-900">Question number: {val.client.qname}</p>
             <p className="text-xl font-semibold text-gray-900">Question: {val.client.question}</p>
             <span className="text-xl font-semibold text-gray-900">Client Answer: {val.client.answer}</span>
             <p className="text-xl font-semibold text-gray-900">Assesor Answer: {val.assessAns}</p>
             <p className="text-xl font-semibold text-gray- 900">Assesor Comment: {val.assessComment}</p>
-            </div>
+            </div>: null
+            }
         
     </>
     )
   })
 }
-<div className="relative mb-4"><Link to={{pathname: "/dash/assignRec" ,tasks: tasks, userId: userId, assess: assess}}> <Button className="btn"  >Add recommendation</Button></Link></div>
+<div className="relative mb-4"><Link to={{pathname: "/dash/assignRec" ,tasks: tasks, client:client, userId: userId, assess: assess}}> <Button className="btn"  >Add recommendation</Button></Link></div>
  <div className="relative mb-4"><Link to="/dash/theme/colors"><Button className="btn"  >View user recommendations</Button></Link></div>
   </div>
  )

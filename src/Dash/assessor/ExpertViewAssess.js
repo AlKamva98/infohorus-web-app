@@ -43,8 +43,8 @@ const memoizedHandleDoc = useCallback((doc)=>() => {
     //  let rep= createReport().then(()=>{
     //           updateReportCreated(true)
     //           })
-    console.log("Answers", Answers)
-              history.push('/dash/recommendations', {assess: data, client: Answers , userId:userId })
+    
+              history.push('/dash/recommendations', {assess: data, client: Answers , userId:state.id })
     
   }
   
