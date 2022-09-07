@@ -537,7 +537,9 @@ function isQuestionAlreadyAnswered(answerQuestionid, ){
                             </Container> */}
                         <div ref={emailContainer}><Survey.Survey model={survey} css={myCss}/></div>
                         <hr className="bg-secondary"/>
-                        <span className=" text-base fw-semibold mx-4 my-4">Need to consult a colleague on this answer? Send an internal message directly to them by clicking the "Ask Colleague" button.</span>
+                        <div className="mx-4">
+                        <span className=" text-base fw-semibold my-4">Need to consult a colleague on this answer? Send an internal message directly to them by clicking the "Ask Colleague" button.</span>
+                        </div>
                         <Modal isOpen={modal} id="questionDescriptionPopup" toggle={toggle} className={className}>
                                 <Form onSubmit={handleSubmit(handleSendEmail, handleError)}>
                             <ModalHeader toggle={toggle}><h5 className="modal-title" id="exampleModalLabel">Send

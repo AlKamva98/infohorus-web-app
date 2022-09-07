@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useState, useEffect} from 'react';
 import {Container, Row, Col,Card,Form} from 'react-bootstrap';
 import {Label, Input, FormGroup,Button} from 'reactstrap';
 import { useForm, Controller } from "react-hook-form";
@@ -6,17 +6,16 @@ import Select  from 'react-select';
 import {TaskPopUp} from './Modal';
 import { API } from 'aws-amplify';
 import * as mutations from '../../graphql/mutations'
-import { Redirect } from 'react-router';
+import { useHistory } from 'react-router';
 
   function Assign(props) {
-    const {tasks, userId,assess} = props.location
+    const {tasks, userId,assess, client} = props.location
     let rec;
     //Comments to add
-    const [back, setBack] = useState(false)
     const [modal, setModal] = useState(false);
     const toggle = () => setModal(!modal);
     const { register, handleSubmit, control } = useForm();
-    
+    const history = useHistory();
     const selectImp = [
       {value: "High", label: "High"},
       {value: "Medium", label: "Medium"},
@@ -26,10 +25,13 @@ import { Redirect } from 'react-router';
     const handleRegistration = async (data) =>{ 
      saveData(data).then(rec=>{
       console.log("This is the recommendations",rec)
-      setBack(true)
+      history.push('/dash/recommendations', {assess: assess, client: client , userId:userId, rec:rec })
      })
     };
     
+    useEffect(()=>{
+      console.log("This is the user Id", userId)
+    },[])
 
 async function saveData(data){
    try{
@@ -106,7 +108,7 @@ async function saveData(data){
             </Card>
     </Col>
     </Row>
-    {back && <Redirect to={{pathname: "/dash/recommendations" ,rec: rec, assess: assess}}/>}
+
     </Container>
      <TaskPopUp
 title="Tasks"
