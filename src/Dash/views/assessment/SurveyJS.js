@@ -345,7 +345,7 @@ async function getCreds(){
             questionaireCompleted: isComplete,
             currentPage: currentPage,
         }
-
+        console.log("The current page is", currentPage);
         await API.graphql({query: mutations.updateQuestionnaire, variables: {input: updatedQNaire}}).catch(err=>{console.error("There was an error while updating the questionnaire", err)});
     }
     async function uploadDocuments(ans, data) {
