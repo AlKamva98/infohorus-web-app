@@ -11,8 +11,11 @@ function ExpertViewCustList(props){
  const [checkbox1, setCheckbox1] = useState('');
  const [datatable, setDatatable] = useState('');
  const [hasData, setHasData] = useState(false);
+ const [disabled, setDisabled] = useState(true);
+
  const showLogs2 = (e) => {
-     setCheckbox1(e);
+  setDisabled(false);   
+  setCheckbox1(e);
  };
  var completed;
 
@@ -63,13 +66,12 @@ function ExpertViewCustList(props){
         headCheckboxID='id2'
         bodyCheckboxID='checkboxes2'
         getValueCheckBox={(e) => {
-          showLogs2(e);}}
+          showLogs2(e)
+          ;}}
           />
     </div>
-    <Link to= {{pathname: "/dash/assess" ,state: checkbox1}}><Button className= "ml-5 mb-5"  type="submit">Assess</Button></Link>
-   <div>
-      {checkbox1 && <p>{JSON.stringify(delete checkbox1.checkbox && checkbox1.first_name)}</p>}
-    </div>
+    <Link to= {{pathname: "/dash/assess" ,state: checkbox1}}><Button disabled={disabled} className= "ml-5 mb-5"  type="submit">Assess</Button></Link>
+   
     </>)}
     </>
   );}
