@@ -7,16 +7,34 @@ import {Button, Container} from 'react-bootstrap'
 import * as queries from "../../graphql/queries"
 import * as mutations from "../../graphql/mutations"
 import {questions} from '../../testData/Quests'
+import {ExportJsonCsv} from 'react-export-json-csv'
+import { data } from 'jquery';
 
 
 function ExpertViewAssess (props){
 // const initialFormState =[{assessAns:"",assessComment:""}];
-const { state, userId } = props.location;
+const { userId } = props.location.state;
 // const [formState, updateFormState] = useState(initialFormState)
 const [Answers, setAnswers] = useState()
 const [formValues, setFormValues]= useState(null)
 const [reportCreated, updateReportCreated] = useState(false);
 const history = useHistory()
+
+const headers = [
+  {
+    key: 'question',
+    name: 'Question',
+  },
+  {
+    key: 'answer',
+    name: 'Answer',
+  },
+  {
+    key: 'qnum',
+    name: 'Question Number',
+  },
+
+]
 
 const memoizedHandleDoc = useCallback((doc)=>() => {
   const downloadDocument = async (doc)=>{
@@ -44,29 +62,29 @@ const memoizedHandleDoc = useCallback((doc)=>() => {
     //           updateReportCreated(true)
     //           })
     
-              history.push('/dash/recommendations', {assess: data, client: Answers , userId:state.id })
+              history.push('/dash/recommendations', {assess: data, client: Answers , userId:userId})
     
   }
   
 //   const selectOptionsAss = [
 //     {value: "Yes", label: "Yes"},
 //     {value: "No", label: "No"},]  
-  async function createReport (){
-    try{ 
+//   async function createReport (){
+//     try{ 
       
-    let report = await API.graphql(graphqlOperation(
-    mutations.createAssessorReport, {
-      input: {
-      ID:userId,
-      isComplete: false
-          }
-        }
-        ));
-        return report;
-      }catch(err){
-        console.log("Report upload error", err)
-      }
-}
+//     let report = await API.graphql(graphqlOperation(
+//     mutations.createAssessorReport, {
+//       input: {
+//       ID:userId,
+//       isComplete: false
+//           }
+//         }
+//         ));
+//         return report;
+//       }catch(err){
+//         console.log("Report upload error", err)
+//       }
+// }
 // async function updateReport(data, done){
 //     await API.graphql(graphqlOperation(mutations.updateAssessorReport,{
 //     input:{
@@ -83,13 +101,14 @@ let questionnaire;
 let answers =[];
 
  useEffect(()=>{
-  console.log("THIS IS THE STATE VARIABLE", state);
+  console.log("THIS IS THE STATE VARIABLE", userId);
      getAnswersbyQuestionnaire().then(answerData =>{
         answerData.sort((a,b) => (a.questionID > b.questionID) ? 1 : ((b.questionID > a.questionID) ? -1 : 0))
         setAnswers(answerData);
             }).finally(()=>{
           
             })
+          console.log("These are the answers", Answers)
 },[])
 
 
@@ -113,7 +132,7 @@ try{
 
   for(let qnaire in questionnairelist) {//for loop that goes through the array in search of the qnaire of chosen user
     console.log("Questionnaire ID::::", questionnairelist[qnaire] )
-    if(state.id === questionnairelist[qnaire].userId){//gets questionnaire by id
+    if(userId=== questionnairelist[qnaire].userId){//gets questionnaire by id
     questionnaire = questionnairelist[qnaire].id
     console.log("Questionnaire ID::::", questionnaire)
     }
@@ -162,8 +181,11 @@ const savedValues= window.localStorage.getItem(storageName);
    <>
 <Container>
 <h4 className="text-center display-4">Customer Answers</h4>
-<span>Click on download to get .pdf/.xls file of the  </span>
+<span>Click on Export to csv to get .pdf/.xls file of the  </span>
 </Container>
+<div>
+  <ExportJsonCsv headers={headers} items={Answers} fileTitle={"User data"}>Export to CSV</ExportJsonCsv>
+  </div>
 {<Formik
  initialValues={formValues||initialValues}
  onSubmit={onSubmit}  
@@ -185,18 +207,7 @@ const savedValues= window.localStorage.getItem(storageName);
             <p className="text-xl font-semibold text-gray-900">Q: {val.question}</p>
             <span className="text-xl font-semibold text-gray-900">A:{!isDoc ? (val.answer): <p className="btn btn-link pe-auto hover:text-blue-600" id={`${val.qname}`} onClick={memoizedHandleDoc(val.answer)}>{val.answer}</p> }</span>
             </div>
-            <div className="relative">
-              <Field name={`assessForm.${index}.qName`} onChange={handleChange} placeholder="Enter Question type" className="block w-60  mt-2 text-xl placeholder-gray-400  rounded-lg focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50"  type="input" as={Input}> 
-            </Field>
-            </div>
-            <div className="relative">
-              <Field name={`assessForm.${index}.assessAns`} onChange={handleChange} placeholder="Assessor's Answer" className="block w-60  mt-2 text-xl placeholder-gray-400  rounded-lg focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50"  type="input" as={Input}> 
-            </Field>
-            </div>
-            <div className="relative">
-          <Field name={`assessForm.${index}.assessComment`} type="textarea" onChange={handleChange} rows="4" className="w-full inline-block px-4 py-4 mt-2 text-xl placeholder-gray-400 bg-gray-200 rounded-lg focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50" 
-            placeholder="Assessor's Comments" as={Input} /> 
-          </div>
+            
             </div>
             
            
@@ -216,5 +227,17 @@ const savedValues= window.localStorage.getItem(storageName);
   </>)
   
   }
+{/* <div className="relative">
+              <Field name={`assessForm.${index}.qName`} onChange={handleChange} placeholder="Enter Question type" className="block w-60  mt-2 text-xl placeholder-gray-400  rounded-lg focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50"  type="input" as={Input}> 
+            </Field>
+            </div>
+            <div className="relative">
+              <Field name={`assessForm.${index}.assessAns`} onChange={handleChange} placeholder="Assessor's Answer" className="block w-60  mt-2 text-xl placeholder-gray-400  rounded-lg focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50"  type="input" as={Input}> 
+            </Field>
+            </div>
+            <div className="relative">
+          <Field name={`assessForm.${index}.assessComment`} type="textarea" onChange={handleChange} rows="4" className="w-full inline-block px-4 py-4 mt-2 text-xl placeholder-gray-400 bg-gray-200 rounded-lg focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50" 
+            placeholder="Assessor's Comments" as={Input} /> 
+          </div> */}
 
   export default ExpertViewAssess;

@@ -1,7 +1,7 @@
 import React, { useState, useEffect} from 'react';
 import {Button, Container} from 'react-bootstrap'
 import { MDBDataTableV5 } from 'mdbreact';
-import {Link} from 'react-router-dom'
+import {useHistory} from 'react-router-dom'
 import {COLUMNS} from "./columns.js";
 import * as queries from '../../graphql/queries'
 import API from '@aws-amplify/api';
@@ -12,12 +12,12 @@ function ExpertViewCustList(props){
  const [datatable, setDatatable] = useState('');
  const [hasData, setHasData] = useState(false);
  const [disabled, setDisabled] = useState(true);
-
+ const history = useHistory();
  const showLogs2 = (e) => {
   setDisabled(false);   
   setCheckbox1(e);
  };
- var completed;
+ let completed;
 
     useEffect(() => {
          listUsers().then(listOfUsers => {
@@ -27,8 +27,6 @@ function ExpertViewCustList(props){
 
             if( listOfUsers.data.listUsers.items[i].userType === "Assessee"){
               completed =  listOfUsers.data.listUsers.items[i];
-              console.log("This is the approved ",  listOfUsers.data.listUsers.items[i])
-              console.log("This is the approved completed ",  completed)
               users.push(completed)
               
             }
@@ -42,6 +40,11 @@ function ExpertViewCustList(props){
              setHasData(true);
          });
        },[])
+
+       function assess(){
+        console.log("This is the selected user", checkbox1);
+        history.push("/dash/assess" ,{userId: checkbox1.id})
+       }
 
   async function listUsers() {
       try {
@@ -70,8 +73,7 @@ function ExpertViewCustList(props){
           ;}}
           />
     </div>
-    <Link to= {{pathname: "/dash/assess" ,state: checkbox1}}><Button disabled={disabled} className= "ml-5 mb-5"  type="submit">Assess</Button></Link>
-   
+    <Button className= "ml-5 mb-5" onClick={assess} type="submit">Assess</Button>  
     </>)}
     </>
   );}
