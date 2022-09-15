@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useCallback} from 'react';
+import React, {useState, useEffect, useCallback, useRef} from 'react';
 import {useHistory} from 'react-router-dom'
 import {Input} from "reactstrap";
 import { API, Storage,graphqlOperation } from 'aws-amplify';
@@ -10,16 +10,18 @@ import {questions} from '../../testData/Quests'
 import {ExportJsonCsv} from 'react-export-json-csv'
 import { data } from 'jquery';
 
-
 function ExpertViewAssess (props){
-// const initialFormState =[{assessAns:"",assessComment:""}];
-const { userId } = props.location.state;
-// const [formState, updateFormState] = useState(initialFormState)
-const [Answers, setAnswers] = useState()
-const [formValues, setFormValues]= useState(null)
-const [reportCreated, updateReportCreated] = useState(false);
-const history = useHistory()
-
+  // const initialFormState =[{assessAns:"",assessComment:""}];
+  const { userId } = props.location.state;
+  // const [formState, updateFormState] = useState(initialFormState)
+  const [Answers, setAnswers] = useState()
+  const [formValues, setFormValues]= useState(null)
+  const [reportCreated, updateReportCreated] = useState(false);
+  const history = useHistory()
+  const [uploadedAssessAns, setUploadedAssessAns] = useState();
+  const assessAnsDoc = useRef(null)
+  const Papa = require('papaparse')
+  
 const headers = [
   {
     key: 'question',
@@ -65,7 +67,34 @@ const memoizedHandleDoc = useCallback((doc)=>() => {
               history.push('/dash/recommendations', {assess: data, client: Answers , userId:userId})
     
   }
+  function readFile(){
+    assessAnsDoc.current.click();
+    let assessAns = assessAnsDoc.current;
+    console.log("file read", assessAns)
+  }
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    console.log(file)
+    setUploadedAssessAns(file);
+    // let assessAnsJson = Papa.parse(file, { delimiter: ',', header:true});
+  Papa.parse(file, {  header:true,dynamicTyping: true,
+      complete: function (results) {
+          debugDataset(results);
+          renderDataset(results);
+      } });
+  };
+
   
+function debugDataset(dataset) {
+  var formatted = JSON.stringify(dataset, null, 2);
+  // $("<div class='parse'></div>").text(formatted).appendTo(".graphcontainer");
+}
+
+function renderDataset(dataset) {
+  console.log("this is the csv converted into json", dataset)
+  // render code here...
+}
+
 //   const selectOptionsAss = [
 //     {value: "Yes", label: "Yes"},
 //     {value: "No", label: "No"},]  
@@ -185,6 +214,10 @@ const savedValues= window.localStorage.getItem(storageName);
 </Container>
 <div>
   <ExportJsonCsv headers={headers} items={Answers} fileTitle={"User data"}>Export to CSV</ExportJsonCsv>
+  </div>
+  <div>
+    <Button onClick={readFile}>Upload Assessor Answers</Button>
+    <input type='file' id='assessAns' onChange={handleFileChange} ref={assessAnsDoc} style={{display:'none'}}/>
   </div>
 {<Formik
  initialValues={formValues||initialValues}
