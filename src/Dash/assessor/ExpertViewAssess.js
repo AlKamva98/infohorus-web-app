@@ -64,7 +64,7 @@ const memoizedHandleDoc = useCallback((doc)=>() => {
     //           updateReportCreated(true)
     //           })
     
-              history.push('/dash/recommendations', {assess: data, client: Answers , userId:userId})
+              history.push('/dash/recommendations', {assess: uploadedAssessAns.data, client: Answers , userId:userId})
     
   }
   function readFile(){
@@ -75,7 +75,7 @@ const memoizedHandleDoc = useCallback((doc)=>() => {
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     console.log(file)
-    setUploadedAssessAns(file);
+    
     // let assessAnsJson = Papa.parse(file, { delimiter: ',', header:true});
   Papa.parse(file, {  header:true,dynamicTyping: true,
       complete: function (results) {
@@ -92,6 +92,7 @@ function debugDataset(dataset) {
 
 function renderDataset(dataset) {
   console.log("this is the csv converted into json", dataset)
+  setUploadedAssessAns(dataset)
   // render code here...
 }
 
