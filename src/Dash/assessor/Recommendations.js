@@ -19,25 +19,25 @@ console.log("This the client's id", userId)
  
 // }
 
-for (const key in assess.assessForm) {
-  for(let i in client){
+// for (const key in assess.assessForm) {
+//   for(let i in client){
 
-    if (assess.assessForm[key].qName === client[i].qname  ) {
-      assess.assessForm[key].client=(client[i]);
-  console.log("this is the new array:", assess.assessForm[key])
-}
-}
-}
+//     if (assess.assessForm[key].qName === client[i].qname  ) {
+//       assess.assessForm[key].client=(client[i]);
+//   console.log("this is the new array:", assess.assessForm[key])
+// }
+// }
+// }
  return (
   <div>
     <h4 className="text-xl fw-bold">This is the Recommendations screen</h4>
-    {assess && assess.assessForm.map((val, index)=>{
-      console.log("This is the value from the form", val.client.qname);
-      return(<>{ val.client.qname ?
+    {assess && assess.map((val, index)=>{
+      console.log("This is the value from the form", val.Question_Number);
+      return(<>{ val.Question_Number ?
         <div key={index} className="flex flex-col mb-4">
-            <p className="text-xl font-semibold text-gray-900">Question number: {val.client.qname}</p>
-            <p className="text-xl font-semibold text-gray-900">Question: {val.client.question}</p>
-            <span className="text-xl font-semibold text-gray-900">Client Answer: {val.client.answer}</span>
+            <p className="text-xl font-semibold text-gray-900">Question number: {val.Question_Number}</p>
+            <p className="text-xl font-semibold text-gray-900">Question: {val.Question}</p>
+            <span className="text-xl font-semibold text-gray-900">Client Answer: {val.Answer}</span>
             <p className="text-xl font-semibold text-gray-900">Assesor Answer: {val.assessAns}</p>
             <p className="text-xl font-semibold text-gray- 900">Assesor Comment: {val.assessComment}</p>
             </div>: null
