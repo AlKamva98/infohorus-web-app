@@ -33,7 +33,7 @@ const AppSidebar = (props) => {
       onHide={() => { dispatch({ type: 'set', sidebarShow: false }) }}>
       
       <CSidebarBrand className="d-none d-md-flex" to="/">
-        <Link to="/" className="relative z-10 flex items-center w-auto text-2xl font-extrabold leading-none text-black select-none"><Image className="img-fluid" src="\images\logok.png" alt="logo"  width="150" height="35"/></Link>
+        <Link to="/" className="relative z-10 flex items-center w-auto text-2xl font-extrabold leading-none text-black select-none"><Image className="img-fluid" src="\images\logonew.png" alt="logo"  width="150" height="35"/></Link>
        </CSidebarBrand>
       <CSidebarNav>
         <SimpleBar>
