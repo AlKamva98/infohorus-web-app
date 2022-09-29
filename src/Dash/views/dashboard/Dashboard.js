@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import {
   CCard,
   CCardBody,
@@ -9,8 +9,9 @@ import WidgetsDropdown from '../components/widgets/WidgetsDropdown.js'
 
 const Dashboard = (props) => {
   const {news,userDetails, assRepData, tasks} = props;
-  // let hasReport = false;
  
+ 
+  
   return (
     <>
     <h2 className="mb-3 fw-normal text-center text-2xl fw-bold">Welcome {userDetails.first_name}</h2>

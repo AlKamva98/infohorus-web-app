@@ -548,7 +548,7 @@ export const onCreateAssessorReport = /* GraphQL */ `
       assessScore
       criticalRisks
       questionnaireID
-      isCompleted
+      userId
       _version
       _deleted
       _lastChangedAt
@@ -576,7 +576,7 @@ export const onUpdateAssessorReport = /* GraphQL */ `
       assessScore
       criticalRisks
       questionnaireID
-      isCompleted
+      userId
       _version
       _deleted
       _lastChangedAt
@@ -604,7 +604,7 @@ export const onDeleteAssessorReport = /* GraphQL */ `
       assessScore
       criticalRisks
       questionnaireID
-      isCompleted
+      userId
       _version
       _deleted
       _lastChangedAt
@@ -976,7 +976,7 @@ export const onCreateQuestionnaire = /* GraphQL */ `
         assessScore
         criticalRisks
         questionnaireID
-        isCompleted
+        userId
         _version
         _deleted
         _lastChangedAt
@@ -1040,7 +1040,7 @@ export const onUpdateQuestionnaire = /* GraphQL */ `
         assessScore
         criticalRisks
         questionnaireID
-        isCompleted
+        userId
         _version
         _deleted
         _lastChangedAt
@@ -1104,7 +1104,7 @@ export const onDeleteQuestionnaire = /* GraphQL */ `
         assessScore
         criticalRisks
         questionnaireID
-        isCompleted
+        userId
         _version
         _deleted
         _lastChangedAt

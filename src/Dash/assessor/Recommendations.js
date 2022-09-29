@@ -38,8 +38,8 @@ console.log("This the client's id", userId)
             <p className="text-xl font-semibold text-gray-900">Question number: {val.Question_Number}</p>
             <p className="text-xl font-semibold text-gray-900">Question: {val.Question}</p>
             <span className="text-xl font-semibold text-gray-900">Client Answer: {val.Answer}</span>
-            <p className="text-xl font-semibold text-gray-900">Assesor Answer: {val.assessAns}</p>
-            <p className="text-xl font-semibold text-gray- 900">Assesor Comment: {val.assessComment}</p>
+            <p className="text-xl font-semibold text-gray-900">Assesor Answer: {val.assessAns ? val.assessAns:"Answer Unavailable"}</p>
+            <p className="text-xl font-semibold text-gray- 900">Assesor Comment: {val.assessComment ? val.assessComment:"No comment"}</p>
             </div>: null
             }
         
