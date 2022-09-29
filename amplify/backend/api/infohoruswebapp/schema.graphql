@@ -61,7 +61,7 @@ type AssessorReport @model @auth(rules: [{allow: public}]) @key(name: "byQuestio
   criticalRisks: String
   Questionnaire: Questionnaire @connection
   questionnaireID: ID
-  isCompleted: Boolean
+  userId: String
 }
 
 type QuestionnaireQuestionAnswer @model @auth(rules: [{allow: public}]) @key(name: "byQuestion", fields: ["questionID"]) @key(name: "byAssessorReport", fields: ["assessorreportID"]) {

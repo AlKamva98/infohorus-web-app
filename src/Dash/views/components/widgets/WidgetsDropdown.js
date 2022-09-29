@@ -14,14 +14,15 @@ import CIcon from '@coreui/icons-react'
 import { Link } from 'react-router-dom'
 
 const WidgetsDropdown = (props) => {
-  const {tasks} =props;
+  const {tasks, assRepData} =props;
+  console.log("Assess Rep data", assRepData)
   return (
     <CRow>
       <CCol sm="6" lg="4">
         <CWidgetDropdown
           className="mb-4"
           color="info"
-          value={`Currently Unavailable`}
+          value={assRepData? assRepData.assessScore:`Currently Unavailable`}
           title="Assesment Score"
           action={
             <CDropdown alignment="end">
@@ -97,7 +98,7 @@ const WidgetsDropdown = (props) => {
         <CWidgetDropdown
           className="mb-4"
           color="warning"
-          value={tasks? `0/${tasks.length} Tasks Completed`:`Currently Unavailable`}
+          value={tasks.length !== 0 ? `0/${tasks.length} Tasks Completed`:`Currently Unavailable`}
           title="Tasks done"
           action={
             <CDropdown alignment="end">
@@ -159,7 +160,7 @@ const WidgetsDropdown = (props) => {
         <CWidgetDropdown
           className="mb-4"
           color="danger"
-          value={`Currently Unavailable`}
+          value={assRepData? assRepData.criticalRisks:`Currently Unavailable`}
           title="Critical Risks"
           action={
             <CDropdown alignment="end">

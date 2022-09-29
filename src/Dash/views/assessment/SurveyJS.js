@@ -21,7 +21,6 @@ export function SurveyJS(props) {
         questionnaireData,
         hasQuestionnaireData,
         handleCreateQuestionnaire,
-        approved
     } = props;
     /**===========================================================================================
      *                                Global Variables
@@ -258,7 +257,7 @@ async function getCreds(){
             }
             var text = {docObj: doc, quesname: qname};
             ans = text
-            console.log("answers stored and returned", doc)
+            console.log("document stored and returned", doc)
             return ans;
         } catch (err) {
             console.log("ans return error: ", err);
@@ -406,6 +405,9 @@ function isQuestionAlreadyAnswered(answerQuestionid, ){
     return isAnswered
 }
 
+
+
+
         /**================================================================================================
          * End of Custom Functions
          * ================================================================================================
@@ -493,6 +495,8 @@ function isQuestionAlreadyAnswered(answerQuestionid, ){
                 })
                 
                 updateQuestionnaire(survey.currentPageNo, true)
+                console.log("questionnaire updated", survey.currentPageNo)
+                
             } catch (err) {
                 console.log("This is the Error:", err);
             }

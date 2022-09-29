@@ -510,12 +510,7 @@ export const getAssessorReport = /* GraphQL */ `
       assessScore
       criticalRisks
       questionnaireID
-      isCompleted
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
+      userId
       Questionnaire {
         id
         questionaireCompleted
@@ -543,12 +538,7 @@ export const listAssessorReports = /* GraphQL */ `
         assessScore
         criticalRisks
         questionnaireID
-        isCompleted
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
+        userId
       }
       nextToken
       startedAt
@@ -573,18 +563,14 @@ export const syncAssessorReports = /* GraphQL */ `
         assessScore
         criticalRisks
         questionnaireID
-        isCompleted
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
+        userId
       }
       nextToken
       startedAt
     }
   }
 `;
+
 export const getQuestionnaireQuestionAnswer = /* GraphQL */ `
   query GetQuestionnaireQuestionAnswer($id: ID!) {
     getQuestionnaireQuestionAnswer(id: $id) {

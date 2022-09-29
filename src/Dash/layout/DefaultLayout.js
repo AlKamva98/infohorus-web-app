@@ -64,7 +64,7 @@ const DefaultLayout = (props) => {
           recommendationsHandler(currentUser.data.getUser.id)
           tasksHandler(currentUser.data.getUser.id)
           getQuestionnaire(currentUser.data.getUser.id)
-          subscribeToAssessRep()
+          getAssessReportHandler(currentUser.data.getUser.id)
         }
       }
       getDashValues();
@@ -115,6 +115,18 @@ const DefaultLayout = (props) => {
         
       
     }
+
+    const getAssessReportHandler = async (userId)=>{
+
+      const response = API.graphql({query:queries.listAssessorReports, variables: {filter: {userId: {contains: userId}}}}).then((arpd)=>{
+        if(arpd)
+      assRepHandler(arpd.data.listAssessorReports.items[0])
+      console.log("This is the assessor report",arpd.data.listAssessorReports.items[0])
+      }).catch((err)=>{console.log("Error getting the Assessor Report", err)})
+      console.log("Getting the Assessor report was successfull", response)
+      
+    }
+
     const updateTeamMemberHandler= async (member) =>{
       const response = await API.graphql({ query: mutations.updateTeam, variables: {input: member}})
         .catch((err)=>{console.log("There was an error in updating the team member", err)});
@@ -182,7 +194,7 @@ const addEventHandler=(task)=>{
 
     const assRepHandler = (data)=>{
       setAssRepData(data);
-      // console.log("The assessor's report is:",assRepData)
+      console.log("The assessor's report is:",assRepData)
     }
 
     const newsArticleshandler = async () =>{
@@ -286,21 +298,6 @@ const addEventHandler=(task)=>{
       }
   }
   
-  function subscribeToAssessRep(){
-    API.graphql({
-      query: subscriptions.onCreateAssessorReport,
-    }).subscribe({
-      next: report => {
-      
-         let rep=[];
-         rep.push(report.value.data.onCreateAssessorReport) ;
-        assRepHandler(rep);
-      
-      // console.log("This is the updated chat2", report.value.data.onCreateAssessorReport);
-      
-      }
-    })
-  }
        
   //      function viewTasks(i){
   //     try{
@@ -410,8 +407,7 @@ const addEventHandler=(task)=>{
       <div className="wrapper d-flex flex-column min-vh-100 bg-light">
         <AppHeader tasks={tasks} recommendations={recommendations} signOut={signOut} saveChanges={saveChanges} approved={approved} />
         <div className="body flex-grow-1 px-3">
-          <AppContent approve={approve} approved={approved} recommendations={recommendations} 
-          errModal={errModal} teamTable={teamTable} handleMemberAdd={addTeamMemberHandler} updateMember={updateTeamMemberHandler} handleCreateQuestionnaire={createQuestionnaireHandler} deleteMember={deleteTeamMemberHandler} errToggle={errToggle} hasQuestionnaire={hasQuestionnaire} questionnaire={questionnaire} revModal={revModal} revToggle={revToggle}  msg={msg} setMsg={setMsg}  tasks={tasks} rec={rec} toggle={toggle} news={news} messages={messages} setMessages={setMessages} modal={modal} events={evt} userDetails={userDetails}  assRepData={assRepData}  setRec={setRec} addTask={addTask} />
+          <AppContent approve={approve} approved={approved} recommendations={recommendations} getAssessReportHandler={getAssessReportHandler} errModal={errModal} teamTable={teamTable} handleMemberAdd={addTeamMemberHandler} updateMember={updateTeamMemberHandler} handleCreateQuestionnaire={createQuestionnaireHandler} deleteMember={deleteTeamMemberHandler} errToggle={errToggle} hasQuestionnaire={hasQuestionnaire} questionnaire={questionnaire} revModal={revModal} revToggle={revToggle}  msg={msg} setMsg={setMsg}  tasks={tasks} rec={rec} toggle={toggle} news={news} messages={messages} setMessages={setMessages} modal={modal} events={evt} userDetails={userDetails}  assRepData={assRepData}  setRec={setRec} addTask={addTask} />
         </div>
         <AppFooter />
       </div>
