@@ -31,15 +31,16 @@ export function SurveyJS(props) {
     var addAns = mutations.createAnswer;
     window["$"] = window["jQuery"] = $AD;
     const answersWithQuestionID ={};
+    const [awqid, setAwqid] = useState(answersWithQuestionID)
     const [modal, setModal] = useState(false);
     const [emailBody, setEmailBody] = useState();
     const [savedAnswers, setSavedAnswers] = useState([null]);
     let answersFromDB=[];
+    const [afdb, setAfdb] = useState(answersFromDB)
     const [currentPageNo, setCurrentPageNo] = useState([null]);
     const toggle = () => {
         setModal(!modal);
-        console.log("This is the modal")
-    }
+        }
     Survey.StylesManager.applyTheme("modern");
 
     Survey.Serializer.addProperty("page", "sendEmailPopUp:text")
@@ -93,9 +94,8 @@ export function SurveyJS(props) {
      
      setQnaireUUID(qid)
      var ans = response.data.listAnswers.items.sort((a,b) => (a.questionID > b.questionID) ? 1 : ((b.questionID > a.questionID) ? -1 : 0))  
-     console.log("This is the answers sorted", ans)
      answersFromDB = ans;
-     console.log("This is the response from the getAnswers query", answersFromDB)
+     setAfdb(answersFromDB)
      setSavedAnswers(formatAnswersFromDBToDisplayInFrontEnd(answersFromDB))
  }
 
@@ -110,6 +110,7 @@ export function SurveyJS(props) {
       }
       
       answersWithQuestionID[answersFromDB[answer].questionID]= questionnaireName;
+      setAwqid(answersWithQuestionID)
       answersSaved[questionnaireName]= answersFromDB[answer].answer;
         answersSaved.pageNo = questionnaireData.currentPage;
     
@@ -266,14 +267,14 @@ async function getCreds(){
 
     function getOldAns(ans){
         let answer = null;
-        console.log("checking answer exists?", ans)
-        for (let id in answersWithQuestionID){
-            if(ans.valueOf() === answersWithQuestionID[id].valueOf()){
+        for (let id in awqid){
+            if(ans.valueOf() === awqid[id].valueOf()){
                 console.log("It's a match!!")
                 answer = searchAnswerByQId(id);
+                console.log("The answer in check answer is:::",answer);
+                break;
             }
         }
-        console.log("The answer in check answer is:::",answer);
         return answer;
     }
 
@@ -281,7 +282,7 @@ async function getCreds(){
         let QID = null;
         for (let id in awqid){
             if(ans.valueOf() === awqid[id].valueOf()){
-                console.log("It's a match!!")
+                console.log("It's a match qid!!")
                 QID = id;
                 break;
         }
@@ -291,11 +292,9 @@ async function getCreds(){
 
     function searchAnswerByQId(id){
         let answer = null;
-        for(let ans in answersFromDB){
-            if(answersFromDB[ans].questionID.valueOf() === id.valueOf()){
-                console.log("answerFound")
-                answer = answersFromDB[ans];
-                console.log("The answer is:::",answer);
+        for(let ans in afdb){
+            if(afdb[ans].questionID.valueOf() === id.valueOf()){
+                answer = afdb[ans];
                 break;
             }
         }
@@ -306,10 +305,10 @@ async function getCreds(){
         if (ans) {
          
                 for (let anspq in ans) {
-                    if (ans[anspq] !== undefined) {
+                    if (ans[anspq]) {
                         let oldAns = getOldAns(anspq);
 
-                        if(oldAns){
+                        if(oldAns){//if there is an old answer, update old answer
                         const updatedAnswer = {
                                 id: oldAns.id,
                                 _version: oldAns._version,
@@ -317,10 +316,9 @@ async function getCreds(){
                             }
 
                         await API.graphql({query: mutations.updateAnswer, variables: {input: updatedAnswer}}).catch(err=>{console.error("Error while updating",err )});
-                        }else{
+                        }else{//if theres no old answer, create a new one
                             var questionID = qnameToQid(anspq);                       
-                            console.log("Question ID", questionID);
-                            var storedAns = await API.graphql(graphqlOperation(
+                           var storedAns = await API.graphql(graphqlOperation(
                                     addAns, {
                                         input: {
                                             answer: ans[anspq],
@@ -506,23 +504,15 @@ function isQuestionAlreadyAnswered(answerQuestionid, ){
         // var prevData = window.localStorage.getItem(storageName) || null;
        
         const resumeQuestionnaire=(data)=>{
-            console.log("answers",data)
             survey.data = data;
-            console.log(survey.data)
-            console.log(data)
-            console.log("page is", currentPageNo)
             
             if (data.pageNo > currentPageNo) {
-                console.log("The current pg no is:", data.pageNo)
                 survey.currentPageNo = data.pageNo;
-                console.log("Page no is:", survey.currentPageNo)
             }else if (data.pageNo < currentPageNo){
                 survey.currentPageNo = currentPageNo;
                 data.pageNo = currentPageNo;
-                console.log("Page no is:", survey.currentPageNo)
             }
-            console.log("ID set: ", qnaireUUID);
-        }
+          }
         /**================================================================================================
          * End of Survey Functions
          * ================================================================================================
