@@ -30,8 +30,8 @@ export function SurveyJS(props) {
     var myCss = surveyCss;
     var addAns = mutations.createAnswer;
     window["$"] = window["jQuery"] = $AD;
-    const answersWithQuestionID ={};
-    const [awqid, setAwqid] = useState(answersWithQuestionID)
+    const aqID ={};
+    const [answersWithQuestionID, setAnswersWithQuestionid] = useState(aqID)
     const [modal, setModal] = useState(false);
     const [emailBody, setEmailBody] = useState();
     const [savedAnswers, setSavedAnswers] = useState([null]);
@@ -109,8 +109,8 @@ export function SurveyJS(props) {
             }
       }
       
-      answersWithQuestionID[answersFromDB[answer].questionID]= questionnaireName;
-      setAwqid(answersWithQuestionID)
+      aqID[answersFromDB[answer].questionID]= questionnaireName;
+      setAnswersWithQuestionid(aqID)
       answersSaved[questionnaireName]= answersFromDB[answer].answer;
         answersSaved.pageNo = questionnaireData.currentPage;
     
@@ -267,8 +267,8 @@ async function getCreds(){
 
     function getOldAns(ans){
         let answer = null;
-        for (let id in awqid){
-            if(ans.valueOf() === awqid[id].valueOf()){
+        for (let id in answersWithQuestionID){
+            if(ans.valueOf() === answersWithQuestionID[id].valueOf()){
                 console.log("It's a match!!")
                 answer = searchAnswerByQId(id);
                 console.log("The answer in check answer is:::",answer);
