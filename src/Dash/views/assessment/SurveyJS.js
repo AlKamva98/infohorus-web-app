@@ -136,13 +136,12 @@ export function SurveyJS(props) {
     }
 async function getCreds(){
     const cred  = await API.graphql(graphqlOperation(queries.getCred, { id: 'ak100' }));
-    console.log("THIS IS THE CREDENTIALS!!!", cred);
     return cred;
     }
     const handleSendEmail = async(data)=>{
         const cred = await getCreds().catch(err=>{console.log("Error getting Creds", err)})
 
-        console.log("This is the form data", data);
+        // console.log("This is the form data", data);
         sendEmail(cred, data.recipientEmail.value);
     }
     function sendEmail(uCred,email) {
@@ -269,9 +268,7 @@ async function getCreds(){
         let answer = null;
         for (let id in answersWithQuestionID){
             if(ans.valueOf() === answersWithQuestionID[id].valueOf()){
-                console.log("It's a match!!")
                 answer = searchAnswerByQId(id);
-                console.log("The answer in check answer is:::",answer);
                 break;
             }
         }
@@ -282,7 +279,6 @@ async function getCreds(){
         let QID = null;
         for (let id in awqid){
             if(ans.valueOf() === awqid[id].valueOf()){
-                console.log("It's a match qid!!")
                 QID = id;
                 break;
         }
