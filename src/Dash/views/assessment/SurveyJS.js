@@ -1,6 +1,7 @@
 import React, {useEffect, useState, useRef} from 'react';
 import{Modal, ModalBody, ModalHeader,ModalFooter, Button, Form, FormGroup} from 'reactstrap'
 import {useForm, Controller } from "react-hook-form";
+import { Prompt } from 'react-router';
 import * as $AD from 'jquery';
 import Select  from 'react-select';
 import { API, graphqlOperation, Storage } from 'aws-amplify';
@@ -325,7 +326,6 @@ async function getCreds(){
                                 )).catch(err=>{console.error("Error uploading new answer", err)});
                         }
                       
-                        updateQuestionnaire(survey.currentPageNo,false)
                     }
                 }
         }
@@ -418,6 +418,7 @@ function isQuestionAlreadyAnswered(answerQuestionid, ){
             uploadDocuments(doc, ans).then(ans => {
             uploadAnswersPerPage(ans)
             })
+            console.log("This is the current page",survey.currentPageNo)
         })
 
 
@@ -487,8 +488,8 @@ function isQuestionAlreadyAnswered(answerQuestionid, ){
                 uploadDocuments(doc, ans).then(ans => {
                     uploadAnswersPerPage(ans)
                 })
-                
-                updateQuestionnaire(survey.currentPageNo, true)
+                console.log("current page")
+                updateQuestionnaire(survey.currentPageNo,true)
                 console.log("questionnaire updated", survey.currentPageNo)
                 
             } catch (err) {
@@ -517,7 +518,24 @@ function isQuestionAlreadyAnswered(answerQuestionid, ){
         
 
         return (<>
-                { (
+           
+           <Prompt 
+      message={(location, action) => {
+        if (action === 'PUSH') {
+          console.log("Backing up...",survey.currentPageNo )
+            if(survey.currentPageNo === 16){
+                updateQuestionnaire(survey.currentPageNo,true)
+            }else{
+                console.log("Updating the question")
+                updateQuestionnaire(survey.currentPageNo,false)
+            }
+        }
+        return location.pathname.startsWith("/app")
+        ? true
+        : `Are you sure you want to leave the assessment?`
+      }}
+            />
+    <div className="w-full mx-auto bg-cover bg-no-repeat bg-center bg-contact" >
                     <div className={className}>
                         
                             {/* <Container className =" overflow-hidden p-5  bg-light bdy">
@@ -561,7 +579,7 @@ function isQuestionAlreadyAnswered(answerQuestionid, ){
                         </Modal>
                         
                     </div>
-                )}
+                </div>
                
             </>
         );
