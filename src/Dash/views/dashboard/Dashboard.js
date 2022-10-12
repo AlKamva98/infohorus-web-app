@@ -8,14 +8,14 @@ import {
 import WidgetsDropdown from '../components/widgets/WidgetsDropdown.js'
 
 const Dashboard = (props) => {
-  const {news,userDetails, assRepData, tasks} = props;
+  const {news,userDetails, MilLevel,assRepData, tasks} = props;
  
  
   
   return (
     <>
     <h2 className="mb-3 fw-normal text-center text-2xl fw-bold">Welcome {userDetails.first_name}</h2>
- <WidgetsDropdown assRepData={assRepData} tasks={tasks} />
+ <WidgetsDropdown MilLevel={MilLevel} assRepData={assRepData} tasks={tasks} />
       
       <CCol xs={12}>
         <CCard className="mb-4">

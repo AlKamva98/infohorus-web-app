@@ -14,7 +14,7 @@ import CIcon from '@coreui/icons-react'
 import { Link } from 'react-router-dom'
 
 const WidgetsDropdown = (props) => {
-  const {tasks, assRepData} =props;
+  const {tasks, assRepData, MilLevel} =props;
   console.log("Assess Rep data", assRepData)
   return (
     <CRow>
@@ -22,7 +22,7 @@ const WidgetsDropdown = (props) => {
         <CWidgetDropdown
           className="mb-4"
           color="info"
-          value={assRepData? assRepData.assessScore:`Currently Unavailable`}
+          value= {assRepData?`Score: ${assRepData.assessScore} \nLevel: ${MilLevel} ` :`Currently Unavailable`}
           title="Assesment Score"
           action={
             <CDropdown alignment="end">
@@ -30,7 +30,7 @@ const WidgetsDropdown = (props) => {
                 <CIcon name="cil-options" className="text-high-emphasis-inverse" />
               </CDropdownToggle>
               <CDropdownMenu>
-                <CDropdownItem><Link to="/dash/score">Learn More</Link></CDropdownItem>
+              <Link to="/dash/score"><CDropdownItem>Learn More</CDropdownItem></Link>
               </CDropdownMenu>
             </CDropdown>
           }
@@ -39,10 +39,10 @@ const WidgetsDropdown = (props) => {
               className="mt-3 mx-3"
               style={{ height: '70px' }}
               data={{
-                labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+                labels: ['', '', '', '', '', '', ''],
                 datasets: [
                   {
-                    label: 'My First dataset',
+                    label: 'Assessment score',
                     backgroundColor: 'transparent',
                     borderColor: 'rgba(255,255,255,.55)',
                     pointBackgroundColor: getStyle('--cui-info'),
@@ -114,10 +114,10 @@ const WidgetsDropdown = (props) => {
               className="mt-3"
               style={{ height: '70px' }}
               data={{
-                labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+                labels: ['', '', '', '', '', '', ''],
                 datasets: [
                   {
-                    label: 'My First dataset',
+                    label: 'Tasks',
                     backgroundColor: 'rgba(255,255,255,.2)',
                     borderColor: 'rgba(255,255,255,.55)',
                     data: [78, 81, 80, 45, 34, 12, 40],
@@ -178,26 +178,26 @@ const WidgetsDropdown = (props) => {
               style={{ height: '70px' }}
               data={{
                 labels: [
-                  'January',
-                  'February',
-                  'March',
-                  'April',
-                  'May',
-                  'June',
-                  'July',
-                  'August',
-                  'September',
-                  'October',
-                  'November',
-                  'December',
-                  'January',
-                  'February',
-                  'March',
-                  'April',
+                  '',
+                  '',
+                  '',
+                  '',
+                  '',
+                  '',
+                  '',
+                  '',
+                  '',
+                  '',
+                  '',
+                  '',
+                  '',
+                  '',
+                  '',
+                  '',
                 ],
                 datasets: [
                   {
-                    label: 'My First dataset',
+                    label: 'Critical Risks',
                     backgroundColor: 'rgba(255,255,255,.2)',
                     borderColor: 'rgba(255,255,255,.55)',
                     data: [78, 81, 80, 45, 34, 12, 40, 85, 65, 23, 12, 98, 34, 84, 67, 82],

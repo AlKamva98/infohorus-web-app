@@ -16,6 +16,7 @@ const DefaultLayout = (props) => {
   const [hasQuestionnaire, setHasQuestionnaire ] = useState(false);
   const [questionnaire, setQuestionnaire ] = useState({});
   const [teamMembers, setTeamMembers] = useState([])
+  const [MilLevel, setMilLevel] = useState([])
   const [teamTable, setTeamTable] = useState('');
   const [recommendations, setRecommendations] =useState([]);
   const [approved, setApproved]=useState([]);
@@ -76,16 +77,22 @@ const DefaultLayout = (props) => {
     },[teamMembers])
     
     useEffect(() => {  
-      // console.log("Recommendations have been changed to", recommendations)
+      console.log("Recommendations have been changed to", recommendations)
       const approvedRec = recommendations.filter((rec)=>{
         return rec.isApproved
       });//filters 
     
-    // console.log("These are the apporved recos", approvedRec[0]);
-    addToApprovedHandler(approvedRec[0])
+    console.log("These are the apporved recos", approvedRec);
+    
      },[recommendations])
     const addToApprovedHandler =(appRec)=>{
-      setApproved([...approved, appRec])
+      console.log("These are the approved recommendations", approved);
+      if(approved){
+        setApproved([...approved, appRec])
+      }else{
+        setApproved(appRec)
+      }
+
     }
     //team member handlers
     const addTeamMemberHandler= async(member) =>{
@@ -121,10 +128,22 @@ const DefaultLayout = (props) => {
       const response = API.graphql({query:queries.listAssessorReports, variables: {filter: {userId: {contains: userId}}}}).then((arpd)=>{
         if(arpd)
       assRepHandler(arpd.data.listAssessorReports.items[0])
-      console.log("This is the assessor report",arpd.data.listAssessorReports.items[0])
+      MILHandler(arpd.data.listAssessorReports.items[0])
       }).catch((err)=>{console.log("Error getting the Assessor Report", err)})
-      console.log("Getting the Assessor report was successfull", response)
       
+    }
+
+    const MILHandler = (assessData) =>{
+      if(assessData)
+      if(assessData.assessScore >= 70){
+        setMilLevel("MIL3")
+      }else if( assessData.assessScore >=50 && assessData.assessScore <= 70 ){
+        setMilLevel("MIL2")
+      }else if(assessData.assessScore >=20 && assessData.assessScore <= 50){
+        setMilLevel("MIL1")
+      }else{
+        setMilLevel("MIL0")
+      } 
     }
 
     const updateTeamMemberHandler= async (member) =>{
@@ -194,7 +213,6 @@ const addEventHandler=(task)=>{
 
     const assRepHandler = (data)=>{
       setAssRepData(data);
-      console.log("The assessor's report is:",assRepData)
     }
 
     const newsArticleshandler = async () =>{
@@ -259,13 +277,14 @@ const addEventHandler=(task)=>{
               return rec.isApproved
             });//filters 
           
-          // console.log("These are the apporved recos", approvedRecs);
+          console.log("These are the apporved recos", approvedRecs);
           setApproved(approvedRecs);
           }
     function getPending(recommendations){//
             const pendingRecs = recommendations.filter((rec)=>{
               return rec.isApproved === false;
             });//filters 
+            console.log("Pending Recomendations",pendingRecs)
           setRecommendations(recommendations);
           }
           
@@ -278,6 +297,9 @@ const addEventHandler=(task)=>{
           // console.log(recommendation.isApproved)
           return recommendation.id === rec.id ? {...recommendation, isApproved: true}: recommendation;
         }))
+        if(rec){
+          addToApprovedHandler(rec)
+        }
         // console.log("rec is ",rec.isApproved)
 
        }
@@ -345,7 +367,6 @@ const addEventHandler=(task)=>{
   const getQuestionnaire = async (id) =>{
     const response = await API.graphql({query: queries.listQuestionnaires, variables:{filter: {userId: {contains: id}}}})
     .catch((err)=>{console.log("Error getting questionnaire", err)});
-    console.log("This is the questionnaire", response.data.listQuestionnaires.items)
 
     if(response.data.listQuestionnaires.items.length !== 0)
       setHasQuestionnaire(true)
@@ -363,29 +384,30 @@ const addEventHandler=(task)=>{
           }
       }
       )).catch(err=>{console.error("Error creating questionnaire",err)});
-      console.log("Questionnaire created!!")
       setHasQuestionnaire(true)
       setQuestionnaire(response.data.createQuestionnaire)
   }
 
     async function saveChanges(rec, tasks){ //update the backend data
-      try{
-      
+      console.log("saving recommendation", rec )
        if(rec){
           for (let i in rec)
           {
-          await API.graphql({ query: mutations.updateRecommendations, variables: {input: rec[i]}});
+            let approvedRecommendation = {
+              id: rec[i].id,
+              isApproved: true,
+              _version: rec[i]._version 
+            }
+          await API.graphql({ query: mutations.updateRecommendations, variables: {input:approvedRecommendation}}).catch(err=>{console.error("Error updating recommendations", err)});
           }
       }
       if (tasks){
         for (let i in tasks){
-          await API.graphql({query: mutations.updateTasks, variables: {input: tasks[i]}})
+          await API.graphql({query: mutations.updateTasks, variables: {input: tasks[i]}}).catch(err=>{console.error("Error updating task", err)})
         }
       }
      
-    }
-      catch(err){
-      }
+    
     }
 
      async function addTask(task){//add task to recommendation
@@ -407,7 +429,7 @@ const addEventHandler=(task)=>{
       <div className="wrapper d-flex flex-column min-vh-100 bg-light">
         <AppHeader tasks={tasks} recommendations={recommendations} signOut={signOut} saveChanges={saveChanges} approved={approved} />
         <div className="body flex-grow-1 px-3">
-          <AppContent approve={approve} approved={approved} recommendations={recommendations} getAssessReportHandler={getAssessReportHandler} errModal={errModal} teamTable={teamTable} handleMemberAdd={addTeamMemberHandler} updateMember={updateTeamMemberHandler} handleCreateQuestionnaire={createQuestionnaireHandler} deleteMember={deleteTeamMemberHandler} errToggle={errToggle} hasQuestionnaire={hasQuestionnaire} questionnaire={questionnaire} revModal={revModal} revToggle={revToggle}  msg={msg} setMsg={setMsg}  tasks={tasks} rec={rec} toggle={toggle} news={news} messages={messages} setMessages={setMessages} modal={modal} events={evt} userDetails={userDetails}  assRepData={assRepData}  setRec={setRec} addTask={addTask} />
+          <AppContent approve={approve} approved={approved} recommendations={recommendations} getAssessReportHandler={getAssessReportHandler} errModal={errModal} teamTable={teamTable} MilLevel={MilLevel} handleMemberAdd={addTeamMemberHandler} updateMember={updateTeamMemberHandler} handleCreateQuestionnaire={createQuestionnaireHandler} deleteMember={deleteTeamMemberHandler} errToggle={errToggle} hasQuestionnaire={hasQuestionnaire} questionnaire={questionnaire} revModal={revModal} revToggle={revToggle}  msg={msg} setMsg={setMsg}  tasks={tasks} rec={rec} toggle={toggle} news={news} messages={messages} setMessages={setMessages} modal={modal} events={evt} userDetails={userDetails}  assRepData={assRepData}  setRec={setRec} addTask={addTask} />
         </div>
         <AppFooter />
       </div>
