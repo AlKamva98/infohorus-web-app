@@ -33,7 +33,6 @@ function App()  {
     }
     
     const signOutHandler = async () =>{
-      console.log("Signing out");
       await Auth.signOut().catch((err)=>{
         console.log("Signout Error",err)
 
@@ -49,13 +48,11 @@ function App()  {
 async function checkUser(){
         try{
             const userchk = await Auth.currentAuthenticatedUser();
-            console.log("The user is: ",userchk.attributes.email)
             if((userchk!== undefined)||(userchk!==null)){
             setUserEmail(userchk.attributes.email)
             setUserGroup(userchk.signInUserSession.accessToken.payload["cognito:groups"][0]);
             setSignedIn(true);
            }
-        console.log("The user is::",userEmail)
         }catch(err){
         console.log("user Error:",err); 
         }

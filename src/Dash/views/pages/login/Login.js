@@ -24,13 +24,11 @@ const {signedIn, signInHandler, toggle,modal, errMsg} = props;
 
  function onChange(e){
         e.persist()
-        console.log("changing:",e.target.name);
         updateFormState(()=>({...formState, [e.target.name]: e.target.value}))
     }
  async function handleSignIn(e){
         e.preventDefault()
         signInHandler(formState);
-        console.log("this it the event handler",e)
         e.target[0].value = "";
         e.target[1].value = ""
         updateFormState(initialFormState);
