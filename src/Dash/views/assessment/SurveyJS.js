@@ -35,7 +35,7 @@ export function SurveyJS(props) {
     const [answersWithQuestionID, setAnswersWithQuestionid] = useState(aqID)
     const [modal, setModal] = useState(false);
     const [emailBody, setEmailBody] = useState();
-    const [savedAnswers, setSavedAnswers] = useState([null]);
+    const [savedAnswers, setSavedAnswers] = useState(null);
     let answersFromDB=[];
     const [afdb, setAfdb] = useState(answersFromDB)
     const [currentPageNo, setCurrentPageNo] = useState([null]);
@@ -91,13 +91,16 @@ export function SurveyJS(props) {
 
  const getAnswers = async (qid)=>{
      const response = await API.graphql({query: queries.listAnswers,variables:{filter:{questionnaireID:{contains:qid}}}})
+     .then( response=>{
+        var ans = response.data.listAnswers.items.sort((a,b) => (a.questionID > b.questionID) ? 1 : ((b.questionID > a.questionID) ? -1 : 0))  
+        console.log("Answers received from DynamoDB", ans)
+        answersFromDB = ans;
+        setAfdb(answersFromDB)
+        setSavedAnswers(formatAnswersFromDBToDisplayInFrontEnd(answersFromDB))  
+     })
      .catch(err=>{console.log("There was an error getting the user's Previous answers", err)});
-     
      setQnaireUUID(qid)
-     var ans = response.data.listAnswers.items.sort((a,b) => (a.questionID > b.questionID) ? 1 : ((b.questionID > a.questionID) ? -1 : 0))  
-     answersFromDB = ans;
-     setAfdb(answersFromDB)
-     setSavedAnswers(formatAnswersFromDBToDisplayInFrontEnd(answersFromDB))
+     
  }
 
  function formatAnswersFromDBToDisplayInFrontEnd(answersFromDB){
@@ -142,7 +145,10 @@ async function getCreds(){
     const handleSendEmail = async(data)=>{
         const cred = await getCreds().catch(err=>{console.log("Error getting Creds", err)})
 
-        // console.log("This is the form data", data);
+        console.log("This is the form data", data);
+        if(savedAnswers === null){
+            getAnswers(qnaireUUID)
+        }
         sendEmail(cred, data.recipientEmail.value);
     }
     function sendEmail(uCred,email) {
