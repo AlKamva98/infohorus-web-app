@@ -14,11 +14,11 @@ function Report(){
      console.log('SHOWLOGS:::', e);
      setCheckbox1(e);
  };
- var completed;
-    useEffect(() => {
-        
-             listUsers().then(listOfUsers => {
-          let users = [];
+ useEffect(() => {
+   
+   listUsers().then(listOfUsers => {
+     let users = [];
+     var completed;
           
           for(let i in  listOfUsers.data.listUsers.items){
             if( listOfUsers.data.listUsers.items[i].userType === "Assessee"){
@@ -33,22 +33,15 @@ function Report(){
                  rows: users
              }
              setDatatable(data);
-         }).finally(()=>{
-           console.log("Hasdata", datatable)
-           if(datatable){
-             setHasData(true);
-         }});
+         })
        },[])
 
-  async function listReport() {
-      try {
-           var reports = await API.graphql({query: queries.listAssessorReports});
-          console.log(reports.data.listAssessorReports.items);
-          return reports;
-      } catch (err) {
-          console.log("Error:>> ", err);
-      }
-  }
+       useEffect(()=>{
+          console.log("Hasdata", datatable)
+          if(datatable){
+            setHasData(true);
+        }},[datatable])
+
 async function listUsers() {
       try {
            var userslist = await API.graphql({query: queries.listUsers});

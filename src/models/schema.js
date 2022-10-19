@@ -272,20 +272,6 @@ export const schema = {
                         "associatedWith": "userID"
                     }
                 },
-                "Tasks": {
-                    "name": "Tasks",
-                    "isArray": true,
-                    "type": {
-                        "model": "Tasks"
-                    },
-                    "isRequired": false,
-                    "attributes": [],
-                    "isArrayNullable": true,
-                    "association": {
-                        "connectionType": "HAS_MANY",
-                        "associatedWith": "userID"
-                    }
-                },
                 "userType": {
                     "name": "userType",
                     "isArray": false,
@@ -885,10 +871,10 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
-                "isCompleted": {
-                    "name": "isCompleted",
+                "userId": {
+                    "name": "userId",
                     "isArray": false,
-                    "type": "Boolean",
+                    "type": "String",
                     "isRequired": false,
                     "attributes": []
                 }
@@ -971,6 +957,20 @@ export const schema = {
                     "type": "Boolean",
                     "isRequired": false,
                     "attributes": []
+                },
+                "RecommendationTasks": {
+                    "name": "RecommendationTasks",
+                    "isArray": true,
+                    "type": {
+                        "model": "Tasks"
+                    },
+                    "isRequired": false,
+                    "attributes": [],
+                    "isArrayNullable": true,
+                    "association": {
+                        "connectionType": "HAS_MANY",
+                        "associatedWith": "recommendationsID"
+                    }
                 },
                 "userID": {
                     "name": "userID",
@@ -1058,25 +1058,32 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
-                "UserTask": {
-                    "name": "UserTask",
+                "taskEnd": {
+                    "name": "taskEnd",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "recommendationsID": {
+                    "name": "recommendationsID",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "RecommendationTask": {
+                    "name": "RecommendationTask",
                     "isArray": false,
                     "type": {
-                        "model": "User"
+                        "model": "Recommendations"
                     },
                     "isRequired": false,
                     "attributes": [],
                     "association": {
                         "connectionType": "BELONGS_TO",
-                        "targetName": "tasksUserTaskId"
+                        "targetName": "tasksRecommendationTaskId"
                     }
-                },
-                "userID": {
-                    "name": "userID",
-                    "isArray": false,
-                    "type": "ID",
-                    "isRequired": false,
-                    "attributes": []
                 },
                 "assignedTo": {
                     "name": "assignedTo",
@@ -1103,9 +1110,9 @@ export const schema = {
                 {
                     "type": "key",
                     "properties": {
-                        "name": "byUser",
+                        "name": "byRecommendation",
                         "fields": [
-                            "userID"
+                            "recommendationsID"
                         ]
                     }
                 },
@@ -1331,5 +1338,5 @@ export const schema = {
     },
     "enums": {},
     "nonModels": {},
-    "version": "1e79ca04949ebdc801fd450cc0387829"
+    "version": "3789ed148611a0ff7762c774051679fd"
 };

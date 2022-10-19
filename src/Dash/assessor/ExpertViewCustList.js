@@ -17,11 +17,11 @@ function ExpertViewCustList(props){
   setDisabled(false);   
   setCheckbox1(e);
  };
- let completed;
-
-    useEffect(() => {
-         listUsers().then(listOfUsers => {
-          let users = [];
+ 
+ useEffect(() => {
+   listUsers().then(listOfUsers => {
+     let users = [];
+     let completed;
           
           for(let i in  listOfUsers.data.listUsers.items){
 
@@ -73,7 +73,7 @@ function ExpertViewCustList(props){
           ;}}
           />
     </div>
-    <Button className= "ml-5 mb-5" onClick={assess} type="submit">Assess</Button>  
+    <Button className= "ml-5 mb-5" disabled={disabled} onClick={assess} type="submit">Assess</Button>  
     </>)}
     </>
   );}

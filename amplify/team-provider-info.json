@@ -19,7 +19,8 @@
       "function": {
         "infohorusauthPostConfirmation": {
           "deploymentBucketName": "amplify-infohoruswebapp-main-91614-deployment",
-          "s3Key": "amplify-builds/infohorusauthPostConfirmation-4d714451364930484a66-build.zip"
+          "s3Key": "amplify-builds/infohorusauthPostConfirmation-514843443264324b752b-build.zip",
+          "GROUP": "Assessee"
         }
       }
     }

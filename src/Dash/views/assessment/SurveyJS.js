@@ -54,21 +54,17 @@ export function SurveyJS(props) {
         const emailBodyWithFooterRemoved = removeElement(emailBodyWithremovedProgressText, 'sv-footer');
         const emailBodyWithButtonRemoved = removeElement(emailBodyWithFooterRemoved, "btn_inf")
         setEmailBody(emailBodyWithButtonRemoved)
-        console.log("This is the element", element)
-        console.log("The current page is:", currPageNo)
         setCurrentPageNo(currPageNo)
         toggle()
     }
 
     let survey = new Survey.Model(SurveyJSON);
     const { register, handleSubmit,formState: { errors }, control } = useForm();
-    const handleError = () => { console.log("Form Errors: ",errors)};
+    const handleError = () => { console.error("Form Errors: ",errors)};
     survey.firstPageIsStarted = true;
     survey.sendResultOnPageNext = true;
     const [qnaireUUID, setQnaireUUID] = useState(create_UUID());
-    let qids = questionIDs;
     const [recipientName, setRecipientName] = useState("");
-    const [recipientEmail, setRecipientEmail] = useState("");
     const [isDisabled, setIsDisabled] = useState(false);
     // const msg = "You are not authorized to view questions unless you register. Please register to complete questionnaire."
     const emailContainer = useRef(null);
@@ -93,12 +89,11 @@ export function SurveyJS(props) {
      const response = await API.graphql({query: queries.listAnswers,variables:{filter:{questionnaireID:{contains:qid}}}})
      .then( response=>{
         var ans = response.data.listAnswers.items.sort((a,b) => (a.questionID > b.questionID) ? 1 : ((b.questionID > a.questionID) ? -1 : 0))  
-        console.log("Answers received from DynamoDB", ans)
         answersFromDB = ans;
         setAfdb(answersFromDB)
         setSavedAnswers(formatAnswersFromDBToDisplayInFrontEnd(answersFromDB))  
      })
-     .catch(err=>{console.log("There was an error getting the user's Previous answers", err)});
+     .catch(err=>{console.error("There was an error getting the user's Previous answers", err)});
      setQnaireUUID(qid)
      
  }
@@ -119,17 +114,11 @@ export function SurveyJS(props) {
         answersSaved.pageNo = questionnaireData.currentPage;
     
     }
-    console.log("These are the answers from the database", answersSaved)//Theres an undefined:undefined that I dont know how was generated, This is a reminder to investigate
       return answersSaved;
  }
  
     function setName(event) {
         setRecipientName(event.target.value);
-    }
-
-    function setEmail(event) {
-        console.log(event.target.value)
-        setRecipientEmail(event.target.value);
     }
 
     //remove unwanted elements in the email body(ie progress-bar and footer)
@@ -143,9 +132,8 @@ async function getCreds(){
     return cred;
     }
     const handleSendEmail = async(data)=>{
-        const cred = await getCreds().catch(err=>{console.log("Error getting Creds", err)})
+        const cred = await getCreds().catch(err=>{console.error("Error getting Creds", err)})
 
-        console.log("This is the form data", data);
         if(savedAnswers === null){
             getAnswers(qnaireUUID)
         }
@@ -212,22 +200,12 @@ async function getCreds(){
 
     var storageName = "questionaire_data"
 
-    // function saveSurveyData(result, uuid) {
-    //     var data = result.data;
-    //     data.pageNo = result.currentPageNo;
-    //     data.uuid = uuid;
-    //     data.ansid = said;
-    //     console.log("Saved data is", data);
-    //     window.localStorage.setItem(storageName, JSON.stringify(data))
-    // }
-
     function getAnswerPerPage() {//get answers from the page
         try {
             var ans = survey.currentPage.getValue();
-            console.log("THESE ARE THE ANSWERS OF THE PREVIOUS PAGE", ans);
             return ans;
         } catch (err) {
-            console.log("Get Answer per page Error: ", err);
+            console.error("Get Answer per page Error: ", err);
         }
     }
 
@@ -237,37 +215,29 @@ async function getCreds(){
             var doc;
             var qname;
             if (data.followupQ11a) {
-                console.log("Follow up 11 a", data.followupQ11a[0])
                 doc = data.followupQ11a[0];
                 qname = 0;
             } else if (data.followupQ8a) {
-                console.log("Follow up 8a", data.followupQ8a[0]);
                 doc = data.followupQ8a[0];
                 qname = 1;
-                console.log("answers recieved");
             } else if (data.followupQ8c) {
-                console.log("Follow up 8c", data.followupQ8c[0]);
                 doc = data.followupQ8c[0];
                 qname = 2;
             } else if (data.followupQ14c) {
-                console.log("Follow up 14c", data.followupQ14c[0])
                 doc = data.followupQ14c[0]
                 qname = 3
             } else if (data.followupQ16b ) {
-                console.log("Follow up 16b", data.followupQ16b[0])
                 doc = data.followupQ16b[0]
                 qname = 4
             } else if (data.followupQ17a ) {
-                console.log("Follow up 17a", data.followupQ17a[0])
                 doc = data.followupQ17a[0]
                 qname = 5
             }
             var text = {docObj: doc, quesname: qname};
             ans = text
-            console.log("document stored and returned", doc)
             return ans;
         } catch (err) {
-            console.log("ans return error: ", err);
+            console.error("ans return error: ", err);
         }
     }
 
@@ -344,7 +314,6 @@ async function getCreds(){
             questionaireCompleted: isComplete,
             currentPage: currentPage,
         }
-        console.log("The current page is", currentPage);
         await API.graphql({query: mutations.updateQuestionnaire, variables: {input: updatedQNaire}}).catch(err=>{console.error("There was an error while updating the questionnaire", err)});
     }
     async function uploadDocuments(ans, data) {
@@ -353,25 +322,17 @@ async function getCreds(){
             var qname = ans.quesname
             if (doc) {
                 try {
-                    console.log("Uploading document to S3 Bucket...");
                     const putObject = await Storage.put(doc.name, doc.content, {
                         contentType: doc.type
                     });
                     //setLoading(true);
-                    console.log("Document uploaded to S3 Bucket...", putObject);
-
-                    // Retrieve the uploaded file to display
-                    console.log("Getting the s3 bucket url...")
-
-                   
-
+                
                     switch (qname) {
                         case 0:
                             data.followupQ11a = doc.name;
                             break;
                         case 1:
                             data.followupQ8a = doc.name;
-                            console.log("Name of FollowupQ8a document", data.followupQ8a);
                             break;
                         case 2:
                             data.followupQ8c = doc.name;
@@ -391,19 +352,12 @@ async function getCreds(){
                     }
                     //setLoading(false);
                 } catch (err) {
-                    console.log("upload error: ", err);
+                    console.error("upload error: ", err);
                 }
             }
         }
         return data;//returns the answer as the document name
     }
-function isQuestionAlreadyAnswered(answerQuestionid, ){
-    let isAnswered = false;
-
-
-
-    return isAnswered
-}
 
 
 
@@ -424,7 +378,6 @@ function isQuestionAlreadyAnswered(answerQuestionid, ){
             uploadDocuments(doc, ans).then(ans => {
             uploadAnswersPerPage(ans)
             })
-            console.log("This is the current page",survey.currentPageNo)
         })
 
 
@@ -457,32 +410,19 @@ function isQuestionAlreadyAnswered(answerQuestionid, ){
         header.appendChild(btn);
     });
         //onStarted//
-        survey.onStarted.add(async function () {
-            console.log("Current questionnaire ID", qnaireUUID)
-            
+        survey.onStarted.add(async function () { 
             try {
                 if(hasQuestionnaireData){//if the user is returning to a saved insance of the assessment
-                    console.log("These are the saved answers", savedAnswers)
                     resumeQuestionnaire(savedAnswers)
                 
                 }
-                else{
-                console.log("Current questionnaire ID", qnaireUUID)
-                // const QQA =await API.graphql(graphqlOperation(mutations.createQuestionnaireQuestionAnswer, {
-                // input:{questionnaireId: qnaireUUID,}
-                // }))
-                // console.log("Questionnaire Question: ",QQA)
-                // var qqId = String(QQA.data.createQuestionnaireQuestionAnswer.id);
-                // console.log("Questionnaire Question: ",qqId)
+                else{//if the user is starting a new assessment
 //======================creating a new Questionnaire=======================
-                
                 handleCreateQuestionnaire(qnaireUUID)
-               
-            
-//===============================================================                
+//=========================================================================      
                
             }} catch (err) {
-                console.log("On Start Error:", err)
+                console.error("On Start Error:", err)
             }
         })
 
@@ -494,12 +434,10 @@ function isQuestionAlreadyAnswered(answerQuestionid, ){
                 uploadDocuments(doc, ans).then(ans => {
                     uploadAnswersPerPage(ans)
                 })
-                console.log("current page")
                 updateQuestionnaire(survey.currentPageNo,true)
-                console.log("questionnaire updated", survey.currentPageNo)
                 
             } catch (err) {
-                console.log("This is the Error:", err);
+                console.error("This is the Error:", err);
             }
         });
 
@@ -528,7 +466,7 @@ function isQuestionAlreadyAnswered(answerQuestionid, ){
            <Prompt 
       message={(location, action) => {
         if (action === 'PUSH') {
-          console.log("Backing up...",survey.currentPageNo )
+          console.log("Backing up...")
             if(survey.currentPageNo === 16){
                 updateQuestionnaire(survey.currentPageNo,true)
             }else{
@@ -567,7 +505,7 @@ function isQuestionAlreadyAnswered(answerQuestionid, ){
                         <FormGroup>
                         <label id="recipient-email" className="col-form-label">Recipient Email:</label>
                     <Controller name="recipientEmail"  control={control} render={({ field }) => (
-              <Select placeholder="Recipient Email"  className="form-control" options={teamList} onChange={setEmail} defaultValue="Recipient Email" {...field}>
+              <Select placeholder="Recipient Email"  className="form-control" options={teamList} defaultValue="Recipient Email" {...field}>
                 </Select>
             )}   {...register("recipientEmail")}  rules={{ required: "Please Select the recipient's email"}} />
     

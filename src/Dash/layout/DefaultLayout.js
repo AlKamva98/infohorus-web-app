@@ -4,7 +4,6 @@ import { AppContent, AppSidebar, AppFooter, AppHeader } from '../dashboard/index
 import {COLUMNS} from "../assessor/columns";
 import {API, Auth, graphqlOperation} from 'aws-amplify'
 import * as queries from '../../graphql/queries';
-import * as subscriptions from '../../graphql/subscriptions';
 import * as mutations from '../../graphql/mutations'
 import {sendEmail} from '../../Home/shared/functions/AwsFuncs'
 import IdleTimer from "./IdleTimer";
@@ -47,7 +46,7 @@ const DefaultLayout = (props) => {
           setIsTimeout(true);
         }
       });
-  
+      console.log("Is the page timed out?", isTimeout)
       return () => {
         timer.cleanUp();
       };
@@ -413,12 +412,18 @@ const addEventHandler=(task)=>{
      async function addTask(task){//add task to recommendation
       
       if (task){   
-       const res= await API.graphql({query: mutations.createTasks, variables: {input: task}}).catch((err)=>{
+       const res= await API.graphql({query: mutations.createTasks, variables: {input: task}})
+       .then((res)=>{
+        console.log("THis is tasks result",res)
+        if(res)
+        setTasks([...tasks, res.data.createTasks])
+        addEventHandler(res.data.createTasks)
+       })
+       .catch((err)=>{
            console.log("Task upload error::::>",err)
           })
 
-          setTasks([...tasks, res.data.createTasks])
-          addEventHandler(res.data.createTasks)
+          
         }
     }
     

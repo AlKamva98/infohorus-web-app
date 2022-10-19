@@ -401,7 +401,7 @@ export const SurveyJSON={
        type: "comment",
        name: "followupQ5b",
        visible: false,
-       visibleIf: "{qmain5} = 'yes'",
+       visibleIf: "{qmain5} = 'Yes'",
        title: "What sort of relationship does your agency have with each of these partners?",
        hideNumber: true
       }
