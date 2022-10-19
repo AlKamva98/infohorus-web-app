@@ -1,14 +1,11 @@
 import React, {useState, useEffect, useCallback, useRef} from 'react';
 import {useHistory} from 'react-router-dom'
-import {Input} from "reactstrap";
-import { API, Storage,graphqlOperation } from 'aws-amplify';
-import {Formik, Form, FieldArray, Field} from 'formik'
+import { API, Storage } from 'aws-amplify';
+import {Formik, Form, FieldArray} from 'formik'
 import {Button, Container} from 'react-bootstrap'
 import * as queries from "../../graphql/queries"
-import * as mutations from "../../graphql/mutations"
 import {questions} from '../../testData/Quests'
 import {ExportJsonCsv} from 'react-export-json-csv'
-import { data } from 'jquery';
 
 function ExpertViewAssess (props){
   // const initialFormState =[{assessAns:"",assessComment:""}];
@@ -16,7 +13,6 @@ function ExpertViewAssess (props){
   // const [formState, updateFormState] = useState(initialFormState)
   const [Answers, setAnswers] = useState()
   const [formValues, setFormValues]= useState(null)
-  const [reportCreated, updateReportCreated] = useState(false);
   const history = useHistory()
   const [uploadedAssessAns, setUploadedAssessAns] = useState();
   const assessAnsDoc = useRef(null)
@@ -86,7 +82,7 @@ const memoizedHandleDoc = useCallback((doc)=>() => {
 
   
 function debugDataset(dataset) {
-  var formatted = JSON.stringify(dataset, null, 2);
+  JSON.stringify(dataset, null, 2);
   // $("<div class='parse'></div>").text(formatted).appendTo(".graphcontainer");
 }
 
@@ -131,14 +127,12 @@ let questionnaire;
 let answers =[];
 
  useEffect(()=>{
-  console.log("THIS IS THE STATE VARIABLE", userId);
      getAnswersbyQuestionnaire().then(answerData =>{
         answerData.sort((a,b) => (a.questionID > b.questionID) ? 1 : ((b.questionID > a.questionID) ? -1 : 0))
         setAnswers(answerData);
             }).finally(()=>{
           
             })
-          console.log("These are the answers", Answers)
 },[])
 
 
@@ -261,17 +255,6 @@ const savedValues= window.localStorage.getItem(storageName);
   </>)
   
   }
-{/* <div className="relative">
-              <Field name={`assessForm.${index}.qName`} onChange={handleChange} placeholder="Enter Question type" className="block w-60  mt-2 text-xl placeholder-gray-400  rounded-lg focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50"  type="input" as={Input}> 
-            </Field>
-            </div>
-            <div className="relative">
-              <Field name={`assessForm.${index}.assessAns`} onChange={handleChange} placeholder="Assessor's Answer" className="block w-60  mt-2 text-xl placeholder-gray-400  rounded-lg focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50"  type="input" as={Input}> 
-            </Field>
-            </div>
-            <div className="relative">
-          <Field name={`assessForm.${index}.assessComment`} type="textarea" onChange={handleChange} rows="4" className="w-full inline-block px-4 py-4 mt-2 text-xl placeholder-gray-400 bg-gray-200 rounded-lg focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50" 
-            placeholder="Assessor's Comments" as={Input} /> 
-          </div> */}
+
 
   export default ExpertViewAssess;

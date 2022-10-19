@@ -6,7 +6,7 @@ import { CContainer } from '@coreui/react'
 import {routes} from '../../routes'
 
 const AppContent = (props) => {
-    const {approve, assRepData, approved,deleteMember,updateMember,handleMemberAdd, recommendations, errModal, errToggle,getAssessReportHandler, revToggle, revModal,handleCreateQuestionnaire, msg, rec,toggle,modal, setMessages, setRec,teamTable,addTask, tasks, news, continueAss, events, userDetails, MilLevel,hasQuestionnaire, questionnaire, messages }= props;
+    const {approve, assRepData, approved,deleteMember,updateMember,handleMemberAdd, recommendations, errModal, errToggle,getAssessReportHandler, revToggle, revModal,handleCreateQuestionnaire, msg, rec,toggle,modal, setMessages, setRec,teamTable,addTask, tasks, news, continueAss, events, userDetails, MilLevel,hasQuestionnaire, questionnaire}= props;
     console.log("This is approved on app content page",approved)
 
     const teamList = ()=>{

@@ -278,7 +278,7 @@ export const listCreds = /* GraphQL */ `
         id
         acc
         sec
-       }
+      }
       nextToken
       startedAt
     }
@@ -301,7 +301,7 @@ export const syncCreds = /* GraphQL */ `
         id
         acc
         sec
-       }
+      }
       nextToken
       startedAt
     }
@@ -314,7 +314,8 @@ export const getTasks = /* GraphQL */ `
       taskName
       taskDesc
       taskStart
-      userID
+      taskEnd
+      recommendationsID
       assignedTo
       color
       _version
@@ -322,20 +323,14 @@ export const getTasks = /* GraphQL */ `
       _lastChangedAt
       createdAt
       updatedAt
-      UserTask {
+      RecommendationTask {
         id
-        first_name
-        last_name
-        email
-        job_title
-        company
-        employees
-        industry
-        country
-        userType
-        phone
-        teamID
-        chatID
+        recName
+        recDesc
+        recDuration
+        recNum
+        isApproved
+        userID
         _version
         _deleted
         _lastChangedAt
@@ -357,7 +352,8 @@ export const listTaskss = /* GraphQL */ `
         taskName
         taskDesc
         taskStart
-        userID
+        taskEnd
+        recommendationsID
         assignedTo
         color
         _version
@@ -389,7 +385,8 @@ export const syncTasks = /* GraphQL */ `
         taskName
         taskDesc
         taskStart
-        userID
+        taskEnd
+        recommendationsID
         assignedTo
         color
         _version
@@ -418,6 +415,10 @@ export const getRecommendations = /* GraphQL */ `
       _lastChangedAt
       createdAt
       updatedAt
+      RecommendationTasks {
+        nextToken
+        startedAt
+      }
       User {
         id
         first_name
@@ -570,7 +571,6 @@ export const syncAssessorReports = /* GraphQL */ `
     }
   }
 `;
-
 export const getQuestionnaireQuestionAnswer = /* GraphQL */ `
   query GetQuestionnaireQuestionAnswer($id: ID!) {
     getQuestionnaireQuestionAnswer(id: $id) {
@@ -864,7 +864,7 @@ export const getQuestionnaire = /* GraphQL */ `
         assessScore
         criticalRisks
         questionnaireID
-        isCompleted
+        userId
         _version
         _deleted
         _lastChangedAt
@@ -990,10 +990,6 @@ export const getUser = /* GraphQL */ `
         startedAt
       }
       Teams {
-        nextToken
-        startedAt
-      }
-      Tasks {
         nextToken
         startedAt
       }
