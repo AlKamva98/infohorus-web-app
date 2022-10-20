@@ -15,7 +15,7 @@ import { Link } from 'react-router-dom'
 
 const WidgetsDropdown = (props) => {
   const {tasks, assRepData, MilLevel} =props;
-  console.log("Assess Rep data", assRepData)
+  console.log("tasks", tasks)
   return (
     <CRow>
       <CCol sm="6" lg="4">
@@ -98,7 +98,7 @@ const WidgetsDropdown = (props) => {
         <CWidgetDropdown
           className="mb-4"
           color="warning"
-          value={tasks.length !== 0 ? `0/${tasks.length} Tasks Completed`:`Currently Unavailable`}
+          value={tasks ? `0/${tasks.length} Tasks Completed`:`Currently Unavailable`}
           title="Tasks done"
           action={
             <CDropdown alignment="end">

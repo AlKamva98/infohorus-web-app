@@ -360,6 +360,7 @@ export const createTasks = /* GraphQL */ `
       taskDesc
       taskStart
       taskEnd
+      userID
       recommendationsID
       assignedTo
       color
@@ -368,14 +369,20 @@ export const createTasks = /* GraphQL */ `
       _lastChangedAt
       createdAt
       updatedAt
-      RecommendationTask {
+      UserTasks {
         id
-        recName
-        recDesc
-        recDuration
-        recNum
-        isApproved
-        userID
+        first_name
+        last_name
+        email
+        job_title
+        company
+        employees
+        industry
+        country
+        userType
+        phone
+        teamID
+        chatID
         _version
         _deleted
         _lastChangedAt
@@ -396,6 +403,7 @@ export const updateTasks = /* GraphQL */ `
       taskDesc
       taskStart
       taskEnd
+      userID
       recommendationsID
       assignedTo
       color
@@ -404,14 +412,20 @@ export const updateTasks = /* GraphQL */ `
       _lastChangedAt
       createdAt
       updatedAt
-      RecommendationTask {
+      UserTasks {
         id
-        recName
-        recDesc
-        recDuration
-        recNum
-        isApproved
-        userID
+        first_name
+        last_name
+        email
+        job_title
+        company
+        employees
+        industry
+        country
+        userType
+        phone
+        teamID
+        chatID
         _version
         _deleted
         _lastChangedAt
@@ -432,6 +446,7 @@ export const deleteTasks = /* GraphQL */ `
       taskDesc
       taskStart
       taskEnd
+      userID
       recommendationsID
       assignedTo
       color
@@ -440,14 +455,20 @@ export const deleteTasks = /* GraphQL */ `
       _lastChangedAt
       createdAt
       updatedAt
-      RecommendationTask {
+      UserTasks {
         id
-        recName
-        recDesc
-        recDuration
-        recNum
-        isApproved
-        userID
+        first_name
+        last_name
+        email
+        job_title
+        company
+        employees
+        industry
+        country
+        userType
+        phone
+        teamID
+        chatID
         _version
         _deleted
         _lastChangedAt
@@ -475,10 +496,6 @@ export const createRecommendations = /* GraphQL */ `
       _lastChangedAt
       createdAt
       updatedAt
-      RecommendationTasks {
-        nextToken
-        startedAt
-      }
       User {
         id
         first_name
@@ -520,10 +537,6 @@ export const updateRecommendations = /* GraphQL */ `
       _lastChangedAt
       createdAt
       updatedAt
-      RecommendationTasks {
-        nextToken
-        startedAt
-      }
       User {
         id
         first_name
@@ -565,10 +578,6 @@ export const deleteRecommendations = /* GraphQL */ `
       _lastChangedAt
       createdAt
       updatedAt
-      RecommendationTasks {
-        nextToken
-        startedAt
-      }
       User {
         id
         first_name
@@ -1278,6 +1287,10 @@ export const createUser = /* GraphQL */ `
         nextToken
         startedAt
       }
+      UserTasks {
+        nextToken
+        startedAt
+      }
       Recommendations {
         nextToken
         startedAt
@@ -1329,6 +1342,10 @@ export const updateUser = /* GraphQL */ `
         nextToken
         startedAt
       }
+      UserTasks {
+        nextToken
+        startedAt
+      }
       Recommendations {
         nextToken
         startedAt
@@ -1377,6 +1394,10 @@ export const deleteUser = /* GraphQL */ `
         startedAt
       }
       Teams {
+        nextToken
+        startedAt
+      }
+      UserTasks {
         nextToken
         startedAt
       }
