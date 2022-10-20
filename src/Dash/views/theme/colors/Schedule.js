@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import {Input} from 'reactstrap';
 import DatePicker from 'react-datepicker'
 import "react-datepicker/dist/react-datepicker.css"
@@ -23,6 +23,12 @@ function Schedule(props) {
   const handleCalendarClose = () => console.log("Calendar closed");
   const handleCalendarOpen = () => console.log("Calendar opened");
   const { register, handleSubmit, formState: { errors }, control } = useForm();
+  
+  useEffect(()=>{
+    console.log("This is the tasks",state);
+  }, [])
+  
+  
   const handleRegistration = async (data) =>{ 
     toggle()
     var diff = date.getTime() - sdate.getTime();
@@ -39,7 +45,8 @@ function Schedule(props) {
      taskEnd: tsEnd,
      color: data.importance.value,
      assignedTo: data.assignedTo.value,
-     recommendationsID: state.id
+     recommendationsID: state.id,
+     userID: state.userID
     }
     updateDuration(diffDays);
     console.log("This is the duration of the task", duration);

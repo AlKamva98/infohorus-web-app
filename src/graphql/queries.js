@@ -263,8 +263,8 @@ export const getCred = /* GraphQL */ `
       id
       acc
       sec
-      
-    }
+
+   }
   }
 `;
 export const listCreds = /* GraphQL */ `
@@ -315,6 +315,7 @@ export const getTasks = /* GraphQL */ `
       taskDesc
       taskStart
       taskEnd
+      userID
       recommendationsID
       assignedTo
       color
@@ -323,14 +324,20 @@ export const getTasks = /* GraphQL */ `
       _lastChangedAt
       createdAt
       updatedAt
-      RecommendationTask {
+      UserTasks {
         id
-        recName
-        recDesc
-        recDuration
-        recNum
-        isApproved
-        userID
+        first_name
+        last_name
+        email
+        job_title
+        company
+        employees
+        industry
+        country
+        userType
+        phone
+        teamID
+        chatID
         _version
         _deleted
         _lastChangedAt
@@ -353,6 +360,7 @@ export const listTaskss = /* GraphQL */ `
         taskDesc
         taskStart
         taskEnd
+        userID
         recommendationsID
         assignedTo
         color
@@ -386,6 +394,7 @@ export const syncTasks = /* GraphQL */ `
         taskDesc
         taskStart
         taskEnd
+        userID
         recommendationsID
         assignedTo
         color
@@ -415,10 +424,6 @@ export const getRecommendations = /* GraphQL */ `
       _lastChangedAt
       createdAt
       updatedAt
-      RecommendationTasks {
-        nextToken
-        startedAt
-      }
       User {
         id
         first_name
@@ -990,6 +995,10 @@ export const getUser = /* GraphQL */ `
         startedAt
       }
       Teams {
+        nextToken
+        startedAt
+      }
+      UserTasks {
         nextToken
         startedAt
       }
