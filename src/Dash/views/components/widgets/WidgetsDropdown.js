@@ -15,7 +15,11 @@ import { Link } from 'react-router-dom'
 
 const WidgetsDropdown = (props) => {
   const {tasks, assRepData, MilLevel} =props;
-  console.log("tasks", tasks)
+  let risks;
+  if(assRepData){
+   risks = JSON.parse(assRepData.criticalRisks)
+    console.log("assessor report", assRepData)
+  }
   return (
     <CRow>
       <CCol sm="6" lg="4">
@@ -160,7 +164,7 @@ const WidgetsDropdown = (props) => {
         <CWidgetDropdown
           className="mb-4"
           color="danger"
-          value={assRepData? assRepData.criticalRisks:`Currently Unavailable`}
+          value={assRepData? risks.count:`Currently Unavailable`}
           title="Critical Risks"
           action={
             <CDropdown alignment="end">
