@@ -61,7 +61,7 @@ type Recommendations @model @auth(rules: [{allow: public}]) @key(name: "byUser",
 type AssessorReport @model @auth(rules: [{allow: public}]) @key(name: "byQuestionnaire", fields: ["questionnaireID"]) {
   id: ID!
   assessScore: String
-  criticalRisks: String
+  criticalRisks: AWSJSON
   Questionnaire: Questionnaire @connection
   questionnaireID: ID
   userId: String
