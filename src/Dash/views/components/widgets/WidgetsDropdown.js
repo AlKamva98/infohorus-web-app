@@ -14,7 +14,7 @@ import CIcon from '@coreui/icons-react'
 import { Link } from 'react-router-dom'
 
 const WidgetsDropdown = (props) => {
-  const {tasks, assRepData, MilLevel} =props;
+  const {toggle, tasks, assRepData, MilLevel} =props;
   let risks;
   if(assRepData){
    risks = JSON.parse(assRepData.criticalRisks)
@@ -172,7 +172,7 @@ const WidgetsDropdown = (props) => {
                 <CIcon name="cil-options" className="text-high-emphasis-inverse" />
               </CDropdownToggle>
               <CDropdownMenu>
-                <CDropdownItem>View Risks</CDropdownItem>
+                <CDropdownItem onClick={toggle}>View Risks</CDropdownItem>
               </CDropdownMenu>
             </CDropdown>
           }
