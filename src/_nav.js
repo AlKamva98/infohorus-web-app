@@ -10,10 +10,7 @@ const _nav = [
     anchor: 'Dashboard',
     to: '/dash/dashboard',
     icon: <CIcon name="cil-speedometer" customClasses="nav-icon" />,
-    badge: {
-      color: 'info',
-      text: 'NEW',
-    },
+    badge: <CBadge color='info'>new</CBadge>,
   },
   {
     _component: 'CNavItem',
@@ -53,12 +50,13 @@ const _nav = [
   {
     _component: 'CNavItem',
     as: NavLink,
-    anchor: `Calendar`,
+    anchor: 'Calendar',
     to: '/dash/calendar',
     icon: <CIcon name="cil-calendar" customClasses="nav-icon" />,
-    badge: <CBadge color="warning" shape="rounded-pill">
-    warning
-  </CBadge> ,}
+    badge: {
+      color: 'info',
+      text: 'NEW',
+    },}
 ]
 
 const _assesnav = [

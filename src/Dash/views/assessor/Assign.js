@@ -5,7 +5,7 @@ import { useForm, Controller } from "react-hook-form";
 import Select  from 'react-select';
 import {TaskPopUp} from './Modal';
 import { API } from 'aws-amplify';
-import * as mutations from '../../graphql/mutations'
+import * as mutations from '../../../graphql/mutations'
 import { useHistory } from 'react-router';
 
   function Assign(props) {
