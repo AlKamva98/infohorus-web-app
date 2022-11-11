@@ -6,16 +6,21 @@ import {
   CCol,
 } from '@coreui/react'
 import WidgetsDropdown from '../components/widgets/WidgetsDropdown.js'
+import { CriticalRisksModal } from 'src/Dash/views/assessor/Modal.js';
 
 const Dashboard = (props) => {
-  const {news,userDetails, MilLevel,assRepData, tasks} = props;
- 
- 
+  const {toggle, modal, news,userDetails, MilLevel,assRepData, tasks} = props;
+  var risks;
+  if(assRepData){
+    if(assRepData.criticalRisks)
+    risks = JSON.parse(assRepData.criticalRisks) 
+    console.log("Risks", risks)
+  }
   
   return (
     <>
     <h2 className="mb-3 fw-normal text-center text-2xl fw-bold">Welcome {userDetails.first_name}</h2>
- <WidgetsDropdown MilLevel={MilLevel} assRepData={assRepData} tasks={tasks} />
+ <WidgetsDropdown toggle={toggle} MilLevel={MilLevel} assRepData={assRepData} tasks={tasks} />
       
       <CCol xs={12}>
         <CCard className="mb-4">
@@ -49,6 +54,11 @@ const Dashboard = (props) => {
             </CCardBody>
         </CCard>
       </CCol>
+      <CriticalRisksModal
+      title="Critical Risks"
+      body={risks ? risks.criticalSystems: "null"} isOpen={modal} toggle={toggle} 
+      btnTxtPositive="Close" 
+      />
     </>
   )
 }

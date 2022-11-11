@@ -53,3 +53,23 @@ export function TaskPopUp (props) {
   </div>)
  
 }
+export function CriticalRisksModal (props) {
+  
+  const {title, body, isOpen, toggle ,btnTxtPositive, bg,className} = props;
+  
+  return(
+    <div>
+   <Modal isOpen={isOpen} toggle={toggle} className={className}>
+        <ModalHeader className="font-extrabold text-xl mx-4 text-gray-800" toggle={toggle}>{title}</ModalHeader>
+        <ModalBody className={`mx-4 bg-cover bg-no-repeat bg-center ${bg}`}>
+          <div className=" w-full h-full mx-auto px-12 py-12 bg-white opacity-90"><p className="text-semibold text-lg">{body}</p>
+        </div>
+        </ModalBody>
+        <ModalFooter>
+          <Button className="btn btn-primary" onClick={toggle}>{btnTxtPositive}</Button>
+        </ModalFooter>
+ 
+      </Modal>
+  </div>)
+ 
+}

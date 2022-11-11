@@ -1,6 +1,7 @@
 import React from 'react'
 import CIcon from '@coreui/icons-react'
 import { NavLink } from 'react-router-dom'
+import { CBadge } from '@coreui/react'
 
 const _nav = [
   {
@@ -9,10 +10,7 @@ const _nav = [
     anchor: 'Dashboard',
     to: '/dash/dashboard',
     icon: <CIcon name="cil-speedometer" customClasses="nav-icon" />,
-    badge: {
-      color: 'info',
-      text: 'NEW',
-    },
+    badge: <CBadge color='info'>new</CBadge>,
   },
   {
     _component: 'CNavItem',
