@@ -1,10 +1,10 @@
 import React, { useState, useEffect} from 'react';
 import {Button, Container} from 'react-bootstrap'
-import { MDBDataTableV5 } from 'mdbreact';
+import { MDBDataTable } from 'mdbreact';
 import {Link, Redirect} from 'react-router-dom'
 import {COLUMNS} from "./columns.js";
 import * as queries from '../../../graphql/queries'
-import API from '@aws-amplify/api';
+import {API} from 'aws-amplify';
 
 function Report(){
  const [checkbox1, setCheckbox1] = useState('');
@@ -56,7 +56,7 @@ async function listUsers() {
 <span></span>
 </Container>
     <div className="py-3">
-      <MDBDataTableV5
+      <MDBDataTable
         hover
         data={datatable}
         autoWidth
