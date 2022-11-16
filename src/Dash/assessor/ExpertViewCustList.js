@@ -1,15 +1,10 @@
 import React, { useState, useEffect} from 'react';
 import {Button, Container} from 'react-bootstrap'
-import { MDBDataTable } from 'mdbreact';
+import { MDBDataTableV5 } from 'mdbreact';
 import {useHistory} from 'react-router-dom'
 import {COLUMNS} from "./columns.js";
-<<<<<<< HEAD:src/Dash/views/assessor/ExpertViewCustList.js
-import * as queries from '../../../graphql/queries'
-import {API} from 'aws-amplify';
-=======
 import * as queries from '../../graphql/queries'
-import API from '@aws-amplify/api';
->>>>>>> parent of e235f1f (refactoring code):src/Dash/assessor/ExpertViewCustList.js
+import {API} from 'aws-amplify';
 
 function ExpertViewCustList(props){
   // const {userId} = props;
@@ -66,7 +61,7 @@ function ExpertViewCustList(props){
 <span>Click on the customer to view answers</span>
 </Container>
     <div className="py-3">
-      <MDBDataTable
+      <MDBDataTableV5
         hover
         data={datatable}
         autoWidth

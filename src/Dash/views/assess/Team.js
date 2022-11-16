@@ -1,9 +1,9 @@
 import React, { useState, useRef} from 'react';
 import {Button, Container} from 'react-bootstrap'
-import { MDBDataTable } from 'mdbreact';
+import { MDBDataTableV5 } from 'mdbreact';
 import {Link} from 'react-router-dom'
 import * as mutations from '../../../graphql/mutations'
-import API from 'aws-amplify';
+import API from '@aws-amplify/api';
 import {
   CToast,
   CToastBody,
@@ -80,7 +80,7 @@ export const Team = (props) => {
  <span>Click on the customer to assign tasks</span>
  </Container>
     <div className="py-3">
-      <MDBDataTable
+      <MDBDataTableV5
         hover
         data={teamTable}
         autoWidth
