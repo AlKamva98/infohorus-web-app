@@ -1,7 +1,7 @@
 import React,{useEffect, useState} from 'react'
 import {Redirect} from 'react-router-dom'
 import { AppContent, AppSidebar, AppFooter, AppHeader } from '../dashboard/index'
-import {COLUMNS} from "../views/assessor/columns";
+import {COLUMNS} from "../assessor/columns";
 import {API, Auth, graphqlOperation} from 'aws-amplify'
 import * as queries from '../../graphql/queries';
 import * as mutations from '../../graphql/mutations'
@@ -9,7 +9,7 @@ import {sendEmail} from '../../Home/shared/functions/AwsFuncs'
 import IdleTimer from "./IdleTimer";
 
 
-const DashboardLayout = (props) => {
+const DefaultLayout = (props) => {
   const {signedIn, signOut, userGroup} = props;
   const [userDetails, setUserDetails] = useState({});
   const [hasQuestionnaire, setHasQuestionnaire ] = useState(false);
@@ -50,7 +50,6 @@ const DashboardLayout = (props) => {
       return () => {
         timer.cleanUp();
       };
-      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
   
     useEffect(() => { 
@@ -69,7 +68,6 @@ const DashboardLayout = (props) => {
         }
       }
       getDashValues();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
 
     },[])
     
@@ -126,7 +124,7 @@ const DashboardLayout = (props) => {
 
     const getAssessReportHandler = async (userId)=>{
 
-      await API.graphql({query:queries.listAssessorReports, variables: {filter: {userId: {contains: userId}}}}).then((arpd)=>{
+      const response = API.graphql({query:queries.listAssessorReports, variables: {filter: {userId: {contains: userId}}}}).then((arpd)=>{
         if(arpd)
       assRepHandler(arpd.data.listAssessorReports.items[0])
       MILHandler(arpd.data.listAssessorReports.items[0])
@@ -173,6 +171,7 @@ const DashboardLayout = (props) => {
 
     const recommendationsHandler = async (id)=>{
       const recommendations = await listProps("Rec", id)
+      // getApproved(recommendations);
       getPending(recommendations);
 
     }
@@ -272,6 +271,14 @@ const addEventHandler=(task)=>{
   }
 
   
+    function getApproved(recommendations){//scans through the a recommendations array, gets approved recs, and moves those recs to a new array
+            const approvedRecs = recommendations.filter((rec)=>{
+              return rec.isApproved
+            });//filters 
+          
+          console.log("These are the apporved recos", approvedRecs);
+          setApproved(approvedRecs);
+          }
     function getPending(recommendations){//
             const pendingRecs = recommendations.filter((rec)=>{
               return rec.isApproved === false;
@@ -286,11 +293,13 @@ const addEventHandler=(task)=>{
       function approve(rec){
         rec.isApproved = true;
         setRecommendations(recommendations.map((recommendation)=>{
+          // console.log(recommendation.isApproved)
           return recommendation.id === rec.id ? {...recommendation, isApproved: true}: recommendation;
         }))
         if(rec){
           addToApprovedHandler(rec)
         }
+        // console.log("rec is ",rec.isApproved)
 
        }
 
@@ -434,4 +443,4 @@ const addEventHandler=(task)=>{
   )
 }
 
-export default DashboardLayout
+export default DefaultLayout

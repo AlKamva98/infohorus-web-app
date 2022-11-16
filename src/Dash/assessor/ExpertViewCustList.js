@@ -1,30 +1,38 @@
 import React, { useState, useEffect} from 'react';
 import {Button, Container} from 'react-bootstrap'
 import { MDBDataTable } from 'mdbreact';
-import {Link, Redirect} from 'react-router-dom'
+import {useHistory} from 'react-router-dom'
 import {COLUMNS} from "./columns.js";
+<<<<<<< HEAD:src/Dash/views/assessor/ExpertViewCustList.js
 import * as queries from '../../../graphql/queries'
 import {API} from 'aws-amplify';
+=======
+import * as queries from '../../graphql/queries'
+import API from '@aws-amplify/api';
+>>>>>>> parent of e235f1f (refactoring code):src/Dash/assessor/ExpertViewCustList.js
 
-function Report(){
+function ExpertViewCustList(props){
+  // const {userId} = props;
  const [checkbox1, setCheckbox1] = useState('');
  const [datatable, setDatatable] = useState('');
  const [hasData, setHasData] = useState(false);
+ const [disabled, setDisabled] = useState(true);
+ const history = useHistory();
  const showLogs2 = (e) => {
-     console.log('SHOWLOGS:::', e);
-     setCheckbox1(e);
+  setDisabled(false);   
+  setCheckbox1(e);
  };
+ 
  useEffect(() => {
-   
    listUsers().then(listOfUsers => {
      let users = [];
-     var completed;
+     let completed;
           
           for(let i in  listOfUsers.data.listUsers.items){
+
             if( listOfUsers.data.listUsers.items[i].userType === "Assessee"){
               completed =  listOfUsers.data.listUsers.items[i];
-              console.log("This is the approved ",  listOfUsers.data.listUsers.items[i])
-              users.push( completed);
+              users.push(completed)
               
             }
            }
@@ -33,16 +41,17 @@ function Report(){
                  rows: users
              }
              setDatatable(data);
-         })
+         }).finally(()=>{
+             setHasData(true);
+         });
        },[])
 
-       useEffect(()=>{
-          console.log("Hasdata", datatable)
-          if(datatable){
-            setHasData(true);
-        }},[datatable])
+       function assess(){
+        console.log("This is the selected user", checkbox1);
+        history.push("/dash/assess" ,{userId: checkbox1.id})
+       }
 
-async function listUsers() {
+  async function listUsers() {
       try {
            var userslist = await API.graphql({query: queries.listUsers});
           return userslist;
@@ -50,10 +59,11 @@ async function listUsers() {
           console.log("Error:>> ", err);
       }
   }
+
   return (<>
-    {hasData  ? (<><Container>
-<h4 className="text-center display-4">Reports</h4>
-<span></span>
+    {hasData  && (<><Container>
+<h4 className="text-center display-4">Customer list</h4>
+<span>Click on the customer to view answers</span>
 </Container>
     <div className="py-3">
       <MDBDataTable
@@ -64,16 +74,13 @@ async function listUsers() {
         headCheckboxID='id2'
         bodyCheckboxID='checkboxes2'
         getValueCheckBox={(e) => {
-          showLogs2(e);}}
+          showLogs2(e)
+          ;}}
           />
     </div>
-    <Link to= {{pathname: "/dash/assess" ,state: checkbox1}}><Button className= "ml-5 mb-5"  type="submit">New Report
-  </Button></Link>
-   <div>
-      {checkbox1 && <p>{JSON.stringify(delete checkbox1.checkbox && checkbox1.first_name)}</p>}
-    </div>
-    </>):<Redirect to="/500"/>}
+    <Button className= "ml-5 mb-5" disabled={disabled} onClick={assess} type="submit">Assess</Button>  
+    </>)}
     </>
   );}
  
-  export default Report; 
+  export default ExpertViewCustList; 

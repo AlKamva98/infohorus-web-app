@@ -6,11 +6,11 @@ import DemoVideo from './Home/views/demo/DemoVideo'
 import About from './Home/views/about/About'
 
 //assessor
-import CustList from './Dash/views/assessor/ExpertViewCustList'
-import Assess from './Dash/views/assessor/ExpertViewAssess'
-import Recommendations from './Dash/views/assessor/Recommendations'
-import Report from './Dash/views/assessor/Report'
-import Assign from './Dash/views/assessor/Assign'
+import CustList from './Dash/assessor/ExpertViewCustList'
+import Assess from './Dash/assessor/ExpertViewAssess'
+import Recommendations from './Dash/assessor/Recommendations'
+import Report from './Dash/assessor/Report'
+import Assign from './Dash/assessor/Assign'
 import {Team} from './Dash/views/assess/Team'
 import Chat from './Dash/views/assess/Chat'
 
