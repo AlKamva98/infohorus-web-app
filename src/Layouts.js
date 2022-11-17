@@ -9,7 +9,7 @@ import MainLayout from './Home/layout/MainLayout';
 const Layouts = (props) => {
 const {signOutHandler, signedIn,setUser, userGroup, user} = props;
  
-
+//fix
     const handleSignOut = async()=>{
         signOutHandler() 
       }
