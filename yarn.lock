@@ -6343,13 +6343,6 @@
     "apollo-link" "1.2.5"
     "debug" "2.6.9"
 
-"aws-appsync-react@^4.0.3":
-  "integrity" "sha512-jppfz0xFOeuytWw82iykzxOr2UdnwkTMwBx6+cEarICPNskVDRPQpwP3scghQwQYHkbwMDPWzChmz6uc73v/LA=="
-  "resolved" "https://registry.npmjs.org/aws-appsync-react/-/aws-appsync-react-4.0.14.tgz"
-  "version" "4.0.14"
-  dependencies:
-    "prop-types" "^15.6.0"
-
 "aws-appsync-subscription-link@^2.4.1":
   "integrity" "sha512-bGh5m442QKByg9/dYpyxONZZK6jAK0lDjM96yC9o3KmnCmDZUiKVH60tgf1Jwow+pONKFY+Nm4Ad0UrfEFmu2Q=="
   "resolved" "https://registry.npmjs.org/aws-appsync-subscription-link/-/aws-appsync-subscription-link-2.4.1.tgz"
