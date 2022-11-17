@@ -4153,7 +4153,7 @@
     "@coreui/chartjs" "^3.0.0"
     "chart.js" "^3.7.1"
 
-"@coreui/react@4.0.0-alpha.1":
+"@coreui/react@^4.0.0-alpha.1":
   "integrity" "sha512-p3pDqb5V2iIiJElAny/4KmFyCzt35H5xhzH5N/CerV4Zo5skMBP99KGAQXgdzCrDVyeQZ6Zuuf87YVMLydMZpA=="
   "resolved" "https://registry.npmjs.org/@coreui/react/-/react-4.0.0-alpha.1.tgz"
   "version" "4.0.0-alpha.1"
@@ -12434,7 +12434,7 @@
     "inherits" "^2.0.1"
     "safe-buffer" "^5.1.2"
 
-"mdbreact@^5.1.0":
+"mdbreact@^5.2.0":
   "integrity" "sha512-QIQ4xtEaZrXq82GKrVapRhTt+8OkVydsvb6Bir7y3AEiT//FvCg3OXzOk3VWPkaeiHnWdgKQTYhYBqsKEYEKYA=="
   "resolved" "https://registry.npmjs.org/mdbreact/-/mdbreact-5.2.0.tgz"
   "version" "5.2.0"
