@@ -12,7 +12,7 @@ const {signOutHandler, signedIn,setUser, userGroup, user} = props;
     const handleSignOut = async()=>{
         signOutHandler() 
       }
-//Fixed
+
   return (
         <Switch>
           <Route path="/dash" name="DashboardHome" render={(props) => <DefaultLayout  userGroup={userGroup} signedIn={signedIn} setUser={setUser} user={user} signOut={handleSignOut} {...props} />} />
