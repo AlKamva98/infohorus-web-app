@@ -6,7 +6,7 @@ import {
   CCol,
 } from '@coreui/react'
 import WidgetsDropdown from '../components/widgets/WidgetsDropdown.js'
-import { CriticalRisksModal } from 'src/Dash/views/assessor/Modal.js';
+import { CriticalRisksModal } from 'src/Dash/assessor/Modal.js';
 
 const Dashboard = (props) => {
   const {toggle, modal, news,userDetails, MilLevel,assRepData, tasks} = props;

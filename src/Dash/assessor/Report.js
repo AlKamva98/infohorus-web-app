@@ -3,8 +3,8 @@ import {Button, Container} from 'react-bootstrap'
 import { MDBDataTableV5 } from 'mdbreact';
 import {Link, Redirect} from 'react-router-dom'
 import {COLUMNS} from "./columns.js";
-import * as queries from '../../../graphql/queries'
-import API from '@aws-amplify/api';
+import * as queries from '../../graphql/queries'
+import {API} from 'aws-amplify';
 
 function Report(){
  const [checkbox1, setCheckbox1] = useState('');

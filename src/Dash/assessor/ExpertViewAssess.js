@@ -3,8 +3,8 @@ import {useHistory} from 'react-router-dom'
 import { API, Storage } from 'aws-amplify';
 import {Formik, Form, FieldArray} from 'formik'
 import {Button, Container} from 'react-bootstrap'
-import * as queries from "../../../graphql/queries"
-import {questions} from '../../../testData/Quests'
+import * as queries from "../../graphql/queries"
+import {questions} from '../../testData/Quests'
 import {ExportJsonCsv} from 'react-export-json-csv'
 
 function ExpertViewAssess (props){
