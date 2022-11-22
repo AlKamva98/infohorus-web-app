@@ -98,7 +98,7 @@ const DefaultLayout = (props) => {
      const creds = await getCreds() ;
             sendEmail("New Team member",member, creds, "infohorus@bahatitech.co.za");
         
-        const response= await API.graphql(graphqlOperation(
+         await API.graphql(graphqlOperation(
           mutations.createTeam,{
             input:{
               
@@ -271,14 +271,14 @@ const addEventHandler=(task)=>{
   }
 
   
-    function getApproved(recommendations){//scans through the a recommendations array, gets approved recs, and moves those recs to a new array
-            const approvedRecs = recommendations.filter((rec)=>{
-              return rec.isApproved
-            });//filters 
+    // function getApproved(recommendations){//scans through the a recommendations array, gets approved recs, and moves those recs to a new array
+    //         const approvedRecs = recommendations.filter((rec)=>{
+    //           return rec.isApproved
+    //         });//filters 
           
-          console.log("These are the apporved recos", approvedRecs);
-          setApproved(approvedRecs);
-          }
+    //       console.log("These are the apporved recos", approvedRecs);
+    //       setApproved(approvedRecs);
+    //       }
     function getPending(recommendations){//
             const pendingRecs = recommendations.filter((rec)=>{
               return rec.isApproved === false;
@@ -287,9 +287,7 @@ const addEventHandler=(task)=>{
           setRecommendations(recommendations);
           }
           
-       function checkRec(recommendation){
-         return recommendation.isApproved === true;
-       }
+       
       function approve(rec){
         rec.isApproved = true;
         setRecommendations(recommendations.map((recommendation)=>{
@@ -412,7 +410,7 @@ const addEventHandler=(task)=>{
      async function addTask(task){//add task to recommendation
       
       if (task){   
-       const res= await API.graphql({query: mutations.createTasks, variables: {input: task}})
+       await API.graphql({query: mutations.createTasks, variables: {input: task}})
        .then((res)=>{
         console.log("THis is tasks result",res)
         if(res)

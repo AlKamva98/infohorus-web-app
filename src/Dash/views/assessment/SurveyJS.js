@@ -65,7 +65,6 @@ export function SurveyJS(props) {
     survey.sendResultOnPageNext = true;
     const [qnaireUUID, setQnaireUUID] = useState(create_UUID());
     const [recipientName, setRecipientName] = useState("");
-    const [isDisabled, setIsDisabled] = useState(false);
     // const msg = "You are not authorized to view questions unless you register. Please register to complete questionnaire."
     const emailContainer = useRef(null);
 
@@ -86,7 +85,7 @@ export function SurveyJS(props) {
     }, [])
 
  const getAnswers = async (qid)=>{
-     const response = await API.graphql({query: queries.listAnswers,variables:{filter:{questionnaireID:{contains:qid}}}})
+    await API.graphql({query: queries.listAnswers,variables:{filter:{questionnaireID:{contains:qid}}}})
      .then( response=>{
         var ans = response.data.listAnswers.items.sort((a,b) => (a.questionID > b.questionID) ? 1 : ((b.questionID > a.questionID) ? -1 : 0))  
         answersFromDB = ans;
@@ -140,7 +139,6 @@ async function getCreds(){
         sendEmail(cred, data.recipientEmail.value);
     }
     function sendEmail(uCred,email) {
-        setIsDisabled(true);
          const AWS = require("aws-sdk");
         const cred = new AWS.Credentials({
             accessKeyId: uCred.data.getCred.acc,
@@ -198,7 +196,6 @@ async function getCreds(){
 
     }
 
-    var storageName = "questionaire_data"
 
     function getAnswerPerPage() {//get answers from the page
         try {
@@ -291,7 +288,7 @@ async function getCreds(){
                         await API.graphql({query: mutations.updateAnswer, variables: {input: updatedAnswer}}).catch(err=>{console.error("Error while updating",err )});
                         }else{//if theres no old answer, create a new one
                             var questionID = qnameToQid(anspq);                       
-                           var storedAns = await API.graphql(graphqlOperation(
+                            await API.graphql(graphqlOperation(
                                     addAns, {
                                         input: {
                                             answer: ans[anspq],
@@ -322,7 +319,7 @@ async function getCreds(){
             var qname = ans.quesname
             if (doc) {
                 try {
-                    const putObject = await Storage.put(doc.name, doc.content, {
+                     await Storage.put(doc.name, doc.content, {
                         contentType: doc.type
                     });
                     //setLoading(true);
@@ -441,8 +438,7 @@ async function getCreds(){
             }
         });
 
-        //
-        // var prevData = window.localStorage.getItem(storageName) || null;
+        
        
         const resumeQuestionnaire=(data)=>{
             survey.data = data;
