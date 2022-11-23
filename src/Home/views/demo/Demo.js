@@ -1,8 +1,6 @@
-import Select  from 'react-select';
 import {Input} from 'reactstrap';
 import { ErrorMessage } from "@hookform/error-message";
 import {useForm, Controller } from "react-hook-form";
-import {selectOptionsCountry} from '../../testData/selectOptions'
 import PhoneInput from 'react-phone-number-input'
 import 'react-phone-number-input/style.css'
 import React,{useState} from 'react';
@@ -123,7 +121,7 @@ Amplify.configure(awsConfig)
   onChange={onChange}/>  
   </div>
   <div className="">
-  <button type="submit"  className="inline-block w-full px-5 py-4 text-lg font-medium text-center text-white transition duration-200 bg-blue-600 rounded-lg hover:bg-blue-700 ease">Watch Demo Video</button>
+  <button type="submit" disabled={!verified}  className="inline-block w-full px-5 py-4 text-lg font-medium text-center text-white transition duration-200 bg-blue-600 rounded-lg hover:bg-blue-700 ease">Watch Demo Video</button>
   </div>
   </form> 
 </div>

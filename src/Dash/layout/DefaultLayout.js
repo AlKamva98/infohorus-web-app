@@ -24,16 +24,17 @@ const DefaultLayout = (props) => {
   const [evt, setEvt] = useState([]);
   const [assRepData, setAssRepData] = useState(null) 
   
-    const [modal, setModal] = useState(false);
-    const toggle = () => setModal(!modal);
-    const [rec, setRec] =useState("");
-    const [errModal, setErrModal] = useState(false);
-    const errToggle = () => setErrModal(!errModal);
-    const [revModal, setRevModal] = useState(false);
-    const revToggle = () => setRevModal(!revModal);
-    const [msg, setMsg] =useState("");
-    const [messages, setMessages] = useState([]);
-    const [isTimeout, setIsTimeout] = useState(false);
+  const [modal, setModal] = useState(false);
+  const toggle = () => setModal(!modal);
+  const [rec, setRec] =useState("");
+  const [errModal, setErrModal] = useState(false);
+  const errToggle = () => setErrModal(!errModal);
+  const [revModal, setRevModal] = useState(false);
+  const revToggle = () => setRevModal(!revModal);
+  const [msg, setMsg] =useState("");
+  const [messages, setMessages] = useState([]);
+  const [isTimeout, setIsTimeout] = useState(false);
+    
     useEffect(() => {
       const timer = new IdleTimer({
         timeout: 300, //expire after  seconds
@@ -98,7 +99,7 @@ const DefaultLayout = (props) => {
      const creds = await getCreds() ;
             sendEmail("New Team member",member, creds, "infohorus@bahatitech.co.za");
         
-        const response= await API.graphql(graphqlOperation(
+        const response = await API.graphql(graphqlOperation(
           mutations.createTeam,{
             input:{
               
@@ -271,14 +272,14 @@ const addEventHandler=(task)=>{
   }
 
   
-    function getApproved(recommendations){//scans through the a recommendations array, gets approved recs, and moves those recs to a new array
-            const approvedRecs = recommendations.filter((rec)=>{
-              return rec.isApproved
-            });//filters 
+    // function getApproved(recommendations){//scans through the a recommendations array, gets approved recs, and moves those recs to a new array
+    //         const approvedRecs = recommendations.filter((rec)=>{
+    //           return rec.isApproved
+    //         });//filters 
           
-          console.log("These are the apporved recos", approvedRecs);
-          setApproved(approvedRecs);
-          }
+    //       console.log("These are the apporved recos", approvedRecs);
+    //       setApproved(approvedRecs);
+    //       }
     function getPending(recommendations){//
             const pendingRecs = recommendations.filter((rec)=>{
               return rec.isApproved === false;
@@ -287,9 +288,7 @@ const addEventHandler=(task)=>{
           setRecommendations(recommendations);
           }
           
-       function checkRec(recommendation){
-         return recommendation.isApproved === true;
-       }
+       
       function approve(rec){
         rec.isApproved = true;
         setRecommendations(recommendations.map((recommendation)=>{
@@ -412,7 +411,7 @@ const addEventHandler=(task)=>{
      async function addTask(task){//add task to recommendation
       
       if (task){   
-       const res= await API.graphql({query: mutations.createTasks, variables: {input: task}})
+       await API.graphql({query: mutations.createTasks, variables: {input: task}})
        .then((res)=>{
         console.log("THis is tasks result",res)
         if(res)

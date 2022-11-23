@@ -2,8 +2,6 @@ import React,{useState} from 'react';
 import {Container, Row, Col,Card,Form} from 'react-bootstrap';
 import {Label, Input, FormGroup,Button} from 'reactstrap';
 import { useForm } from "react-hook-form";
-import {  API } from 'aws-amplify';
-import * as mutations from '../../../graphql/mutations'
 
   function Update(props) {
     const {updateMember} = props.location;
