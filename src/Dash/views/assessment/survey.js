@@ -3,6 +3,11 @@ export const surveyCss = {
     "header": "sd-title sd-container-modern__title text-cyan-600",
     "title": "sd-title text-4xl fw-bold mx-5 mt-5",
 	  "description": "sd-description mx-5 mb-5",
+    "page": {
+		
+		"title": "text-4xl fw-bold text-gray-900  mb-3",
+		"description": "text-lg fw-semi-bold text-gray-700"
+	},
     "navigation": {
       "complete": "btn sv_complete_btn bg-cyan-600 hover:bg-cyan-800 text-white float-right",
       "prev": "btn sv_prev_btn  border-cyan-600 sm:mb-0 hover:bg-cyan-600 ",
@@ -11,29 +16,7 @@ export const surveyCss = {
       "preview": "btn sv_preview_btn btn-primary float-right",
       "edit": "btn sv_edit_btn btn-primary "
     },
-    "panel": {
-      "title": "sd-title sd-element__title sd-panel__title text-2xl fw-bold",
-      "titleExpandable": "sd-element__title--expandable",
-      "titleExpanded": "sd-element__title--expanded",
-      "titleCollapsed": "sd-element__title--collapsed",
-      "titleOnExpand": "sd-panel__title--expanded",
-      "titleOnError": "sd-panel__title--error",
-      "titleBar": "sd-action-title-bar",
-      "description": "sd-description sd-panel__description mt-5",
-      "container": "sd-element sd-element--complex sd-panel sd-row__panel",
-      "withFrame": "sd-element--with-frame",
-      "content": "sd-panel__content",
-      "icon": "sd-panel__icon",
-      "iconExpanded": "sd-panel__icon--expanded",
-      "footer": "sd-panel__footer",
-      "requiredText": "sd-panel__required-text",
-      "header": "sd-panel__header sd-element__header sd-element__header--location-top",
-      "collapsed": "sd-element--collapsed",
-      "expanded": "sd-element--expanded",
-      "nested": "sd-element--nested",
-      "invisible": "sd-element--invisible",
-      "navigationButton": ""
-    },
+    
   }
 
 export const SurveyJSON={

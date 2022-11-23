@@ -24,16 +24,17 @@ const DefaultLayout = (props) => {
   const [evt, setEvt] = useState([]);
   const [assRepData, setAssRepData] = useState(null) 
   
-    const [modal, setModal] = useState(false);
-    const toggle = () => setModal(!modal);
-    const [rec, setRec] =useState("");
-    const [errModal, setErrModal] = useState(false);
-    const errToggle = () => setErrModal(!errModal);
-    const [revModal, setRevModal] = useState(false);
-    const revToggle = () => setRevModal(!revModal);
-    const [msg, setMsg] =useState("");
-    const [messages, setMessages] = useState([]);
-    const [isTimeout, setIsTimeout] = useState(false);
+  const [modal, setModal] = useState(false);
+  const toggle = () => setModal(!modal);
+  const [rec, setRec] =useState("");
+  const [errModal, setErrModal] = useState(false);
+  const errToggle = () => setErrModal(!errModal);
+  const [revModal, setRevModal] = useState(false);
+  const revToggle = () => setRevModal(!revModal);
+  const [msg, setMsg] =useState("");
+  const [messages, setMessages] = useState([]);
+  const [isTimeout, setIsTimeout] = useState(false);
+    
     useEffect(() => {
       const timer = new IdleTimer({
         timeout: 300, //expire after  seconds
@@ -98,7 +99,7 @@ const DefaultLayout = (props) => {
      const creds = await getCreds() ;
             sendEmail("New Team member",member, creds, "infohorus@bahatitech.co.za");
         
-         await API.graphql(graphqlOperation(
+        const response = await API.graphql(graphqlOperation(
           mutations.createTeam,{
             input:{
               

@@ -45,6 +45,9 @@ export function SurveyJS(props) {
     Survey.StylesManager.applyTheme("modern");
 
     Survey.Serializer.addProperty("page", "sendEmailPopUp:text")
+    
+    const local = Survey.surveyLocalization.locales["en"];
+    local.cleanCaption = "Delete";
 
     function showSendEmailPopUp(element){
         const currPageNo = survey.currentPageNo;
@@ -59,6 +62,7 @@ export function SurveyJS(props) {
     }
 
     let survey = new Survey.Model(SurveyJSON);
+  
     const { register, handleSubmit,formState: { errors }, control } = useForm();
     const handleError = () => { console.error("Form Errors: ",errors)};
     survey.firstPageIsStarted = true;
