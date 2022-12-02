@@ -9,12 +9,14 @@ import Login from './Dash/views/pages/login/Login';
 import Register from './Dash/views/pages/register/Register';
 import Page404 from './Dash/views/pages/page404/Page404';
 import Page500 from './Dash/views/pages/page500/Page500';
+import TOTP from './Dash/views/pages/login/TOTP';
 
 
 function App()  {
    const [signedIn, setSignedIn] = useState(false);
    const [userGroup, setUserGroup] = useState();
    const [userEmail, setUserEmail] = useState();
+   const [otpVerified, setOtpVerified] = useState(false);
    const [modal, setModal] = useState(false);
    const toggle = () => setModal(!modal);
    const [errMsg, setErrMsg] = useState("")
@@ -25,11 +27,15 @@ function App()  {
     },[])
 
     const signInHandler = async (formData) =>{
-      await Auth.signIn(formData.email, formData.password).catch((err)=>{
+      await Auth.signIn(formData.email, formData.password)
+      .then(res=>{
+        checkUser()
+      })
+      .catch((err)=>{
         errorHandler(err)
         console.log("Sign In Error", err)
       })
-      checkUser()
+      
     }
     
     const signOutHandler = async () =>{
@@ -44,7 +50,9 @@ function App()  {
       setErrMsg(err.message);
       toggle();
     }
-    
+
+    const handleVerified = ()=>{setOtpVerified(true)}
+
 async function checkUser(){
         try{
             const userchk = await Auth.currentAuthenticatedUser();
@@ -60,7 +68,7 @@ async function checkUser(){
     return (
       <Router>
           <Switch>
-            <Route exact path="/login" name="Login Page" render={(props) => <Login signedIn={signedIn} signInHandler={signInHandler} toggle={toggle} modal={modal} errMsg={errMsg} {...props} />} />
+            <Route exact path="/login" name="Login Page" render={(props) => <Login signedIn={signedIn} handleVerified={handleVerified} signInHandler={signInHandler} toggle={toggle} modal={modal} errMsg={errMsg} {...props} />} />
             <Route
               exact
               path="/register"
@@ -68,8 +76,9 @@ async function checkUser(){
               render={(props) => <Register {...props} />}
             />
             <Route exact path="/404" name="Page 404" render={(props) => <Page404 {...props} />} />
+            <Route exact path="/totp" name="TOTP" render={(props) => <TOTP   {...props} />} />
             <Route exact path="/500" name="Page 500" render={(props) => <Page500 {...props} />} />
-            <Route path="/" name="Home" render={(props) => <Layouts signedIn={signedIn} signOutHandler={signOutHandler} userGroup={userGroup} user={userEmail} setUser={setUserEmail}  {...props} />} />
+            <Route path="/" name="Home" render={(props) => <Layouts signedIn={signedIn} signOutHandler={signOutHandler} otpVerified={otpVerified} userGroup={userGroup} user={userEmail} setUser={setUserEmail}  {...props} />} />
           </Switch>
       </Router>
     )

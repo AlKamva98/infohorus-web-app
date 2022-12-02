@@ -10,7 +10,7 @@ import IdleTimer from "./IdleTimer";
 
 
 const DefaultLayout = (props) => {
-  const {signedIn, signOut, userGroup} = props;
+  const {signedIn, signOut,otpVerified, userGroup} = props;
   const [userDetails, setUserDetails] = useState({});
   const [hasQuestionnaire, setHasQuestionnaire ] = useState(false);
   const [questionnaire, setQuestionnaire ] = useState({});
@@ -428,7 +428,7 @@ const addEventHandler=(task)=>{
     
       return (
     <div>
-      {signedIn ? <section>
+      {signedIn ? (otpVerified? <section>
       <AppSidebar group={userGroup} />
       <div className="wrapper d-flex flex-column min-vh-100 bg-light">
         <AppHeader tasks={tasks} recommendations={recommendations} signOut={signOut} saveChanges={saveChanges} approved={approved} />
@@ -437,7 +437,7 @@ const addEventHandler=(task)=>{
         </div>
         <AppFooter />
       </div>
-  </section>: <Redirect to="/login" />}
+  </section>: <Redirect to="/login" /> ): <Redirect to="/login" />}
     </div>
   )
 }
