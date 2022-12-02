@@ -15,6 +15,7 @@ import {
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
 import {PopUp} from '../../../../Home/shared/utils/Modal'
+import TOTP from './TOTP'
 
   const Login = (props) => {
 
@@ -35,9 +36,9 @@ const {signedIn, signInHandler, toggle,modal, errMsg} = props;
 }
 
   return (
-    <div className="bg-light min-vh-100 d-flex flex-row align-items-center">
+    <div className="bg-light min-vh-100 ">
     {signedIn  ?
-      (<Redirect to="/dash/dashboard" />):(<div>
+      (<TOTP/>):(<div className='d-flex flex-row align-items-center'>
       <CContainer>
         <CRow className="justify-content-center">
           <CCol md="8">
@@ -110,6 +111,7 @@ const {signedIn, signInHandler, toggle,modal, errMsg} = props;
       prev={"/login"}
       btnTxtPositive="Retry"
       />
+      
       </div>
       )
     
