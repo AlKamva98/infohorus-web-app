@@ -5,7 +5,7 @@ import { Input, Button} from 'reactstrap';
 import { Redirect } from 'react-router-dom';
 
 export default (props) => {
-  const {setOtpVerified} = props
+  const {handleVerified} = props
   const [userCode, setUserCode] = useState('')
   const [enabled, setEnabled] = useState(false)
   const [image, setImage] = useState('')
@@ -72,7 +72,7 @@ console.log(result)
             
             Auth.setPreferredMFA(res,"TOTP")
           })
-          setOtpVerified(true);
+          handleVerified()
           } else {
             console.log(result)
 
