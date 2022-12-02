@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext } from 'react'
 import { Auth } from 'aws-amplify'
 import { Col,Card,Form} from 'react-bootstrap';
 import { Input, Button} from 'reactstrap';
-import { Redirect } from 'react-router-dom';
+import { Redirect, useHistory } from 'react-router-dom';
 
 export default (props) => {
   const {handleVerified} = props
@@ -10,7 +10,7 @@ export default (props) => {
   const [enabled, setEnabled] = useState(false)
   const [image, setImage] = useState('')
   const btnClass = "w-100 my-3 text-lg text-white fw-semibold py-3 bg-cyan-700  hover:bg-cyan-500 focus:bg-cyan-600 focus:ring-4 focus:ring-cyan-400 focus:ring-opacity-50"
-
+  const history = useHistory()
   // useEffect(() => {
   //   Auth.currentSession().then(() => {
   //     setEnabled(true)
@@ -73,6 +73,7 @@ console.log(result)
             Auth.setPreferredMFA(res,"TOTP")
           })
           handleVerified()
+          history.push("/dash")
           } else {
             console.log(result)
 
