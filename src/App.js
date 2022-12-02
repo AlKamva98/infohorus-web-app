@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { BrowserRouter as Router, Route, Switch, useHistory } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import Layouts from './Layouts'
 import {Auth} from 'aws-amplify';
 import './Dash/scss/style.scss'
@@ -16,10 +16,10 @@ function App()  {
    const [signedIn, setSignedIn] = useState(false);
    const [userGroup, setUserGroup] = useState();
    const [userEmail, setUserEmail] = useState();
+   const [otpVerified, setOtpVerified] = useState(false);
    const [modal, setModal] = useState(false);
    const toggle = () => setModal(!modal);
    const [errMsg, setErrMsg] = useState("")
-   const history = useHistory();
    
    useEffect(()=>{
     const checkU = async () => checkUser();
@@ -74,9 +74,9 @@ async function checkUser(){
               render={(props) => <Register {...props} />}
             />
             <Route exact path="/404" name="Page 404" render={(props) => <Page404 {...props} />} />
-            <Route exact path="/totp" name="TOTP" render={(props) => <TOTP {...props} />} />
+            <Route exact path="/totp" name="TOTP" render={(props) => <TOTP setOtpVerified={setOtpVerified}  {...props} />} />
             <Route exact path="/500" name="Page 500" render={(props) => <Page500 {...props} />} />
-            <Route path="/" name="Home" render={(props) => <Layouts signedIn={signedIn} signOutHandler={signOutHandler} userGroup={userGroup} user={userEmail} setUser={setUserEmail}  {...props} />} />
+            <Route path="/" name="Home" render={(props) => <Layouts signedIn={signedIn} signOutHandler={signOutHandler} otpVerified={otpVerified} userGroup={userGroup} user={userEmail} setUser={setUserEmail}  {...props} />} />
           </Switch>
       </Router>
     )

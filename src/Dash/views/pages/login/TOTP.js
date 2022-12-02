@@ -1,14 +1,15 @@
 import React, { useEffect, useState, useContext } from 'react'
 import { Auth } from 'aws-amplify'
-import {Container, Row, Col,Card,Form} from 'react-bootstrap';
-import {Label, Input, FormGroup,Button} from 'reactstrap';
+import { Col,Card,Form} from 'react-bootstrap';
+import { Input, Button} from 'reactstrap';
 import { Redirect } from 'react-router-dom';
 
-export default () => {
+export default (props) => {
+  const {setOtpVerified} = props
   const [userCode, setUserCode] = useState('')
   const [enabled, setEnabled] = useState(false)
   const [image, setImage] = useState('')
-
+  const btnClass = "w-100 my-3 text-lg text-white fw-semibold py-3 bg-cyan-700  hover:bg-cyan-500 focus:bg-cyan-600 focus:ring-4 focus:ring-cyan-400 focus:ring-opacity-50"
 
   // useEffect(() => {
   //   Auth.currentSession().then(() => {
@@ -71,7 +72,7 @@ console.log(result)
             
             Auth.setPreferredMFA(res,"TOTP")
           })
-          
+          setOtpVerified(true);
           } else {
             console.log(result)
 
@@ -116,7 +117,8 @@ console.log(result)
       <Col id="subDiv2" className="mx-auto py-8 w-1/2">
         <Card className="mx-auto mb-4  bg-light  shadow" >
             <Card.Body>
-    <h2 className="mb-3 fw-normal text-center text-2xl fw-bold">Multi-Factor Authentication</h2>
+              <img className=" d-block mx-auto img-fluid" src="./images/logonew.png" alt="Our logo" width="150" height="100"/>
+    <h2 className="mb-3 fw-normal text-center text-2xl fw-bold">Two-Factor Authentication</h2>
     
     
 
@@ -128,7 +130,7 @@ console.log(result)
         </div>
       ) : image ? (
         <div className='px-5'>
-          <h4 className="mb-3 fw-normal text-center">Scan this QR code: </h4>
+          <h4 className="mb-3 fw-normal text-center">Scan this QR code with Google Authenticator: </h4>
           <img className='mx-auto' src={image} />
 
           <Form className="mx-auto" onSubmit={enableMFA}>
@@ -138,11 +140,11 @@ console.log(result)
               required
             />
 
-            <Button className="w-100 my-3 text-lg text-white fw-semibold py-3 bg-blue-700  hover:bg-blue-500 focus:bg-blue-600 focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50" type="submit">Confirm Code</Button>
+            <Button className={btnClass} type="submit">Confirm Code</Button>
           </Form>
         </div>
       ) : (
-<Button onClick={getQRCode} className="w-100 my-3 text-lg text-white fw-semibold py-3 bg-blue-700  hover:bg-blue-500 focus:bg-blue-600 focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50"  >Enable MFA</Button>
+<Button onClick={getQRCode} className={btnClass}  >Enable MFA</Button>
    
       )}
 

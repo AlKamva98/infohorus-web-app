@@ -7,7 +7,7 @@ import MainLayout from './Home/layout/MainLayout';
 
 
 const Layouts = (props) => {
-const {signOutHandler, signedIn,setUser, userGroup, user} = props;
+const {signOutHandler, signedIn,setUser, userGroup,otpVerified, user} = props;
 
     const handleSignOut = async()=>{
         signOutHandler() 
@@ -15,7 +15,7 @@ const {signOutHandler, signedIn,setUser, userGroup, user} = props;
 
   return (
         <Switch>
-          <Route path="/dash" name="DashboardHome" render={(props) => <DefaultLayout  userGroup={userGroup} signedIn={signedIn} setUser={setUser} user={user} signOut={handleSignOut} {...props} />} />
+          <Route path="/dash" name="DashboardHome" render={(props) => <DefaultLayout  userGroup={userGroup} otpVerified={otpVerified} signedIn={signedIn} setUser={setUser} user={user} signOut={handleSignOut} {...props} />} />
           <Route path="/main" name="Main" render={(props) => <MainLayout userGroup={userGroup} signedIn={signedIn}  signOut={handleSignOut} {...props} />} />
           
           <Redirect from="/" to="/main"/>
