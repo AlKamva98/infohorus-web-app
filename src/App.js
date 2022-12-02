@@ -51,6 +51,8 @@ function App()  {
       toggle();
     }
 
+    const handleVerified = ()=>{setOtpVerified(true)}
+
 async function checkUser(){
         try{
             const userchk = await Auth.currentAuthenticatedUser();
@@ -66,7 +68,7 @@ async function checkUser(){
     return (
       <Router>
           <Switch>
-            <Route exact path="/login" name="Login Page" render={(props) => <Login signedIn={signedIn} signInHandler={signInHandler} toggle={toggle} modal={modal} errMsg={errMsg} {...props} />} />
+            <Route exact path="/login" name="Login Page" render={(props) => <Login signedIn={signedIn} handleVerified={handleVerified} signInHandler={signInHandler} toggle={toggle} modal={modal} errMsg={errMsg} {...props} />} />
             <Route
               exact
               path="/register"
@@ -74,7 +76,7 @@ async function checkUser(){
               render={(props) => <Register {...props} />}
             />
             <Route exact path="/404" name="Page 404" render={(props) => <Page404 {...props} />} />
-            <Route exact path="/totp" name="TOTP" render={(props) => <TOTP setOtpVerified={setOtpVerified}  {...props} />} />
+            <Route exact path="/totp" name="TOTP" render={(props) => <TOTP   {...props} />} />
             <Route exact path="/500" name="Page 500" render={(props) => <Page500 {...props} />} />
             <Route path="/" name="Home" render={(props) => <Layouts signedIn={signedIn} signOutHandler={signOutHandler} otpVerified={otpVerified} userGroup={userGroup} user={userEmail} setUser={setUserEmail}  {...props} />} />
           </Switch>

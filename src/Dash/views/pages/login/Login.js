@@ -19,7 +19,7 @@ import TOTP from './TOTP'
 
   const Login = (props) => {
 
-const {signedIn, signInHandler, toggle,modal, errMsg} = props;
+const {signedIn, signInHandler,handleVerified, toggle,modal, errMsg} = props;
   const initialFormState = {email:"", password:""};
   const [formState, updateFormState] = useState(initialFormState);
 
@@ -38,7 +38,7 @@ const {signedIn, signInHandler, toggle,modal, errMsg} = props;
   return (
     <div className="bg-light min-vh-100 ">
     {signedIn  ?
-      (<TOTP/>):(<div className='d-flex flex-row pt-5 align-items-center'>
+      (<TOTP handleVerified={handleVerified}/>):(<div className='d-flex flex-row pt-5 align-items-center'>
       <CContainer >
         <CRow className=" pt-5 justify-content-center">
           <CCol md="8">
