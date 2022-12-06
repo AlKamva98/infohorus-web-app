@@ -218,7 +218,6 @@ const addEventHandler=(task)=>{
     const newsArticleshandler = async () =>{
       const articles = await listArticles();
       articles.sort((a,b) => (a.datePublished < b.datePublished) ? 1 : ((b.datePublished < a.datePublished) ? -1 : 0))
-      // console.log("These are the articles", articles)
       setNews(articles);
     }
 
@@ -272,14 +271,6 @@ const addEventHandler=(task)=>{
   }
 
   
-    // function getApproved(recommendations){//scans through the a recommendations array, gets approved recs, and moves those recs to a new array
-    //         const approvedRecs = recommendations.filter((rec)=>{
-    //           return rec.isApproved
-    //         });//filters 
-          
-    //       console.log("These are the apporved recos", approvedRecs);
-    //       setApproved(approvedRecs);
-    //       }
     function getPending(recommendations){//
             const pendingRecs = recommendations.filter((rec)=>{
               return rec.isApproved === false;
@@ -428,7 +419,7 @@ const addEventHandler=(task)=>{
     
       return (
     <div>
-      {signedIn ? (otpVerified? <section>
+      {otpVerified? <section>
       <AppSidebar group={userGroup} />
       <div className="wrapper d-flex flex-column min-vh-100 bg-light">
         <AppHeader tasks={tasks} recommendations={recommendations} signOut={signOut} saveChanges={saveChanges} approved={approved} />
@@ -437,7 +428,7 @@ const addEventHandler=(task)=>{
         </div>
         <AppFooter />
       </div>
-  </section>: <Redirect to="/login" /> ): <Redirect to="/login" />}
+  </section>: <Redirect to="/login" />}
     </div>
   )
 }
