@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react'
+import React, { useState } from 'react'
 import { Auth } from 'aws-amplify'
 import { Col,Card,Form} from 'react-bootstrap';
 import { Input, Button} from 'reactstrap';
@@ -131,7 +131,7 @@ console.log(result)
         </div>
       ) : image ? (
         <div className='px-5'>
-          <h4 className="mb-3 fw-normal text-center">Scan this QR code with Google Authenticator: </h4>
+          <h4 className="mb-3 fw-normal text-center">Scan this QR code with Google Authenticator and enter the generated code: </h4>
           <img className='mx-auto' src={image} />
 
           <Form className="mx-auto" onSubmit={enableMFA}>
