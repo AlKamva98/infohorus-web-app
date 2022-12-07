@@ -10,7 +10,7 @@ import IdleTimer from "./IdleTimer";
 
 
 const DefaultLayout = (props) => {
-  const {signedIn, signOut,otpVerified, userGroup} = props;
+  const {signOut,otpVerified, userGroup} = props;
   const [userDetails, setUserDetails] = useState({});
   const [hasQuestionnaire, setHasQuestionnaire ] = useState(false);
   const [questionnaire, setQuestionnaire ] = useState({});
@@ -116,7 +116,6 @@ const DefaultLayout = (props) => {
             })).catch(e=>{
               console.log("adding new team member error", e)
             });
-            // console.log("You've add team member::",response)
             setTeamMembers([...teamMembers, response.data.createTeam]);
         teamsTableHandler([...teamMembers, response.data.createTeam]);
         
@@ -125,7 +124,7 @@ const DefaultLayout = (props) => {
 
     const getAssessReportHandler = async (userId)=>{
 
-      const response = API.graphql({query:queries.listAssessorReports, variables: {filter: {userId: {contains: userId}}}}).then((arpd)=>{
+      API.graphql({query:queries.listAssessorReports, variables: {filter: {userId: {contains: userId}}}}).then((arpd)=>{
         if(arpd)
       assRepHandler(arpd.data.listAssessorReports.items[0])
       MILHandler(arpd.data.listAssessorReports.items[0])
@@ -300,14 +299,14 @@ const addEventHandler=(task)=>{
         return cred;
       }
 
-       async function getMessages(userId) {
-      try {
-        var messages = await API.graphql({query: queries.listMessages, variables:{filter: {chatID: {contains: userId.chatID}}}});
-        return messages.data.listMessages.items;
-      } catch (err) {
-          console.log("Error:>> ", err);
-      }
-  }
+  //      async function getMessages(userId) {
+  //     try {
+  //       var messages = await API.graphql({query: queries.listMessages, variables:{filter: {chatID: {contains: userId.chatID}}}});
+  //       return messages.data.listMessages.items;
+  //     } catch (err) {
+  //         console.log("Error:>> ", err);
+  //     }
+  // }
   
        
   //      function viewTasks(i){
