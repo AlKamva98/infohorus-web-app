@@ -4,18 +4,13 @@ import { Col,Card,Form} from 'react-bootstrap';
 import { Input, Button} from 'reactstrap';
 import { Redirect, useHistory } from 'react-router-dom';
 
-export default (props) => {
+  const TOTP = (props) => {
   const {handleVerified} = props
   const [userCode, setUserCode] = useState('')
   const [enabled, setEnabled] = useState(false)
   const [image, setImage] = useState('')
   const btnClass = "w-100 my-3 text-lg text-white fw-semibold py-3 bg-cyan-700  hover:bg-cyan-500 focus:bg-cyan-600 focus:ring-4 focus:ring-cyan-400 focus:ring-opacity-50"
   const history = useHistory()
-  // useEffect(() => {
-  //   Auth.currentSession().then(() => {
-  //     setEnabled(true)
-  //   })
-  // }, [])
 
   const API = 'https://epfy1t1y99.execute-api.eu-west-1.amazonaws.com/dev/mfa'
 
@@ -62,11 +57,6 @@ console.log(res.accessToken)
 console.log(result)
           if (result.Status && result.Status === 'SUCCESS') {
             setEnabled(true)
-
-            // const settings = {
-            //   PreferredMfa: true,
-            //   Enabled: true,
-            // }
             
           Auth.currentUserInfo(res=>{
             
@@ -132,7 +122,7 @@ console.log(result)
       ) : image ? (
         <div className='px-5'>
           <h4 className="mb-3 fw-normal text-center">Scan this QR code with Google Authenticator and enter the generated code: </h4>
-          <img className='mx-auto' src={image} />
+          <img className='mx-auto' alt='QR code' src={image} />
 
           <Form className="mx-auto" onSubmit={enableMFA}>
           <Input type="text" className="form-control" name="otp" placeholder="Enter OTP" autofocus
@@ -145,7 +135,7 @@ console.log(result)
           </Form>
         </div>
       ) : (
-<Button onClick={getQRCode} className={btnClass}  >Enable MFA</Button>
+<Button onClick={getQRCode} className={btnClass}  >Generate QR code</Button>
    
       )}
 
@@ -155,3 +145,4 @@ console.log(result)
     </div>
   )
 }
+export default TOTP;
