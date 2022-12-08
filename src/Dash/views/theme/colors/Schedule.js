@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import {Input} from 'reactstrap';
 import DatePicker from 'react-datepicker'
 import "react-datepicker/dist/react-datepicker.css"
@@ -23,10 +23,6 @@ function Schedule(props) {
   const handleCalendarClose = () => console.log("Calendar closed");
   const handleCalendarOpen = () => console.log("Calendar opened");
   const { register, handleSubmit, formState: { errors }, control } = useForm();
-  
-  useEffect(()=>{
-    console.log("This is the tasks",state);
-  }, [])
   
   
   const handleRegistration = async (data) =>{ 
